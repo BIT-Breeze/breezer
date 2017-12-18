@@ -21,6 +21,8 @@
 	
 <body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
 
+무스키스 멍청이
+
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="wrapper">
