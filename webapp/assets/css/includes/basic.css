@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+/* reset */
+*				{ margin:0; padding:0 }
+body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; }
+ul, ol			{ list-style-type: none }
+
+/* layout */
+div#container	{ text-align:left; width:1220px; height:200px; margin:0 auto; background-color:#FFFFFF; clear:both; }
+div#header		{ text-align:left; width:1220px; height:200px; margin:0 auto; background-color:#ABABAB; clear:both; }
+div#content		{ text-align:left; width:1220px; height:200px; margin:0 auto; background-color:#FFFFFF; clear:both; }
+div#navigation	{  }
+div#footer		{ text-align:left; width:1220px; height:200px; margin:0 auto; background-color:#434656; clear:both; }
+
+/* container */
+
+
+/* header */
+
+
+/* content */
+
+
+/* navigation */
+
+
+/* footer */
+div#footer p		{ margin:0;padding:5px 10px }
+div#company_info	{ clear:both; width:100% }
+div#company_info	{ background:#515151; color: #FFF }
+div#company_info p	{ margin:0;padding:5px 10px }
+

@@ -1,0 +1,76 @@
+@CHARSET "UTF-8";
+@import "mysite.css";
+
+#site-introduction				{ padding:20px;	width:540px; }
+#site-introduction img#profile	{ display:block; float:left }
+#site-introduction h2		   	{ float:left; width:320px; margin:50px 0 0 20px }
+#site-introduction p			{ clear:both; font-size:1.1em; padding:20px; line-height:1.5em }
+
+
+
+#left-wrapper {
+	height: 100%;
+	width: 800px;
+	background-color:#73b9ff;
+	float: left;
+}
+
+
+#right-wrapper {
+	height: 100%;
+	width: 400px;
+	background-color:#73b9aa;
+	float: left;
+}
+
+#account-wrapper {
+	margin-left : 25px;
+	margin-top : 150px;
+	height: 280px;
+	width: 350px;
+	background-color:#ffffff;
+}
+
+#login-button{
+	width: 50px;
+	height: 50px;
+}
+
+#login-left {
+	margin-top: 25px;
+}
+#login-right {
+	margin-top: 25px;
+}
+
+.login-form {
+	width: 300px;
+	height: 100px;
+	margin-left : 25px;
+	margin-top : 100px;
+	background-color: #ff33ee;
+}
+
+.join-form {
+	width: 300px;
+	height: 160px;
+	margin-left : 25px;
+	margin-top : 20px;
+	background-color: #ff33ee;
+}
+
+
+.block-label {
+	width: 40px;
+}
+
+.input-box {
+	width: 200px;
+}
+
+.join-button {
+	width: 250px;
+	height: 30px;
+	margin-left: 25px;
+	margin-top: 10px;
+}
