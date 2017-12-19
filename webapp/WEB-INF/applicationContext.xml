@@ -51,7 +51,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://192.168.1.91:3306/breezer_th1" />
+		<property name="url" value="jdbc:mysql://192.168.1.91:3306/breezer_hw" />
 		<property name="username" value="breezer" />
 		<property name="password" value="qwe123!" />
 	</bean>
