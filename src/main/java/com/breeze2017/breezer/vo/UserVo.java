@@ -1,5 +1,7 @@
 package com.breeze2017.breezer.vo;
 
+import java.util.List;
+
 public class UserVo {
 	private long idx;
 	private String fbId;
@@ -17,6 +19,8 @@ public class UserVo {
 	private String ageRange;
 	private String locale;
 	private String pictureUrl;
+	private int tours;
+	private List<String> countries;
 	
 	
 	public long getIdx() {
@@ -115,12 +119,26 @@ public class UserVo {
 	public void setPictureUrl(String pictureUrl) {
 		this.pictureUrl = pictureUrl;
 	}
+	
+	public int getTours() {
+		return tours;
+	}
+	public void setTours(int tours) {
+		this.tours = tours;
+	}
+	public List<String> getCountries() {
+		return countries;
+	}
+	public void setCountries(List<String> countries) {
+		this.countries = countries;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserVo [idx=" + idx + ", fbId=" + fbId + ", id=" + id + ", nickName=" + nickName + ", birth=" + birth
 				+ ", job=" + job + ", joinDate=" + joinDate + ", role=" + role + ", token=" + token + ", signedRequest="
 				+ signedRequest + ", expiresIn=" + expiresIn + ", email=" + email + ", gender=" + gender + ", ageRange="
-				+ ageRange + ", locale=" + locale + ", pictureUrl=" + pictureUrl + "]";
+				+ ageRange + ", locale=" + locale + ", pictureUrl=" + pictureUrl + ", tours=" + tours + "]";
 	}
 	
 	
