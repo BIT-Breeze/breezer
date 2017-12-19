@@ -1,22 +1,32 @@
 package com.breeze2017.breezer.controller.user;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.breeze2017.breezer.vo.UserVo;
-import com.breeze2017.security.AuthUser;
 
 @Controller("UserLogin")
 public class UserLoginController {
 
+	@Autowired
+	private HttpServletRequest request;
+	
 	// 로그인 화면
 	@RequestMapping({ "/", "/login" })
-	public String index(
-			@AuthUser UserVo authUser ) {
+	public String index( Model model ) {
 
-		
+		// 세션의 authUser 가져오기
+		HttpSession session = request.getSession();
+		UserVo vo = (UserVo) session.getAttribute("authUser");
+
 		// 세션이 없다면
-		if (authUser.getIdx() == 0) {
+		// if (authUser.getIdx() == 0) {
+		if (vo == null) {
 			System.out.println("/ : authUser is null");
 			return "user/user_login";
 		}
@@ -27,7 +37,17 @@ public class UserLoginController {
 		// 세션이 있다면
 		else {
 			System.out.println("/ : authUser is exist");
+			System.out.println("authUser : " + vo);
+
+			model.addAttribute("id", vo.getId());
 			return "user/user_main";
+			
+//			RedirectView redirectView = new RedirectView("/"+vo.getId());
+//			redirectView.setContextRelative(true);
+//			
+//			ModelAndView mav = new ModelAndView(redirectView);
+//			return mav;
+			
 		}
 	}
 
