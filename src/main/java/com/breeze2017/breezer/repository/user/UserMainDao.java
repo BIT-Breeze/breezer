@@ -26,7 +26,7 @@ public class UserMainDao {
 	public List<TourVo> getTours(String id) {
 		
 		System.out.println("TourMainDao");
-		List<TourVo> result = sqlSession.selectList("tourget.gettours", id);
+		List<TourVo> result = sqlSession.selectList("user.gettours", id);
 		System.out.println(result);
 		
 		return result;

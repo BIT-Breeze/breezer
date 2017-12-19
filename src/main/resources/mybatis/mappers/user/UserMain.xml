@@ -11,5 +11,12 @@
 		 where t1.fbId= #{ id }; 
 		]]>
 	</select>
+	
+	<select id="gettours" parameterType="string" resultType="tourvo">
+		<![CDATA[
+			select idx, title, startDate from TB_TOUR where userId = #{ id }
+			
+		]]>		
+	</select>
 
 </mapper>

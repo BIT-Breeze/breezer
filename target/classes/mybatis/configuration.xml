@@ -15,7 +15,7 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/user/UserLogin.xml"/>
 		<mapper resource="mybatis/mappers/tour/TourAdd.xml"/>
-		<mapper resource="mybatis/mappers/tour/TourGet.xml"/>
+
 		<mapper resource="mybatis/mappers/user/UserMain.xml"/>
 	</mappers>
 	

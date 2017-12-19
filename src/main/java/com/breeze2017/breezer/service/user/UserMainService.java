@@ -26,6 +26,8 @@ public class UserMainService {
 		
 	}
 	
+	
+	/* test code for country button */
 	@Autowired
 	TourMainDao tourMainDao;
 	
@@ -36,4 +38,5 @@ public class UserMainService {
 		
 		return result;
 	}
+	/* End : test code for country button */
 }
