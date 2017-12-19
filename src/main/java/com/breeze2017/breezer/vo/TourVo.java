@@ -11,6 +11,7 @@ public class TourVo {
 	private String mainPhoto;
 	private long postCount;
 	private long like;
+	private long test;
 	
 	
 	public long getIdx() {
