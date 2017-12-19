@@ -4,7 +4,7 @@
 <mapper namespace="tourget">
 	<select id="gettours" parameterType="string" resultType="tourvo">
 		<![CDATA[
-			select idx, title, startDate from tb_tour where userId = 'hongseok5@gmail.com';
+			select idx, title, startDate from TB_TOUR where userId = #{ id }
 			
 		]]>		
 	</select>

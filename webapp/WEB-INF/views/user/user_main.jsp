@@ -72,7 +72,7 @@ var fetchList = function(){
 	//var startNo = $( "#list-tour li" ).last().data("no") || 0;
 	
 	$.ajax({
-		url:"/breezer/" + "hongseok5@gmail.com" + "/tourlist?no=",
+		url:"/breezer/" + "ohhongseok_test" + "/tourlist?no=",
 		type:"get",
 		dataType:"json",
 		data:"",
