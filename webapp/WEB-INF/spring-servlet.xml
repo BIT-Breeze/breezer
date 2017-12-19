@@ -60,9 +60,6 @@
         	<bean class="com.breeze2017.security.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
-    
-    
-    
 	
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
@@ -73,11 +70,6 @@
 	
 	<!-- scanning 할 기준 패키지 -->
 	<context:component-scan base-package="com.breeze2017.breezer.controller" />
-
-
-	
-
-	
 	
 	<!-- View Resolver --> 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -87,7 +79,6 @@
 	   <property name="order" value="1" />
 	</bean>
 	
-
 	<!-- 멀티파트 리졸버 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
