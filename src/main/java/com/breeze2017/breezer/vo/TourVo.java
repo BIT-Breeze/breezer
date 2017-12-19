@@ -12,7 +12,6 @@ public class TourVo {
 	private long postCount;
 	private long like;
 	
-	
 	public long getIdx() {
 		return idx;
 	}
