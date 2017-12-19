@@ -6,9 +6,9 @@
 			parameterType="string"
 			resultType="uservo">
 		<![CDATA[
-		select  id, nickName, pictureUrl, count(title) as tours 
-		from tb_user inner join tb_tour on id=userId 
-		where id='hongseok5@gmail.com';
+		select t1.nickName as nickName, count(t2.title) as tours 
+		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.fbId = t2.userId 
+		 where t1.fbId= #{ id }; 
 		]]>
 	</select>
 
