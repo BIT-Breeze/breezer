@@ -18,7 +18,7 @@ public class UserLoginController {
 		// 세션이 없다면
 		if (authUser.getIdx() == 0) {
 			System.out.println("/ : authUser is null");
-			return "user/user_login";
+			return "user/user_main";
 		}
 		// // 세션이 있지만 id가 없다면
 		// else if (authUser.getId() == null) {
