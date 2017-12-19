@@ -131,7 +131,7 @@ function login() {
 		url: "/breezer/user/login",
 		type: "post",
 		dataType: "json",
-		data: "id=" + fb_userID + 
+		data: "fbId=" + fb_userID + 
 			  "&nickName=" + fb_name + 
 			  "&token=" + fb_token +
 			  "&signedRequest=" + fb_signedRequest + 
