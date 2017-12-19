@@ -1,1 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<select id="getUserInfo" 
+			parameterType="string"
+			resultType="uservo">
+		<![CDATA[
+		select  id, nickName, pictureUrl, count(title) as tours 
+		from tb_user inner join tb_tour on id=userId 
+		where id='hongseok5@gmail.com';
+		]]>
+	</select>
+
+</mapper>

@@ -3,6 +3,7 @@ package com.breeze2017.breezer.vo;
 import java.util.List;
 
 public class UserVo {
+	
 	private long idx;
 	private String fbId;
 	private String id;
@@ -20,7 +21,7 @@ public class UserVo {
 	private String locale;
 	private String pictureUrl;
 	private int tours;
-	private List<String> countries;
+	private int countries;
 	
 	
 	public long getIdx() {
@@ -126,10 +127,10 @@ public class UserVo {
 	public void setTours(int tours) {
 		this.tours = tours;
 	}
-	public List<String> getCountries() {
+	public int getCountries() {
 		return countries;
 	}
-	public void setCountries(List<String> countries) {
+	public void setCountries(int countries) {
 		this.countries = countries;
 	}
 	

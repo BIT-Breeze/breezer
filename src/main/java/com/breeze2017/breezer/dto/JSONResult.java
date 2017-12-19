@@ -12,6 +12,7 @@ public class JSONResult {
 	}
 	
 	public static JSONResult success( Object data ) {
+		System.out.println("JSONResult");
 		return new JSONResult( "success", null, data );
 	}
 
