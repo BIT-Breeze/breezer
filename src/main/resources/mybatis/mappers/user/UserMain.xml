@@ -1,1 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<select id="getUserInfo" 
+			parameterType="string"
+			resultType="uservo">
+		<![CDATA[
+		select t1.nickName as nickName, count(t2.title) as tours 
+		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.fbId = t2.userId 
+		 where t1.fbId= #{ id }; 
+		]]>
+	</select>
+	
+	<select id="gettours" parameterType="string" resultType="tourvo">
+		<![CDATA[
+			select idx, title, startDate from TB_TOUR where userId = #{ id }
+			
+		]]>		
+	</select>
+
+</mapper>
