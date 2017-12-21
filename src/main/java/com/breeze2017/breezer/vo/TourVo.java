@@ -2,7 +2,7 @@ package com.breeze2017.breezer.vo;
 
 public class TourVo {
 	private long idx;
-	private String id;
+	private String userId;
 	private long seq;
 	private String title;
 	private String startDate;
@@ -10,7 +10,7 @@ public class TourVo {
 	private double score;
 	private String mainPhoto;
 	private long postCount;
-	private long like;
+	private long hit;
 	
 	public long getIdx() {
 		return idx;
@@ -18,20 +18,18 @@ public class TourVo {
 	public void setIdx(long idx) {
 		this.idx = idx;
 	}
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	
 	public long getSeq() {
 		return seq;
 	}
 	public void setSeq(long seq) {
 		this.seq = seq;
 	}
-	
 	public String getTitle() {
 		return title;
 	}
@@ -68,18 +66,24 @@ public class TourVo {
 	public void setPostCount(long postCount) {
 		this.postCount = postCount;
 	}
-	public long getLike() {
-		return like;
+	public long getHit() {
+		return hit;
 	}
-	public void setLike(long like) {
-		this.like = like;
+	public void setHit(long hit) {
+		this.hit = hit;
 	}
+	
 	@Override
 	public String toString() {
-		return "TourVo [idx=" + idx + ", id=" + id + ", seq=" + seq + ", title=" + title + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", score=" + score + ", mainPhoto=" + mainPhoto + ", postCount=" + postCount
-				+ ", like=" + like + "]";
+		return "TourVo [idx=" + idx + ", userId=" + userId + ", seq=" + seq + ", title=" + title + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", score=" + score + ", mainPhoto=" + mainPhoto + ", postCount="
+				+ postCount + ", hit=" + hit + "]";
 	}
+	
+	
+	
+	
+	
 	
 	
 	

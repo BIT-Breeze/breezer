@@ -2,7 +2,7 @@ package com.breeze2017.breezer.vo;
 
 public class PostVo {
 	private long idx;
-	private String id;
+	private String userId;
 	private String postDate;
 	private String tripDate;
 	private String photo;
@@ -15,18 +15,19 @@ public class PostVo {
 	private String category;
 	private double price;
 	private double score;
-	private long like;
+	private long hit;
+	
 	public long getIdx() {
 		return idx;
 	}
 	public void setIdx(long idx) {
 		this.idx = idx;
 	}
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getPostDate() {
 		return postDate;
@@ -100,20 +101,19 @@ public class PostVo {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public long getLike() {
-		return like;
+	public long getHit() {
+		return hit;
 	}
-	public void setLike(long like) {
-		this.like = like;
+	public void setHit(long hit) {
+		this.hit = hit;
 	}
-	
 	
 	@Override
 	public String toString() {
-		return "PostVo [idx=" + idx + ", id=" + id + ", postDate=" + postDate + ", tripDate=" + tripDate + ", photo="
-				+ photo + ", content=" + content + ", location=" + location + ", locale=" + locale + ", lat=" + lat
-				+ ", lon=" + lon + ", tourIdx=" + tourIdx + ", category=" + category + ", price=" + price + ", score="
-				+ score + ", like=" + like + "]";
+		return "PostVo [idx=" + idx + ", userId=" + userId + ", postDate=" + postDate + ", tripDate=" + tripDate
+				+ ", photo=" + photo + ", content=" + content + ", location=" + location + ", locale=" + locale
+				+ ", lat=" + lat + ", lon=" + lon + ", tourIdx=" + tourIdx + ", category=" + category + ", price="
+				+ price + ", score=" + score + ", hit=" + hit + "]";
 	}
 	
 	
