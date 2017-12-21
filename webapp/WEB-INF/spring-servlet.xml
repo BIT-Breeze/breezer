@@ -35,6 +35,9 @@
 		</mvc:message-converters>
 		
 	     <!-- argument resolver -->
+		<mvc:argument-resolvers>
+			<bean class="com.breeze2017.security.AuthUserHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
 	     
 	</mvc:annotation-driven>
 	
