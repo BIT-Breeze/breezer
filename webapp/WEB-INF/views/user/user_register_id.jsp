@@ -60,7 +60,7 @@
 
 		<!-- main wrapper -->
 		<div id="main-wrapper" style="height: 700px;">
-			<form id="set-id" class="set-id" name="set-id" method="post" action="${pageContext.servletContext.contextPath }/user/setid">
+			<form id="set-id" class="set-id" name="set-id" method="post" action="${pageContext.servletContext.contextPath }/setid">
 				<label class="block-label" for="id">ID </label> 
 				<input class="input-box" id="id" name="id" type="text" value=""> 
 				<br>
