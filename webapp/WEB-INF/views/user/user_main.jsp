@@ -39,9 +39,8 @@
       .row.content {height: auto;} 
     }
     
-    #secondrow {
-      background-color: #C0E0FF;
-      color: black;
+    #firstrow {
+
       padding: 15px;
     }
     #otherbreezer {
@@ -72,7 +71,7 @@ var fetchList = function(){
 	//var startNo = $( "#list-tour li" ).last().data("no") || 0;
 	
 	$.ajax({
-		url:"/breezer/" + "ohhongseok_test" + "/tourlist?no=",
+		url:"/breezer/" + authUser.id + "/tourlist?no=",
 		type:"get",
 		dataType:"json",
 		data:"",
@@ -109,7 +108,7 @@ fetchList();
 		<c:param name="menu" value="login" />
 	</c:import>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9" id="firstrow">
 		<div class="row">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
@@ -120,8 +119,8 @@ fetchList();
 			
 			<div class="col-sm-6" id="firstrow" align="center">
 
-			${uservo.nickName }<br>
-			${uservo.tours }<br>
+			${authUser.nickName }<br>
+			${authUser.tours }<br>
 
 			</div>
 			
@@ -133,11 +132,15 @@ fetchList();
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
 		
-		<div class="row"  id="album" align="center">
+		<div class="row" align="center" id="secondrow">
 		
 			<div class="col-sm-12">
 			
 			<ul id="list-tour">
+			
+			
+			
+			
 			</ul>
 			
 			
