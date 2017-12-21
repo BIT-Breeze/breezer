@@ -30,7 +30,7 @@ public class UserLoginController {
 		// if (authUser.getIdx() == 0) {
 		if (authUser == null) {
 			System.out.println("/ : authUser is null");
-			return "user/user_main";
+			return "user/user_login";
 		}
 		// 세션이 있지만 id가 없다면
 		else if (authUser.getId() == null) {
