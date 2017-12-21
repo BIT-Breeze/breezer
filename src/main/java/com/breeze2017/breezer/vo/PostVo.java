@@ -8,6 +8,7 @@ public class PostVo {
 	private String photo;
 	private String content;
 	private String location;
+	private String locale;
 	private double lat;
 	private double lon;
 	private long tourIdx;
@@ -15,16 +16,18 @@ public class PostVo {
 	private double price;
 	private double score;
 	private long like;
-	
-	
-	
 	public long getIdx() {
 		return idx;
 	}
 	public void setIdx(long idx) {
 		this.idx = idx;
 	}
-	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getPostDate() {
 		return postDate;
 	}
@@ -54,6 +57,12 @@ public class PostVo {
 	}
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	public String getLocale() {
+		return locale;
+	}
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 	public double getLat() {
 		return lat;
@@ -97,19 +106,16 @@ public class PostVo {
 	public void setLike(long like) {
 		this.like = like;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
+	
 	@Override
 	public String toString() {
 		return "PostVo [idx=" + idx + ", id=" + id + ", postDate=" + postDate + ", tripDate=" + tripDate + ", photo="
-				+ photo + ", content=" + content + ", location=" + location + ", lat=" + lat + ", lon=" + lon
-				+ ", tourIdx=" + tourIdx + ", category=" + category + ", price=" + price + ", score=" + score
-				+ ", like=" + like + "]";
+				+ photo + ", content=" + content + ", location=" + location + ", locale=" + locale + ", lat=" + lat
+				+ ", lon=" + lon + ", tourIdx=" + tourIdx + ", category=" + category + ", price=" + price + ", score="
+				+ score + ", like=" + like + "]";
 	}
+	
 	
 	
 	
