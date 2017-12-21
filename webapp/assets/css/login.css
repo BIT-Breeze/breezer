@@ -7,10 +7,14 @@
 #site-introduction p			{ clear:both; font-size:1.1em; padding:20px; line-height:1.5em }
 
 
+#container {
+	width: 1400px;
+	margin: 0 auto;
+}
 
 #left-wrapper {
 	height: 100%;
-	width: 800px;
+	width: 900px;
 	background-color:#73b9ff;
 	float: left;
 }
@@ -19,7 +23,7 @@
 #right-wrapper {
 	height: 100%;
 	width: 400px;
-	background-color:#73b9aa;
+	/* background-color:#73b9aa; */
 	float: left;
 }
 
@@ -28,7 +32,7 @@
 	margin-top : 150px;
 	height: 280px;
 	width: 350px;
-	background-color:#ffffff;
+	/* background-color:#ffffff; */
 }
 
 #login-button{

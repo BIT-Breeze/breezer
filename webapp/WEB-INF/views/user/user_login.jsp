@@ -71,8 +71,10 @@
 		<!-- main wrapper -->
 		<div id="main-wrapper" style="height: 700px;">
 			<!-- left -->
-			<div id="left-wrapper">left</div>
-
+			<div id="left-wrapper">
+				<img id="main" src="${pageContext.servletContext.contextPath }/assets/images/userlogin/main.jpg">
+			</div>
+				
 			<!-- right -->
 			<div id="right-wrapper">
 				<!-- account -->
