@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="user">
+<mapper namespace="userlogin">
 
 	<insert id="insert" parameterType="uservo">
 		<![CDATA[
@@ -45,13 +45,7 @@
 	</update>	
 	
 		
-	<update id="setId" parameterType="uservo">
-		<![CDATA[
-			update TB_USER
-			set 	id = #{id }
-			where fbId = #{fbId }		
-		]]>
-	</update>	
+
 	
 	
 	

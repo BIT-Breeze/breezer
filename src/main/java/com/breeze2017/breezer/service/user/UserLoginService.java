@@ -18,12 +18,12 @@ public class UserLoginService {
 		
 		if ( getVo != null) {
 			// 있으면 token, expiresIn 을 업데이트
-			System.out.println("userService id is already exist");
+			System.out.println("UserLoginService fbId is already exist");
 			userLoginDao.resetByFbId(getVo);
 			return getVo;
 		} else {
 			// 없으면 joinMessage
-			System.out.println("userService id is not exist - join");
+			System.out.println("UserLoginService fbId is not exist - join");
 			userLoginDao.joinUser(vo);
 			return vo;
 		}
@@ -33,11 +33,7 @@ public class UserLoginService {
 	public UserVo getUserByIdMessage(UserVo vo) {
 		return userLoginDao.getUserById(vo);
 	}
-	
-	// fbid 로 id 설정하기 
-	public boolean setIdByFbIdMessage(UserVo vo) {
-		return userLoginDao.setIdByFbId(vo) == 1;
-	}
+
 	
 	
 }
