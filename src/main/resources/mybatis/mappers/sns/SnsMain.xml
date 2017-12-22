@@ -1,1 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sns">
+	<select id="getlist" parameterType="long" resultType="snsvo">
+		<![CDATA[
+			select * 
+			from (select @ROWNUM := @ROWNUM + 1 as idx, f.*
+					from (select p.tourIdx tourIdx, p.idx postIdx, p.userId, 
+					  				null title,  p.content, p.photo, null startDate, 
+					  				null endDate, p.score, p.hit,    p.postDateTime, 
+									p.tripDateTime,  p.location
+							from TB_POST p
+							UNION ALL 
+							select 	t.idx tourIdx, null postIdx, t.userId, t.title title, 
+										null content, t.mainPhoto photo,    t.startDate,    
+										t.endDate, t.score, t.hit, null postDateTime, 
+										p.tripDateTime, null location
+							from TB_TOUR t, (	select p.tourIdx, p.idx, max(p.tripDateTime) tripDateTime
+													from TB_POST p
+													group by p.tourIdx) p
+							where t.idx = p.tourIdx ) f , (SELECT @ROWNUM := 0) r 
+					order by f.tripDateTime, f.title ) result
+		]]>
+		<if test="_parameter > 0"> 
+		   <![CDATA[
+		   		where idx < #{_parameter }
+		   ]]>
+	    </if>
+		<![CDATA[
+			order by idx desc
+	    	limit 10
+		]]>
+	</select>		
+	
+			
+			
+	
+</mapper>
