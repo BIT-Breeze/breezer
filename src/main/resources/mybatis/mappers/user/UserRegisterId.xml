@@ -9,7 +9,8 @@
 	<update id="setId" parameterType="uservo">
 		<![CDATA[
 			update TB_USER
-			set 	id = #{id }
+			set 	id = #{id },
+					nickName = #{id }
 			where fbId = #{fbId }		
 		]]>
 	</update>	

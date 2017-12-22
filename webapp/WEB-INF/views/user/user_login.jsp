@@ -43,19 +43,16 @@
 
 <script>
 	$(function() {
-		
-		
+
 		$("#test_button").click(function() {
 			console.log("====== info ======")
-			console.log("fb_token = "+ fb_token)
-			console.log("fb_signedRequest = "+ fb_signedRequest)
+			console.log("fb_token = " + fb_token)
+			console.log("fb_signedRequest = " + fb_signedRequest)
 			console.log("fb_expiresIn = " + fb_expiresIn)
 			console.log("fb_userID = " + fb_userID)
 			console.log("fb_name = " + fb_name)
-		}) 
+		})
 	})
-
-	
 </script>
 
 
@@ -71,71 +68,79 @@
 		<!-- main wrapper -->
 		<div id="main-wrapper" style="height: 700px;">
 			<!-- left -->
-			<div id="left-wrapper">left</div>
+			<div id="left-wrapper">
+				<img id="main"
+					src="${pageContext.servletContext.contextPath }/assets/images/userlogin/main.jpg">
+			</div>
 
 			<!-- right -->
-			<div id="right-wrapper">
+			<div id="login-wrapper">
 				<!-- account -->
-				<div id="account-wrapper">
-					<form id="login-form" class="login-form" name="login-form"
-						method="post"
-						action="${pageContext.servletContext.contextPath }/user/login">
-						<div id="login-left" style="float: left;">
-							<label class="block-label" for="id">ID </label> <input
-								class="input-box" id="ID" name="ID" type="text" value="">
-							<br> <label class="block-label" for="pw">PW </label> <input
-								class="input-box" id="PW" name="PW" type="password" value="">
-							<br>
-						</div>
+				<div id="login-area">
+					<br>
+					<h2 id='title' style="margin-left: 25px; width: 300px;">브리저
+						시작하기</h2>
 
 
-						<div id="login-right" style="float: left;">
-							<button type="submit" id="login-button">Login</button>
-						</div>
+					<br> <br>
 
+					<div id='status'>
+						<c:choose>
+							<c:when test="${empty authUser }">
+								<!-- 페이스북 로그인 버튼  -->
+								<fb:login-button id='fb_button' scope="public_profile,email"
+									onlogin="checkLoginState();" class="join-button"> 페이스북 로그인 
+								</fb:login-button>
+							</c:when>
+						</c:choose>
+					</div>
+
+
+					<form id='id-input' style="margin-left: 25px;" method="post"
+						action="${pageContext.servletContext.contextPath }/setid">
+
+						<c:choose>
+							<c:when test="${empty authUser.id }">
+								<!--  id 입력 창  -->
+								<!-- 
+								<label class="block-label" for="id">ID</label>
+								<input class="input-box" id="id" name="id" type="text" value="">
+
+
+								<button id="check-id" style="margin-left: 25x; width: 250px;">check	id</button>
+								<br>
+								<button type="submit" id="save"	style="margin-left: 0px; width: 250px;">save</button>
+								 -->
+							</c:when>
+						</c:choose>
 
 					</form>
-					<div id="join-form" class="join-form">
-						<div style="height: 20px;"></div>
-
-						<form id="breezer_login" name="breezer_login" method="post"
-							action="${pageContext.servletContext.contextPath }/user/breezer_join_page">
-							<button type="submit" class="join-button">breezer join</button>
-						</form>
-
-						<form id="facebook_login" name="facebook_login" method="post"
-							action="${pageContext.servletContext.contextPath }/user/facebook_login">
-							<button type="submit" class="join-button">
-								facebook_login</button>
-						</form>
-
-						<div id='status'>
-							<fb:login-button id='fb_button' scope="public_profile,email"
-								onlogin="checkLoginState();" class="join-button">
-							</fb:login-button>
-						</div>
-						
-						<button id="test_button" > test
-							
-						</button>
-
-
-						<form id="google_login" name="google_login" method="post"
-							action="${pageContext.servletContext.contextPath }/user/google_login">
-							<button type="submit" class="join-button">google_login</button>
-						</form>
 
 
 
-					</div>
+
+
+
+
+
+
+
+
+
+
+
 				</div>
+
 			</div>
 		</div>
-
 
 		<!-- footer -->
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
+	</div>
+
+
+
 
 
 

@@ -1,4 +1,3 @@
-
 var fb_userID
 var fb_name
 var fb_token
@@ -77,7 +76,6 @@ function statusChangeCallback(response) {
 		console.log("connected")
 		getUserInfo();
 
-
 	} else {
 		// The person is not logged into your app or we are unable to tell.
 		console.log("is not connected")
@@ -94,8 +92,8 @@ function getUserInfo() {
 		fields : 'name, email, gender, age_range, locale, picture'
 	}, function(response) {
 		console.log(response)
-		
-		//추가 정보 셋팅
+
+		// 추가 정보 셋팅
 		fb_name = response.name
 		fb_email = response.email
 		fb_gender = response.gender
@@ -103,10 +101,10 @@ function getUserInfo() {
 		fb_locale = response.locale
 		fb_picture_url = response.picture.data.url
 
-		//정보 보기
+		// 정보 보기
 		showUserInfo()
-		
-		//로그인 시도 
+
+		// 로그인 시도
 		login();
 	});
 }
@@ -115,8 +113,8 @@ function showUserInfo() {
 	console.log("====== info ======")
 	console.log("fb_userID = " + fb_userID)
 	console.log("fb_name = " + fb_name)
-	console.log("fb_token = "+ fb_token)
-	console.log("fb_signedRequest = "+ fb_signedRequest)
+	console.log("fb_token = " + fb_token)
+	console.log("fb_signedRequest = " + fb_signedRequest)
 	console.log("fb_expiresIn = " + fb_expiresIn)
 	console.log("fb_email = " + fb_email)
 	console.log("fb_gender = " + fb_gender)
@@ -126,44 +124,70 @@ function showUserInfo() {
 }
 
 
+function idCheck() {
+	// id 유효성 검사
+	
+	// 실패면 이미 사용중 메세지 출력
+	
+	// 성공이면 중복체크 변수 treu로 변경 후 성공 메세지 출력 
+}
+
+function idSave() {
+	// 중복체크 변수 true 인지 체크
+	
+	// 실패면 중복하라는 메세지 출력 후 return
+	
+	// 성공이면 /setid 호출
+}
+
+
+function loginFormRender() {
+	console.log("====== loginFormRender() ======")
+	
+	var html = ' <label class="block-label" for="id">ID</label> <input '
+			+ ' class="input-box" id="id" name="id" type="text" value=""> '
+			+ ' <button id="check-id" style="margin-left: 25x; width: 250px;">checkid</button> '
+			+ ' <br> ' 
+			+ ' <button type="submit" id="save" style="margin-left: 0px; width: 250px;">save</button>' ; 
+
+	$("#status").empty();
+	$("#id-input").empty();
+	$("#id-input").append(html);
+}
+
 function login() {
 	$.ajax({
-		url: "/breezer/user/login",
-		type: "post",
-		dataType: "json",
-		data: "fbId=" + fb_userID + 
-			  "&nickName=" + fb_name + 
-			  "&token=" + fb_token +
-			  "&signedRequest=" + fb_signedRequest + 
-			  "&expiresIn=" + fb_expiresIn + 
-			  "&email=" + fb_email + 
-			  "&gender=" + fb_gender + 
-			  "&ageRange=" + fb_age_range +
-			  "&locale=" + fb_locale +
-			  "&pictureUrl=" + fb_picture_url, 
-		success: function( response ) {
-			if( response.result == "fail" ) {
-				console.log( response.message );
+		url : "/breezer/user/login",
+		type : "post",
+		dataType : "json",
+		data : "fbId=" + fb_userID + "&nickName=" + fb_name + "&token="
+				+ fb_token + "&signedRequest=" + fb_signedRequest
+				+ "&expiresIn=" + fb_expiresIn + "&email=" + fb_email
+				+ "&gender=" + fb_gender + "&ageRange=" + fb_age_range
+				+ "&locale=" + fb_locale + "&pictureUrl=" + fb_picture_url,
+		success : function(response) {
+			if (response.result == "fail") {
+				console.log("response.result = fail")
+				if (response.message == "login-id-null") {
+					console.log("response.message = login-id-null")
+					loginFormRender();
+				} else {
+					console.log(response.message);
+				}
+				
 				return;
 			}
 			
-			console.log(response.data)
-			
+			console.log("response.result = success")
+			console.log("response.data = "+response.data)
 
-			console.log("success~");
-			
-			// 로그인 성공시 mytour 페이지로 이동한다 
+			// 로그인 성공시 mytour 페이지로 이동한다
 			// window.location.href = "/breezer/tour/mytour"
-			window.location.href = "/breezer/"+response.data
-			
+			window.location.href = "/breezer/" + response.data
 
-
-			
-			
-			
 		},
-		error: function( xhr, status, e){
-			console.error( status + ":" + e );
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
 		}
 	});
 }
