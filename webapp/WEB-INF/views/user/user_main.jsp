@@ -9,53 +9,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
-<link	href="${pageContext.servletContext.contextPath }/assets/css/breezer.css"	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
- <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding #555 */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-    
-    #firstrow {
+<style>
 
-      padding: 15px;
-    }
-    #otherbreezer {
-      background-color: #FFFFE0;
-      color: gray;
-      padding: 15px;
-    }
-  </style>
+</style>
 <script>
 
-var render = function( tourvo, mode ){
+var render0 = function( tourvo, mode ){
 	
-	var html = "<li data-no='" + tourvo.idx + "'>'" +
-	"<strong>" + tourvo.title + "</strong>" +
-	"<p>" + tourvo.startDate + "</p>" + "</li>";
+	var id = "${authUser.id}";
+	var html = 
+				"<div class='col-sm-4' id='tour' no='" + tourvo.idx  + "'align='center'>"+
+				tourvo.title + "<br>" +
+				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx='" +tourvo.idx + ">"+ 
+				tourvo.mainPhoto + "</a><br>" +				
+				tourvo.startDate + "</div>" ;
 	
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);
@@ -65,13 +36,13 @@ var render = function( tourvo, mode ){
 	}
 }
 
-
 var fetchList = function(){
 	
 	//var startNo = $( "#list-tour li" ).last().data("no") || 0;
-	
+	var id = "${authUser.id}";
+	console.log(id);
 	$.ajax({
-		url:"/breezer/" + authUser.id + "/tourlist?no=",
+		url:"/breezer/"+id+"/tourlist",
 		type:"get",
 		dataType:"json",
 		data:"",
@@ -83,19 +54,18 @@ var fetchList = function(){
 			}
 			
 			$.each( response.data, function(index, tourvo){
-				console.log(response.data);
-				render( tourvo, false );
+				console.log(index);
+				
+				render0( tourvo, false );
+					
 			}); //each
 		} //success
-	}); //ajax
-	
+	}); //ajax	
 } // fetchList
 
 fetchList();
 
 </script>
-
-
 
 <title>Breezer Main</title>
 
@@ -108,8 +78,8 @@ fetchList();
 		<c:param name="menu" value="login" />
 	</c:import>
 
-    <div class="col-sm-9" id="firstrow">
-		<div class="row">
+    <div class="col-sm-9">
+		<div class="row" id="firstrow">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
 			<img src="${pageContext.servletContext.contextPath }/assets/image/anna.jpg" 
@@ -119,85 +89,33 @@ fetchList();
 			
 			<div class="col-sm-6" id="firstrow" align="center">
 
-			${authUser.nickName }<br>
-			${authUser.tours }<br>
+			<h4>${uservo.nickName }님은</h4><br>
+			${uservo.tours }개의 여행을 하셨습니다.<br>
 
 			</div>
 			
 			<div class="col-sm-3" id="firstrow" align="right">
 			
-      			<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/add" class="btn btn-info" role="button">NEW TOUR</a>
+      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id}/add" class="btn btn-info" role="button">NEW TOUR</a>
 			
 			</div>
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
 		
-		<div class="row" align="center" id="secondrow">
+		<div class="row" align="left" id="secondrow">
 		
 			<div class="col-sm-12">
 			
-			<ul id="list-tour">
+			<div id="list-tour">
 			
+			</div>
 			
-			
-			
-			</ul>
-			
-			
-			
-			<!--  
-			<c:forEach items="${myTours }"	var="vo" varStatus="status">
-				<c:choose>
-					<c:when test="${ status.index % 3 == 0}">
-						<div class="row" align="center" >
-						
-							<div class="col-sm-4">
-								
-								${vo.title } <br>
-								<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/info/${ vo.idx }"><h3>${ vo.idx }</h3></a>
-								${vo.startDate } <br>
-	
-					
-					</c:when>
-					
-					<c:when test="${ status.index % 3 == 1}">
-				
-							<div class="col-sm-4">
-								${vo.title } <br>								
-								<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/info/${ vo.idx }"><h3>${ vo.idx }</h3></a>
-								${vo.startDate } 
-												
-							</div>
-
-					</c:when>
-					
-					<c:when test="${ status.index % 3 == 2}">
-				
-							<div class="col-sm-4">
-								${vo.title } <br>
-								<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/info/${ vo.idx }"><h3>${ vo.idx }</h3></a>
-								${vo.startDate } <br>	
-											
-							</div>
-					</div>	
-					</c:when>
-					
-				</c:choose>
-
-					
-
-			</c:forEach>   
-			-->
 			</div> <!-- sm-12 -->
 			
-      </div> <!-- album -->
-      
+      </div> <!-- album -->      
     </div>	<!-- col sm-9 -->
-
-  </div>	<!-- row content -->
-    
+  </div>	<!-- row content -->    
 </div>	<!-- container -->
-
 
   <c:import url="/WEB-INF/views/includes/footer.jsp" />
 

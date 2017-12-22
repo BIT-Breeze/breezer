@@ -19,9 +19,7 @@ public class UserMainService {
 	public UserVo getUserInfo(String id) {
 		
 		UserVo result = userMainDao.getUserInfo(id);
-		System.out.println("UserMainService" 
-							+ result.toString() 
-							+ result.getTours());
+		System.out.println("UserMainService");
 		return result;
 		
 	}
@@ -32,8 +30,7 @@ public class UserMainService {
 	TourMainDao tourMainDao;
 	
 	public List<TourVo> getTours(String id){
-		System.out.println("TourMainService");
-		System.out.println(id);
+		System.out.println("UserMainService");
 		List<TourVo> result = userMainDao.getTours(id);
 		
 		return result;

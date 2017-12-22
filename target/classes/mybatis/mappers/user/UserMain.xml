@@ -7,8 +7,8 @@
 			resultType="uservo">
 		<![CDATA[
 		select t1.nickName as nickName, count(t2.title) as tours 
-		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.fbId = t2.userId 
-		 where t1.fbId= #{ id }; 
+		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.id = t2.userId 
+		 where t1.id= #{ id }; 
 		]]>
 	</select>
 	
