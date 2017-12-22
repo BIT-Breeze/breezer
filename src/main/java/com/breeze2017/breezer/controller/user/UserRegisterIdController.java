@@ -26,11 +26,11 @@ public class UserRegisterIdController {
 	
 	
 	// id 설정 페이지로 이동
-	@RequestMapping("/join")
-	public String join() {
-		System.out.println("====== UserRegisterIdController : '/join' ======");
-		return "user/user_register_id";
-	}
+//	@RequestMapping("/join")
+//	public String join() {
+//		System.out.println("====== UserRegisterIdController : '/join' ======");
+//		return "user/user_register_id";
+//	}
 	
 	
 	
@@ -55,8 +55,7 @@ public class UserRegisterIdController {
 		session.setAttribute("authUser", authUser);
 		
 		// id와 nickName 을 jsp 로 전송
-		model.addAttribute("id", authUser.getId());
-		model.addAttribute("nickname", authUser.getNickName());
+		model.addAttribute("authUser", authUser);
 
 		return "user/user_main";
 	}

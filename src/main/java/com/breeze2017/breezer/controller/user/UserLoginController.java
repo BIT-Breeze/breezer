@@ -26,14 +26,17 @@ public class UserLoginController {
 		// 세션이 있지만 id가 없다면
 		else if (authUser.getId() == null) {
 			System.out.println("authUser.id is null");
-			return "user/user_register_id";
+			
+			//return "user/user_register_id";
+			model.addAttribute("authUser", authUser);
+			return "user/user_login";
 		}
 		// 세션이 있다면
 		else {
 			System.out.println("authUser is exist");
 			System.out.println("authUser : " + authUser);
 
-			model.addAttribute("id", authUser.getId());
+			model.addAttribute("authUser", authUser);
 			return "user/user_main";
 		}
 	}
