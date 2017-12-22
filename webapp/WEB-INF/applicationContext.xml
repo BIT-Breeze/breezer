@@ -26,21 +26,16 @@
 
 	<!-- 요기 아래 3개는 오라클 테스트할때 사용함 -->
 	<!-- oracle datasource -->
-	<!-- <bean id="oracleDatasource" class="oracle.jdbc.pool.OracleDataSource"
-		destroy-method="close">
-		<property name="URL" value="jdbc:oracle:thin:@192.168.1.100:1521:xe" />
-		<property name="user" value="sbms" />
-		<property name="password" value="sbms" />
-		<property name="connectionCachingEnabled" value="true" />
-		<qualifier value="main-db" />
-	</bean>
- 	-->
- 	
+	<!-- <bean id="oracleDatasource" class="oracle.jdbc.pool.OracleDataSource" 
+		destroy-method="close"> <property name="URL" value="jdbc:oracle:thin:@192.168.1.100:1521:xe" 
+		/> <property name="user" value="sbms" /> <property name="password" value="sbms" 
+		/> <property name="connectionCachingEnabled" value="true" /> <qualifier value="main-db" 
+		/> </bean> -->
+
 	<!-- MyBatis SqlSessionFactoryBean -->
-	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="oracleDatasource" />
-		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
-	</bean> -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+		<property name="dataSource" ref="oracleDatasource" /> <property name="configLocation" 
+		value="classpath:mybatis/configuration.xml" /> </bean> -->
 
 	<!-- MyBatis SqlSessionTemplate -->
 	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> 
@@ -55,10 +50,10 @@
 
 		<property name="username" value="breezer" />
 		<property name="password" value="qwe123!" />
+		
+		<!-- mysql 8시간 응답 없을시 자동 종료 방지를 위한 설정 -->
+		<property name="validationQuery" value="select 1" />
 	</bean>
-	
-
-
 
 
 
