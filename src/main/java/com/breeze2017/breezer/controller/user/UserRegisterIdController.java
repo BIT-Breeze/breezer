@@ -49,6 +49,7 @@ public class UserRegisterIdController {
 		vo.setFbId(authUser.getFbId());
 		userRegisterIdService.setIdByFbIdMessage(vo);
 		authUser.setId(vo.getId());
+		authUser.setNickName(vo.getId());
 
 		// 세션에 id가 들어간 authUser로 변경
 		HttpSession session = request.getSession(true);
