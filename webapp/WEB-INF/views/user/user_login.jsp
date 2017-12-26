@@ -39,22 +39,15 @@
 
 <script
 	src="${pageContext.servletContext.contextPath }/assets/js/facebook_api.js"
-	type="text/javascript"></script>
+	type="text/javascript">
+</script>
+
 
 <script>
 	$(function() {
-
-		$("#test_button").click(function() {
-			console.log("====== info ======")
-			console.log("fb_token = " + fb_token)
-			console.log("fb_signedRequest = " + fb_signedRequest)
-			console.log("fb_expiresIn = " + fb_expiresIn)
-			console.log("fb_userID = " + fb_userID)
-			console.log("fb_name = " + fb_name)
-		})
+		btnFunctionInit();
 	})
 </script>
-
 
 
 
@@ -96,8 +89,9 @@
 					</div>
 
 
-					<form id='id-input' style="margin-left: 25px;" method="post"
-						action="${pageContext.servletContext.contextPath }/setid">
+					<form id='id-input' style="margin-left: 25px;">
+						<!-- <div id='id-input' style="margin-left: 25px;"> -->
+						<%-- method="post" action="${pageContext.servletContext.contextPath }/setid"> --%>
 
 						<c:choose>
 							<c:when test="${empty authUser.id }">
@@ -111,40 +105,34 @@
 								<br>
 								<button type="submit" id="save"	style="margin-left: 0px; width: 250px;">save</button>
 								 -->
+								<c:choose>
+									<c:when test="${not empty authUser }">
+										<c:choose>
+											<c:when test="${empty authUser.id }">
+												<label class="block-label" for="id">ID</label>
+												<input class="input-id" id="input-id" name="id" type="text" value="">
+
+												<input type="button" id="btn-check" style="margin-left: 25x; width: 250px;" value="check id"> <br>
+												<input type="button" id="btn-save" style="margin-left: 0px; width: 250px;" value="save id">
+												<!-- <button id="btn-check" style="margin-left: 25x; width: 250px;">checkid</button> <br>
+												<button type="submit" id="btn-save" style="margin-left: 0px; width: 250px;">save</button> -->
+
+											</c:when>
+										</c:choose>
+									</c:when>
+								</c:choose>
 							</c:when>
 						</c:choose>
-
+						<div></div>
 					</form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 				</div>
-
 			</div>
+
+			<!-- footer -->
+			<c:import url="/WEB-INF/views/includes/footer.jsp" />
 		</div>
-
-		<!-- footer -->
-		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
-	</div>
-
-
-
-
-
-
-
+	
 
 </body>
 

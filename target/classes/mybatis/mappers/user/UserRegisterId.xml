@@ -13,7 +13,15 @@
 					nickName = #{id }
 			where fbId = #{fbId }		
 		]]>
-	</update>	
+	</update>
+	
+	<select id="checkId" parameterType="uservo" resultType="integer">
+		<![CDATA[
+			select count(*)
+			from TB_USER
+			where id = #{id }		
+		]]>
+	</select>		
 	
 	
 	

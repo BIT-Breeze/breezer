@@ -17,5 +17,9 @@ public class UserRegisterIdService {
 	public boolean setIdByFbIdMessage(UserVo vo) {
 		return userRegisterIdDao.setIdByFbId(vo) == 1;
 	}
+	
+	public boolean checkIdMessage(UserVo vo) {
+		return userRegisterIdDao.checkId(vo) == 0; //0개 여야지 성공 
+	}
 
 }
