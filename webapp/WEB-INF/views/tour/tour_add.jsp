@@ -120,7 +120,7 @@ function fileUpload() {
 			<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
 			<input type="submit" value="add">
 		</div>
-		<p>test test</p>
+		<p>test test test</p>
 	</form>
 
 	<div class="bottom-section">
