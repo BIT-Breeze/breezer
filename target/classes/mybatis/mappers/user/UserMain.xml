@@ -17,7 +17,39 @@
 			select idx, title, startDate from TB_TOUR where userId = #{ id }
 			
 		]]>		
-	</select>
+	</select>	
+	
+	
+	
+	
+	
+	<select id="gettours1" parameterType="map" resultType="tourvo">
+		<![CDATA[
+			select count(*) from 
+				(select title, startDate, mainPhoto, @rownum:=@rownum+1 as rn 
+				  from TB_TOUR where (@rownum:=0)=0 and userId= #{keyword } order by startDate DESC) as sbt
+				     where  (((#{page }-1)* #{size }+1 ) <= sbt.rn) and (sbt.rn <= #{page } * #{size })
+				     
 
+		]]>		
+	</select>
+	
+	
+	
+	
+	
+	<select id="getTotalCount" parameterType="string" resultType="int">
+		<![CDATA[
+			select count(*) from TB_TOUR			
+		]]>
+		
+		<if test="_parameter != null and _parameter !=''">
+			<![CDATA[
+				where userId=#{keyword }
+			]]>
+		</if>		
+	</select>
+	
+	
 
 </mapper>

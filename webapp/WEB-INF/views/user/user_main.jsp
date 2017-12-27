@@ -42,8 +42,8 @@ var render0 = function( tourvo, mode ){
 
 var fetchList = function(){
 	
-	var startNo = $( "#list-tour div" ).last().data("no") || 0;
-	//console.log(startNo);
+	var startNo = $( "#tour div" ).last().data("no");
+	console.log(startNo);
 	var id = "${authUser.id}";
 	console.log(id);
 	$.ajax({
@@ -72,7 +72,7 @@ var fetchList = function(){
 
 
 
-fetchList();
+//fetchList();
 
 
 
@@ -117,37 +117,30 @@ fetchList();
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
 		
 		<div class="row" align="center" id="secondrow">
-		
-			<div class="col-sm-12" id="tourframe">
+			Your Memories..
+			<div class="col-sm-12" id="tourframe3">
 			
 			<div id="list-tour">
 			
 			</div>
 						
 			</div> <!-- sm-12 -->
-			
-			
-			
+		</div>
 			
 			<div class="row" align="center" id="thirdrow">
 				<ul class="pagination">
-					<li><a href="#">«</a></li>
-				    <li><a href="#">1</a></li>
+					<li><a href="">«</a></li>
+				    <li><a href="${pageContext.servletContext.contextPath }/${uservo.id}/tourlist1?p=2&kwd=${uservo.id}">1</a></li>
 				    <li><a href="#">2</a></li>
 				    <li><a href="#">3</a></li>
 				    <li><a href="#">4</a></li>
 				    <li><a href="#">5</a></li>
-				    <li><a href="#">6</a></li>
-				    <li><a href="#">7</a></li>
-				    <li><a href="#">8</a></li>
-				    <li><a href="#">9</a></li>
-				    <li><a href="#">10</a></li>
 				    <li><a href="#">»</a></li>			
 				</ul>
 			
 			</div><!-- third row -->
 			
-      </div> <!-- album -->      
+ 
     </div>	<!-- col sm-9 -->
   </div>	<!-- row content -->    
 </div>	<!-- container -->

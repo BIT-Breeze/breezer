@@ -42,17 +42,18 @@
       padding: 30px;      
     }
     
-    #secondrow {
-      
+    #secondrow {     
       color: black;
-      padding: 15px;
-      
+      padding: 15px;    
+      height: 750px; 
+      background-color: #C0C0C0;	 
+    }
+    #tourframe3 { 
+      height: 600px;
+      background-color: #C0C0C0;	      
     }
     
-    #tourframe{
-      height: 700px;
-      background-color: #FFC0C0;
-    }
+    
     
     #tour {    
       padding: 10px;

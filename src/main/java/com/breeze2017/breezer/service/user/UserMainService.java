@@ -47,12 +47,15 @@ public class UserMainService {
 		// 1. basic calculate for paging
 		
 		int totalCount = userMainDao.getTotalCount( keyword );
+		System.out.println(totalCount);
 		int pageCount = (int)Math.ceil((double)totalCount/LIST_SIZE);
 		// 총 페이지 수 
+		System.out.println(pageCount);
 		int blockCount = (int)Math.ceil((double)pageCount/PAGE_SIZE);
-		// 총 블락의 수
+		// 총 블락의 수, 즉 5, 10 ,15 이런식으로 페이지 번호가 분할되는 개수 
+		System.out.println(blockCount);
 		int currentBlock = (int)Math.ceil((double)currentPage/PAGE_SIZE);
-		
+		System.out.println(currentBlock);
 		if( currentPage < 1) {
 			currentPage = 1;
 			currentBlock = 1;
@@ -71,7 +74,14 @@ public class UserMainService {
 		int endPage = ( nextPage > 0 ) ? (beginPage - 1) + LIST_SIZE : pageCount;
 		// 리스트가 12개 있을 경우 
 		List<TourVo> list = userMainDao.getTours1(keyword, currentPage, LIST_SIZE);
+		System.out.println(list);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		System.out.println(beginPage);
+		System.out.println(prevPage);
+		System.out.println(nextPage);
+		System.out.println(endPage);
 		
 		map.put("list", list);
 		map.put("totalCount", totalCount);

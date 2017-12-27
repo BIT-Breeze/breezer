@@ -1,5 +1,6 @@
 package com.breeze2017.breezer.repository.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +42,23 @@ public class UserMainDao {
 
 	public List<TourVo> getTours1(String keyword, Integer page, Integer size) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("keyword", keyword);
+		//map.put("keyword", keyword);
+		System.out.println(keyword);
+		System.out.println(page);
+		System.out.println(size);
 		map.put("page", page);
 		map.put("size", size);
+		map.put("keyword", keyword);
+		System.out.println(map.get("page")+"fwefwefwfwaefsefsef");
+		System.out.println(map.get("size"));
+		System.out.println(map.get("keyword"));
 		
-		return sqlSession.selectList("user.gettours1",map);
+		//List<TourVo> result = new ArrayList<TourVo>();
+				//result = sqlSession.selectList("user.gettours1",map);
+		
+		int count = sqlSession.selectOne("user.gettours1",map);
+		
+		System.out.println(count+"dfwefaefsaefwfewfewfwe");
+		return null;
 	}
 }

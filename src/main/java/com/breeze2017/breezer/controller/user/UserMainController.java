@@ -31,6 +31,7 @@ public class UserMainController {
 		// 파라미터는 유저객체가 와도 메소드는 string 파라미터를 받으니까 아래 처럼 사용하면 됨. 
 
 		UserVo uservo = userMainService.getUserInfo(authUser.getId());
+		System.out.println(uservo);
 		System.out.println(uservo.getTours());
 		model.addAttribute("uservo", uservo);
 		return "user/user_main";
