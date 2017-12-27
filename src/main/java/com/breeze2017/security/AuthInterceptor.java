@@ -61,6 +61,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// 로그인이 정상적으로 되어있는경우 이지점까지 넘어온다.
 		// request.getContextPath()
 		
+		//id가 존재하지 않는 경우 
+		if (authUser.getId() == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+			return false;
+		}
+		
+		
 		//현재 주소를 가져온다 
 		String url = request.getRequestURL().toString();
 		System.out.println("url : "+url);
