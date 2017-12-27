@@ -37,7 +37,7 @@ var isEnd = false;
 
 var render = function( vo, mode ) {
 	var html = 
-		"<div id='post' data-idx='"+vo.idx+"' style='width:780px; height: 700px; background-color:#ff5555; ' >" +
+		"<div id='post' data-idx='"+vo.idx+"' style='width:780px; height: auto; background-color:#ff5555; ' >" +
 			"<div id='post-header' style='height: 50px; width:780px; margin-top:10px; background-color: #ffff44;'> " +
 				"<div id='header-picture' style='float: left;'>" +
 					"<div id='mage-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 10px;'></div> " +
@@ -52,8 +52,8 @@ var render = function( vo, mode ) {
 				"</div>"+
 			"</div>"+
 			
-			"<div id='post-picture' style='height:400px; width:100%; background-color:#ccfaaa;'> 이미지" +
-				"<img id='sns-img'src='"+vo.photo+"'>"+
+			"<div id='post-picture' style='height:auto; width:100%; background-color:#ccfaaa;'> 이미지" +
+				"<img id='sns-img'src='"+vo.photo+"' style='width:100%; height: auto;'>"+
 			"</div>" +
 			
 			"<div id='post-info'>"+
