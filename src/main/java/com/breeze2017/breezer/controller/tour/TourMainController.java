@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/tour")
 public class TourMainController {
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String mytour(HttpServletRequest request) {
 		
 		return "tour/tour_main";
