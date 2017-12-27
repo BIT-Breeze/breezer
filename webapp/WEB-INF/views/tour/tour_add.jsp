@@ -7,14 +7,14 @@
 <!-- <Link href="/breezer/assets/css/addtour.css" rel="stylesheet"> -->
 
 <!-- jQuery 기본 js파일 -->
-<script src="/breezer_moose/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>  
+<script src="/breezer/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>  
 
 <!-- jQuery datepicker를 사용하기 위한 라이브러리 추가 -->
 <!-- jQuery UI CSS파일 , jQuery UI 라이브러리 js파일, jQuery form 라이브러리 js파일 -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css">
-<script src="/breezer_moose/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
-<script src="/breezer_moose/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
-<script src="/breezer_moose/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
 
 <!-- 달력 js -->
 <script type="text/javascript">
