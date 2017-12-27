@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* layout */
+div#content_tourMain	{ text-align:left; width:1220px; height:200px; margin:0 auto; background-color:#FFFFFF; clear:both; }
+
 ul.nav-pills {
 	top: 20px;
 	position: fixed;

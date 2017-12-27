@@ -21,7 +21,7 @@
 $(function() {
 	$("#start-datepicker").datepicker({
 		showOn: "both", 
-        buttonImage: "/breezer/assets/images/ss.png", 
+        buttonImage: "/breezer/assets/images/tour/calendar_button.png", 
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -37,7 +37,7 @@ $(function() {
 $(function() {
 	$("#end-datepicker").datepicker({
 		showOn: "both", 
-        buttonImage: "/breezer/assets/images/ss.png",
+        buttonImage: "/breezer/assets/images/tour/calendar_button.png",
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -52,64 +52,78 @@ $(function() {
 </script>
 
 <!-- 파일 업로더 onchange -->
-<script>
 
-$("#fileUpload").on("change", function() {
-	console.log("what?")
-});
-	
+<script type="text/javascript">
 
-function fileUpload() {
-	console.log("fileUpload onchange func()");
+var isJpg = function(name) {
+	return name.match(/jpg$/i)
+}
 
-		var FormData = new FormData();
-		formData.append("file", files[0]);
+var isPng = function(name) {
+	return name.match(/png$/i)
+}
+var imagePath;
+
+$(document).ready(function() {
+	var file = $('[name="file"]');
+	var imgContainer = $('#imgContainer');
+
+	$('#fileUpload').on('change', function() {
 		
-		console.log("form data :" + formData)
+		console.log("response from btnUpload Button")
+		
+		var filename = $.trim(file.val());
+		
+		if(!(isJpg(filename) || isPng(filename))) {
+			alert('Please browse a JPG/PNG file to upload...');
+			return;
+		} 
 		
 		$.ajax({
-			url: "/breezer/upload",
-			type: "post",
-			data: formData,
+			url: '/breezer/upload/echofile',
+			type: "POST",
+			data: new FormData($('#fileForm')[0]),
+			enctype: 'multipart/form-data',
 			processData: false,
 			contentType: false,
-			contentType: "multipart/form-data",
-			success: function( response ) {
-				console.log("success! : " + response.data);
-			}, error : function (err) {
-				console.log("error : " + err)
-			}
+		}).done(function(data) {
+			imgContainer.html('');
+			/* var img = '<img src="data:' + data.contenttype + ';base64,' + data.base64 + '"/>'; */
+			var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
+			imagePath = data;
+			console.log(data);
+			console.log(img);
+			imgContainer.append(img);
+			
+		}).fail(function(jqXHRm, textStatus) {
+			alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
+			
 		});
-	}
- 
+	});
+});
+
+/* controller 로 submit 하는 부분 */
+var add = function() {
+	$("#imagePath").val(imagePath);
+	document.getElementById("addform").submit();
+}
+
 
 </script>
-
 
 <title>Breezer</title>
 </head>
 <body>
-	<div class="top-section">
-		
-	</div>
 
-<!-- 	 비동기 이미지 업로드 html
-	<form id="uploadForm" name="uploadForm" action="#" method="post" enctype="multipart/form-data">
-		<input type="file" id="fileInput" name="fileInput" />
-	</form> -->
+	<!-- 파일업로더 -->
+	<form id="fileForm">
+		<a href="/breezer">Cancel</a><br>
+		<input type="file" name="file" id="fileUpload"><br><br>
+		
+	</form>
 	
-	<!-- 등록을 클릭하면 title, date(s,e), image(url) 값을 controller로  -->
- 	<form id="add-form" method="post" action="${pageContext.servletContext.contextPath }/tour/addtour" enctype="multipart/form-data">
-		
-		<a href="/breezer">Cancel</a>
-		<input type="file" name="file" id="file" onchange="fileUpload(this)">
-		
-		<h2>Ajax Post Result</h2>
-		<span id="result"></span>
-		
-		<h2>Main Photo</h2>
-		path : ${pageContext.request.contextPath }${url }
-		<img src="${pageContext.request.contextPath }${url }" style="width:250px"><br>
+ 	<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
+		<div id=imgContainer></div>
 		
 		<div class="title-section">
 			<input type="text" value="title" name="title">
@@ -118,13 +132,14 @@ function fileUpload() {
 		<div class="calendar-section">
 			<input type="text" id="start-datepicker" value="start date" name="startDate">
 			<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
-			<input type="submit" value="add">
+			<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
+			<input type="button" value="add" onclick="add()">
 		</div>
-
+		
 	</form>
 
 	<div class="bottom-section">
-		
+		<p></p>
 	</div>
 	
 </body>

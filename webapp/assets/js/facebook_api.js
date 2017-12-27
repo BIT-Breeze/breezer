@@ -9,6 +9,9 @@ var fb_age_range
 var fb_locale
 var fb_picture_url
 
+var id;
+
+
 // init ?
 window.fbAsyncInit = function() {
 	FB.init({
@@ -123,39 +126,146 @@ function showUserInfo() {
 	console.log("fb_picture_url = " + fb_picture_url)
 }
 
+function btnFunctionInit() {
+	console.log("====== btn FunctionInit() ======")
 
-function idCheck() {
-	// id 유효성 검사
-	
-	// 실패면 이미 사용중 메세지 출력
-	
-	// 성공이면 중복체크 변수 treu로 변경 후 성공 메세지 출력 
+	/*
+	 * $("btn-check").on( "click", function(){ idCheck();} )
+	 * $("btn-save").on("click", function(){ idSave()} )
+	 */
+	var checkId = false;
+	var FormValidator = {
+		$inputId : null,
+		$buttonCheckId : null,
+		$buttonSaveId : null,
+
+		init : function() {
+			this.$inputId = $("#input-id");
+			this.$buttonCheckId = $("#btn-check");
+			this.$buttonSaveId = $("#btn-save");
+
+			this.$inputId.change(this.onInputIdChanged.bind(this));
+			this.$buttonCheckId.click(this.onButtonCheckIdClicked.bind(this));
+			this.$buttonSaveId.click(this.onButtonSaveIdClicked.bind(this));
+			
+			//$("#id-input").submit(this.onInputIdFormSubmit.bind(this));
+		},
+		onInputIdChanged : function() {
+			console.log("====== onInputIdChanged ======")
+			checkId = false;
+		},
+		onButtonCheckIdClicked : function() {
+			console.log("====== onButtonCheckIdClicked ======")
+
+			var id = this.$inputId.val();
+			if (id == "") {
+				alert("id를 입력하세요");
+				return;
+			}
+
+			console.log("id is not empty")
+
+
+
+			//ajax 통신
+			$.ajax({
+				url : "/breezer/api/user/checkid?id=" + id,
+				type : "post",
+				dataType : "json",
+				data : "",
+				success : this.onCheckIdAjaxSuccess.bind(this),
+				error : this.onCheckIdAjaxError
+			});
+		},
+		onCheckIdAjaxSuccess : function(response) {
+			if (response.result != "success") {
+				console.log(response.message);
+				return;
+			}
+
+			if (response.data != true) {
+				alert("이미 사용하고 있는 Id입니다.");
+				this.$inputId.val("").focus();
+				return;
+			}
+			console.log("id is not exist. you can use now (response = true)")
+			checkId = true;
+		},
+		onCheckIdAjaxError : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		},
+		onButtonSaveIdClicked : function() {
+			console.log("====== onButtonSaveIdClicked ======")
+			if ( checkId == true ) {
+				console.log("checkId is true")
+				
+				var id = this.$inputId.val();
+				if (id == "") {
+					alert("id를 입력하세요");
+					return;
+				}
+				
+				//ajax 통신
+				$.ajax({
+					url : "/breezer/api/user/setid" ,
+					type : "post",
+					dataType : "json",
+					data : "id=" + id,
+					success : function(response) {
+						if (response.result != "success") {
+							console.log("response.result = fail")
+							return;
+						}
+
+						console.log("response.result = success")
+						console.log("response.data = " + response.data)
+
+						// 로그인 성공시 mytour 페이지로 이동한다
+						// window.location.href = "/breezer/tour/mytour"
+						window.location.href = "/breezer/" + response.data
+
+					},
+					error : function(xhr, status, e) {
+						console.error(status + ":" + e);
+					}
+				});
+				
+			} else {
+				alert("Id 중복체크 하세요.");
+			}
+		}
+
+	}
+
+	FormValidator.init();
+
 }
-
-function idSave() {
-	// 중복체크 변수 true 인지 체크
-	
-	// 실패면 중복하라는 메세지 출력 후 return
-	
-	// 성공이면 /setid 호출
-}
-
 
 function loginFormRender() {
 	console.log("====== loginFormRender() ======")
-	
-	var html = ' <label class="block-label" for="id">ID</label> <input '
-			+ ' class="input-box" id="id" name="id" type="text" value=""> '
-			+ ' <button id="check-id" style="margin-left: 25x; width: 250px;">checkid</button> '
-			+ ' <br> ' 
-			+ ' <button type="submit" id="save" style="margin-left: 0px; width: 250px;">save</button>' ; 
 
+	var html = ' <label class="block-label" for="id">ID</label> '
+			+ '  <input class="input-id" id="input-id" name="id" type="text" value=""> '
+			+ '  <input type="button" id="btn-check" style="margin-left: 25x; width: 250px;" value="check id"> <br> '
+			+ '  <input type="button" id="btn-save" style="margin-left: 0px; width: 250px;" value="save id">';		
+			
+			
+			
+			/*+ ' <button id="btn-check" style="margin-left: 25x; width: 250px;">checkid</button> <br> '
+			+ ' <button type="submit" id="btn-save" style="margin-left: 0px; width: 250px;">save</button>';*/
+
+	
+	
+	
 	$("#status").empty();
 	$("#id-input").empty();
 	$("#id-input").append(html);
+
+	btnFunctionInit()
 }
 
 function login() {
+	console.log("====== login ======")
 	$.ajax({
 		url : "/breezer/user/login",
 		type : "post",
@@ -174,12 +284,12 @@ function login() {
 				} else {
 					console.log(response.message);
 				}
-				
+
 				return;
 			}
-			
+
 			console.log("response.result = success")
-			console.log("response.data = "+response.data)
+			console.log("response.data = " + response.data)
 
 			// 로그인 성공시 mytour 페이지로 이동한다
 			// window.location.href = "/breezer/tour/mytour"
