@@ -77,7 +77,7 @@ $(document).ready(function() {
 		if(!(isJpg(filename) || isPng(filename))) {
 			alert('Please browse a JPG/PNG file to upload...');
 			return;
-		} 
+		}
 		
 		$.ajax({
 			url: '/breezer/upload/echofile',

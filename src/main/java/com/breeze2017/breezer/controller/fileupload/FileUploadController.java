@@ -22,8 +22,8 @@ public class FileUploadController {
 	@ResponseBody
 	@RequestMapping(value="/echofile", method=RequestMethod.POST)
 	public String upload( @RequestParam("file") MultipartFile file, Model model ) {
-		System.out.println("=> fileupload controller : " + file);
-		
+		System.out.println(" >> fileupload controller");
+
 		String url = fileUploadService.restore(file);
 		model.addAttribute("url", url);
 		
