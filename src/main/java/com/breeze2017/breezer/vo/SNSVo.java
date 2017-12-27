@@ -14,6 +14,7 @@ public class SNSVo {
 	private String startDate;
 	private String endDate;
 	private double score;
+	private double price;
 	private long like;
 	private String postDateTime;
 	private String tripDateTime;
@@ -111,14 +112,30 @@ public class SNSVo {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
 	
 	@Override
 	public String toString() {
 		return "SNSVo [kind=" + kind + ", idx=" + idx + ", tourIdx=" + tourIdx + ", postIdx=" + postIdx + ", userId="
 				+ userId + ", title=" + title + ", content=" + content + ", photo=" + photo + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", score=" + score + ", like=" + like + ", postDateTime=" + postDateTime
-				+ ", tripDateTime=" + tripDateTime + ", location=" + location + "]";
+				+ ", endDate=" + endDate + ", score=" + score + ", price=" + price + ", like=" + like
+				+ ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime + ", location=" + location
+				+ ", getIdx()=" + getIdx() + ", getKind()=" + getKind() + ", getTourIdx()=" + getTourIdx()
+				+ ", getPostIdx()=" + getPostIdx() + ", getUserId()=" + getUserId() + ", getTitle()=" + getTitle()
+				+ ", getContent()=" + getContent() + ", getPhoto()=" + getPhoto() + ", getStartDate()=" + getStartDate()
+				+ ", getEndDate()=" + getEndDate() + ", getScore()=" + getScore() + ", getLike()=" + getLike()
+				+ ", getPostDateTime()=" + getPostDateTime() + ", getTripDateTime()=" + getTripDateTime()
+				+ ", getLocation()=" + getLocation() + ", getPrice()=" + getPrice() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+	
+	
 	
 	
 	
