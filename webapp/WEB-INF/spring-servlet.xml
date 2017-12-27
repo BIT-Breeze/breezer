@@ -82,6 +82,9 @@
 	   <property name="order" value="1" />
 	</bean>
 	
+	<!-- resource mapping -->
+	<mvc:resources location="file:/uploads/" mapping="/uploads/images/**"/>
+	
 	<!-- 멀티파트 리졸버 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
