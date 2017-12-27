@@ -27,8 +27,11 @@ public class UserMainController {
 	
 	@RequestMapping( "" )
 	public String getUser(@AuthUser UserVo authUser, Model model) {
+		System.out.println("====== UserMainController : /{id} ======");
 		System.out.println("UserMainController");			
 		// 파라미터는 유저객체가 와도 메소드는 string 파라미터를 받으니까 아래 처럼 사용하면 됨. 
+		
+		System.out.println("authUser : " + authUser);
 
 		UserVo uservo = userMainService.getUserInfo(authUser.getId());
 		System.out.println(uservo);
@@ -39,12 +42,17 @@ public class UserMainController {
 	
 	@RequestMapping( "/tourlist1" )
 	public String getTours1(
+			
 			//@AuthUser UserVo authUser, 
 			Model model,
 			@RequestParam( value="p", required=true, defaultValue="1")Integer page,
 			@RequestParam( value="kwd", required=true, defaultValue="")String keyword
 			
 			) {
+		System.out.println("====== UserMainController : /tourlist1 ======");
+		System.out.println("page : "+page+", keyword : "+keyword);
+		
+		
 		System.out.println("Test paging");			
 		// 파라미터는 유저객체가 와도 메소드는 string 파라미터를 받으니까 아래 처럼 사용하면 됨. 
 		Map<String, Object> map = 
