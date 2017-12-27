@@ -6,7 +6,7 @@
     <div class="col-sm-3 sidenav">
     	<div class="row">
     		<div class="col-sm-6" id="photoframe" align='center'>
-    		<img src="${ pageContext.servletContext.contextPath }/assests/image/anna.jpg" width="100px" height="100px" class="img-circle">
+    		<img src="${uservo.pictureUrl}" width="100px" height="100px" class="img-circle">
 			
     		</div>   	
     	

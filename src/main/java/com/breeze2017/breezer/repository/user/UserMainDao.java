@@ -1,6 +1,8 @@
 package com.breeze2017.breezer.repository.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +32,19 @@ public class UserMainDao {
 
 		
 		return result;
+	}
+
+	public int getTotalCount(String keyword) {
+		
+		return sqlSession.selectOne("user.getTotalCount", keyword);
+	}
+
+	public List<TourVo> getTours1(String keyword, Integer page, Integer size) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("keyword", keyword);
+		map.put("page", page);
+		map.put("size", size);
+		
+		return sqlSession.selectList("user.gettours1",map);
 	}
 }
