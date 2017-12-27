@@ -47,26 +47,27 @@ var render = function( vo, mode ) {
 						"<label>nickName : "+vo.userId+"</label> " +
 					"</div>"+
 					"<div id='header-location'>" +
-						"<label>location : </label>"+
+						"<label>location : "+vo.location+" </label>"+
 					"</div>"+
 				"</div>"+
 			"</div>"+
 			
 			"<div id='post-picture' style='height:400px; width:100%; background-color:#ccfaaa;'> 이미지" +
+				"<img id='sns-img'src='"+vo.photo+"'>"+
 			"</div>" +
 			
 			"<div id='post-info'>"+
 				"<div id='info-status' >"+
 					"<button type='button' > like </button><br> "+
-					"<label>좋아요 : </label><br> "+
-					"<label>평점 : </label><br> "+
-					"<label>가격 : </label><br>"+
-					"<label>등록일자 : </label><br>"+
-					"<label>여행일자 : </label><br>"+
+					"<label>좋아요 : "+vo.like+"</label><br> "+
+					"<label>평점 : "+vo.score+"</label><br> "+
+					"<label>가격 : "+vo.price+"</label><br>"+
+					"<label>등록일자 : "+vo.postDateTime+"</label><br>"+
+					"<label>여행일자 : "+vo.tripDateTime+"</label><br>"+
 				"</div>"+
 				"<div id='info-content' >"+
-					"<label>내용 : tourIdx : "+vo.tourIdx+", postIdx : "+vo.postIdx+" </label><br>"+
-					"<label>content : "+vo.content+", voIdx : "+vo.idx+" </label>"+
+					"<label>내용 : "+vo.content+" </label><br>"+
+					"<label>info : tourIdx : "+vo.tourIdx+",  postIdx : "+vo.postIdx+", voIdx : "+vo.idx+" </label>"+
 				"</div>"+
 			"</div>"+
 		"</div>"
@@ -139,7 +140,6 @@ $(function(){
 </script>
 
 <body>
-	
 
 	<div id="container">
 		sns
