@@ -24,3 +24,5 @@ hs_err_pid*
 /.project
 /.settings/
 /src/main/resources/rebel.xml
+/.gitignore
+/target/
