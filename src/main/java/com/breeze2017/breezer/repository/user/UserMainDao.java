@@ -18,7 +18,7 @@ public class UserMainDao {
 	public UserVo getUserInfo( String id ) {
 		// 파라미터를 뭘로 해야 할지, str or obj
 		UserVo result = sqlSession.selectOne("user.getUserInfo", id);
-		System.out.println(result.toString());		
+		System.out.println(result.getTours());		
 		
 		return result; 
 	}
@@ -27,7 +27,7 @@ public class UserMainDao {
 		
 		System.out.println("TourMainDao");
 		List<TourVo> result = sqlSession.selectList("user.gettours", id);
-		System.out.println(result);
+
 		
 		return result;
 	}

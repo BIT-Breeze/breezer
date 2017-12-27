@@ -68,7 +68,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
 			HttpSession session = request.getSession( true );
 			session.setAttribute( "authUser", userVo );
 			
-			JSONResult jsonResult = JSONResult.success("join");
+			JSONResult jsonResult = JSONResult.fail("login-id-null");
 			String json = new ObjectMapper().writeValueAsString( jsonResult );
 		
 			response.setContentType( "application/json; charset=utf-8" );

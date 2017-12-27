@@ -26,11 +26,11 @@ public class UserRegisterIdController {
 	
 	
 	// id 설정 페이지로 이동
-	@RequestMapping("/join")
-	public String join() {
-		System.out.println("====== UserRegisterIdController : '/join' ======");
-		return "user/user_register_id";
-	}
+//	@RequestMapping("/join")
+//	public String join() {
+//		System.out.println("====== UserRegisterIdController : '/join' ======");
+//		return "user/user_register_id";
+//	}
 	
 	
 	
@@ -49,14 +49,14 @@ public class UserRegisterIdController {
 		vo.setFbId(authUser.getFbId());
 		userRegisterIdService.setIdByFbIdMessage(vo);
 		authUser.setId(vo.getId());
+		authUser.setNickName(vo.getId());
 
 		// 세션에 id가 들어간 authUser로 변경
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
 		
 		// id와 nickName 을 jsp 로 전송
-		model.addAttribute("id", authUser.getId());
-		model.addAttribute("nickname", authUser.getNickName());
+		model.addAttribute("authUser", authUser);
 
 		return "user/user_main";
 	}

@@ -16,4 +16,8 @@ public class UserRegisterIdDao {
 	public int setIdByFbId(UserVo vo) {
 		return sqlSession.update("userregisterid.setId", vo);
 	}
+	
+	public int checkId(UserVo vo) {
+		return sqlSession.selectOne("userregisterid.checkId", vo);
+	}
 }
