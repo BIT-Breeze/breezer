@@ -37,7 +37,8 @@ public class UserLoginController {
 			System.out.println("authUser : " + authUser);
 
 			model.addAttribute("authUser", authUser);
-			return "user/user_main";
+			//return "user/user_main";
+			return "redirect:/"+authUser.getId();
 		}
 	}
 
