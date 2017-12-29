@@ -7,77 +7,56 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="/breezer_moose/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
+
 
 <script type="text/javascript">
-/*
-$(document).ready(function() {
-	var imgContainer = $('#imgContainer');
-	
-	$.ajax({
-		url: '/breezer_moose/upload/getimage?=id',
-	
-	** 디비에서 메인 이미지를 가져올 기준이 있어야됨. id같은
-	get 방식으로 id를 보내고 id가 일치한 DB table에서 mainPhoto를 select 해서  가져온다
-	그리고 여기에 뿌려준다.
 
+var imagePath; // 이미지 경로 저장 변수
+var file = $('[name="file"]');
+var imgContainer = $('#imgContainer');
+
+// #fileUpload를 했을때 실행
+$(document).ready(function() {
+	$('#fileUpload').on('change', ImgFileSelect);
+});
+
+// 파일 업로더 했을 때 실행되는 함수
+function ImgFileSelect(e) {
+	var sel_files = []; // 파일 저장되는 변수 [배열]
+	var files = e.target.files; // 넘어 오는 파일들을 files에 담고
+	var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
+	
+	var index = 0; // 순서를 위해 index를 선언
+	filesArr.forEach(function(f) { // 반복문으로
+		index++; // 인덱스를 한순차씩 올려주며
+		sel_files.push(f); // 배열로 선언했던 파일저장변수에 하나씩 push
+		console.log(f); // 로그 출력
 	});
 	
-	//var img = '<img src="${pageContext.request.contextPath }/uploads/images/20171120027512.jpg"/>';
-	//imgContainer.append(img);
-});
-*/
-
-</script>
-<script type="text/javascript">
-
-var isJpg = function(name) {
-	return name.match(/jpg$/i)
-}
-
-var isPng = function(name) {
-	return name.match(/png$/i)
-}
-
-var imagePath;
-
-$(document).ready(function() {
-	var file = $('[name="file"]');
-	var multiImgContainer = $('#multiImgContainer');
-
-	$('#fileUpload').on('change', function() {
+	$.ajax({ // 사진을 바로 보이기 위해 ajax를 활용
+		url: '/breezer/upload/multiechofile', // controller 타는 부분
+		type: "POST", // post 방식으로
+		data: new FormData($('#MultifileForm')[0]), // FormData id를 지정해 생성해주고
+		enctype: 'multipart/form-data',
+		processData: false,
+		contentType: false,
+	}).done(function(data) { // 제대로 실행되었을 때 실행되는 .done
+		imgContainer.html('');
 		
-		console.log("response from btnUpload Button")
-
-		var filename = $.trim(file.val());
+		var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
+	
+		imagePath = data;
+		console.log(data);
+		console.log(img);
+		imgContainer.append(img);
 		
-		if(!(isJpg(filename) || isPng(filename))) {
-			alert('Please browse a JPG/PNG file to upload...');
-			return;
-		}
+	}).fail(function(jqXHRm, textStatus) {
+		alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
 		
-		$.ajax({
-			url: '/breezer_moose/upload/multiechofile',
-			type: "POST",
-			data: new FormData($('#fileForm')[0]),
-			enctype: 'multipart/form-data',
-			processData: false,
-			contentType: false,
-		}).done(function(data) {
-			multiImgContainer.html('');
-			/* var img = '<img src="data:' + data.contenttype + ';base64,' + data.base64 + '"/>'; */
-			var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
-			imagePath = data;
-			console.log(data);
-			console.log(img);
-			multiImgContainer.append(img);
-			
-		}).fail(function(jqXHRm, textStatus) {
-			alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
-			
-		});
 	});
-});
+}
+
 	
 </script>
 
@@ -90,7 +69,8 @@ $(document).ready(function() {
 	</div>
 	
 	<!-- 메인 포토 -->
-	<div id=imgContainer></div>
+	<div id=imgContainer>
+	</div>
 	
 	<form method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
 		<div>
@@ -106,9 +86,13 @@ $(document).ready(function() {
 	
 	<!-- 다중 파일 업로더 -->
 	<form id="MultifileForm">
-		<input type="file" name="multiFile[]" id="fileUpload"><br><br>
+		<input multiple="multiple" type="file" name="multiFile[]" id="fileUpload"><br><br>
+		
 	</form>
-	<div id=multiImgContainer></div>
+	
+	
+	<div id=multiImgContainer>
+	</div>
 </body>
 
 </html>

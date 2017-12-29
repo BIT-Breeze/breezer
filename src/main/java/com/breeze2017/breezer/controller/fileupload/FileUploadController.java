@@ -18,12 +18,12 @@ public class FileUploadController {
 	@Autowired
 	private FileUploadService fileUploadService;
 
-	// mainPhoto Upload
+	// Single Upload
 	@ResponseBody
 	@RequestMapping(value="/echofile", method=RequestMethod.POST)
 	public String upload( @RequestParam("file") MultipartFile file, Model model ) {
 		System.out.println(" >> fileupload controller");
-
+		
 		String url = fileUploadService.restore(file);
 		model.addAttribute("url", url);
 		
@@ -35,66 +35,28 @@ public class FileUploadController {
 		
 		return url;
 	
-		
 	}
 	
-	// 포스트 페이지에서 mainPhoto 가져오기
-	@ResponseBody
-	@RequestMapping(value="/getimage", method=RequestMethod.POST)
-	public String getMainPhoto() {
-		System.out.println(" >> getImage controller");
-		
-		return "post/addpost";
-	}
-	
-	
-	// mainPhoto Upload
+	// Multi Upload
 	@ResponseBody
 	@RequestMapping(value="/multiechofile", method=RequestMethod.POST)
 	public String multiUpload( @RequestParam("multiFile[]") MultipartFile file, Model model ) {
-		System.out.println("=> multiUpload controller : " + file);
-		
-		String url = fileUploadService.restore(file);
-		model.addAttribute("url", url);
-		
-		System.out.println("=============================");
-		System.out.println(" file >> " + file);
-		System.out.println(" model >> " + model);
-		System.out.println(" url >> " + url);
-		System.out.println("=============================");
-		
-		return url;
+		fileUploadService.restore(file);
+		return "";
 	
 	}
-
-	/*@ResponseBody
-	@RequestMapping(value="/echofile", method=RequestMethod.POST, produces={"application/json"})
-	public HashMap<String, Object> echoFile(MultipartHttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(" >> [echofile] fileUpload Controller");
-		
-		MultipartFile multipartFile = request.getFile("file");
-		System.out.println("multipartFile: " + multipartFile);
-		
-		Long size = multipartFile.getSize();
-		System.out.println("size: " + size);
-		
-		String contentType = multipartFile.getContentType();
-		System.out.println("contentType: " + contentType);
-		
-		InputStream stream = multipartFile.getInputStream();
-		System.out.println("stream: " + stream);
-		
-		byte[] bytes = IOUtils.toByteArray(stream);
-		System.out.println("bytes: " + bytes);
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("fileoriginalsize", size);
-		map.put("contenttype", contentType);
-		map.put("base64", new String(Base64Utils.encode(bytes)));
-		
-		return map;
-	}*/
+	
+	
+	// 포스트 페이지에서 mainPhoto 가져오기
+		@ResponseBody
+		@RequestMapping(value="/getimage", method=RequestMethod.POST)
+		public String getMainPhoto() {
+			System.out.println(" >> getImage controller");
+			
+			return "post/addpost";
+		}
 	
 	
 	
-}
+	
+}	

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,19 +27,15 @@ public class TourAddController {
 	
 	@Auth
 	@RequestMapping(value="tour/add", method=RequestMethod.POST)
-	public String tourAdd(@ModelAttribute TourVo vo) {
+	public String tourAdd(
+			@ModelAttribute TourVo vo,
+			@PathVariable String id
+			) {
+		System.out.println("id :" + id);
 		System.out.println(">> tourAdd Controller");
-		System.out.println(vo);
+		
 		tourAddService.insertMessage(vo);
 		
 		return "tour/tour_main";
 	}
-	
-	/* 임시로 만든거 */
-	@Auth
-	@RequestMapping("tour/movepostadd")
-	public String moveAddPost() {
-		return "post/post_add";
-	}
-	
 }
