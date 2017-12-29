@@ -1,5 +1,7 @@
 package com.breeze2017.breezer.controller.fileupload;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.fileupload.FileUploadService;
 
 @Controller
@@ -40,18 +44,36 @@ public class FileUploadController {
 	// Multi Upload
 	@ResponseBody
 	@RequestMapping(value="/multiechofile", method=RequestMethod.POST)
-	public String multiUpload( @RequestParam("file") MultipartFile file, Model model ) {
+	public JSONResult multiUpload( 
+			//@RequestParam("file") MultipartFile file ) {
+			MultipartHttpServletRequest multi) {
 		
-		String url = fileUploadService.restore(file);
-		model.addAttribute("url", url);
 		
-		System.out.println("=============================");
-		System.out.println(" file >> " + file);
-		System.out.println(" model >> " + model);
-		System.out.println(" url >> " + url);
-		System.out.println("=============================");
 		
-		return url;
+		System.out.println("====== multiUpload ======1");
+		
+		
+		List<MultipartFile> mf = multi.getFiles("multiFile");
+		
+		for (int i=0; i<mf.size(); i++ ) {
+			System.out.println( mf.get(i).getOriginalFilename() );
+		}
+		
+
+		
+		//System.out.println("file : "+file);
+//		
+//		
+//		String url = fileUploadService.restore(file);
+//		model.addAttribute("url", url);
+//		
+//		System.out.println("=============================");
+//		System.out.println(" file >> " + file);
+//		System.out.println(" model >> " + model);
+//		System.out.println(" url >> " + url);
+//		System.out.println("=============================");
+		
+		return JSONResult.success("-json-success-");
 	}
 	
 	
