@@ -11,7 +11,7 @@
 					 #{category },
 					 #{price },
 					 #{score }
-					);	    
+					);    
 		
 		]]>	
 	</insert>

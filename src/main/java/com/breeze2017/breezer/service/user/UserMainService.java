@@ -26,9 +26,11 @@ public class UserMainService {
 		
 		UserVo result = userMainDao.getUserInfo(id);
 		System.out.println("UserMainService");
+		System.out.println(result.toString());
 		return result;
 		
-	}	
+	}
+	
 	
 	/* test code for country button */
 	@Autowired
@@ -40,30 +42,45 @@ public class UserMainService {
 		
 		return result;
 	}
+	
+	public List<TourVo> getTours(String id, Long startNo){
+		System.out.println("UserMainService - with 2 params");
+
+		System.out.println(id);
+		System.out.println(startNo);
+		List<TourVo> result = userMainDao.getTours(id, startNo);
+		
+		return result;
+	}
+	
+	
+	
 	/* End : test code for country button */
 
 	public Map<String, Object> getTours1(int currentPage, String keyword) {
 		// controller에선 Integer로 받은 걸 명시적 형변환 없이 여기선 int로 받는다. 
-		// 1. basic calculate for paging
-		
-		int totalCount = userMainDao.getTotalCount( keyword );
-		System.out.println(totalCount);
+		// 1. basic calculate for paging		
+		int totalCount = userMainDao.getTotalCount( keyword );		
 		int pageCount = (int)Math.ceil((double)totalCount/LIST_SIZE);
-		// 총 페이지 수 
-		System.out.println(pageCount);
+		// 총 페이지 수 		
 		int blockCount = (int)Math.ceil((double)pageCount/PAGE_SIZE);
-		// 총 블락의 수, 즉 5, 10 ,15 이런식으로 페이지 번호가 분할되는 개수 
-		System.out.println(blockCount);
+		// 총 블락의 수, 즉 5, 10 ,15 이런식으로 페이지 번호가 분할되는 개수 		
 		int currentBlock = (int)Math.ceil((double)currentPage/PAGE_SIZE);
-		System.out.println(currentBlock);
+		System.out.println("UserMainService - getTours1");
+		System.out.println(currentPage+"currentPage1");
+		System.out.println(totalCount);
+		System.out.println(pageCount);
+		System.out.println(blockCount);
+		System.out.println(currentBlock);		
+		
 		if( currentPage < 1) {
 			currentPage = 1;
 			currentBlock = 1;
 		}else if( currentPage > pageCount) {
 			currentPage = pageCount;
-			currentBlock = (int)Math.ceil((double)currentPage/PAGE_SIZE);
-			
+			currentBlock = (int)Math.ceil((double)currentPage/PAGE_SIZE);			
 		}
+		System.out.println(currentPage+"currentPage2");
 		int beginPage = currentBlock == 0 ? 1 : (currentBlock - 1) * PAGE_SIZE + 1;		
 		// 현재블럭이 0이면 시작페이지가 1이고 0이 아니면 현재블럭에서 1을뺀거에 페이지사이즈를 곱하고 1을 더한다. 
 		// 즉 1, 6, 11... 형태로 증가한다. 
@@ -74,6 +91,7 @@ public class UserMainService {
 		int endPage = ( nextPage > 0 ) ? (beginPage - 1) + LIST_SIZE : pageCount;
 		// 리스트가 12개 있을 경우 
 		List<TourVo> list = userMainDao.getTours1(keyword, currentPage, LIST_SIZE);
+		
 		System.out.println(list);
 		
 		Map<String, Object> map = new HashMap<String, Object>();

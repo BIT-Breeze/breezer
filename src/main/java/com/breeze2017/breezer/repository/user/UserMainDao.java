@@ -21,7 +21,11 @@ public class UserMainDao {
 	public UserVo getUserInfo( String id ) {
 		// 파라미터를 뭘로 해야 할지, str or obj
 		UserVo result = sqlSession.selectOne("user.getUserInfo", id);
-		System.out.println(result.getTours());		
+		System.out.println("getTours" + result.getTours());
+		if( result.getTours() == 0) {
+			result = sqlSession.selectOne("user.getUserInfo2", id);
+			System.out.println("투어가 등록되지 않은 유저" + result.toString());
+		}
 		
 		return result; 
 	}
@@ -30,16 +34,32 @@ public class UserMainDao {
 		
 		System.out.println("TourMainDao");
 		List<TourVo> result = sqlSession.selectList("user.gettours", id);
-
+		
+		
+		return result;
+	}
+	
+	public List<TourVo> getTours(String id, Long startNo) {
+		
+		System.out.println("TourMainDao- getTours with 2 params");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("startNo", startNo);
+		System.out.println(map.get("id"));
+		System.out.println(map.get("startNo"));
+		List<TourVo> result = sqlSession.selectList("user.gettours", map);
+		System.out.println(result);
 		
 		return result;
 	}
 
+	
 	public int getTotalCount(String keyword) {
 		
 		return sqlSession.selectOne("user.getTotalCount", keyword);
 	}
 
+	
 	public List<TourVo> getTours1(String keyword, Integer page, Integer size) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		//map.put("keyword", keyword);
@@ -52,13 +72,18 @@ public class UserMainDao {
 		System.out.println(map.get("page")+"fwefwefwfwaefsefsef");
 		System.out.println(map.get("size"));
 		System.out.println(map.get("keyword"));
+		System.out.println(map.keySet());
+		
 		
 		//List<TourVo> result = new ArrayList<TourVo>();
 				//result = sqlSession.selectList("user.gettours1",map);
 		
-		int count = sqlSession.selectOne("user.gettours1",map);
+		//int count = sqlSession.selectOne("user.gettours1",map);
+		List<TourVo> list = new ArrayList<TourVo>(); 
+			list = sqlSession.selectList("user.gettours1", map);
 		
-		System.out.println(count+"dfwefaefsaefwfewfewfwe");
-		return null;
+		
+		System.out.println(list);
+		return list;
 	}
 }

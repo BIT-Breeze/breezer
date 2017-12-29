@@ -1,1 +1,35 @@
 @charset "UTF-8";
+
+    .sidenav {
+      
+
+      height: 100%;
+    }
+    
+        /* On small screens, set height to 'auto' for sidenav and grid 
+    @media screen and (max-width: 767px) {
+      .sidenav {
+		
+        padding: 15px;
+      }
+      .row.content {height: auto;} 
+    }
+    */
+    #button_area{
+    
+		padding-bottom:30px;    
+    	padding-top:30px;
+    }  
+    
+    #info{
+    
+		padding-top:20px;    
+    	
+    } 
+    
+    
+    #photoframe{
+    
+		padding-top:30px;    
+    
+    }
