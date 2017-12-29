@@ -32,28 +32,28 @@ function ImgFileSelect(e) {
 		index++; // 인덱스를 한순차씩 올려주며
 		sel_files.push(f); // 배열로 선언했던 파일저장변수에 하나씩 push
 		console.log(f); // 로그 출력
-	});
-	
-	$.ajax({ // 사진을 바로 보이기 위해 ajax를 활용
-		url: '/breezer/upload/multiechofile', // controller 타는 부분
-		type: "POST", // post 방식으로
-		data: new FormData($('#MultifileForm')[0]), // FormData id를 지정해 생성해주고
-		enctype: 'multipart/form-data',
-		processData: false,
-		contentType: false,
-	}).done(function(data) { // 제대로 실행되었을 때 실행되는 .done
-		imgContainer.html('');
 		
-		var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
-	
-		imagePath = data;
-		console.log(data);
-		console.log(img);
-		imgContainer.append(img);
+		$.ajax({
+			url: '/breezer/upload/multiechofile',
+			type: "POST", // post 방식으로
+			data: new FormData($('#fileForm')[0]),
+			enctype: 'multipart/form-data',
+			processData: false,
+			contentType: false,
+		}).done(function(data) {
+			
+			imgContainer.html('');
+			
+			var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
 		
-	}).fail(function(jqXHRm, textStatus) {
-		alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
-		
+			imagePath = data;
+			console.log(data);
+			console.log(img);
+			imgContainer.append(img);
+			
+		}).fail(function(jqXHRm, textStatus) {
+			alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
+		});
 	});
 }
 
