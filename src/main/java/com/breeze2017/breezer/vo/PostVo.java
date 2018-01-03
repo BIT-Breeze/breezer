@@ -74,7 +74,7 @@ public class PostVo {
 	public double getLot() {
 		return lot;
 	}
-	public void setLon(double lot) {
+	public void setLot(double lot) {
 		this.lot = lot;
 	}
 	public long getTourIdx() {
