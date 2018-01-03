@@ -1,1 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="tourMain">
+
+	<select id="getTour" parameterType="map" resultType="postvo">
+		<![CDATA[
+		select *
+		  from TB_POST 
+		 where userId = #{userId} 
+		   and tourIdx = #{tourIdx} 
+	  order by tripDateTime asc
+		]]>
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
