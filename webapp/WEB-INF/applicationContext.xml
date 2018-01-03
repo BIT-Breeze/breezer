@@ -26,45 +26,45 @@
 
 	<!-- 요기 아래 3개는 오라클 테스트할때 사용함 -->
 	<!-- oracle datasource -->
-	<!-- <bean id="oracleDatasource" class="oracle.jdbc.pool.OracleDataSource" 
-		destroy-method="close"> <property name="URL" value="jdbc:oracle:thin:@192.168.1.100:1521:xe" 
-		/> <property name="user" value="sbms" /> <property name="password" value="sbms" 
-		/> <property name="connectionCachingEnabled" value="true" /> <qualifier value="main-db" 
-		/> </bean> -->
-
+	<!-- <bean id="oracleDatasource" class="oracle.jdbc.pool.OracleDataSource"
+		destroy-method="close">
+		<property name="URL" value="jdbc:oracle:thin:@192.168.1.100:1521:xe" />
+		<property name="user" value="sbms" />
+		<property name="password" value="sbms" />
+		<property name="connectionCachingEnabled" value="true" />
+		<qualifier value="main-db" />
+	</bean>
+ 	-->
+ 	
 	<!-- MyBatis SqlSessionFactoryBean -->
-	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
-		<property name="dataSource" ref="oracleDatasource" /> <property name="configLocation" 
-		value="classpath:mybatis/configuration.xml" /> </bean> -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="oracleDatasource" />
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
+	</bean> -->
 
 	<!-- MyBatis SqlSessionTemplate -->
-	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"> 
-		<constructor-arg index="0" ref="sqlSessionFactory" /> </bean> -->
+	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean> -->
 
 	<!-- for mysql test -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://192.168.1.91:3306/breezer_test" />
-
 		<property name="username" value="breezer" />
 		<property name="password" value="qwe123!" />
 		
 		<!-- mysql 8시간 응답 없을시 자동 종료 방지를 위한 설정 -->
 		<property name="validationQuery" value="select 1" />
 	</bean>
-
-
-
-
-
+	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
 		<!-- <property name="mapperLocations" value="classpath:mappers/*.xml" /> -->
 	</bean>
-
+	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>

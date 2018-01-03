@@ -22,7 +22,7 @@
 var startNo = 0;
 var isEnd = false;
 var authUser = "${authUser.id}";
-var uservo = "${uservo.id}"
+var uservo = "${uservo2.id}"
 //여기 바뀌어야 함. 
 console.log(authUser);
 console.log(uservo);
@@ -151,8 +151,8 @@ $(function(){
 			
 			<div class="col-sm-6" id="firstrow" align="center">
 
-			<h4>${uservo.id }님은</h4><br>
-			${uservo.tours }개의 여행을 하셨습니다.<br>
+			<h4>${uservo2.id }님은</h4><br>
+			${uservo2.tours }개의 여행을 하셨습니다.<br>
 			
 			</div>
 			
