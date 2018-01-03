@@ -15,7 +15,6 @@
     </typeAliases>	
 	
 	<mappers>
-		<mapper resource="mybatis/mappers/post/PostAdd.xml"/>
 		<mapper resource="mybatis/mappers/tour/TourMain.xml"/>
 		<mapper resource="mybatis/mappers/tour/TourAdd.xml"/>
 		<mapper resource="mybatis/mappers/user/UserMain.xml"/>
