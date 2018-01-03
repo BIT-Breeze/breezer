@@ -1,5 +1,6 @@
 package com.breeze2017.breezer.service.fileupload;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
@@ -14,8 +15,16 @@ public class FileUploadService {
 	private static String PREFIX_URL = "/uploads/images/";
 
 	public String restore(MultipartFile multipartFile) {
-
 		String url = "";
+		String path = "D://uploads";
+		
+		File file = new File(path);
+		if(!file.exists()) {
+			file.mkdirs();
+			System.out.println("create a folder - success !");
+		}
+
+		
 
 		try {
 			String originalFileName = multipartFile.getOriginalFilename();

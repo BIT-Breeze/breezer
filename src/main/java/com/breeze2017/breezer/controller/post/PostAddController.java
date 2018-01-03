@@ -18,6 +18,12 @@ public class PostAddController {
 	PostAddService postAddService;
 	
 	@Auth
+	@RequestMapping(value="post/add", method=RequestMethod.GET)
+	public String addPost() {
+		return "post/post_add";
+	}
+	
+	@Auth
 	@RequestMapping(value="post/add", method=RequestMethod.POST)
 	public String addPost(@ModelAttribute PostVo vo) {
 		System.out.println(" >> PostAddController post/add");

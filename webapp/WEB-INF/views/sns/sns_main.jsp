@@ -37,7 +37,7 @@ var isEnd = false;
 
 var render = function( vo, mode ) {
 	var html = 
-		"<div id='post' data-idx='"+vo.idx+"' style='width:780px; height: 700px; background-color:#ff5555; ' >" +
+		"<div id='post' data-idx='"+vo.idx+"' style='width:780px; height: auto; background-color:#ff5555; ' >" +
 			"<div id='post-header' style='height: 50px; width:780px; margin-top:10px; background-color: #ffff44;'> " +
 				"<div id='header-picture' style='float: left;'>" +
 					"<div id='mage-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 10px;'></div> " +
@@ -47,26 +47,27 @@ var render = function( vo, mode ) {
 						"<label>nickName : "+vo.userId+"</label> " +
 					"</div>"+
 					"<div id='header-location'>" +
-						"<label>location : </label>"+
+						"<label>location : "+vo.location+" </label>"+
 					"</div>"+
 				"</div>"+
 			"</div>"+
 			
-			"<div id='post-picture' style='height:400px; width:100%; background-color:#ccfaaa;'> 이미지" +
+			"<div id='post-picture' style='height:auto; width:100%; background-color:#ccfaaa;'> 이미지" +
+				"<img id='sns-img'src='"+vo.photo+"' style='width:100%; height: auto;'>"+
 			"</div>" +
 			
 			"<div id='post-info'>"+
 				"<div id='info-status' >"+
 					"<button type='button' > like </button><br> "+
-					"<label>좋아요 : </label><br> "+
-					"<label>평점 : </label><br> "+
-					"<label>가격 : </label><br>"+
-					"<label>등록일자 : </label><br>"+
-					"<label>여행일자 : </label><br>"+
+					"<label>좋아요 : "+vo.like+"</label><br> "+
+					"<label>평점 : "+vo.score+"</label><br> "+
+					"<label>가격 : "+vo.price+"</label><br>"+
+					"<label>등록일자 : "+vo.postDateTime+"</label><br>"+
+					"<label>여행일자 : "+vo.tripDateTime+"</label><br>"+
 				"</div>"+
 				"<div id='info-content' >"+
-					"<label>내용 : tourIdx : "+vo.tourIdx+", postIdx : "+vo.postIdx+" </label><br>"+
-					"<label>content : "+vo.content+", voIdx : "+vo.idx+" </label>"+
+					"<label>내용 : "+vo.content+" </label><br>"+
+					"<label>info : tourIdx : "+vo.tourIdx+",  postIdx : "+vo.postIdx+", voIdx : "+vo.idx+" </label>"+
 				"</div>"+
 			"</div>"+
 		"</div>"
@@ -137,9 +138,16 @@ $(function(){
 
 	
 </script>
+<!-- side_navi css를 위해 임시로 가져옴 -> 기본적으로 navi.jsp 에 임포트 되있어야 할듯 -->
+<link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
 
 <body>
-	
+	<!-- side_navi import -->
+	<div id="side_navi">
+		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+			<c:param name="menu" value="login" />
+		</c:import>
+	</div>
 
 	<div id="container">
 		sns

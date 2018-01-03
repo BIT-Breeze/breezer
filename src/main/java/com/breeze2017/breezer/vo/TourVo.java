@@ -11,7 +11,14 @@ public class TourVo {
 	private String mainPhoto;
 	private long postCount;
 	private long hit;
+	private int rn;
 	
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
 	public long getIdx() {
 		return idx;
 	}
