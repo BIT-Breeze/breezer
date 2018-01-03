@@ -26,20 +26,58 @@ public class UserMainController {
 	
 	
 	@RequestMapping( "" )
+
+
+
 	public String getUser(@AuthUser UserVo authUser, Model model) {
 		System.out.println("====== UserMainController : /{id} ======");
+
 		System.out.println("UserMainController");			
-		// 파라미터는 유저객체가 와도 메소드는 string 파라미터를 받으니까 아래 처럼 사용하면 됨. 
 		
 		System.out.println("authUser : " + authUser);
 
-		UserVo uservo = userMainService.getUserInfo(authUser.getId());
-		System.out.println(uservo);
-		System.out.println(uservo.getTours());
-		model.addAttribute("uservo", uservo);
+
+			UserVo uservo = userMainService.getUserInfo(authUser.getId());
+			UserVo uservo2 = userMainService.getUserInfo(authUser.getId());
+			System.out.println("투어수를 가져오기 위한 uservo2" + uservo2.toString());
+			model.addAttribute("uservo", uservo);
+			model.addAttribute("uservo2", uservo2);
+
 		return "user/user_main";
 	}
 	
+
+	
+	/*
+	@RequestMapping( "" )
+	public String getUser(@AuthUser UserVo authUser,
+						  @RequestParam( value="otherUser", required=false) String otherId,
+						  Model model) {
+		System.out.println("UserMainController");			
+		// 파라미터는 유저객체가 와도 메소드는 string 파라미터를 받으니까 아래 처럼 사용하면 됨. 		
+		System.out.println(otherId);
+		
+		if( otherId == null || authUser.getId()==otherId) {
+			UserVo uservo = userMainService.getUserInfo(authUser.getId());
+			UserVo uservo2 = userMainService.getUserInfo(authUser.getId());
+			System.out.println("투어수를 가져오기 위한 uservo2" + uservo2.toString());
+			model.addAttribute("uservo", uservo);
+			model.addAttribute("uservo2", uservo2);
+			
+		} else {
+			
+			System.out.println("if clicked other user's page...");
+			UserVo uservo = userMainService.getUserInfo(otherId);
+			UserVo uservo2 = userMainService.getUserInfo(authUser.getId());
+			System.out.println("투어수를 가져오기 위한 uservo2" + uservo2.toString());
+			System.out.println(uservo.toString());
+			model.addAttribute("uservo",uservo);
+			model.addAttribute("uservo2", uservo2);
+		}
+		return "user/user_main";
+	}
+
+
 	@RequestMapping( "/tourlist1" )
 	public String getTours1(
 			
@@ -61,13 +99,19 @@ public class UserMainController {
 		model.addAttribute("map", map);
 		return "user/user_main";
 	}
-	
+	*/
 	
 	@RequestMapping( "/tourlist" )
 	@ResponseBody
-	public JSONResult getTours(@AuthUser UserVo authUser) {
-		//System.out.println("JSON REQUEST CONTROLLER");
-		List<TourVo> tours = userMainService.getTours(authUser.getId());		
+	public JSONResult getTours(
+			@AuthUser UserVo authUser,
+			// 여기서 다른 사람 투어를 보려면 {id}를 바꿔서 리퀘스트가 가능한가?
+			@RequestParam( value="no", required=true)Long no
+			) {
+	
+		System.out.println("JSON REQUEST CONTROLLER"+ no);
+		
+		List<TourVo> tours = userMainService.getTours(authUser.getId(),no);		
 		//System.out.println("JSON REQUEST CONTROLLER2");
 		//System.out.println(tours);
 		return JSONResult.success(tours);

@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
 <mapper namespace="user">
 
 	<select id="getUserInfo" 
 			parameterType="string"
 			resultType="uservo">
 		<![CDATA[
+
+		select t1.nickName as nickName, count(t2.title) as tours, pictureUrl, id  
+		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.id = t2.userId 
+		 where t1.id= #{ id }
+		]]>
+	</select>
+	<!-- 유저의 투어수가 0일 경우 이 쿼리가 실행된다. -->
+	<select id="getUserInfo2" 
+			parameterType="string"
+			resultType="uservo">
+		<![CDATA[
+
 		 	select t1.id, t1.nickName, t1.pictureUrl, t2.tours
 			from TB_USER t1, (select count(*) as tours from TB_TOUR where userId=#{id }) t2
 			where id=#{id }
+
 		]]>
 	</select>
 	<!-- original query -> tour가 없는경우 쿼리 조회가 안된다 
 	select t1.nickName as nickName, count(t2.title) as tours, pictureUrl, id  
 		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.id = t2.userId 
-		 where t1.id= #{ id }; 
+		 where t1.id= #{ id }; 상훈이 쿼리
+		 
+		 	select id, pictureUrl, gender, ageRange, email 
+			 from TB_USER where id=#{ id }
 	-->
-	
-	
-	
-	
-	
-	<select id="gettours" parameterType="string" resultType="tourvo">
+
+	<select id="gettours" parameterType="map" resultType="tourvo">
 		<![CDATA[
-			select idx, title, startDate from TB_TOUR where userId = #{ id }
+		
+		select title, idx, startDate 
+		 from TB_TOUR 
+		  where userId = #{id } order by idx desc limit #{ startNo } , 6;
 			
 		]]>		
 	</select>	
 	
-	
-	
-	
+	<select id="gettours2" parameterType="string" resultType="tourvo">
+		<![CDATA[
+		
+			select idx, title, startDate from TB_TOUR where userId = #{ id }
+			
+		]]>		
+	</select>	
 	
 	<select id="gettours1" parameterType="map" resultType="tourvo">
 		<![CDATA[
@@ -40,12 +58,9 @@
 				(select title, startDate, mainPhoto, @rownum:=@rownum+1 as rn 
 				  from TB_TOUR where (@rownum:=0)=0 and userId= #{keyword } order by startDate DESC) as sbt
 			where  (((#{page }-1)* #{size }+1 ) <= sbt.rn) and (sbt.rn <= #{page } * #{size })
+
 		]]>		
 	</select>
-	
-	
-	
-	
 	
 	<select id="getTotalCount" parameterType="string" resultType="int">
 		<![CDATA[
