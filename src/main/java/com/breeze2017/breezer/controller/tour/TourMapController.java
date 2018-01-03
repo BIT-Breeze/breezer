@@ -11,5 +11,7 @@ public class TourMapController {
 	public String mapTest() {
 		return "tour/tour_map";
 	}
+	
+	
 
 }
