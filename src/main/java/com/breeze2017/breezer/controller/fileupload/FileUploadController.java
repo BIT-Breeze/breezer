@@ -1,6 +1,7 @@
 package com.breeze2017.breezer.controller.fileupload;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,16 +52,14 @@ public class FileUploadController {
 	public JSONResult multiUpload(MultipartHttpServletRequest multi) {
 		System.out.println(">> multifileupload controller");
 		
-		//String url = multiFileUploadService.restore(multi);
-		//model.addAttribute("url", url);
-		
 		List<MultipartFile> mf = multi.getFiles("multiFile");
 		
 		for (int i=0; i<mf.size(); i++ ) {
 			System.out.println( mf.get(i).getOriginalFilename() );
 		}
 
-		List<MultipartFile> result = multiFileUploadService.restore(mf);
+		Map<Integer, String> result = multiFileUploadService.restore(mf);
+		System.out.println("result >> " + result);
 		
 		return JSONResult.success(result);
 		

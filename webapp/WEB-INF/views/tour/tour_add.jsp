@@ -79,7 +79,7 @@ $(document).ready(function() {
 			return;
 		}
 		
-		var formData = new FormData($('#MultifileForm')[0]);
+		var formData = new FormData($('#fileForm')[0]);
 		$.ajax({
 			url: '/breezer/upload/echofile',
 			type: "POST",

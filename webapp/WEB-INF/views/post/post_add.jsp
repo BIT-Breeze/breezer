@@ -14,7 +14,6 @@
 
 var imagePath; // 이미지 경로 저장 변수
 var file = $('[name="file"]');
-var imgContainer = $('#imgContainer');
 var sel_files = []; // 파일 저장되는 변수 [배열]
 
 // #fileUpload를 했을때 실행
@@ -49,18 +48,22 @@ function ImgFileSelect(e) {
 		enctype: 'multipart/form-data',
 		processData: false,
 		contentType: false
-	}).success(function(data) {
-		console.log("data.result : " + data.result) 
-		console.log("data : " + data)
+	}).success(function(response) {
 		
-		/* imgContainer.html('');
-		
-		var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
+		console.log("response.data[0] : " + response.data[0])
+		var multiImgContainer = $('#multiImgContainer');
+		var index = 0
+		multiImgContainer.html('');
+		for( data in response.data) {
+			
+			console.log("data" + index + " : " + response.data[index])
+			var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
+			
+			multiImgContainer.append(img);
+			index++;
+		}
 
-		imagePath = data;
-		console.log(data);
-		console.log(img);
-		imgContainer.append(img); */
+		
 		
 		
 	}).fail(function(jqXHRm, textStatus) {
