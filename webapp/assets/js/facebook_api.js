@@ -10,6 +10,7 @@ var fb_locale
 var fb_picture_url
 
 var id;
+//var checkId = false;
 
 
 // init ?
@@ -126,79 +127,90 @@ function showUserInfo() {
 	console.log("fb_picture_url = " + fb_picture_url)
 }
 
+
 function btnFunctionInit() {
 	console.log("====== btn FunctionInit() ======")
 
-	/*
-	 * $("btn-check").on( "click", function(){ idCheck();} )
-	 * $("btn-save").on("click", function(){ idSave()} )
-	 */
+
 	var checkId = false;
+	
 	var FormValidator = {
 		$inputId : null,
-		$buttonCheckId : null,
+		$message : null,
 		$buttonSaveId : null,
 
 		init : function() {
 			this.$inputId = $("#input-id");
-			this.$buttonCheckId = $("#btn-check");
 			this.$buttonSaveId = $("#btn-save");
+			this.$message = $("#check-message"); 
 
-			this.$inputId.change(this.onInputIdChanged.bind(this));
-			this.$buttonCheckId.click(this.onButtonCheckIdClicked.bind(this));
+			this.$inputId.each(this.onInputIdChanged.bind(this));
 			this.$buttonSaveId.click(this.onButtonSaveIdClicked.bind(this));
-			
-			//$("#id-input").submit(this.onInputIdFormSubmit.bind(this));
 		},
+		// id 값 변경시 
 		onInputIdChanged : function() {
 			console.log("====== onInputIdChanged ======")
-			checkId = false;
+			var elem = this.$inputId;
+		
+			elem.data('oldVal', elem.val());
+			elem.bind("propertychange change click keyup input paste", function(event){
+				if(elem.data('oldVal') != elem.val()) {
+					console.log("====== changed ID value ======")
+					
+					elem.data('oldVal', elem.val());
+					checkId = false;
+					
+					//빈칸체크 
+					var id = elem.val();
+					if (id == "") {
+						$("#check-message").html("ID는 4자 이상 20자 이하입니다.")
+						return;
+					}
+
+					//id 유효성 체크 (많이해야되..특수문자체크도해야되...한글도..?)
+					var elemLen = (elem.val()).length
+					if (  (elemLen > 20) || (elemLen < 4) ) {
+						$("#check-message").html("ID는 4자 이상 20자 이하입니다.")
+						return;
+					} 
+
+					//ajax 통신
+					$.ajax({
+						url : "/breezer/api/user/checkid?id=" + id,
+						type : "post",
+						dataType : "json",
+						data : "",
+						success : function(response) {
+							//성공이 아닐경우
+							if (response.result != "success") {
+								console.log(response.message);
+								return;
+							}
+
+							// 이미 ID사용중
+							if (response.data != true) {
+								$("#check-message").html("이미 사용중인 ID입니다.")
+								return;
+							}
+							
+							// 사용가능한 ID
+							$("#check-message").html("사용가능한 ID입니다.")
+							console.log("id is not exist. you can use now (response = true)")
+							checkId = true;
+						},
+						error : function(xhr, status, e) {
+							console.error(status + ":" + e);
+						}
+					});
+				}
+			})
+			
 		},
-		onButtonCheckIdClicked : function() {
-			console.log("====== onButtonCheckIdClicked ======")
-
-			var id = this.$inputId.val();
-			if (id == "") {
-				alert("id를 입력하세요");
-				return;
-			}
-
-			console.log("id is not empty")
-
-
-
-			//ajax 통신
-			$.ajax({
-				url : "/breezer/api/user/checkid?id=" + id,
-				type : "post",
-				dataType : "json",
-				data : "",
-				success : this.onCheckIdAjaxSuccess.bind(this),
-				error : this.onCheckIdAjaxError
-			});
-		},
-		onCheckIdAjaxSuccess : function(response) {
-			if (response.result != "success") {
-				console.log(response.message);
-				return;
-			}
-
-			if (response.data != true) {
-				alert("이미 사용하고 있는 Id입니다.");
-				this.$inputId.val("").focus();
-				return;
-			}
-			console.log("id is not exist. you can use now (response = true)")
-			checkId = true;
-		},
-		onCheckIdAjaxError : function(xhr, status, e) {
-			console.error(status + ":" + e);
-		},
+		// 저장버튼 클릭시 
 		onButtonSaveIdClicked : function() {
 			console.log("====== onButtonSaveIdClicked ======")
 			if ( checkId == true ) {
-				console.log("checkId is true")
-				
+				// id 가 빈값일 경우 
 				var id = this.$inputId.val();
 				if (id == "") {
 					alert("id를 입력하세요");
@@ -216,46 +228,35 @@ function btnFunctionInit() {
 							console.log("response.result = fail")
 							return;
 						}
-
-						console.log("response.result = success")
-						console.log("response.data = " + response.data)
-
 						// 로그인 성공시 mytour 페이지로 이동한다
 						// window.location.href = "/breezer/tour/mytour"
 						window.location.href = "/breezer/" + response.data
-
 					},
 					error : function(xhr, status, e) {
 						console.error(status + ":" + e);
 					}
 				});
-				
 			} else {
-				alert("Id 중복체크 하세요.");
+				// checkId 가 false 일 경우 
+				alert("올바른 ID를 입력하세요.");
 			}
 		}
-
 	}
 
 	FormValidator.init();
 
 }
 
+// 로그인 성공 & ID가 저장되있지 않는 경우 아이디 입력창 생성 
 function loginFormRender() {
 	console.log("====== loginFormRender() ======")
 
 	var html = ' <label class="block-label" for="id">ID</label> '
-			+ '  <input class="input-id" id="input-id" name="id" type="text" value=""><br> '
-			+ '  <input type="button" id="btn-check" class="btn btn-info" style="margin-left: 25x; width: 250px;" value="check id"> <br> '
+			+ '  <input class="input-id" id="input-id" name="id" type="text" value="" placeholder="아이디를 입력하세요"><br> '
+			
+			+ '  <label class="message-label" for="message" id="check-message"> id를 입력하세요 </label>'
 			+ '  <input type="button" id="btn-save" class="btn btn-info" style="margin-left: 0px; width: 250px;" value="save id">';		
-			
-			
-			
-			/*+ ' <button id="btn-check" style="margin-left: 25x; width: 250px;">checkid</button> <br> '
-			+ ' <button type="submit" id="btn-save" style="margin-left: 0px; width: 250px;">save</button>';*/
 
-	
-	
 	
 	$("#status").empty();
 	$("#id-input").empty();
@@ -263,6 +264,7 @@ function loginFormRender() {
 
 	btnFunctionInit()
 }
+
 
 function login() {
 	console.log("====== login ======")

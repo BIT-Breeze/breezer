@@ -70,6 +70,11 @@
 	width: 40px;
 }
 
+.message-label {
+	margin-left : 50px;
+	width: 250px;
+}
+
 .input-box {
 	width: 205px;
 }
