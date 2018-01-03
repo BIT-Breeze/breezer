@@ -20,13 +20,14 @@ public class UserMainDao {
 	
 	public UserVo getUserInfo( String id ) {
 		// 파라미터를 뭘로 해야 할지, str or obj
-		UserVo result = sqlSession.selectOne("user.getUserInfo", id);
+		UserVo result = sqlSession.selectOne("user.getUserInfo2", id);
 		System.out.println("getTours" + result.getTours());
+		/*
 		if( result.getTours() == 0) {
 			result = sqlSession.selectOne("user.getUserInfo2", id);
 			System.out.println("투어가 등록되지 않은 유저" + result.toString());
 		}
-		
+		*/
 		return result; 
 	}
 

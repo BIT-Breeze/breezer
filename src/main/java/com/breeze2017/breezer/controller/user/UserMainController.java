@@ -33,7 +33,6 @@ public class UserMainController {
 		System.out.println("====== UserMainController : /{id} ======");
 
 		System.out.println("UserMainController");			
-
 		
 		System.out.println("authUser : " + authUser);
 

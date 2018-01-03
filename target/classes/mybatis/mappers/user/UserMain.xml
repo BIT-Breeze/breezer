@@ -18,8 +18,6 @@
 			parameterType="string"
 			resultType="uservo">
 		<![CDATA[
-			select id, pictureUrl, gender, ageRange, email 
-			 from TB_USER where id=#{ id }
 
 		 	select t1.id, t1.nickName, t1.pictureUrl, t2.tours
 			from TB_USER t1, (select count(*) as tours from TB_TOUR where userId=#{id }) t2
@@ -30,7 +28,10 @@
 	<!-- original query -> tour가 없는경우 쿼리 조회가 안된다 
 	select t1.nickName as nickName, count(t2.title) as tours, pictureUrl, id  
 		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.id = t2.userId 
-		 where t1.id= #{ id }; 
+		 where t1.id= #{ id }; 상훈이 쿼리
+		 
+		 	select id, pictureUrl, gender, ageRange, email 
+			 from TB_USER where id=#{ id }
 	-->
 
 	<select id="gettours" parameterType="map" resultType="tourvo">
