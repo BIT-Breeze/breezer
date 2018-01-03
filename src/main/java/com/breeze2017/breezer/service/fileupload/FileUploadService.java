@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,10 @@ public class FileUploadService {
 	private static String PREFIX_URL = "/uploads/images/";
 
 	public String restore(MultipartFile multipartFile) {
+		
+		System.out.println("#from service >>" + multipartFile);
+		System.out.println("#from service >>" + multipartFile.getOriginalFilename());
+		
 		String url = "";
 		String path = "D://uploads";
 		

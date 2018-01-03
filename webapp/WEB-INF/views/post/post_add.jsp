@@ -23,9 +23,10 @@ $(document).ready(function() {
 	
 });
 
+
 // 파일 업로더 했을 때 실행되는 함수
 function ImgFileSelect(e) {
-	console.log("====== ImgFileSelect ======")
+ 	console.log("====== ImgFileSelect ======")
 	var files = e.target.files; // 넘어 오는 파일들을 files에 담고
 	var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
 	
@@ -37,23 +38,20 @@ function ImgFileSelect(e) {
 		
 	});
 	
-	//requestAjax();
+	//console.log("sel_files = "+sel_files)
 	
-	
-	console.log("====== requestAjax ======")
-	console.log("sel_files = "+sel_files)
-	
+	var formData = new FormData($('#MultifileForm')[0]);
 	$.ajax({
 		url: '/breezer/upload/multiechofile',
-		type: "post", // post 방식으로
+		type: "POST",
 		dataType : "json",
-		data: new FormData($('#MultifileForm')[0]),
-		enctype: 'multipart/form-data', 
+		data: formData,
+		enctype: 'multipart/form-data',
 		processData: false,
 		contentType: false
 	}).success(function(data) {
-		 
-		console.log("result : "+data.result)
+		console.log("data.result : " + data.result) 
+		console.log("data : " + data)
 		
 		/* imgContainer.html('');
 		
@@ -64,24 +62,12 @@ function ImgFileSelect(e) {
 		console.log(img);
 		imgContainer.append(img); */
 		
-		console.log("done");
 		
 	}).fail(function(jqXHRm, textStatus) {
 		alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 	});
+
 }
-
-
-
-function requestAjax() {
-	
-	
-}
-
-
-
-
-
 	
 </script>
 
@@ -111,7 +97,7 @@ function requestAjax() {
 	
 	<!-- 다중 파일 업로더 -->
 	<form id="MultifileForm">
-		<input multiple="multiple" type="file" name="multiFile" id="fileUpload"><br><br>
+		<input type="file" multiple="multiple" name="multiFile" id="fileUpload"><br><br>
 		
 	</form>
 	

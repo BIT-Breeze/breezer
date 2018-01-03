@@ -12,7 +12,7 @@
 					#{startDate },
 					#{endDate },
 					#{mainPhoto }
-					);
+					)
 			
 		]]>		
 	</insert>
