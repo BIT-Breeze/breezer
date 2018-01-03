@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.fileupload.FileUploadService;
+import com.breeze2017.breezer.service.fileupload.MultiFileUploadService;
 
 @Controller
 @RequestMapping("/upload")
@@ -21,6 +22,9 @@ public class FileUploadController {
 	
 	@Autowired
 	private FileUploadService fileUploadService;
+	
+	@Autowired
+	private MultiFileUploadService multiFileUploadService;
 
 	// Single Upload
 	@ResponseBody
@@ -44,37 +48,25 @@ public class FileUploadController {
 	// Multi Upload
 	@ResponseBody
 	@RequestMapping(value="/multiechofile", method=RequestMethod.POST)
-	public JSONResult multiUpload( 
-			//@RequestParam("file") MultipartFile file ) {
-			MultipartHttpServletRequest multi) {
+	public JSONResult multiUpload(MultipartHttpServletRequest multi) {
+		System.out.println(">> multifileupload controller");
 		
-		
-		
-		System.out.println("====== multiUpload ======1");
-		
+		//String url = multiFileUploadService.restore(multi);
+		//model.addAttribute("url", url);
 		
 		List<MultipartFile> mf = multi.getFiles("multiFile");
 		
 		for (int i=0; i<mf.size(); i++ ) {
 			System.out.println( mf.get(i).getOriginalFilename() );
 		}
-		
 
+		List<MultipartFile> result = multiFileUploadService.restore(mf);
 		
-		//System.out.println("file : "+file);
-//		
-//		
-//		String url = fileUploadService.restore(file);
-//		model.addAttribute("url", url);
-//		
-//		System.out.println("=============================");
-//		System.out.println(" file >> " + file);
-//		System.out.println(" model >> " + model);
-//		System.out.println(" url >> " + url);
-//		System.out.println("=============================");
+		return JSONResult.success(result);
 		
-		return JSONResult.success("-json-success-");
 	}
+	
+	
 	
 	
 	

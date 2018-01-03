@@ -18,6 +18,8 @@
 		<mapper resource="mybatis/mappers/tour/TourAdd.xml"/>
 		<mapper resource="mybatis/mappers/user/UserMain.xml"/>
 		
+		<mapper resource="mybatis/mappers/post/PostAdd.xml"/>
+		
 		<mapper resource="mybatis/mappers/tour/TourMap.xml"/>
 		
 		<!--  상훈 -->
