@@ -30,7 +30,7 @@ public class RecommendAttractionController {
 		
 		List<PostVo> info = recommendAttractionService.getPostInfo(searchPlaces);
 		System.out.println(info);
-		
+
 		return JSONResult.success(info);
 	}
 }
