@@ -10,7 +10,6 @@
 	 	<typeAlias alias="postvo" type="com.breeze2017.breezer.vo.PostVo"/>
 	 	<typeAlias alias="snsvo" type="com.breeze2017.breezer.vo.SNSVo"/>
 	 	<typeAlias alias="tourvo" type="com.breeze2017.breezer.vo.TourVo"/>
-	 	
 	 	<typeAlias alias="mapvo" type="com.breeze2017.breezer.vo.MapVo"/>
     </typeAliases>	
 	
@@ -24,7 +23,7 @@
 		<mapper resource="mybatis/mappers/tour/TourMap.xml"/>
 		<mapper resource="mybatis/mappers/recommend/RecommendAttraction.xml"/>
 		
-		<!--  상훈 -->
+		 <!-- 상훈 --> 
 		<mapper resource="mybatis/mappers/user/UserLogin.xml"/>
 		<mapper resource="mybatis/mappers/user/UserRegisterId.xml"/>
 		<mapper resource="mybatis/mappers/sns/SnsMain.xml"/>
