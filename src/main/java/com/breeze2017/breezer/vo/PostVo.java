@@ -16,7 +16,7 @@ public class PostVo {
 	private double price;
 	private double score;
 	private long hit;
-	
+		
 	public long getIdx() {
 		return idx;
 	}

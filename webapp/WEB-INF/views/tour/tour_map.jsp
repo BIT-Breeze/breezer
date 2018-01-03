@@ -1,16 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
  #map {
 	width: 100%;
-	height: 600px;
+	height: 60%;
 	background-color: grey;
 }
 
@@ -20,10 +24,7 @@ html, body {
 	padding: 0;
 } 
 
-#floating-panel {
-	position: absolute;
-	top: 7%;
-	left: 6%;
+#drive_mode{
 	z-index: 5;
 	background-color: #fff;
 	padding: 5px;
@@ -32,102 +33,330 @@ html, body {
 	font-family: 'Roboto', 'sans-serif';
 	line-height: 30px;
 	padding-left: 10px;
+	margin-left: 10px;
 }
 
-/* data 
-1. ID
-2. tourIdx
-3. 각 장소의 정보(이미지, 위도, 경도, 설명??)
-*/
+#zoom_box{
+	background-color: #fff;
+	padding: 5px;
+	border: 1px solid #999;
+	text-align: center;
+	font-family: 'Roboto', 'sans-serif';
+	line-height: 30px;
+	padding-left: 10px;
+	margin-top: 10px;
+}
 
+* {
+    box-sizing: border-box;
+}
+
+/* Star Rating */
+/* body {
+    font-family: Arial;
+    margin: 0 auto; /* Center website */
+    max-width: 800px; /* Max width */
+    padding: 20px;
+} */
+
+.heading {
+    font-size: 25px;
+    margin-right: 25px;
+}
+
+.fa {
+    font-size: 25px;
+}
+
+.checked {
+    color: orange;
+}
+
+/* Three column layout */
+.side {
+    float: left;
+    width: 15%;
+    margin-top:10px;
+}
+
+.middle {
+    margin-top:10px;
+    float: left;
+    width: 70%;
+}
+
+/* Place text to the right */
+.right {
+    text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* The bar container */
+.bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
+.bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+    .side, .middle {
+        width: 100%;
+    }
+    .right {
+        display: none;
+    }
+}
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 // 맵 관련
 var map = null;
 
-// marker icon
-var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-var icons = {
-        parking: {
-          icon: iconBase + 'parking_lot_maps.png'
-        },
-        library: {
-          icon: iconBase + 'library_maps.png'
-        },
-        info: {
-          icon: iconBase + 'info-i_maps.png'
-        }
-      };
-var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-var imagePath = '/breezetest/assets/images/pic.png';
+// DB에서 이미지 경로 받아서 사용
+var imageArr = [
+	'/breezer/assets/images/pic1.jpg',
+	'/breezer/assets/images/pic2.jpg',
+	'/breezer/assets/images/pic3.jpg',
+	'/breezer/assets/images/pic4.jpg',
+	'/breezer/assets/images/pic5.jpg',
+	'/breezer/assets/images/pic6.jpg',
+	'/breezer/assets/images/pic7.jpg',
+	'/breezer/assets/images/pic8.jpg',
+	'/breezer/assets/images/pic9.jpg',
+	'/breezer/assets/images/pic10.jpg',
+	'/breezer/assets/images/pic11.jpg',
+	'/breezer/assets/images/pic12.jpg',
+	'/breezer/assets/images/pic13.jpg',
+	'/breezer/assets/images/pic14.jpg',
+	];
       
-// 마커 정보
-var contentString = '<div id="content">'+
-'<div id="siteNotice">'+
-'</div>'+
-'<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-'<div id="bodyContent">'+
-'<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-'sandstone rock formation in the southern part of the '+
-'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-'south west of the nearest large town, Alice Springs; 450&#160;km '+
-'(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-'Aboriginal people of the area. It has many springs, waterholes, '+
-'rock caves and ancient paintings. Uluru is listed as a World '+
-'Heritage Site.</p>'+
-'<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-'(last visited June 22, 2009).</p>'+
-'</div>'+
-'</div>';
-
-/* 국내 아직 지원안됨.
-* 양재동 내집 37.467382, 127.042824 (출발)
-* 비트컴퓨터 37.495045, 127.027579
-* 잠실타워 37.513093, 127.102538
-* 홍대 게스트하우스 37.556161, 126.926755
-* 일산역 37.682153, 126.770025
-* 인사동 쌈지길 37.574971, 126.984959
-* 서울숲 37.546104, 127.038418
-* 북촌한옥마을 37.579203, 126.986407
-* 광화문 광장 37.574323, 126.976786
-* 사직공원 37.575786, 126.967613
-* 신사동 가로수길 37.520847, 127.022927
-* 이태원 덴마크 대사관 37.542266, 126.991894
-* 서울고속버스 터미널 37.505556, 127.007078
-* 여의도공원 37.531142, 126.928374
-* 새빛둥둥섬 37.512735, 126.994676
-* 인천국제공항 37.473245, 126.441303 (도착)
-*/
-
-/*
-* 샌프란시스코 38.031350, -122.229343
-* 로스앤젤레스 34.298848, -118.231447
-* 라스베거스 36.261106, -115.095842
-* 솔트레이크 시티 41.162476, -111.762637
-* 시카고 41.878773, -87.628927
-* 라피엣 40.397301, -86.853795
-* 뉴캐슬 39.969984, -85.350588
-* 콜럼버스 40.035443, -83.016152
-* 뉴 필라델피아 40.583404, -81.439145
-* 피츠버그 40.485986, -80.029161
-* 워싱턴 38.977571, -77.018865
-* 필라델피아 40.028393, -75.195744
-* 뉴욕 40.774577, -73.980697
-* 보스턴 42.435201, -71.047600
-*/
+    // Marker Image
+	var markerImage = [];
+	// Google Direction Service
 	var start = [];
 	var destination = [];
 	var waypts = [];
+	var markerArray = [];
 	
 	function initMap() {
+		// Google Direction Service 관련
 		var directionsService = new google.maps.DirectionsService;
 		var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+		
+		// Google Map Style 추가
+		var styledMapType = new google.maps.StyledMapType(
+			[
+				{elementType: 'geometry', stylers: [{color: '#ebe3cd'}]},
+				{elementType: 'labels.text.fill', stylers: [{color: '#523735'}]},
+				{elementType: 'labels.text.stroke', stylers: [{color: '#f5f1e6'}]},
+				{
+				  featureType: 'administrative',
+				  elementType: 'geometry.stroke',
+				  stylers: [{color: '#c9b2a6'}]
+				},
+				{
+				  featureType: 'administrative.land_parcel',
+				  elementType: 'geometry.stroke',
+				  stylers: [{color: '#dcd2be'}]
+				},
+				{
+				  featureType: 'administrative.land_parcel',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#ae9e90'}]
+				},
+				{
+				  featureType: 'landscape.natural',
+				  elementType: 'geometry',
+				  stylers: [{color: '#dfd2ae'}]
+				},
+				{
+				  featureType: 'poi',
+				  elementType: 'geometry',
+				  stylers: [{color: '#dfd2ae'}]
+				},
+				{
+				  featureType: 'poi',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#93817c'}]
+				},
+				{
+				  featureType: 'poi.park',
+				  elementType: 'geometry.fill',
+				  stylers: [{color: '#a5b076'}]
+				},
+				{
+				  featureType: 'poi.park',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#447530'}]
+				},
+				{
+				  featureType: 'road',
+				  elementType: 'geometry',
+				  stylers: [{color: '#f5f1e6'}]
+				},
+				{
+				  featureType: 'road.arterial',
+				  elementType: 'geometry',
+				  stylers: [{color: '#fdfcf8'}]
+				},
+				{
+				  featureType: 'road.highway',
+				  elementType: 'geometry',
+				  stylers: [{color: '#f8c967'}]
+				},
+				{
+				  featureType: 'road.highway',
+				  elementType: 'geometry.stroke',
+				  stylers: [{color: '#e9bc62'}]
+				},
+				{
+				  featureType: 'road.highway.controlled_access',
+				  elementType: 'geometry',
+				  stylers: [{color: '#e98d58'}]
+				},
+				{
+				  featureType: 'road.highway.controlled_access',
+				  elementType: 'geometry.stroke',
+				  stylers: [{color: '#db8555'}]
+				},
+				{
+				  featureType: 'road.local',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#806b63'}]
+				},
+				{
+				  featureType: 'transit.line',
+				  elementType: 'geometry',
+				  stylers: [{color: '#dfd2ae'}]
+				},
+				{
+				  featureType: 'transit.line',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#8f7d77'}]
+				},
+				{
+				  featureType: 'transit.line',
+				  elementType: 'labels.text.stroke',
+				  stylers: [{color: '#ebe3cd'}]
+				},
+				{
+				  featureType: 'transit.station',
+				  elementType: 'geometry',
+				  stylers: [{color: '#dfd2ae'}]
+				},
+				{
+				  featureType: 'water',
+				  elementType: 'geometry.fill',
+				  stylers: [{color: '#b9d3c2'}]
+				},
+				{
+				  featureType: 'water',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#92998d'}]
+				}
+			],
+			{name: 'Styled Map'});
+		var nightMode = new google.maps.StyledMapType(
+			[
+				{elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+				{elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+				{elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+				{
+				  featureType: 'administrative.locality',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#d59563'}]
+				},
+				{
+				  featureType: 'poi',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#d59563'}]
+				},
+				{
+				  featureType: 'poi.park',
+				  elementType: 'geometry',
+				  stylers: [{color: '#263c3f'}]
+				},
+				{
+				  featureType: 'poi.park',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#6b9a76'}]
+				},
+				{
+				  featureType: 'road',
+				  elementType: 'geometry',
+				  stylers: [{color: '#38414e'}]
+				},
+				{
+				  featureType: 'road',
+				  elementType: 'geometry.stroke',
+				  stylers: [{color: '#212a37'}]
+				},
+				{
+				  featureType: 'road',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#9ca5b3'}]
+				},
+				{
+				  featureType: 'road.highway',
+				  elementType: 'geometry',
+				  stylers: [{color: '#746855'}]
+				},
+				{
+				  featureType: 'road.highway',
+				  elementType: 'geometry.stroke',
+				  stylers: [{color: '#1f2835'}]
+				},
+				{
+				  featureType: 'road.highway',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#f3d19c'}]
+				},
+				{
+				  featureType: 'transit',
+				  elementType: 'geometry',
+				  stylers: [{color: '#2f3948'}]
+				},
+				{
+				  featureType: 'transit.station',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#d59563'}]
+				},
+				{
+				  featureType: 'water',
+				  elementType: 'geometry',
+				  stylers: [{color: '#17263c'}]
+				},
+				{
+				  featureType: 'water',
+				  elementType: 'labels.text.fill',
+				  stylers: [{color: '#515c6d'}]
+				},
+				{
+				  featureType: 'water',
+				  elementType: 'labels.text.stroke',
+				  stylers: [{color: '#17263c'}]
+				}
+			],
+			{name: 'Night Mode'});
 
+		// 맵 생성
 		map = new google.maps.Map(document.getElementById('map'), {
 			zoom : 5,
 			center :  {lat: 39.750843, lng: -100.87454600000001},
@@ -135,13 +364,32 @@ var contentString = '<div id="content">'+
 			mapTypeControl: true,
 	        mapTypeControlOptions: {
 	            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-	            mapTypeIds: ['roadmap', 'terrain']
+	            mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map', 'night_mode']
 	        }
 		});
+		
+		// Style Map Settings.
+		map.mapTypes.set('styled_map', styledMapType);
+ 		map.mapTypes.set('night_mode', nightMode);
+ 		
+ 		// Driving mode settings.
+ 		var driveControl = document.getElementById('drive_mode');
+	  	map.controls[google.maps.ControlPosition.LEFT_TOP].push(driveControl);
+	  	
+	 	// Zoom settings.
+ 		var zoomControl = document.getElementById('zoom_box');
+	  	map.controls[google.maps.ControlPosition.TOP_CENTER].push(zoomControl);
 
-		// icon 이미지 크기 조절
-		var myIcon = new google.maps.MarkerImage(imagePath, null, null, null, new google.maps.Size(50,50));
+	  	$("#zoom").append(map.getZoom());
+	  	map.addListener('zoom_changed', function() {
+	  		$("#zoom").empty();
+	  		
+			var html = map.getZoom();
+			$("#zoom").append(html);
+        });
+ 		
 		var len;
+		var infowindow = new google.maps.InfoWindow();
 		
 		$.ajax({
 			url: "/breezer/api/tour/location",
@@ -153,17 +401,18 @@ var contentString = '<div id="content">'+
 					return;
 				}
 				
+				// Direction Service 한번만 호출하기 위해
 				len = response.data.length;
-
+				
 				$.each(response.data, function(index, data){
-					// 문자열을 정수로 변환
+					// 문자열을 정수로 변환(location 설정)
 					var loc = {lat:  Number(data.lat), lng: Number(data.lot)};
-					
 					if (index == 0) {
 						start.push(loc);
 					} else if (index == len - 1) {
 						destination.push(loc);
 					}else {
+						// Way Point Settings.
 						waypts.push({
 				  	        location: loc,
 				  	        stopover: true
@@ -171,43 +420,78 @@ var contentString = '<div id="content">'+
 					}
 					
 					setTimeout(function(){
-						var marker = new google.maps.Marker({
+						// marker Icon resize & create.
+						var markerIcon = new google.maps.MarkerImage(imageArr[index], null, null, null, new google.maps.Size(50,50));
+						markerArray[index] = new google.maps.Marker({
 					          position: loc,
 					          map: map,
-					          icon: myIcon,
+					          icon: markerIcon,
 					          animation:google.maps.Animation.BOUNCE,
 				        	  draggable:false // 드래그 가능 여부
 				        });
 						
-						var infowindow = new google.maps.InfoWindow();
-						marker.addListener('click', function() {
-							infowindow.setContent(data.lat + ", " + data.lot + " - " + data.name);
+						var contents = "";
+						// Marker Click -> infowindow create.
+						markerArray[index].addListener('click', function() {
+							map.setZoom(8);
+							map.setCenter(markerArray[index].getPosition());
 							
-							infowindow.open(map, marker);
+							var tourString = data.name;
+							
+							// 마커 정보
+							contents = 
+							'<div id="content">'+
+								'<div id="siteNotice"></div>'+
+								'<h1 id="firstHeading" class="firstHeading">' + data.image + '</h1>'+
+
+								'<div id="bodyContent">'+
+									'<img src=/breezer/assets/images/pic' + (index + 1) + '.jpg style="max-width: 30%; height: auto;"/>'+
+									'<p>'+
+										'<b>' + data.name + '</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+										'sandstone rock formation in the southern part of the '+
+										'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+										'south west of the nearest large town, Alice Springs; 450&#160;km '+
+										'(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+										'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+										'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+										'Aboriginal people of the area. It has many springs, waterholes, '+
+										'rock caves and ancient paintings. Uluru is listed as a World '+
+										'Heritage Site.'+
+									'</p>'+
+									
+									'<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+									'https://en.wikipedia.org/w/index.php?title=Uluru</a> (last visited June 22, 2009).'+
+									'</p>'+
+								'</div>'+
+							'</div>';
+							
+							infowindow.setContent(contents);
+							infowindow.open(map, markerArray[index]);
 						});
-						
 					}, index * 600);
 					
+					// 마지막에 한번만 호출
 					if (index == len - 1) {
 						setTimeout(function(){
 							calculateAndDisplayRoute(directionsService, directionsDisplay);
-							
-							document.getElementById('mode').addEventListener('change', function() {
-							    calculateAndDisplayRoute(directionsService, directionsDisplay);
-						  	});
 							
 							directionsDisplay.setMap(map);
 						}, len * 600);	
 					}
 				});
-				
 			},
 			error: function(xhr, status, e){
 				console.error( status + ":" + e );
 			}
 		});
+		
+		// Driving Mode Change.
+		document.getElementById('mode').addEventListener('change', function() {
+		    calculateAndDisplayRoute(directionsService, directionsDisplay);
+	  	});
 	}
-	
+
+	// Google Map Direction Service.
 	function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 		var selectedMode = document.getElementById('mode').value;
 		
@@ -220,19 +504,42 @@ var contentString = '<div id="content">'+
 		}, function(response, status) {
 			if (status === 'OK') {
 				directionsDisplay.setDirections(response)
-				// console.log(directionsDisplay.map.getCenter());
 			} else {
 				window.alert('Directions request failed due to ' + status);
 			}
 		});
 	}
+	
+	// Google Chart.
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+
+	// Draw the chart and set the chart values
+	function drawChart() {
+	  var data = google.visualization.arrayToDataTable([
+	  ['Task', 'Hours per Day'],
+	  ['Work', 8],
+	  ['Eat', 2],
+	  ['TV', 4],
+	  ['Gym', 2],
+	  ['Sleep', 8]
+	]);
+
+	  // Optional; add a title and set the width and height of the chart
+	  var options = {'title':'My Average Day', 'width':550, 'height':400};
+
+	  // Display the chart inside the <div> element with id="piechart"
+	  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+	  chart.draw(data, options);
+	}
 </script>
+
 </head>
 <body>
 	<h3>My Google Maps Demo</h3>
 	
-	<div id="floating-panel">
-		<b>Mode of Travel: </b> 
+	<div id="drive_mode">
+		<b>Mode of Travel : </b> 
 		<select id="mode">
 			<option value="DRIVING">Driving</option>
 			<option value="WALKING">Walking</option>
@@ -241,8 +548,88 @@ var contentString = '<div id="content">'+
 		</select>
 	</div>
 	
+	<div id="zoom_box">
+		<b>Camera Zoom</b>
+		<div id="zoom"></div>
+	</div>
+
 	<div id="map"></div>
-	<!-- 구글 맵 호출 -->
+	<!-- Google Map -->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&callback=initMap"></script>
+
+	<!-- Google Chart -->	
+	<div id="piechart"></div>
+
+	<!-- Star Rating -->
+	<span class="heading">User Rating</span>
+	<span class="fa fa-star checked"></span>
+	<span class="fa fa-star checked"></span>
+	<span class="fa fa-star checked"></span>
+	<span class="fa fa-star checked"></span>
+	<span class="fa fa-star"></span>
+	<p>4.1 average based on 254 reviews.</p>
+	<hr style="border: 3px solid #f1f1f1">
+
+	<div class="row">
+		<div class="side">
+			<div>5 star</div>
+		</div>
+		<div class="middle">
+			<div class="bar-container">
+				<div class="bar-5"></div>
+			</div>
+		</div>
+		<div class="side right">
+			<div>150</div>
+		</div>
+		<div class="side">
+			<div>4 star</div>
+		</div>
+		<div class="middle">
+			<div class="bar-container">
+				<div class="bar-4"></div>
+			</div>
+		</div>
+		<div class="side right">
+			<div>63</div>
+		</div>
+		<div class="side">
+			<div>3 star</div>
+		</div>
+		<div class="middle">
+			<div class="bar-container">
+				<div class="bar-3"></div>
+			</div>
+		</div>
+		<div class="side right">
+			<div>15</div>
+		</div>
+		<div class="side">
+			<div>2 star</div>
+		</div>
+		<div class="middle">
+			<div class="bar-container">
+				<div class="bar-2"></div>
+			</div>
+		</div>
+		<div class="side right">
+			<div>6</div>
+		</div>
+		<div class="side">
+			<div>1 star</div>
+		</div>
+		<div class="middle">
+			<div class="bar-container">
+				<div class="bar-1"></div>
+			</div>
+		</div>
+		<div class="side right">
+			<div>20</div>
+		</div>
+	</div>
+	
+	<br>
+	<br>
+	
 </body>
 </html>

@@ -20,11 +20,13 @@
 		<mapper resource="mybatis/mappers/user/UserMain.xml"/>
 		
 		<mapper resource="mybatis/mappers/tour/TourMap.xml"/>
+		<mapper resource="mybatis/mappers/post/PostInfo.xml"/>
 		
 		<!--  상훈 -->
 		<mapper resource="mybatis/mappers/user/UserLogin.xml"/>
 		<mapper resource="mybatis/mappers/user/UserRegisterId.xml"/>
 		<mapper resource="mybatis/mappers/sns/SnsMain.xml"/>
+		
 	</mappers>
 	
 </configuration>
