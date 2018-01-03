@@ -15,15 +15,17 @@
 var imagePath; // 이미지 경로 저장 변수
 var file = $('[name="file"]');
 var imgContainer = $('#imgContainer');
+var sel_files = []; // 파일 저장되는 변수 [배열]
 
 // #fileUpload를 했을때 실행
 $(document).ready(function() {
 	$('#fileUpload').on('change', ImgFileSelect);
+	
 });
 
 // 파일 업로더 했을 때 실행되는 함수
 function ImgFileSelect(e) {
-	var sel_files = []; // 파일 저장되는 변수 [배열]
+	console.log("====== ImgFileSelect ======")
 	var files = e.target.files; // 넘어 오는 파일들을 files에 담고
 	var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
 	
@@ -33,29 +35,52 @@ function ImgFileSelect(e) {
 		sel_files.push(f); // 배열로 선언했던 파일저장변수에 하나씩 push
 		console.log(f); // 로그 출력
 		
-		$.ajax({
-			url: '/breezer/upload/multiechofile',
-			type: "POST", // post 방식으로
-			data: new FormData($('#fileForm')[0]),
-			enctype: 'multipart/form-data',
-			processData: false,
-			contentType: false,
-		}).done(function(data) {
-			
-			imgContainer.html('');
-			
-			var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
+	});
+	
+	//requestAjax();
+	
+	
+	console.log("====== requestAjax ======")
+	console.log("sel_files = "+sel_files)
+	
+	$.ajax({
+		url: '/breezer/upload/multiechofile',
+		type: "post", // post 방식으로
+		dataType : "json",
+		data: new FormData($('#MultifileForm')[0]),
+		enctype: 'multipart/form-data', 
+		processData: false,
+		contentType: false
+	}).success(function(data) {
+		 
+		console.log("result : "+data.result)
 		
-			imagePath = data;
-			console.log(data);
-			console.log(img);
-			imgContainer.append(img);
-			
-		}).fail(function(jqXHRm, textStatus) {
-			alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
-		});
+		/* imgContainer.html('');
+		
+		var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
+
+		imagePath = data;
+		console.log(data);
+		console.log(img);
+		imgContainer.append(img); */
+		
+		console.log("done");
+		
+	}).fail(function(jqXHRm, textStatus) {
+		alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 	});
 }
+
+
+
+function requestAjax() {
+	
+	
+}
+
+
+
+
 
 	
 </script>
@@ -86,7 +111,7 @@ function ImgFileSelect(e) {
 	
 	<!-- 다중 파일 업로더 -->
 	<form id="MultifileForm">
-		<input multiple="multiple" type="file" name="multiFile[]" id="fileUpload"><br><br>
+		<input multiple="multiple" type="file" name="multiFile" id="fileUpload"><br><br>
 		
 	</form>
 	
