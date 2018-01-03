@@ -144,7 +144,7 @@ var contentString = '<div id="content">'+
 		var len;
 		
 		$.ajax({
-			url: "/breezetest/api/tour/location",
+			url: "/breezer/api/tour/location",
 			type: "post",
 			dataType: "json",
 			success: function(response) {
@@ -178,6 +178,7 @@ var contentString = '<div id="content">'+
 					          animation:google.maps.Animation.BOUNCE,
 				        	  draggable:false // 드래그 가능 여부
 				        });
+						
 						var infowindow = new google.maps.InfoWindow();
 						marker.addListener('click', function() {
 							infowindow.setContent(data.lat + ", " + data.lot + " - " + data.name);
