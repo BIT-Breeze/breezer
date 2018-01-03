@@ -245,9 +245,9 @@ function loginFormRender() {
 	console.log("====== loginFormRender() ======")
 
 	var html = ' <label class="block-label" for="id">ID</label> '
-			+ '  <input class="input-id" id="input-id" name="id" type="text" value=""> '
-			+ '  <input type="button" id="btn-check" style="margin-left: 25x; width: 250px;" value="check id"> <br> '
-			+ '  <input type="button" id="btn-save" style="margin-left: 0px; width: 250px;" value="save id">';		
+			+ '  <input class="input-id" id="input-id" name="id" type="text" value=""><br> '
+			+ '  <input type="button" id="btn-check" class="btn btn-info" style="margin-left: 25x; width: 250px;" value="check id"> <br> '
+			+ '  <input type="button" id="btn-save" class="btn btn-info" style="margin-left: 0px; width: 250px;" value="save id">';		
 			
 			
 			

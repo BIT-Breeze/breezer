@@ -138,8 +138,16 @@ $(function(){
 
 	
 </script>
+<!-- side_navi css를 위해 임시로 가져옴 -> 기본적으로 navi.jsp 에 임포트 되있어야 할듯 -->
+<link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
 
 <body>
+	<!-- side_navi import -->
+	<div id="side_navi">
+		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+			<c:param name="menu" value="login" />
+		</c:import>
+	</div>
 
 	<div id="container">
 		sns

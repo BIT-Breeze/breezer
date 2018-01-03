@@ -21,7 +21,7 @@ public class FileUploadService {
 		File file = new File(path);
 		if(!file.exists()) {
 			file.mkdirs();
-			System.out.println("created file success !");
+			System.out.println("create a folder - success !");
 		}
 
 		

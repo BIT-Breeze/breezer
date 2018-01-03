@@ -88,8 +88,9 @@ $(document).ready(function() {
 			contentType: false,
 		}).done(function(data) {
 			imgContainer.html('');
-			/* var img = '<img src="data:' + data.contenttype + ';base64,' + data.base64 + '"/>'; */
+			
 			var img = '<img src="${pageContext.request.contextPath }'+data+'"/>';
+			
 			imagePath = data;
 			console.log(data);
 			console.log(img);

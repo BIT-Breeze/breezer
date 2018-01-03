@@ -61,29 +61,48 @@ public class UserMainDao {
 
 	
 	public List<TourVo> getTours1(String keyword, Integer page, Integer size) {
+		System.out.println("====== getTours1 ======");
 		Map<String, Object> map = new HashMap<String, Object>();
 		//map.put("keyword", keyword);
-		System.out.println(keyword);
-		System.out.println(page);
-		System.out.println(size);
-		map.put("page", page);
+		System.out.println("-- before put --");
+		System.out.println("keyword : "+keyword);
+		System.out.println("page : "+page);
+		System.out.println("size : "+size);		
+		// ??? page는 2를 입력했는데 service에서 바껴서 0으로 온다. 
+		// 이걸 하드코딩으로 2로 줘보자 -> 2를 주니까 데이터가 찍혔다.
+		
+		//map.put("page", page);
+		map.put("page", 2);
 		map.put("size", size);
 		map.put("keyword", keyword);
+
 		System.out.println(map.get("page")+"fwefwefwfwaefsefsef");
 		System.out.println(map.get("size"));
 		System.out.println(map.get("keyword"));
 		System.out.println(map.keySet());
 		
+		System.out.println("-- map data --");
+		System.out.println("keyword : "+map.get("keyword"));
+		System.out.println("page : "+map.get("page"));
+		System.out.println("size : "+map.get("size"));
+
+		
 		
 		//List<TourVo> result = new ArrayList<TourVo>();
 				//result = sqlSession.selectList("user.gettours1",map);
 		
+
 		//int count = sqlSession.selectOne("user.gettours1",map);
 		List<TourVo> list = new ArrayList<TourVo>(); 
-			list = sqlSession.selectList("user.gettours1", map);
-		
+		list = sqlSession.selectList("user.gettours1", map);
+
+		list = sqlSession.selectList("user.gettours1",map);
+
 		
 		System.out.println(list);
 		return list;
+
+
+
 	}
 }

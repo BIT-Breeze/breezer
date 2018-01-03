@@ -58,14 +58,32 @@ public class UserMainService {
 	/* End : test code for country button */
 
 	public Map<String, Object> getTours1(int currentPage, String keyword) {
+		System.out.println("====== UserMainService - getTours1 ======");
 		// controller에선 Integer로 받은 걸 명시적 형변환 없이 여기선 int로 받는다. 
+
 		// 1. basic calculate for paging		
 		int totalCount = userMainDao.getTotalCount( keyword );		
+
+		// 1. basic calculate for paging
+		
+
+		System.out.println("totalCount : "+totalCount);
+
 		int pageCount = (int)Math.ceil((double)totalCount/LIST_SIZE);
-		// 총 페이지 수 		
+
+
+		// 총 페이지 수 
+		System.out.println("pageCount : "+pageCount);
+
 		int blockCount = (int)Math.ceil((double)pageCount/PAGE_SIZE);
+
 		// 총 블락의 수, 즉 5, 10 ,15 이런식으로 페이지 번호가 분할되는 개수 		
+
+		// 총 블락의 수, 즉 5, 10 ,15 이런식으로 페이지 번호가 분할되는 개수 
+		System.out.println("blockCount : "+blockCount);
+
 		int currentBlock = (int)Math.ceil((double)currentPage/PAGE_SIZE);
+
 		System.out.println("UserMainService - getTours1");
 		System.out.println(currentPage+"currentPage1");
 		System.out.println(totalCount);
@@ -73,6 +91,9 @@ public class UserMainService {
 		System.out.println(blockCount);
 		System.out.println(currentBlock);		
 		
+
+		System.out.println("currentBlock : "+currentBlock);
+
 		if( currentPage < 1) {
 			currentPage = 1;
 			currentBlock = 1;
