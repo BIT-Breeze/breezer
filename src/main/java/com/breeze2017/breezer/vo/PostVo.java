@@ -10,13 +10,13 @@ public class PostVo {
 	private String location;
 	private String locale;
 	private double lat;
-	private double lon;
+	private double lot;
 	private long tourIdx;
 	private String category;
 	private double price;
 	private double score;
 	private long hit;
-	
+		
 	public long getIdx() {
 		return idx;
 	}
@@ -71,11 +71,11 @@ public class PostVo {
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
-	public double getLon() {
-		return lon;
+	public double getLot() {
+		return lot;
 	}
-	public void setLon(double lon) {
-		this.lon = lon;
+	public void setLot(double lot) {
+		this.lot = lot;
 	}
 	public long getTourIdx() {
 		return tourIdx;
@@ -112,7 +112,7 @@ public class PostVo {
 	public String toString() {
 		return "PostVo [idx=" + idx + ", userId=" + userId + ", postDate=" + postDate + ", tripDate=" + tripDate
 				+ ", photo=" + photo + ", content=" + content + ", location=" + location + ", locale=" + locale
-				+ ", lat=" + lat + ", lon=" + lon + ", tourIdx=" + tourIdx + ", category=" + category + ", price="
+				+ ", lat=" + lat + ", lot=" + lot + ", tourIdx=" + tourIdx + ", category=" + category + ", price="
 				+ price + ", score=" + score + ", hit=" + hit + "]";
 	}
 	

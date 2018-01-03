@@ -110,9 +110,10 @@
 										<c:choose>
 											<c:when test="${empty authUser.id }">
 												<label class="block-label" for="id">ID</label>
-												<input class="input-id" id="input-id" name="id" type="text" value=""><br>
+												<input class="input-id" id="input-id" name="id" type="text" value="" placeholder="아이디를 입력하세요"><br>
 
-												<input type="button" id="btn-check" class="btn btn-info"style="margin-left: 25x; width: 250px;" value="check id"> <br>
+												<label class="message-label" for="message" id="check-message"> id를 입력하세요 </label>
+												<!-- <input type="button" id="btn-check" class="btn btn-info"style="margin-left: 25x; width: 250px;" value="check id"> <br> -->
 												<input type="button" id="btn-save" class="btn btn-info" style="margin-left: 0px; width: 250px;" value="save id">
 												<!-- <button id="btn-check" style="margin-left: 25x; width: 250px;">checkid</button> <br>
 												<button type="submit" id="btn-save" style="margin-left: 0px; width: 250px;">save</button> -->
