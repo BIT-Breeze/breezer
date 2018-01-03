@@ -2,105 +2,136 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<% %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
-<link	href="${pageContext.servletContext.contextPath }/assets/css/breezer.css"	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
- <style>
-    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding #555 */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-    
-    #secondrow {
-      background-color: #C0E0FF;
-      color: black;
-      padding: 15px;
-    }
-    #otherbreezer {
-      background-color: #FFFFE0;
-      color: gray;
-      padding: 15px;
-    }
-  </style>
+<style>
+
+</style>
+
 <script>
 
-var render = function( tourvo, mode ){
-	
-	var html = "<li data-no='" + tourvo.idx + "'>'" +
-	"<strong>" + tourvo.title + "</strong>" +
-	"<p>" + tourvo.startDate + "</p>" + "</li>";
-	
+var startNo = 0;
+var isEnd = false;
+var authUser = "${authUser.id}";
+var uservo = "${uservo.id}"
+//여기 바뀌어야 함. 
+console.log(authUser);
+console.log(uservo);
+
+var userId;
+
+if(authUser == uservo){
+	userId = authUser;
+} else {
+	userId = uservo;
+}
+
+console.log(userId);
+
+
+
+
+var render0 = function( tourvo, mode ){
+	console.log(tourvo.idx);	
+	//var id = "${authUser.id}";
+	var id = userId;
+	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  + "' align='center'>"+
+				tourvo.title + "<br>" + tourvo.idx + "<br>" +
+				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx='" + tourvo.idx + "'>"+ 
+				tourvo.mainPhoto + "</a><br>" +				
+				tourvo.startDate + "</div>" ;
+	//var no = $("#tour").attr('no');
+
 	if( mode == true ){
-		$( "#list-tour" ).prepend(html);
-		
-	} else {
-		$( "#list-tour" ).append(html);
+		$( "#list-tour" ).prepend(html);		
+	} else {		
+		$( "#list-tour" ).append(html);	
 	}
 }
 
-
 var fetchList = function(){
-	
-	//var startNo = $( "#list-tour li" ).last().data("no") || 0;
-	
+	if( isEnd == true){		
+		return;
+	}
+		
+	//var startNo = $("#list-tour > *").last().attr('no') || 0;
+	// expr1을 true로 변환할 수 있으면 expr1을 반환하고, 그렇지 않으면 expr2를 반환합니다.
+	console.log("startno is" + startNo);
+	var id = userId;
+	console.log("이 사람의 투어를 가져온다:"+id);
 	$.ajax({
-		url:"/breezer/" + "hongseok5@gmail.com" + "/tourlist?no=",
+		url:"/breezer/"+ id +"/tourlist?no=" + startNo,
 		type:"get",
 		dataType:"json",
 		data:"",
 		success: function( response ){
 			if( response.result != "success" ){
 				console.log( response.message );
-				return;
-				
+				return;				
 			}
-			
+			// 끝감지
+			if( response.data.length < 6){
+				isEnd = true;
+				$( "#btn-next" ).prop( "disabled", true );
+			}
+			// 강사님 코드에서는 버튼 클릭할 때 5개씩 가져오고 5개 미만이면 disabled
 			$.each( response.data, function(index, tourvo){
-				console.log(response.data);
-				render( tourvo, false );
+				//console.log(index);				
+				render0( tourvo, false );					
 			}); //each
 		} //success
-	}); //ajax
+	}); //ajax	
 	
+	startNo += 6;
+	console.log(startNo);
 } // fetchList
 
-fetchList();
+
+
+
+$(function(){
+	// 1. 스크롤 함수 
+	$( window ).scroll( function(){
+		var $window = $(this);
+		var scrollTop = $window.scrollTop();
+		var windowHeight = $window.height();
+		var documentHeight = $( document ).height();
+		
+		//console.log( 
+		//	scrollTop + ":" + 
+		//	windowHeight + ":" + 
+		//	documentHeight );
+		// scollbar의 thumb가 바닥 전 30px 까지 도달 했을 때
+		if( scrollTop + windowHeight + 30 > documentHeight ) {
+			fetchList();
+		}
+	});
+	// 2. 버튼 클릭할 때 패치
+	$("#btn-next").click( function(){
+		fetchList();
+	});
+	// 3. 최초 패치 
+	fetchList();
+	//$('#tour').css('color','red');
+	//selector 작동 안 함. 
+})
 
 </script>
-
-
 
 <title>Breezer Main</title>
 
 </head>
+
+
 <body>
 
 <div class="container-fluid">
@@ -110,7 +141,7 @@ fetchList();
 	</c:import>
 
     <div class="col-sm-9">
-		<div class="row">
+		<div class="row" id="firstrow">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
 			<img src="${pageContext.servletContext.contextPath }/assets/image/anna.jpg" 
@@ -120,83 +151,43 @@ fetchList();
 			
 			<div class="col-sm-6" id="firstrow" align="center">
 
-			${uservo.nickName }<br>
-			${uservo.tours }<br>
-
+			<h4>${uservo.id }님은</h4><br>
+			${uservo.tours }개의 여행을 하셨습니다.<br>
+			
 			</div>
 			
 			<div class="col-sm-3" id="firstrow" align="right">
 			
-      			<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/add" class="btn btn-info" role="button">NEW TOUR</a>
+      			<a class="btn btn-info" role="button" id="btn-next">새 투어</a>
 			
 			</div>
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
 		
-		<div class="row"  id="album" align="center">
-		
+		<div class="row" align="center" id="secondrow">
+			
 			<div class="col-sm-12">
 			
-			<ul id="list-tour">
-			</ul>
-			
-			
-			
-			<!--  
-			<c:forEach items="${myTours }"	var="vo" varStatus="status">
-				<c:choose>
-					<c:when test="${ status.index % 3 == 0}">
-						<div class="row" align="center" >
+			<div id="list-tour">
+
+			</div>
+			 
+			<div style="text-align:center; padding-top:20px">
+				더 많은 투어를 보려면 스크롤을 아래로
+			</div>
 						
-							<div class="col-sm-4">
-								
-								${vo.title } <br>
-								<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/info/${ vo.idx }"><h3>${ vo.idx }</h3></a>
-								${vo.startDate } <br>
-	
-					
-					</c:when>
-					
-					<c:when test="${ status.index % 3 == 1}">
-				
-							<div class="col-sm-4">
-								${vo.title } <br>								
-								<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/info/${ vo.idx }"><h3>${ vo.idx }</h3></a>
-								${vo.startDate } 
-												
-							</div>
-
-					</c:when>
-					
-					<c:when test="${ status.index % 3 == 2}">
-				
-							<div class="col-sm-4">
-								${vo.title } <br>
-								<a href="${pageContext.servletContext.contextPath }/tour/${ authUser.id}/info/${ vo.idx }"><h3>${ vo.idx }</h3></a>
-								${vo.startDate } <br>	
-											
-							</div>
-					</div>	
-					</c:when>
-					
-				</c:choose>
-
-					
-
-			</c:forEach>   
-			-->
 			</div> <!-- sm-12 -->
+		</div>
 			
-      </div> <!-- album -->
-      
+			<div class="row" align="center" id="thirdrow">
+				
+			</div><!-- third row -->
+			
     </div>	<!-- col sm-9 -->
-
-  </div>	<!-- row content -->
-    
+  </div>	<!-- row content -->    
 </div>	<!-- container -->
 
-
-  <c:import url="/WEB-INF/views/includes/footer.jsp" />
+<!-- <c:import url="/WEB-INF/views/includes/footer.jsp" />  -->  
 
 </body>
 </html>

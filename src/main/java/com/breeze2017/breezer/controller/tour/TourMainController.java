@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/tour")
+@RequestMapping("/{id}/tour")
 public class TourMainController {
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String mytour(HttpServletRequest request) {
 		
 		return "tour/tour_main";

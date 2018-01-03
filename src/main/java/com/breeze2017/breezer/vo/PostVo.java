@@ -2,21 +2,20 @@ package com.breeze2017.breezer.vo;
 
 public class PostVo {
 	private long idx;
-	private String id;
+	private String userId;
 	private String postDate;
 	private String tripDate;
 	private String photo;
 	private String content;
 	private String location;
+	private String locale;
 	private double lat;
 	private double lon;
 	private long tourIdx;
 	private String category;
 	private double price;
 	private double score;
-	private long like;
-	
-	
+	private long hit;
 	
 	public long getIdx() {
 		return idx;
@@ -24,7 +23,12 @@ public class PostVo {
 	public void setIdx(long idx) {
 		this.idx = idx;
 	}
-	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getPostDate() {
 		return postDate;
 	}
@@ -54,6 +58,12 @@ public class PostVo {
 	}
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	public String getLocale() {
+		return locale;
+	}
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 	public double getLat() {
 		return lat;
@@ -91,25 +101,21 @@ public class PostVo {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public long getLike() {
-		return like;
+	public long getHit() {
+		return hit;
 	}
-	public void setLike(long like) {
-		this.like = like;
+	public void setHit(long hit) {
+		this.hit = hit;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	@Override
 	public String toString() {
-		return "PostVo [idx=" + idx + ", id=" + id + ", postDate=" + postDate + ", tripDate=" + tripDate + ", photo="
-				+ photo + ", content=" + content + ", location=" + location + ", lat=" + lat + ", lon=" + lon
-				+ ", tourIdx=" + tourIdx + ", category=" + category + ", price=" + price + ", score=" + score
-				+ ", like=" + like + "]";
+		return "PostVo [idx=" + idx + ", userId=" + userId + ", postDate=" + postDate + ", tripDate=" + tripDate
+				+ ", photo=" + photo + ", content=" + content + ", location=" + location + ", locale=" + locale
+				+ ", lat=" + lat + ", lon=" + lon + ", tourIdx=" + tourIdx + ", category=" + category + ", price="
+				+ price + ", score=" + score + ", hit=" + hit + "]";
 	}
+	
 	
 	
 	

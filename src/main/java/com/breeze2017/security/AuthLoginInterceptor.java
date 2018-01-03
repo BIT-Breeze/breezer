@@ -63,12 +63,12 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
 		// userVo가 존재는 하지만 id가 설정되어 있지 않은경우 id설정 페이지로 보낸다 
 		if( userVo.getId() == null ) {
 			//id 가 설정 안되면~ 입력하게 해야되 
-			System.out.println("authLogin : nickName is null");
+			System.out.println("authLogin : id is null");
 			
 			HttpSession session = request.getSession( true );
 			session.setAttribute( "authUser", userVo );
 			
-			JSONResult jsonResult = JSONResult.success("user/join");
+			JSONResult jsonResult = JSONResult.fail("login-id-null");
 			String json = new ObjectMapper().writeValueAsString( jsonResult );
 		
 			response.setContentType( "application/json; charset=utf-8" );

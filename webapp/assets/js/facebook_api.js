@@ -1,4 +1,3 @@
-
 var fb_userID
 var fb_name
 var fb_token
@@ -9,6 +8,9 @@ var fb_gender
 var fb_age_range
 var fb_locale
 var fb_picture_url
+
+var id;
+
 
 // init ?
 window.fbAsyncInit = function() {
@@ -77,7 +79,6 @@ function statusChangeCallback(response) {
 		console.log("connected")
 		getUserInfo();
 
-
 	} else {
 		// The person is not logged into your app or we are unable to tell.
 		console.log("is not connected")
@@ -94,8 +95,8 @@ function getUserInfo() {
 		fields : 'name, email, gender, age_range, locale, picture'
 	}, function(response) {
 		console.log(response)
-		
-		//추가 정보 셋팅
+
+		// 추가 정보 셋팅
 		fb_name = response.name
 		fb_email = response.email
 		fb_gender = response.gender
@@ -103,10 +104,10 @@ function getUserInfo() {
 		fb_locale = response.locale
 		fb_picture_url = response.picture.data.url
 
-		//정보 보기
+		// 정보 보기
 		showUserInfo()
-		
-		//로그인 시도 
+
+		// 로그인 시도
 		login();
 	});
 }
@@ -115,8 +116,8 @@ function showUserInfo() {
 	console.log("====== info ======")
 	console.log("fb_userID = " + fb_userID)
 	console.log("fb_name = " + fb_name)
-	console.log("fb_token = "+ fb_token)
-	console.log("fb_signedRequest = "+ fb_signedRequest)
+	console.log("fb_token = " + fb_token)
+	console.log("fb_signedRequest = " + fb_signedRequest)
 	console.log("fb_expiresIn = " + fb_expiresIn)
 	console.log("fb_email = " + fb_email)
 	console.log("fb_gender = " + fb_gender)
@@ -125,45 +126,178 @@ function showUserInfo() {
 	console.log("fb_picture_url = " + fb_picture_url)
 }
 
+function btnFunctionInit() {
+	console.log("====== btn FunctionInit() ======")
 
-function login() {
-	$.ajax({
-		url: "/breezer/user/login",
-		type: "post",
-		dataType: "json",
-		data: "fbId=" + fb_userID + 
-			  "&nickName=" + fb_name + 
-			  "&token=" + fb_token +
-			  "&signedRequest=" + fb_signedRequest + 
-			  "&expiresIn=" + fb_expiresIn + 
-			  "&email=" + fb_email + 
-			  "&gender=" + fb_gender + 
-			  "&ageRange=" + fb_age_range +
-			  "&locale=" + fb_locale +
-			  "&pictureUrl=" + fb_picture_url, 
-		success: function( response ) {
-			if( response.result == "fail" ) {
-				console.log( response.message );
+	/*
+	 * $("btn-check").on( "click", function(){ idCheck();} )
+	 * $("btn-save").on("click", function(){ idSave()} )
+	 */
+	var checkId = false;
+	var FormValidator = {
+		$inputId : null,
+		$buttonCheckId : null,
+		$buttonSaveId : null,
+
+		init : function() {
+			this.$inputId = $("#input-id");
+			this.$buttonCheckId = $("#btn-check");
+			this.$buttonSaveId = $("#btn-save");
+
+			this.$inputId.change(this.onInputIdChanged.bind(this));
+			this.$buttonCheckId.click(this.onButtonCheckIdClicked.bind(this));
+			this.$buttonSaveId.click(this.onButtonSaveIdClicked.bind(this));
+			
+			//$("#id-input").submit(this.onInputIdFormSubmit.bind(this));
+		},
+		onInputIdChanged : function() {
+			console.log("====== onInputIdChanged ======")
+			checkId = false;
+		},
+		onButtonCheckIdClicked : function() {
+			console.log("====== onButtonCheckIdClicked ======")
+
+			var id = this.$inputId.val();
+			if (id == "") {
+				alert("id를 입력하세요");
 				return;
 			}
-			
-			console.log(response.data)
-			
 
-			console.log("success~");
-			
-			// 로그인 성공시 mytour 페이지로 이동한다 
-			// window.location.href = "/breezer/tour/mytour"
-			window.location.href = "/breezer/"+response.data
-			
+			console.log("id is not empty")
 
 
-			
-			
-			
+
+			//ajax 통신
+			$.ajax({
+				url : "/breezer/api/user/checkid?id=" + id,
+				type : "post",
+				dataType : "json",
+				data : "",
+				success : this.onCheckIdAjaxSuccess.bind(this),
+				error : this.onCheckIdAjaxError
+			});
 		},
-		error: function( xhr, status, e){
-			console.error( status + ":" + e );
+		onCheckIdAjaxSuccess : function(response) {
+			if (response.result != "success") {
+				console.log(response.message);
+				return;
+			}
+
+			if (response.data != true) {
+				alert("이미 사용하고 있는 Id입니다.");
+				this.$inputId.val("").focus();
+				return;
+			}
+			console.log("id is not exist. you can use now (response = true)")
+			checkId = true;
+		},
+		onCheckIdAjaxError : function(xhr, status, e) {
+			console.error(status + ":" + e);
+		},
+		onButtonSaveIdClicked : function() {
+			console.log("====== onButtonSaveIdClicked ======")
+			if ( checkId == true ) {
+				console.log("checkId is true")
+				
+				var id = this.$inputId.val();
+				if (id == "") {
+					alert("id를 입력하세요");
+					return;
+				}
+				
+				//ajax 통신
+				$.ajax({
+					url : "/breezer/api/user/setid" ,
+					type : "post",
+					dataType : "json",
+					data : "id=" + id,
+					success : function(response) {
+						if (response.result != "success") {
+							console.log("response.result = fail")
+							return;
+						}
+
+						console.log("response.result = success")
+						console.log("response.data = " + response.data)
+
+						// 로그인 성공시 mytour 페이지로 이동한다
+						// window.location.href = "/breezer/tour/mytour"
+						window.location.href = "/breezer/" + response.data
+
+					},
+					error : function(xhr, status, e) {
+						console.error(status + ":" + e);
+					}
+				});
+				
+			} else {
+				alert("Id 중복체크 하세요.");
+			}
+		}
+
+	}
+
+	FormValidator.init();
+
+}
+
+function loginFormRender() {
+	console.log("====== loginFormRender() ======")
+
+	var html = ' <label class="block-label" for="id">ID</label> '
+			+ '  <input class="input-id" id="input-id" name="id" type="text" value=""><br> '
+			+ '  <input type="button" id="btn-check" class="btn btn-info" style="margin-left: 25x; width: 250px;" value="check id"> <br> '
+			+ '  <input type="button" id="btn-save" class="btn btn-info" style="margin-left: 0px; width: 250px;" value="save id">';		
+			
+			
+			
+			/*+ ' <button id="btn-check" style="margin-left: 25x; width: 250px;">checkid</button> <br> '
+			+ ' <button type="submit" id="btn-save" style="margin-left: 0px; width: 250px;">save</button>';*/
+
+	
+	
+	
+	$("#status").empty();
+	$("#id-input").empty();
+	$("#id-input").append(html);
+
+	btnFunctionInit()
+}
+
+function login() {
+	console.log("====== login ======")
+	$.ajax({
+		url : "/breezer/user/login",
+		type : "post",
+		dataType : "json",
+		data : "fbId=" + fb_userID + "&nickName=" + fb_name + "&token="
+				+ fb_token + "&signedRequest=" + fb_signedRequest
+				+ "&expiresIn=" + fb_expiresIn + "&email=" + fb_email
+				+ "&gender=" + fb_gender + "&ageRange=" + fb_age_range
+				+ "&locale=" + fb_locale + "&pictureUrl=" + fb_picture_url,
+		success : function(response) {
+			if (response.result == "fail") {
+				console.log("response.result = fail")
+				if (response.message == "login-id-null") {
+					console.log("response.message = login-id-null")
+					loginFormRender();
+				} else {
+					console.log(response.message);
+				}
+
+				return;
+			}
+
+			console.log("response.result = success")
+			console.log("response.data = " + response.data)
+
+			// 로그인 성공시 mytour 페이지로 이동한다
+			// window.location.href = "/breezer/tour/mytour"
+			window.location.href = "/breezer/" + response.data
+
+		},
+		error : function(xhr, status, e) {
+			console.error(status + ":" + e);
 		}
 	});
 }

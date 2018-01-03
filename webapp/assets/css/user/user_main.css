@@ -1,1 +1,43 @@
 @charset "UTF-8";
+
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {
+    	height: 100%;
+    	flex-direction:row;
+    	display:flex;
+    }
+    
+    /* Set gray background color and 100% height 
+    .sidenav {
+      background-color: #f1f1f1;
+      position: fixed;
+      height: 100%;
+    }
+    */
+    
+    /* Set black background color, white text and some padding #555 */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+       
+    #firstrow {
+      padding: 30px;      
+    }
+    
+    #secondrow {     
+      color: black;
+      padding: 15px;    
+      height: 750px; 
+      padding-bottom: 20px;
+
+    }
+   
+    
+    #tour {    
+      padding: 10px;
+      background-color: #C0E0FF;
+      	      
+    }
+    

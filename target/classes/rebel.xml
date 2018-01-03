@@ -7,18 +7,32 @@
 <application generated-by="eclipse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_1.xsd">
 
 	<classpath>
+<<<<<<< HEAD
 		<dir name="D:/BigData/workspace/breezer/target/classes">
+		</dir>
+		<dir name="D:/BigData/workspace/breezer/target/test-classes">
+=======
+		<dir name="F:/bigdata/workspace/breezer/target/classes">
+>>>>>>> branch 'master' of https://github.com/BIT-Breeze/breezer.git
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
+<<<<<<< HEAD
 			<dir name="D:/BigData/workspace/breezer/target/m2e-wtp/web-resources">
+=======
+			<dir name="F:/bigdata/workspace/breezer/target/m2e-wtp/web-resources">
+>>>>>>> branch 'master' of https://github.com/BIT-Breeze/breezer.git
 				<exclude name="/"/>
 			</dir>
 		</link>
 		<link target="/">
+<<<<<<< HEAD
 			<dir name="D:/BigData/workspace/breezer/webapp">
+=======
+			<dir name="F:/bigdata/workspace/breezer/webapp">
+>>>>>>> branch 'master' of https://github.com/BIT-Breeze/breezer.git
 			</dir>
 		</link>
 	</web>

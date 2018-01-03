@@ -4,11 +4,14 @@
 <mapper namespace="tour">
 	<insert id="insert" parameterType="tourvo">
 		<![CDATA[
-			INSERT INTO TB_TOUR (seq, title, startDate, endDate)
-			VALUES (#{seq },
+			INSERT INTO TB_TOUR (userId, seq, title, startDate, endDate, mainPhoto)
+			VALUES (
+					#{userId },
+					#{seq },
 					#{title },
 					#{startDate },
-					#{endDate }
+					#{endDate },
+					#{mainPhoto }
 					);
 			
 		]]>		

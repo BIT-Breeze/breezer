@@ -14,28 +14,25 @@ public class UserLoginDao {
 	
 	// 회원가입
 	public int joinUser(UserVo vo) {
-		return sqlSession.insert("user.insert", vo);
+		return sqlSession.insert("userlogin.insert", vo);
 	}
 	
 	// fbid로 유저정보 가져오기
 	public UserVo getUserByFbId(UserVo vo) {
-		UserVo result = sqlSession.selectOne("user.getByFbId", vo);
+		UserVo result = sqlSession.selectOne("userlogin.getByFbId", vo);
 		return result;
 	}
 	
 	// id로 유저정보 가져오기
 	public UserVo getUserById(UserVo vo) {
-		UserVo result = sqlSession.selectOne("user.getById", vo);
+		UserVo result = sqlSession.selectOne("userlogin.getById", vo);
 		return result;
 	}
 	
 	// 로그인시 fbid로 유저정보 리셋하기 
 	public int resetByFbId(UserVo vo) {
-		return sqlSession.update("user.resetByFbId", vo);
+		return sqlSession.update("userlogin.resetByFbId", vo);
 	}
 	
-	// fbid에 id 설정하기 
-	public int setIdByFbId(UserVo vo) {
-		return sqlSession.update("user.setId", vo);
-	}
+
 }
