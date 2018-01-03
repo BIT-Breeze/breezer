@@ -1,15 +1,19 @@
 @charset "UTF-8";
 
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1000px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      background-color: #f1f1f1;
-      height: 100%;
+    .row.content {
+    	height: 100%;
+    	flex-direction:row;
+    	display:flex;
     }
     
-    .pagination { }
+    /* Set gray background color and 100% height 
+    .sidenav {
+      background-color: #f1f1f1;
+      position: fixed;
+      height: 100%;
+    }
+    */
     
     /* Set black background color, white text and some padding #555 */
     footer {
@@ -17,27 +21,7 @@
       color: white;
       padding: 15px;
     }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-    #photoframe{
-    
-		padding-top:30px;    
-    
-    }
-    
-    #info{
-    
-		padding-bottom:30px;    
-    	padding-top:30px;
-    }    
-    
+       
     #firstrow {
       padding: 30px;      
     }
@@ -46,17 +30,14 @@
       color: black;
       padding: 15px;    
       height: 750px; 
-      background-color: #C0C0C0;	 
+      padding-bottom: 20px;
+
     }
-    #tourframe3 { 
-      height: 600px;
-      background-color: #C0C0C0;	      
-    }
-    
-    
+   
     
     #tour {    
       padding: 10px;
-      background-color: #C0E0FF;	      
+      background-color: #C0E0FF;
+      	      
     }
     
