@@ -22,8 +22,8 @@ public class TourMainDao {
 		map.put("userId", userId);
 		map.put("tourIdx", tourIdx);
 		
-		List<PostVo> tour = sqlSession.selectList("tourMain.getTour", map);
+		List<PostVo> postList = sqlSession.selectList("tourMain.getPostList", map);
 		
-		return tour;
+		return postList;
 	}
 }

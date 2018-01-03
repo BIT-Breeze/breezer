@@ -3,7 +3,7 @@
 
 <mapper namespace="tourMain">
 
-	<select id="getTour" parameterType="map" resultType="postvo">
+	<select id="getPostList" parameterType="map" resultType="postvo">
 		<![CDATA[
 		select *
 		  from TB_POST 
