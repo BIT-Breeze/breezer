@@ -6,11 +6,11 @@ body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; }
 ul, ol			{ list-style-type: none }
 
 /* layout */
-div#container	{ text-align:left; width:1903px; height:200px; margin:0 auto; background-color:#FFFFFF; clear:both; }
-div#header		{ text-align:left; width:1903px; height:200px; margin:0 auto; background-color:#ABABAB; clear:both; }
-div#content		{ text-align:left; width:1903px; height:200px; margin:0 auto; background-color:#FFFFFF; clear:both; }
-div#navigation	{ text-align:center; overflow-x: auto; min-width:320px; width:100%; height:100%; margin:0 auto; background-color:#FFFFFF; clear:both; }
-div#footer		{ text-align:left; width:1903px; height:200px; margin:0 auto; background-color:#434656; clear:both; }
+div#header		{ text-align:left; width:100%; height:200px; margin:0 auto; background-color:#ABABAB; clear:both; }
+div#footer		{ text-align:left; width:100%; height:20px; margin:0 auto; background-color:#434656; clear:both; }
+
+div#container	{ text-align:left; width:1903px; margin:0 auto; background-color:#EEE }
+div#content		{ float:right; width:1703px; background-color:#fff }
 
 /* container */
 
