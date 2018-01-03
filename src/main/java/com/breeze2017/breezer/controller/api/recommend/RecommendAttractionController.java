@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.breeze2017.breezer.dto.JSONResult;
-import com.breeze2017.breezer.service.post.PostInfoService;
 import com.breeze2017.breezer.service.recommend.RecommendAttractionService;
 import com.breeze2017.breezer.vo.PostVo;
 
@@ -31,7 +30,7 @@ public class RecommendAttractionController {
 		
 		List<PostVo> info = recommendAttractionService.getPostInfo(searchPlaces);
 		System.out.println(info);
-		
+
 		return JSONResult.success(info);
 	}
 }
