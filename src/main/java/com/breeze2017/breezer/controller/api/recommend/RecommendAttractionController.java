@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.post.PostInfoService;
+import com.breeze2017.breezer.service.recommend.RecommendAttractionService;
 import com.breeze2017.breezer.vo.PostVo;
 
 
@@ -18,7 +19,7 @@ import com.breeze2017.breezer.vo.PostVo;
 public class RecommendAttractionController {
 
 	@Autowired
-	private PostInfoService postInfoService;
+	private RecommendAttractionService recommendAttractionService;
 	
 	@ResponseBody
 	@RequestMapping("/nearby")
@@ -28,7 +29,7 @@ public class RecommendAttractionController {
 			System.out.println(searchPlaces.get(i));
 		}
 		
-		List<PostVo> info = postInfoService.getPostInfo(searchPlaces);
+		List<PostVo> info = recommendAttractionService.getPostInfo(searchPlaces);
 		System.out.println(info);
 		
 		return JSONResult.success(info);
