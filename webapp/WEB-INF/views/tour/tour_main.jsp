@@ -11,7 +11,6 @@
   		
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		
@@ -25,38 +24,19 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="wrapper">
 			<div id="content">
-				<div id="content_tourMain">
-					<div class="row">
-						<nav class="col-sm-3" id="myScrollspy">
-							<ul class="nav nav-pills nav-stacked">
-								<li class="active">
-									<a href="#section1">1</a>
-								</li>
-								<li>
-									<a href="#section2">2</a>
-								</li>
-								<li>
-									<a href="#section3">3</a>
-								</li>
-								<li class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" href="#">Section 4
-									<span class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li>
-												<a href="#section41">4-1</a>
-											</li>
-											<li>
-												<a href="#section42">4-2</a>
-											</li>                     
-										</ul>
-				        		</li>
-				      		</ul>
-				    	</nav>
-						<a href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/edit?idx=${tourIdx}">여행기 수정</a>
-					</div>
+				<div class="row">
+					<a style="float: right;" href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/edit?idx=${tourIdx}">여행기 수정</a>
 				</div>
+				<c:forEach var="post" items="${postList }">
+					<div style="clear: both;">
+						<dl>
+							<dd>${post.content }</dd>
+						</dl>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
+		<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
 

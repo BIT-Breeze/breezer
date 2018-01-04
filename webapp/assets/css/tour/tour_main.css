@@ -1,26 +1,4 @@
 @charset "UTF-8";
 
 /* layout */
-div#content_tourMain	{ text-align:left; width:1220px; height:200px; margin:0 auto; background-color:#FFFFFF; clear:both; }
-
-ul.nav-pills {
-	position: fixed;
-}
-nav #myScrollspy{
-	margin-top: 200px;
-	background-color: black;
-}
-div.col-sm-9 div {
-	height: 500px;
-	font-size: 28px;
-}
-#section1 {color: #fff; background-color: #1E88E5;}
-#section2 {color: #fff; background-color: #673ab7;}
-#section3 {color: #fff; background-color: #ff9800;}
-#section41 {color: #fff; background-color: #00bcd4;}
-#section42 {color: #fff; background-color: #009688;}
-		  
-@media screen and (max-width: 810px) {
-	#section1, #section2, #section3, #section41, #section42  {
-		margin-left: 150px;
-}
+div#tour_navigation	{ float:left; width:200px; height:100% }

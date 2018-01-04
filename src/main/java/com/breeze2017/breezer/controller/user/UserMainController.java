@@ -30,76 +30,39 @@ public class UserMainController {
 							Model model) {
 		System.out.println("====== UserMainController : /{id} ======");
 		System.out.println("UserMainController");					
-		System.out.println("authUser : " + authUser);
 
-			UserVo uservo = userMainService.getUserInfo(authUser.getId());
-			UserVo uservo2 = userMainService.getUserInfo(id);
-			System.out.println("uservo2(otheruser)id :" + uservo2.getId());
-			System.out.println("투어수를 가져오기 위한 uservo2" + uservo2.toString());
-			model.addAttribute("uservo", uservo);
-			model.addAttribute("uservo2", uservo2);
 
-		return "user/user_main";
-	}
 		
-	/*
-	@RequestMapping( "" )
-	public String getUser(@AuthUser UserVo authUser,
-						  @RequestParam( value="otherUser", required=false) String otherId,
-						  Model model) {
-		System.out.println("UserMainController");			
-		// 파라미터는 유저객체가 와도 메소드는 string 파라미터를 받으니까 아래 처럼 사용하면 됨. 		
-		System.out.println(otherId);
+		if(authUser.getId() == id) {
+		UserVo uservo = userMainService.getUserInfo(authUser.getId());
+		model.addAttribute("uservo",uservo);
+		model.addAttribute("uservo2",uservo);
 		
-		if( otherId == null || authUser.getId()==otherId) {
-			UserVo uservo = userMainService.getUserInfo(authUser.getId());
-			UserVo uservo2 = userMainService.getUserInfo(authUser.getId());
-			System.out.println("투어수를 가져오기 위한 uservo2" + uservo2.toString());
-			model.addAttribute("uservo", uservo);
-			model.addAttribute("uservo2", uservo2);
-			
 		} else {
-			
-			System.out.println("if clicked other user's page...");
-			UserVo uservo = userMainService.getUserInfo(otherId);
-			UserVo uservo2 = userMainService.getUserInfo(authUser.getId());
-			System.out.println("투어수를 가져오기 위한 uservo2" + uservo2.toString());
-			System.out.println(uservo.toString());
-			model.addAttribute("uservo",uservo);
+
+		UserVo uservo = userMainService.getUserInfo(authUser.getId());
+		UserVo uservo2 = userMainService.getUserInfo(id);
+		
+			if(uservo2.getId() != null) {
+			model.addAttribute("uservo", uservo);
 			model.addAttribute("uservo2", uservo2);
+			} else {
+				model.addAttribute("uservo",uservo);
+				model.addAttribute("uservo2",uservo);				
+			}
 		}
 		return "user/user_main";
 	}
-
-
-	@RequestMapping( "/tourlist1" )
-	public String getTours1(
-			
-			//@AuthUser UserVo authUser, 
-			Model model,
-			@RequestParam( value="p", required=true, defaultValue="1")Integer page,
-			@RequestParam( value="kwd", required=true, defaultValue="")String keyword			
-			) {
-		System.out.println("====== UserMainController : /tourlist1 ======");
-		System.out.println("page : "+page+", keyword : "+keyword);			
-		System.out.println("Test paging");			
-		// 파라미터는 유저객체가 와도 메소드는 string 파라미터를 받으니까 아래 처럼 사용하면 됨. 
-		Map<String, Object> map = 
-				userMainService.getTours1(page, keyword);		
-		model.addAttribute("map", map);
-		return "user/user_main";
-	}
-	*/
 	
 	@RequestMapping( "/tourlist" )
 	@ResponseBody
 	public JSONResult getTours(
 			@AuthUser UserVo authUser,
-			// 여기서 다른 사람 투어를 보려면 {id}를 바꿔서 리퀘스트가 가능한가?
+			@PathVariable String id,
 			@RequestParam( value="no", required=true)Long no
 			) {	
-		System.out.println("JSON REQUEST CONTROLLER"+ no);		
-		List<TourVo> tours = userMainService.getTours(authUser.getId(),no);		
+		System.out.println("======JSON REQUEST CONTROLLER======"+ no);		
+		List<TourVo> tours = userMainService.getTours(id,no);		
 		//System.out.println("JSON REQUEST CONTROLLER2");
 		//System.out.println(tours);
 		return JSONResult.success(tours);

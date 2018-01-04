@@ -144,7 +144,7 @@ $(function(){
 		<div class="row" id="firstrow">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
-			<img src="${pageContext.servletContext.contextPath }/assets/image/anna.jpg" 
+			<img src="${uservo2.pictureUrl}" 
 				 width="150px" height="150px" class="img-circle">
 			
 			</div> 
@@ -157,9 +157,15 @@ $(function(){
 			</div>
 			
 			<div class="col-sm-3" id="firstrow" align="right">
-			
-      			<a class="btn btn-info" role="button" id="btn-next">새 투어</a>
-			
+			<c:choose>
+				<c:when test="${authUser.id == uservo2.id}">
+      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
+      			</c:when>
+      			
+      			<c:otherwise>
+      				
+      			</c:otherwise>
+			</c:choose>
 			</div>
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
