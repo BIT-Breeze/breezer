@@ -1,87 +1,156 @@
 @CHARSET "UTF-8";
-@import "mysite.css";
-
-#site-introduction				{ padding:20px;	width:540px; }
-#site-introduction img#profile	{ display:block; float:left }
-#site-introduction h2		   	{ float:left; width:320px; margin:50px 0 0 20px }
-#site-introduction p			{ clear:both; font-size:1.1em; padding:20px; line-height:1.5em }
 
 
-#container {
-	width: 1400px;
-	margin: 0 auto;
-}
-
-#left-wrapper {
-	height: 100%;
-	width: 1000px;
-	background-color:#73b9ff;
-	float: left;
-}
 
 
-#login-wrapper {
-	height: 100%;
-	width: 400px;
-	/* background-color:#73b9aa; */
-	float: left;
-}
-
+/* 로그인 영역 */
 #login-area {
 	/* margin-left : 25px; */
 	/* margin-top : 150px; */
-	height: 280px;
+	height: 110px;
 	width: 300px;
-	/* background-color:#fffeee; */ 
+	/* background-color:#fffeee; */
+}
+
+/* 페이스북 로그인 버튼 */
+.join-button {
+	width: 30px;
+	height: 500px;
+	margin-left: 70px;
+	margin-top: 33px;
+	flot : right;
+}
+
+/* ID 생성시 생기는 from */
+#id-input {
+	margin-top : 10px;
+	margin-left: 25px;
 }
 
 
 
-#login-button{
-	width: 50px;
-	height: 50px;
-}
-
-#login-left {
-	margin-top: 25px;
-}
-#login-right {
-	margin-top: 25px;
-}
-
-.login-form {
-	width: 300px;
-	height: 100px;
-	margin-left : 25px;
-	margin-top : 100px;
-	background-color: #ff33ee;
-}
-
-.join-form {
-	width: 300px;
-	height: 160px;
-	margin-left : 25px;
-	margin-top : 20px;
-	background-color: #ff33ee;
-}
 
 
+/* ID label */
 .block-label {
 	width: 40px;
+	color : #ececec;
+	font: bold;
+	
 }
 
-.message-label {
-	margin-left : 50px;
-	width: 250px;
-}
-
+/* ID input box */
 .input-box {
 	width: 205px;
 }
 
-.join-button {
+/* check ID message */
+.message-label {
+	margin-top: 5px;
+	margin-left: 50px;
 	width: 250px;
-	height: 30px;
-	margin-left: 25px;
-	margin-top: 10px;
+	color : #ececec;
+	font: bold;
+}
+
+/* svae button */
+#btn-save {
+	margin-left: 0px;
+	width: 250px;
+	background-color:  #475d96;
+	color : #ececec;
+}
+
+
+
+
+
+
+
+
+
+#container {
+	width: 1300px;
+	margin: 0 auto;
+}
+
+
+#header {
+	width: 100%;
+	height: 110px;
+	background-color: #454545;
+}
+
+#title {
+	float: left;
+	margin-left: 50px;	
+	margin-top : 10px;
+	color : #ececec;
+}
+
+
+
+#login-wrapper {
+	height: 110px;
+	width: auto;
+	/* background-color:#73b9aa; */
+	float: right;
+}
+
+
+
+#img-wrapper {
+	height: 700px;
+	width: 1300px;
+	background-color: #454545;
+	
+}
+
+#footer {
+	background-color: #454545;
+	color : #ececec;
+}
+
+@media ( max-width : 1000px ) {
+	#container {
+		width: auto;
+	}
+	#img-wrapper {
+		float: none;
+		width: auto;
+	}
+	#login-wrapper {
+		float: none;
+		width: auto;
+	}
+}
+
+
+
+
+
+
+/* @import "mysite.css"; */
+
+#site-introduction {
+	padding: 20px;
+	width: 540px;
+}
+
+#site-introduction img#profile {
+	display: block;
+	float: left
+}
+
+#site-introduction h2 {
+	float: left;
+	width: 320px;
+	margin: 50px 0 0 20px
+}
+
+#site-introduction p {
+	clear: both;
+	font-size: 1.1em;
+	padding: 20px;
+	line-height: 1.5em
 }

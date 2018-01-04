@@ -40,6 +40,7 @@
 <script
 	src="${pageContext.servletContext.contextPath }/assets/js/facebook_api.js"
 	type="text/javascript">
+	
 </script>
 
 
@@ -54,40 +55,35 @@
 <body>
 	<div id="container">
 		<!-- header -->
-		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<%-- <c:import url="/WEB-INF/views/includes/header.jsp" /> --%>
 
-		<!-- main wrapper -->
-		<div id="main-wrapper" style="height: 700px;">
-			<!-- left -->
-			<div id="left-wrapper">
-				<img id="main"
-					src="${pageContext.servletContext.contextPath }/assets/images/userlogin/main.jpg">
+		<div id="header">
+			<div id="title">
+				<h1> B r e e z e r</h1>
 			</div>
 
-			<!-- right -->
+
+
 			<div id="login-wrapper">
 				<!-- account -->
 				<div id="login-area">
-					<br>
-					<h2 id='title' style="margin-left: 25px; width: 300px;">브리저
-						시작하기</h2>
-
-
-					<br> <br>
-
+				
 					<div id='status'>
 						<c:choose>
 							<c:when test="${empty authUser }">
 								<!-- 페이스북 로그인 버튼  -->
 								<fb:login-button id='fb_button' scope="public_profile,email"
-									onlogin="checkLoginState();" class="join-button"> 페이스북 로그인 
+									onlogin="checkLoginState();" class="join-button"
+									 > Facebook 로그인으로 시작하기
 								</fb:login-button>
 							</c:when>
 						</c:choose>
 					</div>
 
 
-					<form id='id-input' style="margin-left: 25px;">
+
+
+					<form id='id-input' >
 						<!-- <div id='id-input' style="margin-left: 25px;"> -->
 						<%-- method="post" action="${pageContext.servletContext.contextPath }/setid"> --%>
 
@@ -108,11 +104,15 @@
 										<c:choose>
 											<c:when test="${empty authUser.id }">
 												<label class="block-label" for="id">ID</label>
-												<input class="input-id" id="input-id" name="id" type="text" value="" placeholder="아이디를 입력하세요"><br>
+												<input class="input-id" id="input-id" name="id" type="text"
+													value="" placeholder="아이디를 입력하세요">
+												<br>
 
-												<label class="message-label" for="message" id="check-message"> id를 입력하세요 </label>
+												<label class="message-label" for="message"
+													id="check-message">  </label>
 												<!-- <input type="button" id="btn-check" class="btn btn-info"style="margin-left: 25x; width: 250px;" value="check id"> <br> -->
-												<input type="button" id="btn-save" class="btn btn-info" style="margin-left: 0px; width: 250px;" value="save id">
+												<input type="button" id="btn-save" class="btn btn-save"
+													 value="등록하기">
 												<!-- <button id="btn-check" style="margin-left: 25x; width: 250px;">checkid</button> <br>
 												<button type="submit" id="btn-save" style="margin-left: 0px; width: 250px;">save</button> -->
 
@@ -126,12 +126,23 @@
 					</form>
 				</div>
 			</div>
-
-			<!-- footer -->
-			<c:import url="/WEB-INF/views/includes/footer.jsp" />
 		</div>
+
+
+
+		<!-- left -->
+		<div id="img-wrapper">
+			<img id="main"
+				src="${pageContext.servletContext.contextPath }/assets/images/userlogin/main.jpg">
+		</div>
+
+		<!-- right -->
+
+
+		<!-- footer -->
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
-	
+
 
 </body>
 
