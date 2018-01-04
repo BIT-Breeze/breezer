@@ -144,7 +144,7 @@ $(function(){
 		<div class="row" id="firstrow">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
-			<img src="${pageContext.servletContext.contextPath }/assets/image/anna.jpg" 
+			<img src="${uservo2.pictureUrl}" 
 				 width="150px" height="150px" class="img-circle">
 			
 			</div> 
@@ -158,7 +158,7 @@ $(function(){
 			
 			<div class="col-sm-3" id="firstrow" align="right">
 			
-      			<a class="btn btn-info" role="button" id="btn-next">새 투어</a>
+      			<a href="${pageContext.servletContext.contextPath }/${ uservo2.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
 			
 			</div>
 		
