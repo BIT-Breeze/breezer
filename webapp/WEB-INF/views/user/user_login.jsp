@@ -52,8 +52,6 @@
 
 
 <body>
-
-
 	<div id="container">
 		<!-- header -->
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
