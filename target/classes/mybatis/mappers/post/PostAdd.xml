@@ -4,9 +4,9 @@
 <mapper namespace="post">
 	<insert id="insert" parameterType="postvo">
 		<![CDATA[
-		  	INSERT INTO TB_POST (photo, content, location, category, price, score)
+		  	INSERT INTO TB_POST (userId, photo, content, location, category, price, score)
 			VALUES (
-					
+					#{userId },
 					#{photo },
 					#{content },
 					#{location },

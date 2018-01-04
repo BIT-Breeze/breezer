@@ -27,16 +27,15 @@ public class TourAddController {
 	
 	@Auth
 	@RequestMapping(value="tour/add", method=RequestMethod.POST)
-	public String tourAdd(
-			@ModelAttribute TourVo vo,
-			@PathVariable String id
-			) {
-		System.out.println("id :" + id);
-		System.out.println(">> tourAdd Controller");
+	public String tourAdd( @ModelAttribute TourVo vo, @PathVariable String id ) {
+
+		System.out.println(">> TourAddController tour/add");
 		
+		vo.setUserId(id);
 		tourAddService.insertMessage(vo);
-		System.out.println("cn" + tourAddService.insertMessage(vo));
 		
-		return "tour/tour_main";
+		
+		
+		return "redirect:/{id}/tour?idx=";
 	}
 }

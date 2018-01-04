@@ -14,5 +14,6 @@ public class TourAddDao {
 	
 	public int insert(TourVo vo) {
 		return sqlSession.insert("tour.insert", vo);
+		
 	}
 }
