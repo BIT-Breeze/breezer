@@ -3,11 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<div id="tour_navigation">
+<nav id="tour_navigation">
 	<ul>
-		<li>1</li>
-		<li>2</li>
-		<li>3</li>
-		<li>4</li>
+		<c:forEach var="post" items="${postList }" varStatus="status">
+				<c:if test="${status.first }">
+					<li>
+						<a class="active" href="#post-${post.idx}">${post.location }</a>
+					</li>
+				</c:if>
+				<c:if test="${!status.first }">
+					<li>
+						<a href="#post-${post.idx}">${post.location }</a>
+					</li>
+				</c:if>
+		</c:forEach>
 	</ul>
-</div>
+</nav>
