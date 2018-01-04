@@ -53,7 +53,7 @@ var render = function( vo, mode ) {
 			"</div>"+
 			
 			"<div id='post-picture' style='height:auto; width:100%; background-color:#ccfaaa;'> 이미지" +
-				"<img id='sns-img'src='"+vo.photo+"' style='width:100%; height: auto;'>"+
+				"<img id='sns-img'src=${pageContext.request.contextPath }"+vo.photo+" style='width:100%; height: auto;'>"+
 			"</div>" +
 			
 			"<div id='post-info'>"+
