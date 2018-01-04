@@ -29,7 +29,6 @@ public class FileUploadService {
 			System.out.println("create a folder - success !");
 		}
 
-		
 
 		try {
 			String originalFileName = multipartFile.getOriginalFilename();

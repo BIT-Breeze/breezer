@@ -3,6 +3,7 @@ package com.breeze2017.breezer.controller.post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,13 +26,15 @@ public class PostAddController {
 	
 	@Auth
 	@RequestMapping(value="post/add", method=RequestMethod.POST)
-	public String addPost(@ModelAttribute PostVo vo) {
-		System.out.println(" >> PostAddController post/add");
-		System.out.println(vo);
-		postAddService.insertMessage(vo);
-		System.out.println("POST DATA 디비에 입력까지 완료!!");
+	public String addPost(@ModelAttribute PostVo vo, @PathVariable String id) {
 		
-		return "";
+		System.out.println("--id--:" + id);
+		System.out.println(" >> PostAddController post/add");
+		vo.setUserId(id);
+		postAddService.insertMessage(vo);
+
+		//return은 임시
+		return "post/post_add";
 	}
 	
 	
