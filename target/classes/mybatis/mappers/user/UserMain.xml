@@ -37,7 +37,7 @@
 	<select id="gettours" parameterType="map" resultType="tourvo">
 		<![CDATA[
 		
-		select title, idx, startDate 
+		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
 		 from TB_TOUR 
 		  where userId = #{id } order by idx desc limit #{ startNo } , 6;
 			

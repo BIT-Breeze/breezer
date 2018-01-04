@@ -121,6 +121,47 @@ html, body {
         display: none;
     }
 }
+
+/* info css */
+/* info css */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+/* info css */
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -356,7 +397,7 @@ var imageArr = [
 			],
 			{name: 'Night Mode'});
 
-		// 맵 생성
+		// Create the map.
 		map = new google.maps.Map(document.getElementById('map'), {
 			zoom : 5,
 			center :  {lat: 39.750843, lng: -100.87454600000001},
@@ -440,30 +481,13 @@ var imageArr = [
 							
 							// 마커 정보
 							contents = 
-							'<div id="content">'+
-								'<div id="siteNotice"></div>'+
-								'<h1 id="firstHeading" class="firstHeading">' + data.image + '</h1>'+
-
-								'<div id="bodyContent">'+
-									'<img src=/breezer/assets/images/pic' + (index + 1) + '.jpg style="max-width: 30%; height: auto;"/>'+
-									'<p>'+
-										'<b>' + data.name + '</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-										'sandstone rock formation in the southern part of the '+
-										'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-										'south west of the nearest large town, Alice Springs; 450&#160;km '+
-										'(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-										'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-										'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-										'Aboriginal people of the area. It has many springs, waterholes, '+
-										'rock caves and ancient paintings. Uluru is listed as a World '+
-										'Heritage Site.'+
-									'</p>'+
-									
-									'<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-									'https://en.wikipedia.org/w/index.php?title=Uluru</a> (last visited June 22, 2009).'+
-									'</p>'+
-								'</div>'+
-							'</div>';
+								'<div class="card">' + 
+									'<img src="/breezetest/assets/images/pic' + (index + 1) + '.jpg" style="width:100%">' + 
+									'<h1>' + data.name + '</h1>' + 
+									'<p class="title">Contents</p>' +
+									'<p>ETC...</p>' +
+									'<p><button onclick=moreInfo('+data.name+') >More...</button></p>' + 
+								'</div>';
 							
 							infowindow.setContent(contents);
 							infowindow.open(map, markerArray[index]);

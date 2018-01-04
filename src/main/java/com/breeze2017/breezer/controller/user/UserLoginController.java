@@ -17,7 +17,6 @@ public class UserLoginController {
 			Model model) {
 		System.out.println("====== UserLoginController : {'/', '/login} ======");
 
-
 		// 세션이 없다면
 		if (authUser == null) {
 			System.out.println("authUser is null");

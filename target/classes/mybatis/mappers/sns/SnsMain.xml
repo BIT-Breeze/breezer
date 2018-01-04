@@ -6,20 +6,21 @@
 		<![CDATA[
 			select * 
 			from (select @ROWNUM := @ROWNUM + 1 as idx, f.*
-					from (select p.tourIdx tourIdx, p.idx postIdx, p.userId, 
+					from (select p.tourIdx tourIdx, p.idx postIdx, p.userId, u.nickName nickName,
 					  				null title,  p.content, p.photo, null startDate, 
 					  				null endDate, p.score, p.hit,    p.postDateTime, 
 									p.tripDateTime,  p.location
-							from TB_POST p
+							from TB_POST p, TB_TOUR t, TB_USER u
+							where p.userId = u.id and p.tourIdx = t.idx
 							UNION ALL 
-							select 	t.idx tourIdx, null postIdx, t.userId, t.title title, 
+							select 	t.idx tourIdx, null postIdx, t.userId, u.nickName nickName, t.title title, 
 										null content, t.mainPhoto photo,    t.startDate,    
 										t.endDate, t.score, t.hit, null postDateTime, 
 										p.tripDateTime, null location
-							from TB_TOUR t, (	select p.tourIdx, p.idx, max(p.tripDateTime) tripDateTime
+							from TB_TOUR t, (	select p.tourIdx, p.idx, p.userId, max(p.tripDateTime) tripDateTime
 													from TB_POST p
-													group by p.tourIdx) p
-							where t.idx = p.tourIdx ) f , (SELECT @ROWNUM := 0) r 
+													group by p.tourIdx) p , TB_USER u
+							where t.idx = p.tourIdx and t.userId = p.userId and t.userId = u.id) f , (SELECT @ROWNUM := 0) r 
 					order by f.tripDateTime, f.title ) result
 		]]>
 		<if test="_parameter > 0"> 
