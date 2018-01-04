@@ -47,31 +47,37 @@ function ImgFileSelect(e) {
 		data: formData,
 		enctype: 'multipart/form-data',
 		processData: false,
-		contentType: false
+		contentType: false,
 	}).success(function(response) {
 		
 		console.log("response.data[0] : " + response.data[0])
+		
 		var multiImgContainer = $('#multiImgContainer');
 		var index = 0
 		multiImgContainer.html('');
+		
 		for( data in response.data) {
-			
-			console.log("data" + index + " : " + response.data[index])
-			var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
-			
+			console.log("data[" + index + "] >> " + response.data[index])
+			//var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
+			var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'" width="480" height="320"/>';
 			multiImgContainer.append(img);
+			imagePath += response.data[index];
+			imagePath += ',';
 			index++;
 		}
 
-		
-		
 		
 	}).fail(function(jqXHRm, textStatus) {
 		alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 	});
 
 }
-	
+
+var add = function() {
+	$("#imagePath").val(imagePath);
+	document.getElementById("addform").submit();
+}
+
 </script>
 
 <title>Breezer</title>
@@ -86,15 +92,18 @@ function ImgFileSelect(e) {
 	<div id=imgContainer>
 	</div>
 	
-	<form method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
+	<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
 		<div>
 			<input type="text" value="location" name="location"><br>
 			<input type="text" value="category" name="category"><br>
 			<input type="text" value="price" name="price"><br>
 			<input type="text" value="score" name="score"><br>
 			<input type="text" value="content" name="content"><br>
-			<br>
-			<input type="submit" value="add">
+			<input type="hidden"  id="imagePath" value="imagePath" name="photo"><br>
+	
+			<div id=multiImgContainer></div>
+			
+			<input type="button" value="add" onclick="add()">
 		</div>
 	</form>
 	
@@ -105,8 +114,7 @@ function ImgFileSelect(e) {
 	</form>
 	
 	
-	<div id=multiImgContainer>
-	</div>
+	
 </body>
 
 </html>

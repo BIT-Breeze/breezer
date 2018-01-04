@@ -35,6 +35,7 @@ public class TourAddController {
 		System.out.println(">> tourAdd Controller");
 		
 		tourAddService.insertMessage(vo);
+		System.out.println("cn" + tourAddService.insertMessage(vo));
 		
 		return "tour/tour_main";
 	}

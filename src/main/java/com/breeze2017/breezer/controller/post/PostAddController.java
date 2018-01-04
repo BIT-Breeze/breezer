@@ -26,12 +26,13 @@ public class PostAddController {
 	@Auth
 	@RequestMapping(value="post/add", method=RequestMethod.POST)
 	public String addPost(@ModelAttribute PostVo vo) {
-		System.out.println(" >> PostAddController post/add");
-		System.out.println(vo);
-		postAddService.insertMessage(vo);
-		System.out.println("POST DATA 디비에 입력까지 완료!!");
 		
-		return "";
+		
+		System.out.println(" >> PostAddController post/add");
+		postAddService.insertMessage(vo);
+		
+		//return은 임시
+		return "post/post_add";
 	}
 	
 	
