@@ -44,7 +44,7 @@ var render = function( vo, mode ) {
 				"</div>" +
 				"<div id='header-info' style='float: left;'>" +
 					"<div id='header-nickname'>" +
-						"<label>nickName : "+vo.userId+"</label> " +
+						"<label>nickName : <a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" +vo.userId+"</a></label> " +
 					"</div>"+
 					"<div id='header-location'>" +
 						"<label>location : "+vo.location+" </label>"+
