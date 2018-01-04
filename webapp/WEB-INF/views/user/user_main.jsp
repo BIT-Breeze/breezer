@@ -22,12 +22,14 @@
 var startNo = 0;
 var isEnd = false;
 var authUser = "${authUser.id}";
-var uservo = "${uservo2.id}"
+var uservo = "${uservo2.id}";
 //여기 바뀌어야 함. 
 console.log(authUser);
 console.log(uservo);
 
 var userId;
+
+
 
 if(authUser == uservo){
 	userId = authUser;
@@ -45,10 +47,10 @@ var render0 = function( tourvo, mode ){
 	//var id = "${authUser.id}";
 	var id = userId;
 	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  + "' align='center'>"+
-				tourvo.title + "<br>" + tourvo.idx + "<br>" +
+				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" +
 				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx='" + tourvo.idx + "'>"+ 
 				tourvo.mainPhoto + "</a><br>" +				
-				tourvo.startDate + "</div>" ;
+				"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + "</div>" ;
 	//var no = $("#tour").attr('no');
 
 	if( mode == true ){
@@ -177,17 +179,18 @@ $(function(){
 			<div id="list-tour">
 
 			</div>
-			 
-			<div style="text-align:center; padding-top:20px">
-				더 많은 투어를 보려면 스크롤을 아래로
+			
+			
+			
+			<div class="col-sm-12" style="text-align:center; padding-top:20px">
+				더 많은 투어들을 보려면 스크롤을 아래로!
 			</div>
-						
+
+
+
 			</div> <!-- sm-12 -->
 		</div>
 			
-			<div class="row" align="center" id="thirdrow">
-				
-			</div><!-- third row -->
 			
     </div>	<!-- col sm-9 -->
   </div>	<!-- row content -->    
