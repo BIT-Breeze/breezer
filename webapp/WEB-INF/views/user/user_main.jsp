@@ -157,9 +157,15 @@ $(function(){
 			</div>
 			
 			<div class="col-sm-3" id="firstrow" align="right">
-			
-      			<a href="${pageContext.servletContext.contextPath }/${ uservo2.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
-			
+			<c:choose>
+				<c:when test="${authUser.id == uservo2.id}">
+      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
+      			</c:when>
+      			
+      			<c:otherwise>
+      				
+      			</c:otherwise>
+			</c:choose>
 			</div>
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
