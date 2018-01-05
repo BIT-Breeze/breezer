@@ -42,7 +42,7 @@ var render0 = function( tourvo, mode ){
 	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  + "' align='center'>"+
 				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" +
 				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx='" + tourvo.idx + "'>"+ 						
-				"<img src='" + tourvo.mainPhoto + "' width='280px' height='80px'>"
+				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
 				 + "</a><br>" +				
 				"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + "</div>" ;
 	//var no = $("#tour").attr('no');
@@ -57,7 +57,8 @@ var render0 = function( tourvo, mode ){
 
 var renderNoTour = function(){
 	str = "<h4>투어가 없습니다!!!</h4>"
-	$("#bottom-text").text(str);
+	$("#bottom-text").html(str);
+	// .text() 로 하면 태그를 인식 못함. 
 	isEnd = true;
 }
 /*
