@@ -30,7 +30,7 @@
     	
     		<div class="col-sm-6" id="info">
 
-    		<h4 align="center">투어수 : ${ uservo2.tours }</h4>
+    		<h4 align="center">투어수 : ${ uservo.tours }</h4>
     		<h4 align="center">방문국가:</h4>
     		<h4 align="center">방문국가수 : </h4>
     		

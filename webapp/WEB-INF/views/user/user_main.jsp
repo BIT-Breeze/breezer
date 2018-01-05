@@ -56,7 +56,7 @@ var render0 = function( tourvo, mode ){
 }
 
 var renderNoTour = function(){
-	str = "투어가 없습니다!!!"
+	str = "<h4>투어가 없습니다!!!</h4>"
 	$("#bottom-text").text(str);
 	isEnd = true;
 }
@@ -68,7 +68,6 @@ var render2 = function(){
 	$( "#tour" ).last().append(html);	
 }
 */
-
 
 var fetchList = function(){
 	if( isEnd == true){		
@@ -91,18 +90,12 @@ var fetchList = function(){
 				renderNoTour();
 				return;				
 			}
-			/*
-			if( response.data.length = 0){
-				render1();	
-			}
-			*/
-			// 끝감지
+
 			if( response.data.length < 6){
 				// JavaScript 배열에는 length라는 속성이 있다.
 				// response.data는 배열로 인식된다
-				//console.log(response.data[0]);
 				isEnd = true;
-				$( "#btn-next" ).prop( "disabled", true );
+				//$( "#btn-next" ).prop( "disabled", true );
 			}
 
 			$.each( response.data, function(index, tourvo){
@@ -165,7 +158,7 @@ $(function(){
 		<div class="row" id="firstrow">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
-			<img src="${ authUser.pictureUrl}" 
+			<img src="${ uservo2.pictureUrl}" 
 				 width="150px" height="150px" class="img-circle">
 			
 			</div> 
@@ -202,8 +195,7 @@ $(function(){
 			
 
 			<div class="col-sm-12" id="bottom-text" style="text-align:center; padding-top:20px">
-				투어를 더 보려면 아래로 스크롤 하세요!!
-				${pageContext.servletContext.contextPath}/assets/images/noimage.png
+				<h4>투어를 더 보려면 아래로 스크롤 하세요!!</h4>
 			</div>
 
 
