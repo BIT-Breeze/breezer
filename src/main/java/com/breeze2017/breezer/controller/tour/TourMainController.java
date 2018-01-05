@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.breeze2017.breezer.service.tour.TourMainService;
@@ -33,7 +34,7 @@ public class TourMainController {
 		if(authUser == null) {
 			return "redirect:/";
 		}
-		String userId = authUser.getId();
+		String userId = id;
 		
 		List<PostVo> postList = tourMainService.getTour(userId, tourIdx);
 		
@@ -41,5 +42,10 @@ public class TourMainController {
 		model.addAttribute("tourIdx", tourIdx);
 		
 		return "tour/tour_main";
+	}
+
+	@RequestMapping("1")
+	public String test(){
+		return "tour/test";
 	}
 }

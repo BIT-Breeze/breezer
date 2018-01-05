@@ -1,4 +1,44 @@
 @charset "UTF-8";
 
 /* layout */
-div#tour_navigation	{ float:left; width:200px; height:100% }
+nav#tour_navigation	{ 
+  z-index: 1; float:left; width:200px; height:100%; overflow: auto; position: fixed; }
+
+div.post { font-size:30px; clear: both; padding: 10px;}
+
+a	{ border-radius: 4px; padding-left: 10px;}
+
+
+ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    position:relative;
+    display:table;
+    margin:0 auto;
+}
+
+li a{
+      display:table-cell;
+      float: left;
+    clear: both;
+}
+
+        
+.active{
+         color:#F38A8A;
+         border:3px solid #F38A8A;
+      }
+a{
+        padding:10px 20px;
+        display:block;
+        color:black;
+        text-decoration:none;
+        transition:all 0.3s ease-in-out;
+}
+
+a:hover{
+  color:#F38A8A;
+}
+      
+      
