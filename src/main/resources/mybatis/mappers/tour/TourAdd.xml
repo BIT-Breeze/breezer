@@ -3,6 +3,12 @@
 
 <mapper namespace="tour">
 	<insert id="insert" parameterType="tourvo">
+		<selectKey keyProperty="idx" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+		</selectKey>
+	
 		<![CDATA[
 			INSERT INTO TB_TOUR (userId, seq, title, startDate, endDate, mainPhoto)
 			VALUES (
@@ -16,5 +22,5 @@
 			
 		]]>		
 	</insert>
-
+	
 </mapper>

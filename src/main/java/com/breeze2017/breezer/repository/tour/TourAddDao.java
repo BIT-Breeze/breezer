@@ -16,4 +16,6 @@ public class TourAddDao {
 		return sqlSession.insert("tour.insert", vo);
 		
 	}
+	
+	
 }

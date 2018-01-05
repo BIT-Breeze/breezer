@@ -9,7 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/breezer/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
 
-
 <script type="text/javascript">
 
 var imagePath; // 이미지 경로 저장 변수
@@ -18,14 +17,24 @@ var sel_files = []; // 파일 저장되는 변수 [배열]
 
 // #fileUpload를 했을때 실행
 $(document).ready(function() {
-	$('#fileUpload').on('change', ImgFileSelect);
 	
+	// jsp에 사진이 업로드 되어있는 상태면 다르게 동작해야되지 않을까(파일을 추가해야 됨, 초기화되서 업로드가 아니라)
+	// 그럼 fileUpload 버튼 클릭시 if문을 사용해야하는걸까
+	// 글구 삭제도 되야함
+	
+//	if(('#multiImgContainer').isEmpty != null) {
+//		$('#fileUpload').on('change', )	
+//	}
+	
+ 	$('#fileUpload').on('change', ImgFileSelect);
+
 });
+
 
 
 // 파일 업로더 했을 때 실행되는 함수
 function ImgFileSelect(e) {
- 	console.log("====== ImgFileSelect ======")
+	console.log("====== ImgFileSelect ======")
 	var files = e.target.files; // 넘어 오는 파일들을 files에 담고
 	var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
 	
@@ -53,25 +62,32 @@ function ImgFileSelect(e) {
 		console.log("response.data[0] : " + response.data[0])
 		
 		var multiImgContainer = $('#multiImgContainer');
-		var index = 0
+		var index = 0;
+		var currentIndex = 0;
 		multiImgContainer.html('');
 		
-		for( data in response.data) {
+		// 현재 인덱스를 넣는 변수가 있어야하겠지
+		// 만약 인덱스 값이 0 이 아니면 그 뒤에 부터 사진을 추가하라는 코드를 추가해야겠지
+		
+		for ( data in response.data ) {
 			console.log("data[" + index + "] >> " + response.data[index])
-			//var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
+			// var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
+			
 			var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'" width="480" height="320"/>';
+			
 			multiImgContainer.append(img);
 			imagePath += response.data[index];
 			imagePath += ',';
 			index++;
 		}
-
-		
+		currentIndex = index; // 현재 인덱스 저장
+	
 	}).fail(function(jqXHRm, textStatus) {
 		alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 	});
 
 }
+
 
 var add = function() {
 	$("#imagePath").val(imagePath);

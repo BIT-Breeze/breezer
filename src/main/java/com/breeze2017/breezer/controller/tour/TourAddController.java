@@ -30,12 +30,16 @@ public class TourAddController {
 	public String tourAdd( @ModelAttribute TourVo vo, @PathVariable String id ) {
 
 		System.out.println(">> TourAddController tour/add");
-		
+		System.out.println(id);
 		vo.setUserId(id);
 		tourAddService.insertMessage(vo);
+		// 저장되면 db에 idx가 생성되고
+		// 이걸 select 해오자
+		// idx를 무슨기준으로 가져오까? -> img 경로를 기준으로 가져오자
+		// idx select하는 부분
 		
+		System.out.println("current idx >> " + vo.getIdx());
 		
-		
-		return "redirect:/{id}/tour?idx=";
+		return "redirect:/{id}/tour?idx="+vo.getIdx();
 	}
 }
