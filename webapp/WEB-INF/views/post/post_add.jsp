@@ -11,12 +11,13 @@
 
 <script type="text/javascript">
 
-var imagePath; // 이미지 경로 저장 변수
+var imagePath = ""; // 이미지 경로 저장 변수
 var file = $('[name="file"]');
 var sel_files = []; // 파일 저장되는 변수 [배열]
 
 // #fileUpload를 했을때 실행
 $(document).ready(function() {
+	
 	
 	// jsp에 사진이 업로드 되어있는 상태면 다르게 동작해야되지 않을까(파일을 추가해야 됨, 초기화되서 업로드가 아니라)
 	// 그럼 fileUpload 버튼 클릭시 if문을 사용해야하는걸까
@@ -59,25 +60,25 @@ function ImgFileSelect(e) {
 		contentType: false,
 	}).success(function(response) {
 		
-		console.log("response.data[0] : " + response.data[0])
-		
 		var multiImgContainer = $('#multiImgContainer');
 		var index = 0;
 		var currentIndex = 0;
 		multiImgContainer.html('');
 		
-		// 현재 인덱스를 넣는 변수가 있어야하겠지
-		// 만약 인덱스 값이 0 이 아니면 그 뒤에 부터 사진을 추가하라는 코드를 추가해야겠지
-		
 		for ( data in response.data ) {
 			console.log("data[" + index + "] >> " + response.data[index])
+			
+			if ( index > 0 ) {
+				imagePath += ',';
+			}
+			
 			// var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
 			
 			var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'" width="480" height="320"/>';
-			
 			multiImgContainer.append(img);
+			
+			// image path 설정해서 DB에 때려박을 url경로 보내주기위해 하는 짓
 			imagePath += response.data[index];
-			imagePath += ',';
 			index++;
 		}
 		currentIndex = index; // 현재 인덱스 저장
@@ -100,6 +101,7 @@ var add = function() {
 </head>
 
 <body>
+${touridx }
 	<div id="top-section">
 	
 	</div>
@@ -116,6 +118,7 @@ var add = function() {
 			<input type="text" value="score" name="score"><br>
 			<input type="text" value="content" name="content"><br>
 			<input type="hidden"  id="imagePath" value="imagePath" name="photo"><br>
+			<input type="hidden" name="tourIdx" value=${touridx }>
 	
 			<div id=multiImgContainer></div>
 			
@@ -128,8 +131,6 @@ var add = function() {
 		<input type="file" multiple="multiple" name="multiFile" id="fileUpload"><br><br>
 		
 	</form>
-	
-	
 	
 </body>
 
