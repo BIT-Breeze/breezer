@@ -65,6 +65,10 @@
 			}
 		});
 		
+		function addPost(){
+			window.open('${pageContext.servletContext.contextPath}/${userId}/post/add?touridx=${tourIdx}', 'window', 'width=1100, height=900,scroll=yes');
+		}
+		
 		</script>
 	</head>
 	
@@ -79,7 +83,7 @@
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">
 				<div class="row">
-					<a style="float: right;" href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/edit?idx=${tourIdx}">여행기 추가</a>
+					<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
 				</div>
 				<c:forEach var="post" items="${postList }">
 					<div class="post" id="post-${post.idx}">

@@ -37,7 +37,8 @@ public class TourMainController {
 		String userId = id;
 		
 		List<PostVo> postList = tourMainService.getTour(userId, tourIdx);
-		
+
+		model.addAttribute("userId", userId);
 		model.addAttribute("postList", postList);
 		model.addAttribute("tourIdx", tourIdx);
 		
