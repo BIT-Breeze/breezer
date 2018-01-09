@@ -30,7 +30,7 @@
     	
     		<div class="col-sm-6" id="info">
 
-    		<h4 align="center">투어수 : ${ uservo2.tours }</h4>
+    		<h4 align="center">투어수 : ${ uservo.tours }</h4>
     		<h4 align="center">방문국가:</h4>
     		<h4 align="center">방문국가수 : </h4>
     		
@@ -59,7 +59,7 @@
     	</div>
       
     <hr>
-      <h4>${ authUser.id }님 환영합니다!</h4> <!-- 값 가져오기 -->
+      <h4>${ authUser.nickName }님 환영합니다!</h4> <!-- 값 가져오기 -->
       <ul class="nav nav-pills nav-stacked">
       <c:choose>
       

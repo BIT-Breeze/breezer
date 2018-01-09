@@ -39,7 +39,7 @@
 		
 		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
 		 from TB_TOUR 
-		  where userId = #{id } order by idx desc limit #{ startNo } , 6;
+		  where userId = #{id } and secret = 1 order by idx desc limit #{ startNo } , 6;
 			
 		]]>		
 	</select>	

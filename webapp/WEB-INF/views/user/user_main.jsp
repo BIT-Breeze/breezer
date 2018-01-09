@@ -10,6 +10,7 @@
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 <link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"	rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
@@ -23,33 +24,27 @@ var startNo = 0;
 var isEnd = false;
 var authUser = "${authUser.id}";
 var uservo = "${uservo2.id}";
-//여기 바뀌어야 함. 
+var userId;
 console.log(authUser);
 console.log(uservo);
-
-var userId;
-
-
 
 if(authUser == uservo){
 	userId = authUser;
 } else {
 	userId = uservo;
 }
-
 console.log(userId);
-
-
 
 
 var render0 = function( tourvo, mode ){
 	console.log(tourvo.idx);	
 	//var id = "${authUser.id}";
 	var id = userId;
-	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  + "' align='center'>"+
-				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" +
-				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx='" + tourvo.idx + "'>"+ 
-				tourvo.mainPhoto + "</a><br>" +				
+	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  +   "' align='center'>"+
+				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" + 
+				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
+				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
+				 + "</a><br>" +				
 				"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + "</div>" ;
 	//var no = $("#tour").attr('no');
 
@@ -58,7 +53,23 @@ var render0 = function( tourvo, mode ){
 	} else {		
 		$( "#list-tour" ).append(html);	
 	}
+	//render2();
 }
+
+var renderNoTour = function(){
+	str = "<h4>투어가 없습니다!!!</h4>"
+	$("#bottom-text").html(str);
+	// .text() 로 하면 태그를 인식 못함. 
+	isEnd = true;
+}
+/*
+var render2 = function(){
+	var html = 	"<div class='col-sm-12' style='text-align:center; padding-top:20px'>" +
+		"더 많은 투어들을 보려면 스크롤을 아래로!" +
+		"</div>";
+	$( "#tour" ).last().append(html);	
+}
+*/
 
 var fetchList = function(){
 	if( isEnd == true){		
@@ -69,7 +80,7 @@ var fetchList = function(){
 	// expr1을 true로 변환할 수 있으면 expr1을 반환하고, 그렇지 않으면 expr2를 반환합니다.
 	console.log("startno is" + startNo);
 	var id = userId;
-	console.log("이 사람의 투어를 가져온다:"+id);
+
 	$.ajax({
 		url:"/breezer/"+ id +"/tourlist?no=" + startNo,
 		type:"get",
@@ -78,17 +89,21 @@ var fetchList = function(){
 		success: function( response ){
 			if( response.result != "success" ){
 				console.log( response.message );
+				renderNoTour();
 				return;				
 			}
-			// 끝감지
+
 			if( response.data.length < 6){
+				// JavaScript 배열에는 length라는 속성이 있다.
+				// response.data는 배열로 인식된다
 				isEnd = true;
-				$( "#btn-next" ).prop( "disabled", true );
+				//$( "#btn-next" ).prop( "disabled", true );
 			}
-			// 강사님 코드에서는 버튼 클릭할 때 5개씩 가져오고 5개 미만이면 disabled
+
 			$.each( response.data, function(index, tourvo){
-				//console.log(index);				
-				render0( tourvo, false );					
+	
+				render0( tourvo, false );
+				//render2();
 			}); //each
 		} //success
 	}); //ajax	
@@ -96,7 +111,6 @@ var fetchList = function(){
 	startNo += 6;
 	console.log(startNo);
 } // fetchList
-
 
 
 
@@ -137,7 +151,18 @@ $(function(){
 <body>
 
 <div class="container-fluid">
-  <div class="row content">
+  
+  
+  	<div class="row" id="container">
+	  	<div class="col-sm-12">
+		  	<c:import url="/WEB-INF/views/includes/header.jsp">
+		
+			</c:import>
+		</div>
+  	</div>
+  	
+  	<div class="row content">
+  
 	<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 		<c:param name="menu" value="login" />
 	</c:import>
@@ -146,14 +171,14 @@ $(function(){
 		<div class="row" id="firstrow">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
-			<img src="${uservo2.pictureUrl}" 
+			<img src="${ uservo2.pictureUrl}" 
 				 width="150px" height="150px" class="img-circle">
 			
 			</div> 
 			
 			<div class="col-sm-6" id="firstrow" align="center">
 
-			<h4>${uservo2.id }님은</h4><br>
+			<h4>${uservo2.nickName }님은</h4><br>
 			${uservo2.tours }개의 여행을 하셨습니다.<br>
 			
 			</div>
@@ -181,9 +206,9 @@ $(function(){
 			</div>
 			
 			
-			
-			<div class="col-sm-12" style="text-align:center; padding-top:20px">
-				더 많은 투어들을 보려면 스크롤을 아래로!
+
+			<div class="col-sm-12" id="bottom-text" style="text-align:center; padding-top:20px">
+				<h4>투어를 더 보려면 아래로 스크롤 하세요!!</h4>
 			</div>
 
 

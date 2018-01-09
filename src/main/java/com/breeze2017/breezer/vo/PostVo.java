@@ -3,8 +3,8 @@ package com.breeze2017.breezer.vo;
 public class PostVo {
 	private long idx;
 	private String userId;
-	private String postDate;
-	private String tripDate;
+	private String postDateTime;
+	private String tripDateTime;
 	private String photo;
 	private String content;
 	private String location;
@@ -16,7 +16,7 @@ public class PostVo {
 	private double price;
 	private double score;
 	private long hit;
-		
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -29,17 +29,17 @@ public class PostVo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getPostDate() {
-		return postDate;
+	public String getPostDateTime() {
+		return postDateTime;
 	}
-	public void setPostDate(String postDate) {
-		this.postDate = postDate;
+	public void setPostDateTime(String postDateTime) {
+		this.postDateTime = postDateTime;
 	}
-	public String getTripDate() {
-		return tripDate;
+	public String getTripDateTime() {
+		return tripDateTime;
 	}
-	public void setTripDate(String tripDate) {
-		this.tripDate = tripDate;
+	public void setTripDateTime(String tripDateTime) {
+		this.tripDateTime = tripDateTime;
 	}
 	public String getPhoto() {
 		return photo;
@@ -110,13 +110,12 @@ public class PostVo {
 	
 	@Override
 	public String toString() {
-		return "PostVo [idx=" + idx + ", userId=" + userId + ", postDate=" + postDate + ", tripDate=" + tripDate
-				+ ", photo=" + photo + ", content=" + content + ", location=" + location + ", locale=" + locale
-				+ ", lat=" + lat + ", lot=" + lot + ", tourIdx=" + tourIdx + ", category=" + category + ", price="
-				+ price + ", score=" + score + ", hit=" + hit + "]";
+		return "PostVo [idx=" + idx + ", userId=" + userId + ", postDateTime=" + postDateTime + ", tripDateTime="
+				+ tripDateTime + ", photo=" + photo + ", content=" + content + ", location=" + location + ", locale="
+				+ locale + ", lat=" + lat + ", lot=" + lot + ", tourIdx=" + tourIdx + ", category=" + category
+				+ ", price=" + price + ", score=" + score + ", hit=" + hit + "]";
 	}
-	
-	
+
 	
 	
 	

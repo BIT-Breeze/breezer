@@ -9,23 +9,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/breezer/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
 
-
 <script type="text/javascript">
 
-var imagePath; // 이미지 경로 저장 변수
+var imagePath = ""; // 이미지 경로 저장 변수
 var file = $('[name="file"]');
 var sel_files = []; // 파일 저장되는 변수 [배열]
 
 // #fileUpload를 했을때 실행
 $(document).ready(function() {
-	$('#fileUpload').on('change', ImgFileSelect);
 	
+	
+	// jsp에 사진이 업로드 되어있는 상태면 다르게 동작해야되지 않을까(파일을 추가해야 됨, 초기화되서 업로드가 아니라)
+	// 그럼 fileUpload 버튼 클릭시 if문을 사용해야하는걸까
+	// 글구 삭제도 되야함
+	
+//	if(('#multiImgContainer').isEmpty != null) {
+//		$('#fileUpload').on('change', )	
+//	}
+	
+ 	$('#fileUpload').on('change', ImgFileSelect);
+
 });
+
 
 
 // 파일 업로더 했을 때 실행되는 함수
 function ImgFileSelect(e) {
- 	console.log("====== ImgFileSelect ======")
+	console.log("====== ImgFileSelect ======")
 	var files = e.target.files; // 넘어 오는 파일들을 files에 담고
 	var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
 	
@@ -50,28 +60,35 @@ function ImgFileSelect(e) {
 		contentType: false,
 	}).success(function(response) {
 		
-		console.log("response.data[0] : " + response.data[0])
-		
 		var multiImgContainer = $('#multiImgContainer');
-		var index = 0
+		var index = 0;
+		var currentIndex = 0;
 		multiImgContainer.html('');
 		
-		for( data in response.data) {
+		for ( data in response.data ) {
 			console.log("data[" + index + "] >> " + response.data[index])
-			//var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
+			
+			if ( index > 0 ) {
+				imagePath += ',';
+			}
+			
+			// var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
+			
 			var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'" width="480" height="320"/>';
 			multiImgContainer.append(img);
+			
+			// image path 설정해서 DB에 때려박을 url경로 보내주기위해 하는 짓
 			imagePath += response.data[index];
-			imagePath += ',';
 			index++;
 		}
-
-		
+		currentIndex = index; // 현재 인덱스 저장
+	
 	}).fail(function(jqXHRm, textStatus) {
 		alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 	});
 
 }
+
 
 var add = function() {
 	$("#imagePath").val(imagePath);
@@ -84,6 +101,7 @@ var add = function() {
 </head>
 
 <body>
+${touridx }
 	<div id="top-section">
 	
 	</div>
@@ -100,6 +118,7 @@ var add = function() {
 			<input type="text" value="score" name="score"><br>
 			<input type="text" value="content" name="content"><br>
 			<input type="hidden"  id="imagePath" value="imagePath" name="photo"><br>
+			<input type="hidden" name="tourIdx" value=${touridx }>
 	
 			<div id=multiImgContainer></div>
 			
@@ -112,8 +131,6 @@ var add = function() {
 		<input type="file" multiple="multiple" name="multiFile" id="fileUpload"><br><br>
 		
 	</form>
-	
-	
 	
 </body>
 

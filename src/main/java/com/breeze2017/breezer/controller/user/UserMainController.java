@@ -63,19 +63,11 @@ public class UserMainController {
 			) {	
 		System.out.println("======JSON REQUEST CONTROLLER======"+ no);		
 		List<TourVo> tours = userMainService.getTours(id,no);		
-		for(TourVo tour : tours) {
-			/*
-			if(tour.getEndDate()==null) {
-				tour.setEndDate("미정");
-			}
-			*/
-			if(tour.getMainPhoto()==null) {
-				tour.setMainPhoto("등록된 사진이 없습니다 <br> 사진을 등록해 주세요");
-			}
-			
-			
-		}
 		
+		if(tours.isEmpty()) {
+			return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
+		}
+
 		//System.out.println("JSON REQUEST CONTROLLER2");
 		
 		return JSONResult.success(tours);
