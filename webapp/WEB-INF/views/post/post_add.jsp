@@ -29,7 +29,7 @@ $(document).ready(function() {
 //		$('#fileUpload').on('change', )	
 //	}
 	
- 	$('#fileUpload').on('change', ImgFileSelect);
+ $('#fileUpload').on('change', ImgFileSelect);
 
 });
 

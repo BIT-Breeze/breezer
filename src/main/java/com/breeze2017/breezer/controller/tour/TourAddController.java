@@ -30,6 +30,7 @@ public class TourAddController {
 	public String tourAdd( @ModelAttribute TourVo vo, @PathVariable String id ) {
 
 		System.out.println(">> TourAddController tour/add");
+		System.out.println("TourVo : "+vo);
 		System.out.println(id);
 		vo.setUserId(id);
 		tourAddService.insertMessage(vo);

@@ -11,17 +11,21 @@
 		</selectKey>
 	
 		<![CDATA[
-			INSERT INTO TB_TOUR (userId, seq, title, startDate, endDate, mainPhoto)
+			INSERT INTO TB_TOUR (userId, seq, title, startDate, endDate, mainPhoto, secret)
 			VALUES (
 					#{userId },
 					#{seq },
 					#{title },
 					#{startDate },
 					#{endDate },
-					#{mainPhoto }
+					#{mainPhoto },
+					#{secret }
 					)
 			
 		]]>		
 	</insert>
+	
+	
+	
 	
 </mapper>

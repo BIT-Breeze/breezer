@@ -11,14 +11,11 @@ public class TourVo {
 	private String mainPhoto;
 	private long postCount;
 	private long hit;
+	private int secret; //1 : true, 0: false
 	private int rn;
 	
-	public int getRn() {
-		return rn;
-	}
-	public void setRn(int rn) {
-		this.rn = rn;
-	}
+	
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -79,12 +76,23 @@ public class TourVo {
 	public void setHit(long hit) {
 		this.hit = hit;
 	}
-	
+	public int getSecret() {
+		return secret;
+	}
+	public void setSecret(int secret) {
+		this.secret = secret;
+	}
+	public int getRn() {
+		return rn;
+	}
+	public void setRn(int rn) {
+		this.rn = rn;
+	}
 	@Override
 	public String toString() {
 		return "TourVo [idx=" + idx + ", userId=" + userId + ", seq=" + seq + ", title=" + title + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", score=" + score + ", mainPhoto=" + mainPhoto + ", postCount="
-				+ postCount + ", hit=" + hit + "]";
+				+ postCount + ", hit=" + hit + ", secret=" + secret + ", rn=" + rn + "]";
 	}
 	
 	

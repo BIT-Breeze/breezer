@@ -55,23 +55,40 @@
 		    });
 		}
 		
+		$(window).scroll(function () {
+			var $window = $(this);
+			var scrollTop = $(window).scrollTop();
+			var elementOffset = $("#tour_navigation").offset().top;
+			var currentElementOffset = (elementOffset - scrollTop);
+			if(currentElementOffset > 0 && scrollTop < 360){
+				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 0px');
+			}
+		});
+		
+		function addPost(){
+			window.open('${pageContext.servletContext.contextPath}/${userId}/post/add?touridx=${tourIdx}', 'window', 'width=1100, height=900,scroll=yes');
+		}
+		
 		</script>
 	</head>
 	
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 
 	<div id="container">
-		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<div id="tour_main_header_bg">
+			<c:import url="/WEB-INF/views/includes/header.jsp" />
+			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
+		</div>
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">
 				<div class="row">
-					<a style="float: right;" href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/edit?idx=${tourIdx}">여행기 수정</a>
+					<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
 				</div>
 				<c:forEach var="post" items="${postList }">
 					<div class="post" id="post-${post.idx}">
 						<dl>
-							<dd>${post.tripDate }</dd>
+							<dd>${post.tripDateTime }</dd>
 							<dd>${post.content }</dd>
 							<dd>${post.location }</dd>
 							<dd>${post.locale }</dd>
