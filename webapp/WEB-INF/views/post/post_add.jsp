@@ -8,6 +8,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/breezer/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -27,7 +29,7 @@ $(document).ready(function() {
 //		$('#fileUpload').on('change', )	
 //	}
 	
- 	$('#fileUpload').on('change', ImgFileSelect);
+ $('#fileUpload').on('change', ImgFileSelect);
 
 });
 
@@ -122,7 +124,32 @@ ${touridx }
 	
 			<div id=multiImgContainer></div>
 			
-			<input type="button" value="add" onclick="add()">
+			<!-- Map Modal 띄우기 -->
+			<!-- <input type="button" value="map" onclick=""><br><br> -->
+			
+			<!-- MODAL TEST -->
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+			  Modal 띄우기
+			</button>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Modal 제목</h4>
+			      </div>
+			      <div class="modal-body">
+			        Modal 내용
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			      </div>
+			    </div>
+			  </div></div>
+			
+			<input type="button" value="add" onclick="add()"><br><br>
 		</div>
 	</form>
 	
