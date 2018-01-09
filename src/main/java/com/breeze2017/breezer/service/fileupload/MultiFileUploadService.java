@@ -18,13 +18,7 @@ public class MultiFileUploadService {
 	private static String PREFIX_URL = "/uploads/images/";
 
 	public Map<Integer, String> restore(List<MultipartFile> multipartFile) {
-		
-		System.out.println(multipartFile.get(0));
-		System.out.println("multpart size >> " + multipartFile.size());
-		//System.out.println("#from service >>" + ((MultipartFile) multipartFile).getOriginalFilename());
-		//System.out.println("#from service >>" + multipartFile);
-		//System.out.println("#from service >>" + ((MultipartRequest) multipartFile).getFile("multiFile"));
-		
+
 		String url = "";
 		String path = "D://uploads";
 		Map<Integer, String> resultURL = new HashMap<Integer, String>();
@@ -50,17 +44,14 @@ public class MultiFileUploadService {
 				/* 파일이름을 변경해서 서버에 저장할 때, 이름이 중복되면 안됨 */
 				String saveFileName = genSaveFileName(extName);
 				
-				System.out.println("######" + originalFileName);
-				System.out.println("######" + extName);
-				System.out.println("######" + saveFileName);
-				System.out.println("######" + size);
+				System.out.println("## Photo Information >> " + originalFileName +" / "+ saveFileName +" / "+  size);
 				
 				writeFile(mf, saveFileName);
 	
 				
 				url = PREFIX_URL + saveFileName;
 				resultURL.put(i, url);
-				System.out.println("###### ["+i+"] url : " + url);
+				System.out.println("## ["+ i +"] URL >> : " + url);
 
 				
 			} catch (IOException ex) {

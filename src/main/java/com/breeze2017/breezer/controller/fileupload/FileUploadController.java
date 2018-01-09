@@ -17,8 +17,9 @@ import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.fileupload.FileUploadService;
 import com.breeze2017.breezer.service.fileupload.MultiFileUploadService;
 
+
 @Controller
-@RequestMapping("/upload")
+@RequestMapping("upload")
 public class FileUploadController {
 	
 	@Autowired
@@ -28,19 +29,16 @@ public class FileUploadController {
 	private MultiFileUploadService multiFileUploadService;
 
 	// Single Upload
+	
 	@ResponseBody
 	@RequestMapping(value="/echofile", method=RequestMethod.POST)
 	public String upload( @RequestParam("file") MultipartFile file, Model model ) {
 		System.out.println(" >> fileupload controller");
-		
 		String url = fileUploadService.restore(file);
 		model.addAttribute("url", url);
 		
-		System.out.println("=============================");
-		System.out.println(" file >> " + file);
-		System.out.println(" model >> " + model);
-		System.out.println(" url >> " + url);
-		System.out.println("=============================");
+		//System.out.println("id 조회 > " + id);
+		System.out.println(" [ model >> " + model + " / url >> " + url + " ]");
 		
 		return url;
 	
@@ -64,10 +62,6 @@ public class FileUploadController {
 		return JSONResult.success(result);
 		
 	}
-	
-	
-	
-	
 	
 	
 	// 포스트 페이지에서 mainPhoto 가져오기

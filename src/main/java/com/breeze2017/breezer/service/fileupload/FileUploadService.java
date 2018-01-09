@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.breeze2017.security.Auth;
+
 @Service
 public class FileUploadService {
 	
@@ -17,9 +19,7 @@ public class FileUploadService {
 
 	public String restore(MultipartFile multipartFile) {
 		
-		System.out.println("#from service >>" + multipartFile);
-		System.out.println("#from service >>" + multipartFile.getOriginalFilename());
-		
+		System.out.println();
 		String url = "";
 		String path = "D://uploads";
 		
@@ -38,15 +38,13 @@ public class FileUploadService {
 			/* 파일이름을 변경해서 서버에 저장할 때, 이름이 중복되면 안됨 */
 			String saveFileName = genSaveFileName(extName);
 			
-			System.out.println("######" + originalFileName);
-			System.out.println("######" + extName);
-			System.out.println("######" + saveFileName);
-			System.out.println("######" + size);
+			System.out.println("## Photo Information >> " + originalFileName +" / "+ saveFileName +" / "+  size);
+			
 
 			writeFile(multipartFile, saveFileName);
 
 			url = PREFIX_URL + saveFileName;
-			System.out.println("######" + url);
+			System.out.println("## URL >> " + url);
 
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
