@@ -99,6 +99,7 @@ var add = function() {
 </head>
 
 <body>
+${touridx }
 	<div id="top-section">
 	
 	</div>
@@ -115,6 +116,7 @@ var add = function() {
 			<input type="text" value="score" name="score"><br>
 			<input type="text" value="content" name="content"><br>
 			<input type="hidden"  id="imagePath" value="imagePath" name="photo"><br>
+			<input type="hidden" name="tourIdx" value=${touridx }>
 	
 			<div id=multiImgContainer></div>
 			
