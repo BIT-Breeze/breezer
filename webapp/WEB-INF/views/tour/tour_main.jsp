@@ -55,13 +55,26 @@
 		    });
 		}
 		
+		$(window).scroll(function () {
+			var $window = $(this);
+			var scrollTop = $(window).scrollTop();
+			var elementOffset = $("#tour_navigation").offset().top;
+			var currentElementOffset = (elementOffset - scrollTop);
+			if(currentElementOffset > 0){
+				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 0px');
+			}
+		});
+		
 		</script>
 	</head>
 	
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 
 	<div id="container">
-		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<div id="tour_header_bg">
+			<c:import url="/WEB-INF/views/includes/header.jsp" />
+			<c:import url="/WEB-INF/views/tour/tour_header.jsp" />
+		</div>
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">

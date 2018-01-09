@@ -5,6 +5,4 @@
 		
 	<div id="header">
 		<h1> Breezer</h1>
-			<ul>
-			</ul>
 	</div>
