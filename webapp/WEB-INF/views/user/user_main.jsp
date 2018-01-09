@@ -10,6 +10,7 @@
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 <link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"	rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
@@ -40,7 +41,7 @@ var render0 = function( tourvo, mode ){
 	//var id = "${authUser.id}";
 	var id = userId;
 	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  +   "' align='center'>"+
-				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" +
+				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" + 
 				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
 				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
 				 + "</a><br>" +				
@@ -150,7 +151,18 @@ $(function(){
 <body>
 
 <div class="container-fluid">
-  <div class="row content">
+  
+  
+  	<div class="row" id="container">
+	  	<div class="col-sm-12">
+		  	<c:import url="/WEB-INF/views/includes/header.jsp">
+		
+			</c:import>
+		</div>
+  	</div>
+  	
+  	<div class="row content">
+  
 	<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 		<c:param name="menu" value="login" />
 	</c:import>
@@ -166,7 +178,7 @@ $(function(){
 			
 			<div class="col-sm-6" id="firstrow" align="center">
 
-			<h4>${uservo2.id }님은</h4><br>
+			<h4>${uservo2.nickName }님은</h4><br>
 			${uservo2.tours }개의 여행을 하셨습니다.<br>
 			
 			</div>
