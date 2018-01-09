@@ -145,7 +145,7 @@ $(function(){
 	<!-- side_navi import -->
 	<div id="side_navi">
 		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
-			<c:param name="menu" value="login" />
+			<c:param name="menu" value="sns" />
 		</c:import>
 	</div>
 
