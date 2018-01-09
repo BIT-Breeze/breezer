@@ -60,7 +60,7 @@
 			var scrollTop = $(window).scrollTop();
 			var elementOffset = $("#tour_navigation").offset().top;
 			var currentElementOffset = (elementOffset - scrollTop);
-			if(currentElementOffset > 0){
+			if(currentElementOffset > 0 && scrollTop < 360){
 				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 0px');
 			}
 		});
@@ -79,7 +79,7 @@
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">
 				<div class="row">
-					<a style="float: right;" href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/edit?idx=${tourIdx}">여행기 수정</a>
+					<a style="float: right;" href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/edit?idx=${tourIdx}">여행기 추가</a>
 				</div>
 				<c:forEach var="post" items="${postList }">
 					<div class="post" id="post-${post.idx}">
