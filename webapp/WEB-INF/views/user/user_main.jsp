@@ -39,9 +39,9 @@ var render0 = function( tourvo, mode ){
 	console.log(tourvo.idx);	
 	//var id = "${authUser.id}";
 	var id = userId;
-	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  + "' align='center'>"+
+	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  +   "' align='center'>"+
 				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" +
-				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx='" + tourvo.idx + "'>"+ 						
+				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
 				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
 				 + "</a><br>" +				
 				"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + "</div>" ;
