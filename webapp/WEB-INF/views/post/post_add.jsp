@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 
-var imagePath; // 이미지 경로 저장 변수
+var imagePath = ""; // 이미지 경로 저장 변수
 var file = $('[name="file"]');
 var sel_files = []; // 파일 저장되는 변수 [배열]
 
@@ -67,17 +67,19 @@ function ImgFileSelect(e) {
 		
 		for ( data in response.data ) {
 			console.log("data[" + index + "] >> " + response.data[index])
+			
+			if ( index > 0 ) {
+				imagePath += ',';
+			}
+			
 			// var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
 			
 			var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'" width="480" height="320"/>';
-			
 			multiImgContainer.append(img);
 			
 			// image path 설정해서 DB에 때려박을 url경로 보내주기위해 하는 짓
 			imagePath += response.data[index];
-			imagePath += ',';
 			index++;
-			
 		}
 		currentIndex = index; // 현재 인덱스 저장
 	
