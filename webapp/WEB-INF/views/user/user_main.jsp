@@ -35,13 +35,41 @@ if(authUser == uservo){
 }
 console.log(userId);
 
+var messageBox = function(title, message, callback){
+	$( "#dialog-message" ).attr( "title", title);
+	// 클래스의 특정 속성에 값을 준다. 두번째 인자가 없으면 값을 가져온다.
+	// attr() 은 속성과 관련된 작업을 한다. 
+	/* 보통 세 가지 형태로 사용한다. 
+	1. attr(name, value)
+	2. attr(name, function(index, attr{}))
+	3. attr(object)
+	
+	*/
+	$( "#dialog-message p" ).text( message );
+	$( "#dialog-message" ).dialog({
+		modal:true,
+		buttons:{
+			"확인" : function(){
+				$(this).dialog("close");
+			}
+	
+		},
+		close: callback || function(){}
+	});
+}
+
+
+
+
 
 var render0 = function( tourvo, mode ){
 	console.log(tourvo.idx);	
 	//var id = "${authUser.id}";
 	var id = userId;
 	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  +   "' align='center'>"+
-				tourvo.title + "<br>" + "투어번호 :" + tourvo.idx + "<br>" + 
+				tourvo.title + "<br>" + 
+				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tourdelete?idx=" + tourvo.idx + 
+				"'> <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#myModal'> 삭제 </button> </a><br>" +
 				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
 				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
 				 + "</a><br>" +				
@@ -115,7 +143,55 @@ var fetchList = function(){
 
 
 $(function(){
-	// 1. 스크롤 함수 
+	var deleteDialog = $("#dialog-delete-form").dialog({
+		autoOpen: false,
+		modal: true,
+		buttons: {
+			"삭제": function(){
+
+				console.log( "삭제:  no "  );
+				
+				//ajax 통신
+				$.ajax({
+					url: "/mysite3/" + userId + "/deleteTour",
+					type: "post",
+					dataType: "json",
+					data: "no=" + no,
+					success: function( response ) {
+						if( response.result == "fail" ) {
+							console.log( response.message );
+							return;
+						}
+						
+						if( response.data == -1 ) {
+							$( ".validateTips.normal" ).hide();
+							$( ".validateTips.error" ).show();
+							$( "#password-delete" ).val( "" );
+							return;
+						}
+						
+						$( "#list-guestbook li[data-no=" + response.data + "]" ).remove();
+						deleteDialog.dialog( "close" );
+					},
+					error: function( xhr, status, e){
+						console.error( status + ":" + e );
+					}
+				});
+
+			},
+			"취소": function(){
+				$(this).dialog("close");
+			}
+		},
+		close: function(){
+			$("#password-delete").val( "" );
+			$("#hidden-no").val( "" );
+		}
+	});
+	
+	
+	
+	
 	$( window ).scroll( function(){
 		var $window = $(this);
 		var scrollTop = $window.scrollTop();
@@ -205,8 +281,16 @@ $(function(){
 
 			</div>
 			
+			<div id="dialog-delete-form" title="tour delete" style="display:none">
+			<p class="validateTips normal"> 정말로 삭제하시겠습니까? </p>
 			
-
+			</div>
+			
+			<div id="dialog-message" title="" style="display:none">
+  				<p></p>
+			</div>
+			
+			
 			<div class="col-sm-12" id="bottom-text" style="text-align:center; padding-top:20px">
 				<h4>투어를 더 보려면 아래로 스크롤 하세요!!</h4>
 			</div>

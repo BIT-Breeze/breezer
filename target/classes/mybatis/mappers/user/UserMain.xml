@@ -75,5 +75,14 @@
 	</select>
 	
 	
+	<delete id="tourDelete" parameterType="tourvo">
+		<![CDATA[
+			delete from TB_TOUR where idx = #{ idx }		
+		]]>
+		
+
+	</delete>
+	
+	
 
 </mapper>
