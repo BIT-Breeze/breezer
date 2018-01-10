@@ -11,6 +11,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 
+<!-- 이미지 슬라이더 -->
+<link href="${pageContext.servletContext.contextPath }/assets/css/sns/style.css" rel="stylesheet" type="text/css" /> 
+<script src="${pageContext.servletContext.contextPath }/assets/js/sns/packed.js" type="text/javascript"></script> 
+
+
 <!-- css -->
 
 <link
@@ -33,43 +38,97 @@
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
 
 
+
+
+
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 
+<script type="text/javascript">
+
+</script>
+
 <script>
 	var isEnd = false;
-
+	var sliderCount = 0
+	
+	var slideshow
+	
+	
+	
+	
+	
+	
 	var render = function(vo, mode) {
+		sliderCount+= 1;
+		
+		if (sliderCount > 1 ) {
+			return;
+		}
+		
+		var photo = vo.photo;
+		var photos = photo.split(',');
+		for( var i in photos ) {
+			//console.log(i +" : " + photos[i])
+		}
+		
 		var html = "<div id='post' data-idx='"+vo.idx+"' style='width:780px; height: auto; background-color:#ff5555; ' >"
-				+ "<div id='post-header' style='height: 50px; width:780px; margin-top:10px; background-color: #ffff44;'> "
-				+ "<div id='header-picture' style='float: left;'>"
-				+ "<div id='mage-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 10px;'></div> "
-				+ "</div>"
-				+ "<div id='header-info' style='float: left;'>"
-				+ "<div id='header-nickname'>"
-				+ "<label>nickName : <a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>"
-				+ vo.userId
-				+ "</a></label> "
-				+ "</div>"
-				+ "<div id='header-location'>"
-				+ "<label>location : "
-				+ vo.location
-				+ " </label>"
-				+ "</div>"
-				+ "</div>"
-				+ "</div>"
-				+
+				+ "		<div id='post-header' style='height: 50px; width:780px; margin-top:10px; background-color: #ffff44;'> "
+				+ "			<div id='header-picture' style='float: left;'>"
+				+ "				<div id='mage-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 10px;'></div> "
+				+ "			</div>"
+				+ "			<div id='header-info' style='float: left;'>"
+				+ "				<div id='header-nickname'>"
+				+ "					<label>nickName : <a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId
+				+ "					</a></label> "
+				+ "				</div>"
+				+ "				<div id='header-location'>"
+				+ "					<label>location : "+ vo.location
+				+ " 				</label>"
+				+ "				</div>"
+				+ "			</div>"
+				+ "		</div>"
+				
 
-				"<div id='post-picture' style='height:auto; width:100%; background-color:#ccfaaa;'> 이미지"
-				+ "<img id='sns-img'src=${pageContext.request.contextPath }"
-				+ vo.photo
-				+ " style='width:100%; height: auto;'>"
-				+ "</div>"
-				+
+				
+				
+				+ "		<div id='post-picture' style='height:600px; width:100%; background-color:#ccfaaa;'> 이미지"
+				//+ 	"<img id='sns-img'src=${pageContext.request.contextPath }"+ vo.photo + " style='width:100%; height: auto;'>"
+				+ '			<div id="wrapper" style="height:auto; width:100%;" >'
+				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/left.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
+				+ '				<div id="slider" >'
+				+ '					<ul> '		
+				
+				
+				// 사진 갯수만큼 img 태그 만들기 
+				for( var i in photos ) {
+					html = html + " <li><img src=${pageContext.request.contextPath }"+photos[i] +" style='width:100%; height: auto;'   /></li>" 
+				}
+				
+				+ '					</ul> '
 
-				"<div id='post-info'>"
+				html = html 
+				+ '				</div>'
+				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/right.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
+				+ ' 			<ul id="pagination" class="pagination"> '
+				
+				for( var i in photos ) {
+					html = html + " <li onclick='slideshow.pos("+i+")'>"+(++i)+"</li>" 
+				}
+
+				html = html 
+				+ ' 			</ul>'
+				+ "		</div>"
+				+ "</div>"
+				
+				
+				
+				
+				+ "<div id='post-info'  style='height:auto; width:100%;' >"
 				+ "<div id='info-status' >"
 				+ "<button type='button' > like </button><br> "
 				+ "<label>좋아요 : "
@@ -99,15 +158,30 @@
 				+ ", voIdx : "
 				+ vo.idx
 				+ " </label>"
-				+ "</div>"
+				
 				+ "</div>" + "</div>"
 
-		if (mode == true) {
-			$("#list-sns").prepend(html);
-		} else {
-			$("#list-sns").append(html);
-
-		}
+				if (mode == true) {
+					$("#list-sns").prepend(html);
+				} else {
+					$("#list-sns").append(html);
+		
+				}
+					
+				slideshow = new TINY.slider.slide('slideshow',{
+					id:'slider',
+					auto:3,
+					resume:true,
+					vertical:false,
+					navid:'pagination',
+					activeclass:'current',
+					position:0
+				});	
+				
+				
+				
+				
+				
 	}
 
 	var fetchList = function() {
@@ -133,7 +207,6 @@
 				}
 
 				$.each(response.data, function(index, vo) {
-
 					render(vo, false);
 				});
 			}
@@ -181,8 +254,8 @@
 	<div id="header">
 		<c:import url="/WEB-INF/views/includes/header.jsp">
 		</c:import>
-	</div>	
-	
+	</div>
+
 	<div id="container">
 		sns
 		<div id="list-sns"
