@@ -66,6 +66,12 @@
 	}
 	
 
+		
+
+	
+	
+	
+
 
 
 	var isEnd = false;
@@ -82,7 +88,7 @@
 	var render = function(vo, mode) {
 		sliderCount+= 1;
 		
-		if (sliderCount > 2 ) {
+		if (sliderCount > 1 ) {
 			//return;
 		}
 		
@@ -137,8 +143,16 @@
 				html = html 
 				+ ' 			</ul>' */
 				
-				+ '  		<div class="cycle-slideshow"   >'
-				+ '              <div class="cycle-pager"></div>'
+				
+				
+				// test2 
+				/* 
+				+ '  		<div class="cycle-slideshow"  data-cycle-timeout=0    data-cycle-prev="#prev'+sliderCount+' "        data-cycle-next="#next'+sliderCount+'"  data-index='+sliderCount+'>'
+				//+ '             <div class="cycle-pager"></div>'
+				+ '				<div class=center>'
+				+ '			    	<span id="prev'+sliderCount+'" class="prevControl"> <<Prev </span>'
+				+ '			    	<span id="next'+sliderCount+'" class="nextControl"> Next>> </span>'
+				+ '				</div> '
 				
 				for( var i in photos ) {
 					html = html + " <img src=${pageContext.request.contextPath }"+photos[i] +"  style='width:100%; height: auto;'  >" 
@@ -147,11 +161,55 @@
 				
 				html = html
 				+ "			</div>"
+				  */
+				 
+				 
+				 
+				 /*  test3 - 그냥 스크롤로 나옴...
+				 + '	<div class=swipe> '
+				 for( var i in photos ) {
+						html = html + " <img src=${pageContext.request.contextPath }"+photos[i] +"  style='width:100%; height: auto;'  >" 
+					}
+						
+				 html = html 
+				 + '	</div>'
+				 */
+				
+				 
+				 
+				 
+				 // test 4 only css html
+				 + '<div class="slider-holder"> '
+				 
+				 for( var i in photos ) {
+					html = html + '<span id="slider-image-'+(++i)+'"></span>' 
+				}
+				 
+				 
+				 html = html
+				 + '   <div id="ih'+sliderCount+'" class="image-holder"> '
+				 
+				 for( var i in photos ) {
+						html = html + '       <img src="${pageContext.request.contextPath }'+photos[i]+'" class="slider-image"  /> '
+					}
+				 
+				html = html
+				 + '   </div> '
+				 + '   <div class="button-holder"> '
+				
+				 for( var i in photos ) {
+						html = html +  '       <a href="#slider-image-'+(++i)+'" class="slider-change"  ></a> '
+					}
+				 
+
+				 + '   </div> '
+				 + ' </div> '
+				
+				 
+				 
+				 
+				 
 				+ "		</div>"
-				//+ "</div>"
-				
-				
-				
 				
 				+ "<div id='post-info'  style='height:auto; width:100%;' >"
 				+ "<div id='info-status' >"
