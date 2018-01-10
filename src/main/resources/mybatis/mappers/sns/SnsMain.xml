@@ -21,6 +21,7 @@
 													from TB_POST p
 													group by p.tourIdx) p , TB_USER u
 							where t.idx = p.tourIdx and t.userId = p.userId and t.userId = u.id) f , (SELECT @ROWNUM := 0) r 
+					
 					order by f.tripDateTime, f.title ) result
 		]]>
 		<if test="_parameter > 0"> 

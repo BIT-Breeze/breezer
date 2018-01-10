@@ -114,11 +114,11 @@ ${touridx }
 	
 	<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
 		<div>
-			<input type="text" value="location" name="location"><br>
-			<input type="text" value="category" name="category"><br>
-			<input type="text" value="price" name="price"><br>
-			<input type="text" value="score" name="score"><br>
-			<input type="text" value="content" name="content"><br>
+			location <input type="text" value="location" name="location"><br>
+			category <input type="text" value="0" name="category"><br>
+			price <input type="text" value="0" name="price"><br>
+			score <input type="text" value="0" name="score"><br>
+			content <input type="text" value="content" name="content"><br>
 			<input type="hidden"  id="imagePath" value="imagePath" name="photo"><br>
 			<input type="hidden" name="tourIdx" value=${touridx }>
 	
