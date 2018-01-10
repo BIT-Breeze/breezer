@@ -6,8 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -67,10 +69,37 @@ public class UserMainController {
 		if(tours.isEmpty()) {
 			return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
 		}
-
-		//System.out.println("JSON REQUEST CONTROLLER2");
 		
 		return JSONResult.success(tours);
 	}
+	
+	@RequestMapping(
+			value = "/tourdelete/{idx}",
+			method = RequestMethod.GET
+			)
+	public String delete(@PathVariable("idx") Long idx, Model model) {
+
+		model.addAttribute("idx", idx);
+		return "user/user_main";
+	}
+	
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	public String tourDelete(@ModelAttribute TourVo tourvo) {
+
+		userMainService.tourDelete(tourvo);
+		return "redirect:/guestbook";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/delete")
+	public JSONResult delete(
+
+			@ModelAttribute TourVo tourvo
+			) {
+				boolean bSuccess = 
+						userMainService.tourDelete(tourvo);
+				return JSONResult.success( bSuccess ? tourvo.getIdx() : -1);
+			}
+	
 		
 }

@@ -28,9 +28,6 @@ public class UserMainService {
 		return result;		
 	}	
 	
-	/* test code for country button */
-	@Autowired
-	TourMainDao tourMainDao;
 	
 	public List<TourVo> getTours(String id){
 		System.out.println("==UserMainService getTours()==");
@@ -46,6 +43,12 @@ public class UserMainService {
 		List<TourVo> result = userMainDao.getTours(id, startNo);
 		
 		return result;
+	}
+
+	public boolean tourDelete(TourVo tourvo) {
+		int count = userMainDao.tourDelete(tourvo);
+		return count == 1;
+		// 하나가 삭제되었다면 true가 리턴되고 삭제가 안 되었다면 false가 리턴된다. 
 	}
 	
 	

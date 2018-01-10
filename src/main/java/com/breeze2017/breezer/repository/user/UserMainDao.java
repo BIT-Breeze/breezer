@@ -49,4 +49,10 @@ public class UserMainDao {
 		return sqlSession.selectOne("user.getTotalCount", keyword);
 	}
 
+	public int tourDelete(TourVo tourvo) {
+		int count = sqlSession.delete("user.tourDelete", tourvo);
+
+		return count;
+	}
+
 }
