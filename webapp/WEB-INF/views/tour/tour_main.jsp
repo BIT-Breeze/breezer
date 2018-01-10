@@ -86,6 +86,9 @@
 					<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
 				</div>
 				<c:forEach var="post" items="${postList }">
+					<c:if test="${post.dateGap != 0}">
+						<div>${post.dateGap}일차</div>
+					</c:if>
 					<div class="post" id="post-${post.idx}">
 						<dl>
 							<dd>${post.tripDateTime }</dd>
