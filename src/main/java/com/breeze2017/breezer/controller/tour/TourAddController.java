@@ -19,6 +19,12 @@ public class TourAddController {
 	@Autowired
 	private TourAddService tourAddService;
 	
+	/*@Auth
+	@RequestMapping(value="tour/add", method=RequestMethod.GET)
+	public String tourAdd() {
+		return "tour/tour_add";
+	}*/
+	
 	@Auth
 	@RequestMapping(value="tour/add", method=RequestMethod.GET)
 	public String tourAdd() {

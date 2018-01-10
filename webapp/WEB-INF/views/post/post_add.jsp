@@ -129,10 +129,29 @@ ${touridx }
 			
 			<!-- MODAL TEST -->
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-			  Modal 띄우기
+			  Modal 띄우기(MAP)
 			</button>
 			
-			<!-- Modal -->
+		  
+			
+			<input type="button" value="add" onclick="add()"><br><br>
+		</div>
+	</form>
+	
+	<!-- 다중 파일 업로더 -->
+	<form id="MultifileForm">
+		<input type="file" multiple="multiple" name="multiFile" id="fileUpload"><br><br>
+		
+	</form>
+	
+</body>
+
+</html>
+
+
+
+		 
+	<!-- MODAL
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
@@ -148,17 +167,4 @@ ${touridx }
 			      </div>
 			    </div>
 			  </div></div>
-			
-			<input type="button" value="add" onclick="add()"><br><br>
-		</div>
-	</form>
-	
-	<!-- 다중 파일 업로더 -->
-	<form id="MultifileForm">
-		<input type="file" multiple="multiple" name="multiFile" id="fileUpload"><br><br>
-		
-	</form>
-	
-</body>
-
-</html>
+	 -->
