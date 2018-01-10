@@ -135,6 +135,9 @@ var add = function() {
 			<input type="text" id="start-datepicker" value="start date" name="startDate">
 			<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
 			<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
+			<input type="radio" name="secret" value="0" checked="checked" /> public
+			<input type="radio" name="secret" value="1" /> private
+			
 			<input type="button" value="add" onclick="add()">
 		</div>
 		
