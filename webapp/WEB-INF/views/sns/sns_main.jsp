@@ -12,14 +12,16 @@
 
 
 <!-- 이미지 슬라이더 -->
-<link href="${pageContext.servletContext.contextPath }/assets/css/sns/style.css" rel="stylesheet" type="text/css" /> 
-<script src="${pageContext.servletContext.contextPath }/assets/js/sns/packed.js" type="text/javascript"></script> 
+<%-- <link href="${pageContext.servletContext.contextPath }/assets/css/sns/style.css" rel="stylesheet" type="text/css" /> 
+<script src="${pageContext.servletContext.contextPath }/assets/js/sns/packed.js" type="text/javascript"></script>  --%>
+
+
 
 
 <!-- css -->
 
 <link
-	href="${pageContext.servletContext.contextPath }/assets/css/login.css"
+	href="${pageContext.servletContext.contextPath }/assets/css/sns/sns_main.css"
 	rel="stylesheet" type="text/css">
 <!-- bootstrap -->
 <link
@@ -36,6 +38,11 @@
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
+	
+	
+	
+
+<script type="text/javascript"  src="http://malsup.github.io/jquery.cycle2.js"></script>
 
 
 
@@ -53,10 +60,19 @@
 </script>
 
 <script>
+	function reload_js(src) {
+	    $('script[src="' + src + '"]').remove();
+	    $('<script>').attr('src', src).appendTo('head');
+	}
+	
+
+
+
 	var isEnd = false;
 	var sliderCount = 0
 	
-	var slideshow
+	var slideshow 
+	
 	
 	
 	
@@ -66,8 +82,8 @@
 	var render = function(vo, mode) {
 		sliderCount+= 1;
 		
-		if (sliderCount > 1 ) {
-			return;
+		if (sliderCount > 2 ) {
+			//return;
 		}
 		
 		var photo = vo.photo;
@@ -79,7 +95,7 @@
 		var html = "<div id='post' data-idx='"+vo.idx+"' style='width:780px; height: auto; background-color:#ff5555; ' >"
 				+ "		<div id='post-header' style='height: 50px; width:780px; margin-top:10px; background-color: #ffff44;'> "
 				+ "			<div id='header-picture' style='float: left;'>"
-				+ "				<div id='mage-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 10px;'></div> "
+				+ "				<div id='image-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 10px;'><img src = '"+vo.pictureUrl+"'  > </div> "
 				+ "			</div>"
 				+ "			<div id='header-info' style='float: left;'>"
 				+ "				<div id='header-nickname'>"
@@ -96,24 +112,22 @@
 
 				
 				
-				+ "		<div id='post-picture' style='height:600px; width:100%; background-color:#ccfaaa;'> 이미지"
+				+ "		<div id='post-picture' style='height:800px; width:100%; background-color:#ccfaaa;'> 이미지"
 				//+ 	"<img id='sns-img'src=${pageContext.request.contextPath }"+ vo.photo + " style='width:100%; height: auto;'>"
-				+ '			<div id="wrapper" style="height:auto; width:100%;" >'
+				/* + '			<div id="wrapper" style="height:auto; width:100%;" >'
 				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/left.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
 				+ '				<div id="slider" >'
-				+ '					<ul> '		
+				+ '					<ul> '	 */	
 				
 				
-				// 사진 갯수만큼 img 태그 만들기 
+		/* 		// 사진 갯수만큼 img 태그 만들기 
 				for( var i in photos ) {
 					html = html + " <li><img src=${pageContext.request.contextPath }"+photos[i] +" style='width:100%; height: auto;'   /></li>" 
 				}
-				
 				+ '					</ul> '
-
 				html = html 
 				+ '				</div>'
-				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/right.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
+				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/right.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(1)" /></div> '
 				+ ' 			<ul id="pagination" class="pagination"> '
 				
 				for( var i in photos ) {
@@ -121,9 +135,20 @@
 				}
 
 				html = html 
-				+ ' 			</ul>'
+				+ ' 			</ul>' */
+				
+				+ '  		<div class="cycle-slideshow"   >'
+				+ '              <div class="cycle-pager"></div>'
+				
+				for( var i in photos ) {
+					html = html + " <img src=${pageContext.request.contextPath }"+photos[i] +"  style='width:100%; height: auto;'  >" 
+				}
+				
+				
+				html = html
+				+ "			</div>"
 				+ "		</div>"
-				+ "</div>"
+				//+ "</div>"
 				
 				
 				
@@ -162,12 +187,12 @@
 				+ "</div>" + "</div>"
 
 				if (mode == true) {
-					$("#list-sns").prepend(html);
+					$("#list-sns").prepend(html).trigger("create");
 				} else {
-					$("#list-sns").append(html);
+					$("#list-sns").append(html).trigger("create");
 		
 				}
-					
+					/* 
 				slideshow = new TINY.slider.slide('slideshow',{
 					id:'slider',
 					auto:3,
@@ -177,8 +202,9 @@
 					activeclass:'current',
 					position:0
 				});	
+				 */
 				
-				
+				reload_js('http://malsup.github.io/jquery.cycle2.js');
 				
 				
 				
@@ -258,8 +284,21 @@
 
 	<div id="container">
 		sns
+		<!-- <div class="cycle-slideshow"   data-cycle-fx=scrollHorz    data-cycle-timeout=0    >
+			   	<div class="cycle-pager"></div>
+				
+				<img src="/breezer/uploads/images/201801014027289.jpg">
+				<img src="/breezer/uploads/images/201801013945770.png">
+				
+				
+		</div> -->
+		
 		<div id="list-sns"
 			style="width: 800px; background-color: #ffffcc; margin: auto;">
+			
+			
+			
+			
 			<!-- 각각의 포스트  -->
 			<!-- <div id="post" data-idx="123" style="width:780px; height: 400px; background-color:#ff5555; " >
 				헤더부분 : 이미지, 닉네임, 위치
