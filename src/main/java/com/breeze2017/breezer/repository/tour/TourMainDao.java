@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.breeze2017.breezer.vo.PostVo;
+import com.breeze2017.breezer.vo.TourVo;
 
 @Repository
 public class TourMainDao {
@@ -16,7 +17,7 @@ public class TourMainDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<PostVo> getTour(String userId, int tourIdx){
+	public List<PostVo> getPostList(String userId, int tourIdx){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
@@ -25,5 +26,16 @@ public class TourMainDao {
 		List<PostVo> postList = sqlSession.selectList("tourMain.getPostList", map);
 		
 		return postList;
+	}
+	
+	public TourVo getTour(String userId, int tourIdx){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("tourIdx", tourIdx);
+		
+		TourVo tour = sqlSession.selectOne("tourMain.getTour", map);
+		
+		return tour;
 	}
 }

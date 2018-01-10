@@ -1,5 +1,6 @@
 package com.breeze2017.breezer.controller.tour;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.breeze2017.breezer.service.tour.TourMainService;
 import com.breeze2017.breezer.vo.PostVo;
+import com.breeze2017.breezer.vo.TourVo;
 import com.breeze2017.breezer.vo.UserVo;
 
 @Controller
@@ -36,11 +38,13 @@ public class TourMainController {
 		}
 		String userId = id;
 		
-		List<PostVo> postList = tourMainService.getTour(userId, tourIdx);
+		List<PostVo> postList = tourMainService.getPostList(userId, tourIdx);
+		TourVo tour = tourMainService.getTour(userId, tourIdx);
 
 		model.addAttribute("userId", userId);
 		model.addAttribute("postList", postList);
 		model.addAttribute("tourIdx", tourIdx);
+		model.addAttribute("tour", tour);
 		
 		return "tour/tour_main";
 	}
