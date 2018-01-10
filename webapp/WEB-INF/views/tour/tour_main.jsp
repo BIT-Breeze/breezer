@@ -70,7 +70,7 @@
 		}
 		
 		</script>
-	</head>
+</head>
 	
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 
