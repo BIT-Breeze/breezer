@@ -6,16 +6,19 @@
 <nav id="tour_navigation">
 	<ul>
 		<c:forEach var="post" items="${postList }" varStatus="status">
-				<c:if test="${status.first }">
-					<li>
-						<a class="active" href="#post-${post.idx}">${post.location }</a>
-					</li>
-				</c:if>
-				<c:if test="${!status.first }">
-					<li>
-						<a href="#post-${post.idx}">${post.location }</a>
-					</li>
-				</c:if>
+			<c:if test="${post.dateGap != 0}">
+				<li><p>${post.dateGap}일차</p></li>
+			</c:if>
+			<c:if test="${status.first }">
+				<li>
+					<a class="active" href="#post-${post.idx}">${post.location }</a>
+				</li>
+			</c:if>
+			<c:if test="${!status.first }">
+				<li>
+					<a href="#post-${post.idx}">${post.location }</a>
+				</li>
+			</c:if>
 		</c:forEach>
 	</ul>
 </nav>
