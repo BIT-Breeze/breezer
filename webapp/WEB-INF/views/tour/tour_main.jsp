@@ -16,6 +16,7 @@
 		<script type="text/javascript">
 		
 		$(document).ready(function () {
+			
 		    $(document).on("scroll", onScroll);
 		    
 		    //smoothscroll
@@ -38,6 +39,16 @@
 		            $(document).on("scroll", onScroll);
 		        });
 		    });
+		    
+		    $('#modifyTour').click(function(){
+				$('.toModify').hide();
+				$('.modified').show();
+			});
+		    
+		    $('#completeModifyTour').click(function(){
+				$('.modified').hide();
+				$('.toModify').show();
+			});
 		});
 
 		function onScroll(event){
@@ -82,7 +93,7 @@
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">
-				<div class="row">
+				<div>
 					<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
 				</div>
 				<c:forEach var="post" items="${postList }">
