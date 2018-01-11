@@ -9,14 +9,14 @@
 					from (select p.tourIdx tourIdx, p.idx postIdx, p.userId, u.nickName nickName,
 					  				null title,  p.content, p.photo, null startDate, 
 					  				null endDate, p.score, p.hit,    p.postDateTime, 
-									p.tripDateTime,  p.location
+									p.tripDateTime,  p.location, u.pictureUrl
 							from TB_POST p, TB_TOUR t, TB_USER u
 							where p.userId = u.id and p.tourIdx = t.idx
 							UNION ALL 
 							select 	t.idx tourIdx, null postIdx, t.userId, u.nickName nickName, t.title title, 
 										null content, t.mainPhoto photo,    t.startDate,    
 										t.endDate, t.score, t.hit, null postDateTime, 
-										p.tripDateTime, null location
+										p.tripDateTime, null location, u.pictureUrl
 							from TB_TOUR t, (	select p.tourIdx, p.idx, p.userId, max(p.tripDateTime) tripDateTime
 													from TB_POST p
 													group by p.tourIdx) p , TB_USER u
