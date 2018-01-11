@@ -19,20 +19,18 @@ public class SNSVo {
 	private String postDateTime;
 	private String tripDateTime;
 	private String location;
-	
-	
-	
-	public long getIdx() {
-		return idx;
-	}
-	public void setIdx(long idx) {
-		this.idx = idx;
-	}
+	private String pictureUrl;
 	public String getKind() {
 		return kind;
 	}
 	public void setKind(String kind) {
 		this.kind = kind;
+	}
+	public long getIdx() {
+		return idx;
+	}
+	public void setIdx(long idx) {
+		this.idx = idx;
 	}
 	public long getTourIdx() {
 		return tourIdx;
@@ -88,6 +86,12 @@ public class SNSVo {
 	public void setScore(double score) {
 		this.score = score;
 	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	public long getLike() {
 		return like;
 	}
@@ -112,13 +116,12 @@ public class SNSVo {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public double getPrice() {
-		return price;
+	public String getPictureUrl() {
+		return pictureUrl;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -126,13 +129,7 @@ public class SNSVo {
 				+ userId + ", title=" + title + ", content=" + content + ", photo=" + photo + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", score=" + score + ", price=" + price + ", like=" + like
 				+ ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime + ", location=" + location
-				+ ", getIdx()=" + getIdx() + ", getKind()=" + getKind() + ", getTourIdx()=" + getTourIdx()
-				+ ", getPostIdx()=" + getPostIdx() + ", getUserId()=" + getUserId() + ", getTitle()=" + getTitle()
-				+ ", getContent()=" + getContent() + ", getPhoto()=" + getPhoto() + ", getStartDate()=" + getStartDate()
-				+ ", getEndDate()=" + getEndDate() + ", getScore()=" + getScore() + ", getLike()=" + getLike()
-				+ ", getPostDateTime()=" + getPostDateTime() + ", getTripDateTime()=" + getTripDateTime()
-				+ ", getLocation()=" + getLocation() + ", getPrice()=" + getPrice() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", pictureUrl=" + pictureUrl + "]";
 	}
 	
 	
