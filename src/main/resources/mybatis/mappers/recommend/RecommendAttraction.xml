@@ -9,4 +9,11 @@
                  #{item}
         </foreach> 
 </select>
+
+<select id="getRecommends" resultType="recommendvo">
+	select * from recommendtest where 
+		<foreach collection="list" item="item" index="index" separator="or">
+                 location like concat(#{item}, '%')
+        </foreach>   
+</select>
 </mapper>
