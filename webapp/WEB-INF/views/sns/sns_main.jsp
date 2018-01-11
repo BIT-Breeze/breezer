@@ -78,9 +78,51 @@
 	var sliderCount = 0
 	
 	var slideshow 
+	var sliderObjects = [];
 	
 	
 	
+
+	function plusDivs(obj, n) {
+	  var parentDiv = $(obj).parent();
+	  var matchedDiv;
+	  $.each(sliderObjects, function(i, item) {
+	    if ($(parentDiv[0]).attr('id') == $(item).attr('id')) {
+	      matchedDiv = item;
+	      return false;
+	    }
+	  });
+	  matchedDiv.slideIndex=matchedDiv.slideIndex+n;
+	  showDivs(matchedDiv, matchedDiv.slideIndex);
+	}
+
+	function createSliderObjects() {
+	  var sliderDivs = $('.slider');
+	  $.each(sliderDivs, function(i, item) {
+	    var obj = {};
+	    obj.id = $(item).attr('id');
+	    obj.divContent = item;
+	    obj.slideIndex = 1;
+	    obj.slideContents = $(item).find('.mySlides');
+	    showDivs(obj, 1);
+	    sliderObjects.push(obj);
+	  });
+	}
+
+	function showDivs(divObject, n) {
+	 // debugger;
+	  var i;
+	  if (n > divObject.slideContents.length) {
+	    divObject.slideIndex = 1
+	  }
+	  if (n < 1) {
+	    divObject.slideIndex = divObject.slideContents.length
+	  }
+	  for (i = 0; i < divObject.slideContents.length; i++) {
+	    divObject.slideContents[i].style.display = "none";
+	  }
+	  divObject.slideContents[divObject.slideIndex - 1].style.display = "block";
+	}
 	
 	
 	
@@ -179,6 +221,7 @@
 				 
 				 
 				 // test 4 only css html
+				 /*
 				 + '<div class="slider-holder"> '
 				 
 				 for( var i in photos ) {
@@ -204,12 +247,29 @@
 
 				 + '   </div> '
 				 + ' </div> '
+				*/
 				
-				 
-				 
-				 
-				 
+				
+				// test 5  link : https://stackoverflow.com/questions/41541559/multiple-slideshows-on-one-page-makes-the-first-one-not-work-anymore
+				
+				+ '   		<div class="w3-content w3-display-container slider" id="div'+sliderCount+'">  '
+				
+				for( var i in photos ) {
+					html = html + '       <img src="${pageContext.request.contextPath }'+photos[i]+'" class="mySlides"  /> '
+				}
+				
+				html = html
+				+ '   			<a class="w3-btn-floating w3-display-left" onclick="plusDivs(this,-1)">&#10094;</a> '
+				+ '  	 		<a class="w3-btn-floating w3-display-right" onclick="plusDivs(this,1)">&#10095;</a  '
+				+ '   		</div>'
 				+ "		</div>"
+				
+				
+				
+				
+				
+				
+				+ "	</div>"
 				
 				+ "<div id='post-info'  style='height:auto; width:100%;' >"
 				+ "<div id='info-status' >"
@@ -262,9 +322,9 @@
 				});	
 				 */
 				
-				reload_js('http://malsup.github.io/jquery.cycle2.js');
+				// reload_js('http://malsup.github.io/jquery.cycle2.js');
 				
-				
+				createSliderObjects();
 				
 	}
 
