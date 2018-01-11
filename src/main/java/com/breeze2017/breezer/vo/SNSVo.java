@@ -8,6 +8,7 @@ public class SNSVo {
 	private long tourIdx; // tour/post 에 따른 idx
 	private long postIdx;
 	private String userId;
+	private String nickName;
 	private String title;
 	private String content;
 	private String photo;
@@ -20,6 +21,8 @@ public class SNSVo {
 	private String tripDateTime;
 	private String location;
 	private String pictureUrl;
+	
+	
 	public String getKind() {
 		return kind;
 	}
@@ -122,15 +125,24 @@ public class SNSVo {
 	public void setPictureUrl(String pictureUrl) {
 		this.pictureUrl = pictureUrl;
 	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
 	
 	@Override
 	public String toString() {
 		return "SNSVo [kind=" + kind + ", idx=" + idx + ", tourIdx=" + tourIdx + ", postIdx=" + postIdx + ", userId="
-				+ userId + ", title=" + title + ", content=" + content + ", photo=" + photo + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", score=" + score + ", price=" + price + ", like=" + like
-				+ ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime + ", location=" + location
-				+ ", pictureUrl=" + pictureUrl + "]";
+				+ userId + ", nickName=" + nickName + ", title=" + title + ", content=" + content + ", photo=" + photo
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", price=" + price
+				+ ", like=" + like + ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime + ", location="
+				+ location + ", pictureUrl=" + pictureUrl + "]";
 	}
+	
+	
 	
 	
 	
