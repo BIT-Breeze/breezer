@@ -25,18 +25,12 @@ public class TourMainController {
 	@Autowired
 	private TourMainService tourMainService;
 
-	@Auth
 	@RequestMapping("")
 	public String mytour(
-			HttpSession session,
 			@PathVariable String id,
 			@RequestParam(value="idx", required=false) int tourIdx,
 			Model model) {
 		
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
 		String userId = id;
 		
 		List<PostVo> postList = tourMainService.getPostList(userId, tourIdx);
