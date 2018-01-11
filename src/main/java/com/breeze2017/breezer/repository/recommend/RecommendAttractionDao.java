@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.breeze2017.breezer.vo.PostVo;
+import com.breeze2017.breezer.vo.RecommendVo;
 
 @Repository
 public class RecommendAttractionDao {
@@ -20,4 +21,13 @@ public class RecommendAttractionDao {
 
 		return info; 
 	}
+	
+	// recommend
+	public List<RecommendVo> getRecommends(List<String> searchAddress){
+		return sqlSession.selectList("recommend.getRecommends", searchAddress);
+	}
+	
+	/*public List<PostVo> getNearbyInfo(String searchAddress) {
+		return sqlSession.selectList("post.getNearby", searchAddress);
+	}*/
 }
