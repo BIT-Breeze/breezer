@@ -214,22 +214,70 @@ function eventOccur(evEle, evType){
 </head>
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 	
-	<div id="container"></div>
+	<div id="tour_main_header_bg">
+		<div id="tour_main_header">
+			<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
+			
+			<!-- 사진 추가 구간, 백그라운드로 바꿔야됨 -->
+			<div id=imgContainer></div>
+			
+			<!-- 왼쪽 구간 -->
+			<div class="tourAdd_left">
+				
+				<!-- 이미지 업로드 -->
+				<form id="fileForm">
+					<input type="file" name="file" id="fileUpload"><br><br>
+					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onclick="check()" >
+				</form>
+				
+				<!-- 공개/비공개 부분 -->
+				<!-- public private radio 태그 부분을 가리고 사진을 위에 올려 클릭시 이벤트를 발생시켜 public/private 선택을한다.
+				그리고 그 값을 add하는 순간 넘겨줘야한다. -->
+				<form id="lock">
+					<input type="radio" name="secret" value="0" checked="checked" />					
+					<input type="radio" name="secret" value="1" />
+					<img id="newPublicFile" src="/breezer/assets/images/tour/public_button.png" onclick="" >
+					<img id="newPrivateFile" src="/breezer/assets/images/tour/private_button.PNG" onclick="" >
+					
+				</form>
+				
+			</div>
+			
+			<!-- 오른쪽 구간 -->
+			<div class="tourAdd_right">
+				<a href="/breezer">Cancel</a><br> <!-- 취소(Leave) 부분 -->		
+				<input type="button" value="add" onclick="add()"> <!-- 등록(add) 부분 -->
+			</div>
+			
+			<!-- 센터 구간 -->
+			<div class="tourAdd_center">
+				<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
+					<input type="text" value="title" name="title"><br>
+					<input type="text" id="start-datepicker" value="start date" name="startDate">
+					<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
+					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
+				</form>
+			</div>
+		</div>
+	</div>	
 	
-		<div id="tour_main_header_bg">
+	
+	
+	
+<%-- 		<div id="tour_main_header_bg">
 			
 			<div id=imgContainer></div>
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<%-- <c:import url="/WEB-INF/views/tour/tour_main_header.jsp" /> --%>
+			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
 			
 			<div id="tour_main_header"> <!-- main_header css 부분 대체 추가 -->
 			<!-- TOUR_ADD 작업 부분 -->
-						
+
 			<!-- 파일업로더 -->
 				<form id="fileForm">
 					<a href="/breezer">Cancel</a><br>
 					<input type="file" name="file" id="fileUpload"><br><br>
-					<img id="newFile" src="/breezer/assets/images/tour/imgupload.png" onclick="check()" >
+					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onclick="check()" >
 				</form>
 				
 			 	<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
@@ -244,24 +292,12 @@ function eventOccur(evEle, evType){
 					<input type="button" value="add" onclick="add()">
 			
 				</form>
-				
-				<!-- MODAL TEST -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-				  Modal Test
-				</button>
 
 			</div>
-		</div>
+		</div> --%>
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		<!-- POST VIEW 부분 -->
 		<div id="wrapper">

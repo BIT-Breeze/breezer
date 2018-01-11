@@ -94,7 +94,7 @@
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">
 				<div>
-					<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
+<!-- 					<a style="float: right;" href="javascript:addPost()">여행기 추가</a> -->
 				</div>
 				<c:forEach var="post" items="${postList }">
 					<c:if test="${post.dateGap != 0}">
