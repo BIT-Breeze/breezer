@@ -15,6 +15,7 @@
 			on P.idx = G.idx
 		 where P.userId = #{userId}
 		   and P.tourIdx = #{tourIdx}
+      order by tripDateTime, postDateTime
 		]]>
 	</select>
 

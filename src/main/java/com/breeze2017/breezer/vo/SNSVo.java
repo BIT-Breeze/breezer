@@ -8,6 +8,7 @@ public class SNSVo {
 	private long tourIdx; // tour/post 에 따른 idx
 	private long postIdx;
 	private String userId;
+	private String nickName;
 	private String title;
 	private String content;
 	private String photo;
@@ -19,20 +20,20 @@ public class SNSVo {
 	private String postDateTime;
 	private String tripDateTime;
 	private String location;
+	private String pictureUrl;
 	
 	
-	
-	public long getIdx() {
-		return idx;
-	}
-	public void setIdx(long idx) {
-		this.idx = idx;
-	}
 	public String getKind() {
 		return kind;
 	}
 	public void setKind(String kind) {
 		this.kind = kind;
+	}
+	public long getIdx() {
+		return idx;
+	}
+	public void setIdx(long idx) {
+		this.idx = idx;
 	}
 	public long getTourIdx() {
 		return tourIdx;
@@ -88,6 +89,12 @@ public class SNSVo {
 	public void setScore(double score) {
 		this.score = score;
 	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	public long getLike() {
 		return like;
 	}
@@ -112,28 +119,30 @@ public class SNSVo {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public double getPrice() {
-		return price;
+	public String getPictureUrl() {
+		return pictureUrl;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	
 	
 	@Override
 	public String toString() {
 		return "SNSVo [kind=" + kind + ", idx=" + idx + ", tourIdx=" + tourIdx + ", postIdx=" + postIdx + ", userId="
-				+ userId + ", title=" + title + ", content=" + content + ", photo=" + photo + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", score=" + score + ", price=" + price + ", like=" + like
-				+ ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime + ", location=" + location
-				+ ", getIdx()=" + getIdx() + ", getKind()=" + getKind() + ", getTourIdx()=" + getTourIdx()
-				+ ", getPostIdx()=" + getPostIdx() + ", getUserId()=" + getUserId() + ", getTitle()=" + getTitle()
-				+ ", getContent()=" + getContent() + ", getPhoto()=" + getPhoto() + ", getStartDate()=" + getStartDate()
-				+ ", getEndDate()=" + getEndDate() + ", getScore()=" + getScore() + ", getLike()=" + getLike()
-				+ ", getPostDateTime()=" + getPostDateTime() + ", getTripDateTime()=" + getTripDateTime()
-				+ ", getLocation()=" + getLocation() + ", getPrice()=" + getPrice() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ userId + ", nickName=" + nickName + ", title=" + title + ", content=" + content + ", photo=" + photo
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", price=" + price
+				+ ", like=" + like + ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime + ", location="
+				+ location + ", pictureUrl=" + pictureUrl + "]";
 	}
+	
+	
 	
 	
 	

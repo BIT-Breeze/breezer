@@ -24,7 +24,8 @@
 <script src="/breezer/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
 <script src="/breezer/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/breezer/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
-
+<script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 		
@@ -157,13 +158,17 @@ $(document).ready(function() {
 		}).done(function(data) {
 			imgContainer.html('');
 			
-			var img = '<img id="imgCon" src="${pageContext.request.contextPath }'+data+'" width="480" height="320"/>';
+			var img = '<img id="imgCon" src="${pageContext.request.contextPath }'+data+'" width="auto" height="auto"/>';
 			
 			imagePath = data;
 			console.log(data);
 			console.log(img);
  			imgContainer.append(img);
-			
+ 			
+ 			//var backgroundImage = "${pageContext.request.contextPath }" + data;
+ 			//console.log(backgroundImage);
+ 			//document.getElementById("tour_main_header_bg").style.backgroundImage="url('"+backgroundImage+"')";
+ 			
 		}).fail(function(jqXHRm, textStatus) {
 			alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
 			
@@ -180,6 +185,31 @@ var add = function() {
 
 </script>
 
+<script type="text/javascript">
+
+function check() {
+	eventOccur(document.getElementById('fileUpload'),'click');
+}
+
+function eventOccur(evEle, evType){
+	 if (evEle.fireEvent) {
+	 	evEle.fireEvent('on' + evType);
+	 } else {
+		 var mouseEvent = document.createEvent('MouseEvents');
+		 /* API문서 initEvent(type,bubbles,cancelable) */
+		 mouseEvent.initEvent(evType, true, false);
+		 
+		 var transCheck = evEle.dispatchEvent(mouseEvent);
+		 
+		 if (!transCheck) {
+		 //만약 이벤트에 실패했다면
+		 console.log("클릭 이벤트 발생 실패!");
+		 }
+	 }
+}
+
+</script>
+
 <title>Breezer</title>
 </head>
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
@@ -187,6 +217,7 @@ var add = function() {
 	<div id="container"></div>
 	
 		<div id="tour_main_header_bg">
+			
 			<div id=imgContainer></div>
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<%-- <c:import url="/WEB-INF/views/tour/tour_main_header.jsp" /> --%>
@@ -198,22 +229,26 @@ var add = function() {
 				<form id="fileForm">
 					<a href="/breezer">Cancel</a><br>
 					<input type="file" name="file" id="fileUpload"><br><br>
+					<img id="newFile" src="/breezer/assets/images/tour/imgupload.png" onclick="check()" >
 				</form>
 				
 			 	<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
 				
-				<input type="text" value="title" name="title"><br>
-				<input type="text" id="start-datepicker" value="start date" name="startDate"> ~
-				<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
-				<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
-				<input type="radio" name="secret" value="0" checked="checked" /> public
-				<input type="radio" name="secret" value="1" /> private
-				
-				<input type="button" value="add" onclick="add()">
-			
+					<input type="text" value="title" name="title"><br>
+					<input type="text" id="start-datepicker" value="start date" name="startDate"> ~
+					<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
+					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
+					<input type="radio" name="secret" value="0" checked="checked" /> public
+					<input type="radio" name="secret" value="1" /> private
 					
-				</form>
+					<input type="button" value="add" onclick="add()">
 			
+				</form>
+				
+				<!-- MODAL TEST -->
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+				  Modal Test
+				</button>
 
 			</div>
 		</div>
@@ -257,7 +292,6 @@ var add = function() {
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
-	</div>
 
 </body>
 </html>
