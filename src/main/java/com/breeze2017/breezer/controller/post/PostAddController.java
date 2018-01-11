@@ -23,10 +23,10 @@ public class PostAddController {
 	@Auth
 	@RequestMapping(value="post/add", method=RequestMethod.GET)
 	public String addPost(
-			@RequestParam(value="touridx", required=true) long tourIdx,
+			@RequestParam(value="tourIdx", required=true) long tourIdx,
 			Model model) {
 		
-		model.addAttribute("touridx", tourIdx);	
+		model.addAttribute("tourIdx", tourIdx);	
 		
 		return "post/post_add";
 	}

@@ -16,6 +16,7 @@ import com.breeze2017.breezer.service.tour.TourMainService;
 import com.breeze2017.breezer.vo.PostVo;
 import com.breeze2017.breezer.vo.TourVo;
 import com.breeze2017.breezer.vo.UserVo;
+import com.breeze2017.security.Auth;
 
 @Controller
 @RequestMapping("/{id}/tour")
@@ -24,6 +25,7 @@ public class TourMainController {
 	@Autowired
 	private TourMainService tourMainService;
 
+	@Auth
 	@RequestMapping("")
 	public String mytour(
 			HttpSession session,
