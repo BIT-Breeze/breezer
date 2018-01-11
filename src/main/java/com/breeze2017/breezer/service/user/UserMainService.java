@@ -28,14 +28,15 @@ public class UserMainService {
 		return result;		
 	}	
 	
-	
+	/*
 	public List<TourVo> getTours(String id){
 		System.out.println("==UserMainService getTours()==");
 		List<TourVo> result = userMainDao.getTours(id);
 		
 		return result;
 	}
-	
+	*/
+	// 자기페이지 보는 쿼리
 	public List<TourVo> getTours(String id, Long startNo){
 		System.out.println("UserMainService - with 2 params");
 		//System.out.println(id);
@@ -44,12 +45,23 @@ public class UserMainService {
 		
 		return result;
 	}
+	// 다른 사람의 투어를 불러올 때 호출하는 메시지
+	public List<TourVo> getTours1(String id, Long startNo) {
+		System.out.println("UserMainService - with 2 params, other");
 
-	public boolean tourDelete(TourVo tourvo) {
-		int count = userMainDao.tourDelete(tourvo);
+		List<TourVo> result = userMainDao.getTours1(id, startNo);
+		return result;
+	}
+
+	public boolean tourDelete(String idx) {
+		int count = userMainDao.tourDelete(idx);
+		System.out.println("count =" + count );
 		return count == 1;
 		// 하나가 삭제되었다면 true가 리턴되고 삭제가 안 되었다면 false가 리턴된다. 
 	}
+
+
+
 	
 	
 	

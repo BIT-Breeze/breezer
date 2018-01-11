@@ -33,34 +33,28 @@
 		 	select id, pictureUrl, gender, ageRange, email 
 			 from TB_USER where id=#{ id }
 	-->
-
+	
+	
+	<!-- secret 1, 즉 공개투어만  가져오기, 즉 다른사람페이지에서 작동하는 쿼리 -->
+	<select id="gettours1" parameterType="map" resultType="tourvo">
+		<![CDATA[
+		
+		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
+		 from TB_TOUR 
+		  where userId = #{id } and secret = 1 order by idx desc limit #{ startNo } , 6
+			
+		]]>		
+	</select>	
+	<!-- secret 여부에 관계없이 모든 투어 가져오기, 즉 자신페이지에서 작동하는 쿼리 -->
 	<select id="gettours" parameterType="map" resultType="tourvo">
 		<![CDATA[
 		
 		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
 		 from TB_TOUR 
-		  where userId = #{id } and secret = 1 order by idx desc limit #{ startNo } , 6;
+		  where userId = #{id } order by idx desc limit #{ startNo } , 6
 			
 		]]>		
 	</select>	
-	
-	<select id="gettours2" parameterType="string" resultType="tourvo">
-		<![CDATA[
-		
-			select idx, title, startDate from TB_TOUR where userId = #{ id }
-			
-		]]>		
-	</select>	
-	
-	<select id="gettours1" parameterType="map" resultType="tourvo">
-		<![CDATA[
-			select sbt.* from 
-				(select title, startDate, mainPhoto, @rownum:=@rownum+1 as rn 
-				  from TB_TOUR where (@rownum:=0)=0 and userId= #{keyword } order by startDate DESC) as sbt
-			where  (((#{page }-1)* #{size }+1 ) <= sbt.rn) and (sbt.rn <= #{page } * #{size })
-
-		]]>		
-	</select>
 	
 	<select id="getTotalCount" parameterType="string" resultType="int">
 		<![CDATA[

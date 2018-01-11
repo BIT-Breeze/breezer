@@ -24,7 +24,7 @@ public class UserMainDao {
 		
 		return result; 
 	}
-
+	/*/  사용하지 않는 메소드 , 삭제 예정 
 	public List<TourVo> getTours(String id) {
 		
 		System.out.println("===UserMainDao getTours()==");
@@ -32,7 +32,8 @@ public class UserMainDao {
 				
 		return result;
 	}
-	
+	*/
+	// 자기 페이지 보는 쿼리 
 	public List<TourVo> getTours(String id, Long startNo) {
 		
 		System.out.println("UserMainDao- getTours with 2 params");
@@ -44,15 +45,28 @@ public class UserMainDao {
 		return result;
 	}
 	
+	public List<TourVo> getTours1(String id, Long startNo) {
+		
+		System.out.println("UserMainDao- getTours with 2 params, others");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("startNo", startNo);
+		List<TourVo> result = sqlSession.selectList("user.gettours1", map);
+		
+		return result;
+	}
+	
 	public int getTotalCount(String keyword) {
 		
 		return sqlSession.selectOne("user.getTotalCount", keyword);
 	}
 
-	public int tourDelete(TourVo tourvo) {
-		int count = sqlSession.delete("user.tourDelete", tourvo);
-
+	public int tourDelete(String idx) {
+		int count = sqlSession.delete("user.tourDelete", idx);
+		
 		return count;
 	}
+
+
 
 }

@@ -63,43 +63,48 @@ public class UserMainController {
 			@PathVariable String id,
 			@RequestParam( value="no", required=true)Long no
 			) {	
-		System.out.println("======JSON REQUEST CONTROLLER======"+ no);		
-		List<TourVo> tours = userMainService.getTours(id,no);		
+		System.out.println("======JSON REQUEST CONTROLLER======"+ no);
+		System.out.println(authUser.getId());
+		System.out.println(id);
+		boolean check = authUser.getId().equals(id);
+		System.out.println(check);
 		
-		if(tours.isEmpty()) {
-			return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
+		if(authUser.getId().equals(id)) {
+			System.out.println("자기 페이지를 보는 쿼리 ");		
+			List<TourVo> tours = userMainService.getTours(id,no);		
+		
+			if(tours.isEmpty()) {
+				return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
+			}
+		
+			return JSONResult.success(tours);
+			
+		} else {
+			System.out.println("타인 페이지를 보는 쿼리");
+			List<TourVo> tours = userMainService.getTours1(id,no);		
+			
+			if(tours.isEmpty()) {
+				return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
+			}
+		
+			return JSONResult.success(tours);
+						
 		}
-		
-		return JSONResult.success(tours);
-	}
-	
-	@RequestMapping(
-			value = "/tourdelete/{idx}",
-			method = RequestMethod.GET
-			)
-	public String delete(@PathVariable("idx") Long idx, Model model) {
-
-		model.addAttribute("idx", idx);
-		return "user/user_main";
-	}
-	
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String tourDelete(@ModelAttribute TourVo tourvo) {
-
-		userMainService.tourDelete(tourvo);
-		return "redirect:/guestbook";
 	}
 	
 	@ResponseBody
-	@RequestMapping("/delete")
-	public JSONResult delete(
-
-			@ModelAttribute TourVo tourvo
-			) {
-				boolean bSuccess = 
-						userMainService.tourDelete(tourvo);
-				return JSONResult.success( bSuccess ? tourvo.getIdx() : -1);
-			}
-	
+	@RequestMapping(
+			value = "/tourdelete",
+			method = RequestMethod.GET
+			)
+	public JSONResult delete(@RequestParam(value="idx",required=true) String idx, Model model) {
+		// @authUser 인자로 넣고 자기 투어 아니면 못지우게 
+		boolean bSuccess = 
+				userMainService.tourDelete(idx);
+		System.out.println(bSuccess);
+		System.out.println(idx);
 		
+		return JSONResult.success( bSuccess ? idx : -1);
+	}
+			
 }
