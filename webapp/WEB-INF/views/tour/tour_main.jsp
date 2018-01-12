@@ -77,7 +77,10 @@
 		});
 		
 		function addPost(){
-			window.open('${pageContext.servletContext.contextPath}/${userId}/post/add?touridx=${tourIdx}', 'window', 'width=1100, height=900,scroll=yes');
+			var url = '${pageContext.servletContext.contextPath}/${userId}/post/add?tourIdx=${tourIdx}';
+			var name = 'addPost';
+			var option = 'width=1100, height=900, scroll=yes, resizable=yes, ';
+			window.open(url, name, option);
 		}
 		
 		</script>
