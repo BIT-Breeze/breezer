@@ -34,7 +34,7 @@ div#tour_main_header_bg #tour_main_header .tourAdd_right {
 
 div#tour_main_header_bg #tour_main_header .tourAdd_center {
 	display: table;
-	float: center;
+	margin: auto;
 	width: auto;
 	height: auto;
 }

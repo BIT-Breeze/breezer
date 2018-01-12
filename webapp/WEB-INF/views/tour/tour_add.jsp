@@ -90,7 +90,7 @@
 $(function() {
 	$("#start-datepicker").datepicker({
 		showOn: "both", 
-        buttonImage: "/breezer/assets/images/tour/calendar_button.png", 
+        buttonImage: "/breezer/assets/images/tour/calendar_button.JPG", 
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -106,7 +106,7 @@ $(function() {
 $(function() {
 	$("#end-datepicker").datepicker({
 		showOn: "both", 
-        buttonImage: "/breezer/assets/images/tour/calendar_button.png",
+        buttonImage: "/breezer/assets/images/tour/calendar_button.JPG",
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -185,13 +185,13 @@ var add = function() {
 
 </script>
 
+<!-- 이미지 업로더 아이콘이미지로 변경 -->
 <script type="text/javascript">
-
 function check() {
-	eventOccur(document.getElementById('fileUpload'),'click');
+	uploadEventOccur(document.getElementById('fileUpload'),'click');
 }
 
-function eventOccur(evEle, evType){
+function uploadEventOccur(evEle, evType){
 	 if (evEle.fireEvent) {
 	 	evEle.fireEvent('on' + evType);
 	 } else {
@@ -206,6 +206,35 @@ function eventOccur(evEle, evType){
 		 console.log("클릭 이벤트 발생 실패!");
 		 }
 	 }
+}
+
+</script>
+
+<!-- public, private checked 이미지 변경 -->
+<script type="text/javascript">
+var changeCode = 0;
+
+function security() {
+	securityEventOccur();
+}
+
+function securityEventOccur() {
+	console.log("securityEventOccur() Clicked");
+		
+
+		if(changeCode == 0) {
+			console.log("if:" + changeCode);
+			$("#publicImg").attr("src", "/breezer/assets/images/tour/private_button.PNG");
+			changeCode = 1;
+
+		} else if (changeCode == 1) {
+			console.log("else: " + changeCode);
+			$("#publicImg").attr("src", "/breezer/assets/images/tour/public_button.png");
+			changeCode = 0;
+		} else {
+			alert("Error Change");
+		}
+		
 }
 
 </script>
@@ -227,17 +256,22 @@ function eventOccur(evEle, evType){
 				<!-- 이미지 업로드 -->
 				<form id="fileForm">
 					<input type="file" name="file" id="fileUpload"><br><br>
-					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onclick="check()" >
+					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onClick="check()" >
 				</form>
+				<br><br>
 				
 				<!-- 공개/비공개 부분 -->
-				<!-- public private radio 태그 부분을 가리고 사진을 위에 올려 클릭시 이벤트를 발생시켜 public/private 선택을한다.
-				그리고 그 값을 add하는 순간 넘겨줘야한다. -->
+				
+				<!-- 
+				- public 이미지 클릭시 private 이미지로 바뀌어야한다.
+				- 클릭시(private 상태) radio에서 value값 1인 것을 checked 되게 한다.
+				- 클릭시(public 상태) radio에서 value값 0인 것을 checked 되게 한다. 
+				 -->
 				<form id="lock">
-					<input type="radio" name="secret" value="0" checked="checked" />					
-					<input type="radio" name="secret" value="1" />
-					<img id="newPublicFile" src="/breezer/assets/images/tour/public_button.png" onclick="" >
-					<img id="newPrivateFile" src="/breezer/assets/images/tour/private_button.PNG" onclick="" >
+					<!-- <input type="radio" name="secret" value="0" checked="checked" />					
+					<input type="radio" name="secret" value="1" /> -->
+					
+					<img id="publicImg" src="/breezer/assets/images/tour/public_button.png" onclick="security()" >
 					
 				</form>
 				
