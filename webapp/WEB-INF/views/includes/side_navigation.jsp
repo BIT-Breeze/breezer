@@ -12,16 +12,91 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 
-</style>
+    #sidenav {      	 	
+      height: 100%;
+      visibility: hidden;
+    }
+    
+    #button_area{    
+		padding-bottom:50px;    
+    	padding-top:50px;
+    }  
+    
+    #info{    
+		padding-top:60px;        	
+    }     
+    
+    #photoframe{    
+		padding-top:60px;        
+    }
+    
+    #menu{    
+		padding-top:60px; 
+		padding-bottom:900px;       
+    }
 
+</style>
+<script>
+
+//var status = show;
+
+$(function(){
+/*	
+	$('#header').mouseover(function(event){
+		status = $('#sidenav').attr('status');
+		console.log("mouse on header")
+		if(status == 'show'){
+			$('#sidenav').css('visibility','visible');
+			status = show;
+		}else if(status == 'show'){
+				event.preventDefault();
+				$('#sidenav').mouseout(function(event){
+					$('#sidenav').css('visibility','hidden');
+					status = hide;
+				});
+				
+				
+				
+		}else{
+			
+		}
+	 })
+  });
+	
+	*/
+	
+	
+	
+
+	$('#header').mouseover(function(event){
+			event.preventDefault();
+			$('#sidenav').css('visibility','visible');
+			$('#sidenav').mouseover(function(event){
+				event.preventDefault();
+				$('#sidenav').css('visibility','visible');
+			})
+	});
+	
+	$('#sidenav').mouseout(function(event){
+		event.preventDefault();
+		$('#sidenav').css('visibility','hidden');
+
+	});
+
+	
+});
+
+</script>
 </head>
 
 
 <body>	
-	
+
     <div class="col-sm-3 sidenav">
+	<div id="sidenav">
     	<div class="row">
     		<div class="col-sm-6" id="photoframe" align='center'>
     		<img src="${authUser.pictureUrl}" width="100px" height="100px" class="img-circle">
@@ -57,9 +132,10 @@
     		</div>
     	
     	</div>
-      
+   	<div id='menu'>
     <hr>
       <h4>${ authUser.nickName }님 환영합니다!</h4> <!-- 값 가져오기 -->
+      
       <ul class="nav nav-pills nav-stacked">
       <c:choose>
       
@@ -83,15 +159,9 @@
         
       </c:choose>
       </ul><br>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Blog..">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-        </span>
-      </div>
-    </div>	<!-- sm-3 sidenave -->
-    
+     </div> <!-- id menu -->
+  	</div> <!-- id sidenav  -->
+    </div> <!-- class sidenav -->	
+
 </body>
 </html>

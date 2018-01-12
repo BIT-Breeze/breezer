@@ -1,10 +1,6 @@
 @charset "UTF-8";
 
-    #sidenav {
-      
-	  visibility: hidden;		
-      height: 100%;
-    }
+
     
         /* On small screens, set height to 'auto' for sidenav and grid 
     @media screen and (max-width: 767px) {
@@ -15,25 +11,20 @@
       .row.content {height: auto;} 
     }
     */
-    #button_area{
-    
-		padding-bottom:30px;    
-    	padding-top:30px;
+    #button_area{    
+		padding-bottom:50px;    
+    	padding-top:50px;
     }  
     
-    #info{
+    #info{    
+		padding-top:60px;        	
+    }     
     
-		padding-top:20px;    
-    	
-    } 
-    
-    
-    #photoframe{
-    
-		padding-top:30px;    
-    
+    #photoframe{    
+		padding-top:60px;        
     }
     
+
     #active{
     	background-color:DodgerBlue;
     }
