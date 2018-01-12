@@ -84,6 +84,24 @@ div.scrollmenu a:hover {
     // parameter when you first load the API. For example:
     // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
+    // Post Image
+    var imageArr = [
+	'/breezetest/assets/images/pic1.jpg',
+	'/breezetest/assets/images/pic2.jpg',
+	'/breezetest/assets/images/pic3.jpg',
+	'/breezetest/assets/images/pic4.jpg',
+	'/breezetest/assets/images/pic5.jpg',
+	'/breezetest/assets/images/pic6.jpg',
+	'/breezetest/assets/images/pic7.jpg',
+	'/breezetest/assets/images/pic8.jpg',
+	'/breezetest/assets/images/pic9.jpg',
+	'/breezetest/assets/images/pic10.jpg',
+	'/breezetest/assets/images/pic11.jpg',
+	'/breezetest/assets/images/pic12.jpg',
+	'/breezetest/assets/images/pic13.jpg',
+	'/breezetest/assets/images/pic14.jpg',
+	];
+    
 	function initAutocomplete() {
 		var map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: -33.8688, lng: 151.2195},
@@ -122,26 +140,24 @@ div.scrollmenu a:hover {
       	searchBox.setBounds(map.getBounds());	
       });
 
-      var markers = [];
-      // Listen for the event fired when the user selects a prediction and retrieve
-      // more details for that place.
+      var searchMarkers = [];
+      var recommendMarkers = [];
+      var nearbyMarkers = [];
+      // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
       searchBox.addListener('places_changed', function() {
 	        var places = searchBox.getPlaces();
 	        
-	        console.log(places);
-	
 	        if (places.length == 0) {
 	          return;
-	        }
+	        } 
 	        
 	        var search_place = [];	        
 	        for (var i = 0; i < places.length; i++) {
-	        	console.log(places[i].name);
-	        	search_place.push(places[i].name);
+	        	search_place.push(places[i].formatted_address);
 			}
 	        
 	        $.ajax({
-				url: "/breezer/api/recommend/nearby",
+				url: "/breezer/api/recommend",
 				type: "post",
 				dataType: "json",
 				data: "location=" + search_place,
@@ -152,19 +168,37 @@ div.scrollmenu a:hover {
 					}
 					
 					$(".scrollmenu").empty();
-								
+					
+					// Clear out the old markers.
+					recommendMarkers.forEach(function(marker) {
+			        	marker.setMap(null);
+			        });
+					nearbyMarkers.forEach(function(marker) {
+			        	marker.setMap(null);
+			        });
+					
+					// Recommend data
 					$.each(response.data, function(index, data){
+						recommendMarkers[index] = new google.maps.Marker({
+					          position: {lat: data.lat, lng: data.lot},
+					          map: map,
+				        	  draggable:false // 드래그 가능 여부
+				        });
+						
 						render( index, data );
 					});
+					
+					// Recommend MarkerCluster
+					var recommendCluster = new MarkerClusterer(map, recommendMarkers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});	
 				}
 			});
 	
 	        // Clear out the old markers.
-	        markers.forEach(function(marker) {
+	        searchMarkers.forEach(function(marker) {
 	        	marker.setMap(null);
 	        });
-	        
-	        markers = [];
+	        searchMarkers = [];
+
 	        var infowindow = new google.maps.InfoWindow();
 	        
 	        // For each place, get the icon, name and location.
@@ -185,7 +219,7 @@ div.scrollmenu a:hover {
 				};
 	
 				// Create a marker for each place.
-				markers.push(new google.maps.Marker({
+				searchMarkers.push(new google.maps.Marker({
 					map: map,
 					icon: icon,
 					title: place.name,
@@ -193,9 +227,52 @@ div.scrollmenu a:hover {
 				}));
 				
 				// 마커 검색 장소 정보
-				markers[index].addListener('click', function() {
+				searchMarkers[index].addListener('click', function() {
 					infowindow.setContent(place.name);
-					infowindow.open(map, markers[index]);
+					infowindow.open(map, searchMarkers[index]);
+					
+					// 클릭 시 확대
+					map.setZoom(15);
+					map.setCenter(searchMarkers[index].getPosition());
+					
+					// 클릭 시 recommned 한번 클리어 하고 주변꺼만
+					/* recommendMarkers.forEach(function(marker) {
+			        	marker.setMap(null);
+			        }); */
+					
+					//비동기 식의 한번 더 디비 검색...
+					$.ajax({
+						url: "/breezer/api/nearby",
+						type: "post",
+						dataType: "json",
+						data: "lat=" + map.getCenter().toJSON().lat +
+							  "&lot=" + map.getCenter().toJSON().lng +
+							  "&address=" + place.formatted_address,
+						success: function( response ) {
+							if( response.result != "success" ) {
+								console.log( response.message );
+								return;
+							}
+							
+							// Clear out the old markers.
+							nearbyMarkers.forEach(function(marker) {
+					        	marker.setMap(null);
+					        });
+							
+							$.each(response.data, function(index, data){
+								console.log(data);
+
+								var resizeIcon = new google.maps.MarkerImage(imageArr[index], null, null, null, new google.maps.Size(50,50));
+								nearbyMarkers[index] = new google.maps.Marker({
+							          position: {lat: data.lat, lng: data.lot},
+							          map: map,
+							          icon: resizeIcon,
+							          animation:google.maps.Animation.BOUNCE,
+						        	  draggable:false // 드래그 가능 여부
+						        });
+							});
+						}
+					});
 				});
 	
 				if (place.geometry.viewport) {
@@ -207,15 +284,17 @@ div.scrollmenu a:hover {
 			});
 			
 			map.fitBounds(bounds);
-			
 		});
 	}
 	
+	// 추후 어떤 데이터를 띄울지 미정...
 	var render = function( index, data ) {
+		var location = data.location.split(" "); 
+		
 		var html = 
 			"<div class='card'>" +
-				"<img src='${pageContext.request.contextPath }/assets/images/pic" + (index + 1) + ".jpg' alt='John' style='width: 100%'>" +
-				"<h2>"+ data.userId +"</h2>" +
+				"<img src='${pageContext.request.contextPath }/assets/images/pic" + (index + 1) + ".jpg' style='width: 100%'>" +
+				"<h2>"+ location[location.length - 1] +"</h2>" +
 				"<p class='title'>" + data.content + "</p>" +
 				"<p>lat: "+ data.lat +", lot : "+ data.lot +"</p>" + 
 			"</div>";
@@ -244,6 +323,7 @@ div.scrollmenu a:hover {
 	
 	<!-- 구글 맵 호출 -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script>
+	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 	
 	<br>
 	<br>

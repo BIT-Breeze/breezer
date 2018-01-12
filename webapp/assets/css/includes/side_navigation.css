@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-    .sidenav {
+    #sidenav {
       
-
+	  visibility: hidden;		
       height: 100%;
     }
     

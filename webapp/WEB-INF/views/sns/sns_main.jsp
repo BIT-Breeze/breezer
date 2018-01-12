@@ -143,11 +143,11 @@
 		var html = "<div id='post' data-idx='"+vo.idx+"' style='width:780px; height: auto; background-color:#ff5555; ' >"
 				+ "		<div id='post-header' style='height: 50px; width:780px; margin-top:10px; background-color: #ffff44;'> "
 				+ "			<div id='header-picture' style='float: left;'>"
-				+ "				<div id='image-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 10px;'><img src = '"+vo.pictureUrl+"'  > </div> "
+				+ "				<div id='image-test' style='height: 30px; width: 40px; background-color: #ff1234; margin: 0px;'><img src = '"+vo.pictureUrl+"'  > </div> "
 				+ "			</div>"
-				+ "			<div id='header-info' style='float: left;'>"
+				+ "			<div id='header-info' style='float: left; margin-left: 15px;'>"
 				+ "				<div id='header-nickname'>"
-				+ "					<label>nickName : <a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId
+				+ "					<label>nickName : <a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId + "("+vo.nickName+")"
 				+ "					</a></label> "
 				+ "				</div>"
 				+ "				<div id='header-location'>"
@@ -160,7 +160,7 @@
 
 				
 				
-				+ "		<div id='post-picture' style='height:800px; width:100%; background-color:#ccfaaa;'> 이미지"
+				+ "		<div id='post-picture' style='height:620px; width:100%; background-color:#ccfaaa;'> "
 				//+ 	"<img id='sns-img'src=${pageContext.request.contextPath }"+ vo.photo + " style='width:100%; height: auto;'>"
 				/* + '			<div id="wrapper" style="height:auto; width:100%;" >'
 				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/left.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
@@ -255,12 +255,12 @@
 				+ '   		<div class="w3-content w3-display-container slider" id="div'+sliderCount+'">  '
 				
 				for( var i in photos ) {
-					html = html + '       <img src="${pageContext.request.contextPath }'+photos[i]+'" class="mySlides"  /> '
+					html = html + '       <img src="${pageContext.request.contextPath }'+photos[i]+'" class="mySlides"  style="width:100%; height: 600px;" /> '
 				}
 				
 				html = html
-				+ '   			<a class="w3-btn-floating w3-display-left" onclick="plusDivs(this,-1)">&#10094;</a> '
-				+ '  	 		<a class="w3-btn-floating w3-display-right" onclick="plusDivs(this,1)">&#10095;</a  '
+				+ '   				<a class="w3-btn-floating w3-display-left" onclick="plusDivs(this,-1)"  >&#10094;</a> '
+				+ '  	 			<a class="w3-btn-floating w3-display-right" onclick="plusDivs(this,1)"  >&#10095;</a  '
 				+ '   		</div>'
 				+ "		</div>"
 				
@@ -273,6 +273,7 @@
 				
 				+ "<div id='post-info'  style='height:auto; width:100%;' >"
 				+ "<div id='info-status' >"
+				// postIdx가 0이면 tour,  아니면 post 
 				+ "<button type='button' > like </button><br> "
 				+ "<label>좋아요 : "
 				+ vo.like
@@ -303,6 +304,8 @@
 				+ " </label>"
 				
 				+ "</div>" + "</div>"
+				+ "</div>"
+				+ "<br>"
 
 				if (mode == true) {
 					$("#list-sns").prepend(html).trigger("create");
@@ -388,20 +391,21 @@
 
 <body>
 	<!-- side_navi import -->
-	<div id="side_navi">
+	<div id="side_navi" >
 		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 			<c:param name="menu" value="sns" />
 		</c:import>
 	</div>
 
 	<!-- header -->
-	<div id="header">
+	<div id="header" style="background-color: #ABABAB; width: 1750px; float: left ">
 		<c:import url="/WEB-INF/views/includes/header.jsp">
 		</c:import>
 	</div>
+	
 
 	<div id="container">
-		sns
+		
 		<!-- <div class="cycle-slideshow"   data-cycle-fx=scrollHorz    data-cycle-timeout=0    >
 			   	<div class="cycle-pager"></div>
 				
@@ -411,9 +415,12 @@
 				
 		</div> -->
 		
-		<div id="list-sns"
-			style="width: 800px; background-color: #ffffcc; margin: auto;">
-			
+		<div id="list-sns"	style="width: 780px; background-color: #ffffff; margin: auto;">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 			
 			
 			

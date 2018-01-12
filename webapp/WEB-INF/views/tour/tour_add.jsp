@@ -90,7 +90,7 @@
 $(function() {
 	$("#start-datepicker").datepicker({
 		showOn: "both", 
-        buttonImage: "/breezer/assets/images/tour/calendar_button.png", 
+        buttonImage: "/breezer/assets/images/tour/calendar_button.JPG", 
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -106,7 +106,7 @@ $(function() {
 $(function() {
 	$("#end-datepicker").datepicker({
 		showOn: "both", 
-        buttonImage: "/breezer/assets/images/tour/calendar_button.png",
+        buttonImage: "/breezer/assets/images/tour/calendar_button.JPG",
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -185,13 +185,13 @@ var add = function() {
 
 </script>
 
+<!-- 이미지 업로더 아이콘이미지로 변경 -->
 <script type="text/javascript">
-
 function check() {
-	eventOccur(document.getElementById('fileUpload'),'click');
+	uploadEventOccur(document.getElementById('fileUpload'),'click');
 }
 
-function eventOccur(evEle, evType){
+function uploadEventOccur(evEle, evType){
 	 if (evEle.fireEvent) {
 	 	evEle.fireEvent('on' + evType);
 	 } else {
@@ -210,26 +210,108 @@ function eventOccur(evEle, evType){
 
 </script>
 
+<!-- public, private checked 이미지 변경 -->
+<script type="text/javascript">
+var changeCode = 0;
+
+function security() {
+	securityEventOccur();
+}
+
+function securityEventOccur() {
+	console.log("securityEventOccur() Clicked");
+		
+
+		if(changeCode == 0) {
+			console.log("if:" + changeCode);
+			$("#publicImg").attr("src", "/breezer/assets/images/tour/private_button.PNG");
+			changeCode = 1;
+
+		} else if (changeCode == 1) {
+			console.log("else: " + changeCode);
+			$("#publicImg").attr("src", "/breezer/assets/images/tour/public_button.png");
+			changeCode = 0;
+		} else {
+			alert("Error Change");
+		}
+		
+}
+
+</script>
+
 <title>Breezer</title>
 </head>
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 	
-	<div id="container"></div>
+	<div id="tour_main_header_bg">
+		<div id="tour_main_header">
+			<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
+			
+			<!-- 사진 추가 구간, 백그라운드로 바꿔야됨 -->
+			<div id=imgContainer></div>
+			
+			<!-- 왼쪽 구간 -->
+			<div class="tourAdd_left">
+				
+				<!-- 이미지 업로드 -->
+				<form id="fileForm">
+					<input type="file" name="file" id="fileUpload"><br><br>
+					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onClick="check()" >
+				</form>
+				<br><br>
+				
+				<!-- 공개/비공개 부분 -->
+				
+				<!-- 
+				- public 이미지 클릭시 private 이미지로 바뀌어야한다.
+				- 클릭시(private 상태) radio에서 value값 1인 것을 checked 되게 한다.
+				- 클릭시(public 상태) radio에서 value값 0인 것을 checked 되게 한다. 
+				 -->
+				<form id="lock">
+					<!-- <input type="radio" name="secret" value="0" checked="checked" />					
+					<input type="radio" name="secret" value="1" /> -->
+					
+					<img id="publicImg" src="/breezer/assets/images/tour/public_button.png" onclick="security()" >
+					
+				</form>
+				
+			</div>
+			
+			<!-- 오른쪽 구간 -->
+			<div class="tourAdd_right">
+				<a href="/breezer">Cancel</a><br> <!-- 취소(Leave) 부분 -->		
+				<input type="button" value="add" onclick="add()"> <!-- 등록(add) 부분 -->
+			</div>
+			
+			<!-- 센터 구간 -->
+			<div class="tourAdd_center">
+				<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
+					<input type="text" value="title" name="title"><br>
+					<input type="text" id="start-datepicker" value="start date" name="startDate">
+					<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
+					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
+				</form>
+			</div>
+		</div>
+	</div>	
 	
-		<div id="tour_main_header_bg">
+	
+	
+	
+<%-- 		<div id="tour_main_header_bg">
 			
 			<div id=imgContainer></div>
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<%-- <c:import url="/WEB-INF/views/tour/tour_main_header.jsp" /> --%>
+			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
 			
 			<div id="tour_main_header"> <!-- main_header css 부분 대체 추가 -->
 			<!-- TOUR_ADD 작업 부분 -->
-						
+
 			<!-- 파일업로더 -->
 				<form id="fileForm">
 					<a href="/breezer">Cancel</a><br>
 					<input type="file" name="file" id="fileUpload"><br><br>
-					<img id="newFile" src="/breezer/assets/images/tour/imgupload.png" onclick="check()" >
+					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onclick="check()" >
 				</form>
 				
 			 	<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
@@ -244,24 +326,12 @@ function eventOccur(evEle, evType){
 					<input type="button" value="add" onclick="add()">
 			
 				</form>
-				
-				<!-- MODAL TEST -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-				  Modal Test
-				</button>
 
 			</div>
-		</div>
+		</div> --%>
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		<!-- POST VIEW 부분 -->
 		<div id="wrapper">

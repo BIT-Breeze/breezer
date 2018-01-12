@@ -97,14 +97,23 @@ public class UserMainController {
 			value = "/tourdelete",
 			method = RequestMethod.GET
 			)
-	public JSONResult delete(@RequestParam(value="idx",required=true) String idx, Model model) {
+	public JSONResult delete(@RequestParam(value="idx",required=true) String idx, 
+							 @AuthUser UserVo authUser,	
+							 @PathVariable String id,
+							 Model model) {
 		// @authUser 인자로 넣고 자기 투어 아니면 못지우게 
+		if(authUser.getId().equals(id)) {
 		boolean bSuccess = 
 				userMainService.tourDelete(idx);
 		System.out.println(bSuccess);
 		System.out.println(idx);
 		
 		return JSONResult.success( bSuccess ? idx : -1);
+		} else {
+			
+			
+			return JSONResult.fail("타인의 게시글을 지울 수 없습니다.");
+		}
 	}
 			
 }
