@@ -10,6 +10,7 @@
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 <link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/includes/side_navigation.css"	rel="stylesheet" type="text/css">
 <link	href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"	rel="stylesheet" type="text/css">
 <link   rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -136,6 +137,19 @@ var fetchList = function(){
 $(function(){
 	fetchList();
 	//live event
+	
+	$( document ).on("mouseover","#sidenav",function(event){
+		$('#sidenav').css('visibility','visible');
+		
+	})
+	
+	$( document ).on("mouseout","#sidenav",function(event){
+		$('#sidenav').css('visibility','hidden');
+		
+	})
+	
+	
+	
 	$( document ).on( "click", "#list-tour div button", function(event){
 		event.preventDefault();
 		//이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소
@@ -150,11 +164,12 @@ $(function(){
 		var no = $(this).attr("data-no");
 		console.log(no);
 		$( '#delete-no' ).val( no );
-		
+		$('.modal-body').html("해당 투어를 삭제하시겠습니까?");
 	});	// 이벤트를 하나씩 연결?? 
 			
 	// 확인 버튼 누르면 ajax 통신으로 글 삭제하는 이벤트 
-	$( document ).on("click", "#deleteConfirm" ,function(event){		
+	$( document ).on("click", "#deleteConfirm" ,function(event){
+		if(userId == authUser){
 		var no = $( '#delete-no' ).val();
 		console.log( no + "clicked!!!");
 		$('#myModal').modal("hide");
@@ -166,6 +181,7 @@ $(function(){
 				success: function( response ){
 					if( response.result == "fail" ) {
 						console.log( response.message );
+						
 						return;					
 					}
 					
@@ -185,7 +201,11 @@ $(function(){
 					console.error( status + ":" + e );
 				}						
 			});// ajax 
+		} else {			
 			
+			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다.");
+			//$('#myModal').modal("hide");			
+		}
 	});	
 	
 	$( window ).scroll( function(){
@@ -280,7 +300,7 @@ $(function(){
 					               aria-hidden="true">×
 					            </button>
 					            <h4 class="modal-title" id="myModalLabel">
-					               해당 투어를 삭제하시겠습니까?
+					               		해당 투어를 삭제하시겠습니까?
 					            </h4>
 					         </div>
 					         <div class="modal-body">
