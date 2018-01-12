@@ -2,18 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="recommend">
-<select id="info" resultType="postvo">
-		SELECT * FROM post_test where location in
-		
-		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
-                 #{item}
-        </foreach> 
-</select>
-
 <select id="getRecommends" resultType="recommendvo">
 	select * from recommendtest where 
 		<foreach collection="list" item="item" index="index" separator="or">
                  location like concat(#{item}, '%')
         </foreach>   
+</select>
+
+<select id="getNearby" resultType="postvo" parameterType="postvo">
+	<![CDATA[
+		SELECT *, (6371 * ACOS( COS( RADIANS( #{lat } ) ) * COS ( RADIANS( p.lat ) ) * COS ( RADIANS ( p.lot )-RADIANS( #{lot } ) ) + SIN( RADIANS( #{lat } ) ) * SIN( RADIANS( p.lat )))) AS distance 
+			FROM post_test p
+			where location like concat('%', #{location}, '%')
+			HAVING distance <= 2
+			ORDER BY distance 
+			LIMIT 0, 100;
+	]]>
 </select>
 </mapper>

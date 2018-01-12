@@ -1,6 +1,5 @@
 package com.breeze2017.breezer.repository.recommend;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,19 +14,13 @@ public class RecommendAttractionDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<PostVo> getInfo(List<String> searchPlaces) {
-		List<PostVo> info = new ArrayList<PostVo>();
-		info = sqlSession.selectList("recommend.info", searchPlaces);
-
-		return info; 
-	}
-	
 	// recommend
 	public List<RecommendVo> getRecommends(List<String> searchAddress){
 		return sqlSession.selectList("recommend.getRecommends", searchAddress);
 	}
 	
-	/*public List<PostVo> getNearbyInfo(String searchAddress) {
-		return sqlSession.selectList("post.getNearby", searchAddress);
-	}*/
+	// nearby
+	public List<PostVo> getNearbyInfo(PostVo vo) {
+		return sqlSession.selectList("recommend.getNearby", vo);
+	}
 }
