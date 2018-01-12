@@ -8,6 +8,12 @@
  display:none;
 }
 
+.addform #public {
+	display:none;
+}
+.addform #private {
+	display:none;
+}
 
 /* layout */
 nav#tour_navigation	{ 
@@ -39,6 +45,9 @@ div#tour_main_header_bg #tour_main_header .tourAdd_center {
 	height: auto;
 }
 
+div#tour_main_header_bg #tour_main_header .tourAdd_center #add {
+	float: right;
+}
 /* div#tour_main_header_bg #tour_main_header .tourAdd_center {
 	text-align:center; clear:both; 
 } */
