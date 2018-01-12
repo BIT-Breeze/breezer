@@ -14,17 +14,13 @@ public class RecommendAttractionService {
 	@Autowired
 	private RecommendAttractionDao recommendAttractionDao;
 	
-	public List<PostVo> getPostInfo(List<String> searchPlaces) {
-		return recommendAttractionDao.getInfo(searchPlaces);
-	}
-	
 	// recommend
 	public List<RecommendVo> getRecommends(List<String> searchAddress){
 		return recommendAttractionDao.getRecommends(searchAddress);
 	}
 
 	// nearby
-	/*public List<PostVo> getNearbyInfo(String searchAddress) {
-		return postDao.getNearbyInfo(searchAddress);
-	}*/
+	public List<PostVo> getNearbyInfo(PostVo vo) {
+		return recommendAttractionDao.getNearbyInfo(vo);
+	}
 }
