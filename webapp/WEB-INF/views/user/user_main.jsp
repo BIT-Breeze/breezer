@@ -28,6 +28,7 @@ var isEnd = false;
 var authUser = "${authUser.id}";
 var uservo = "${uservo2.id}";
 var userId;
+
 console.log(authUser);
 console.log(uservo);
 
@@ -44,21 +45,10 @@ var messageBox = function(title, message, callback){
 	$( "#dialog-message" ).attr( "title", title);
 	// 클래스의 특정 속성에 값을 준다. 두번째 인자가 없으면 값을 가져온다.
 	// attr() 은 속성과 관련된 작업을 한다. 
-
 	1. attr(name, value)
 	2. attr(name, function(index, attr{}))
 	3. attr(object)
 	
-	$( "#dialog-message p" ).text( message );
-	$( "#dialog-message" ).dialog({
-		modal:true,
-		buttons:{
-			"확인" : function(){
-				$(this).dialog("close");
-			}	
-		},
-		close: callback || function(){}
-	});
 }
 	*/
 
@@ -136,91 +126,62 @@ var fetchList = function(){
 
 $(function(){
 	fetchList();
-	//live event
-	/*
-	$('#sidenav').on('mouseover', function(){
-		$(this).css('visibility','visible');
-	});
-	
-	
-	$('#sidenav').on('mouseout', function(){
-		$(this).css('visibility','hidden');
-	});
-	
-	
 
-	$( window ).on("mouseover","#sidenav",function(event){
-		console.log("사이드 내비 하이딩")
-		$('#sidenav').css('visibility','visible');
-		
-	})
-	
-	$( window ).on("mouseout","#sidenav",function(event){
-		console.log("사이드 내비 비저블")
-		$('#sidenav').css('visibility','hidden');
-		
-	})
-	*/
-	
-	
 	$( document ).on( "click", "#list-tour div button", function(event){
-		event.preventDefault();
-		//이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소
-		//var startNo = $("#list-tour > *").last().attr('no') || 0;
-		//var no = $(this).data("no");
-		//this 는 버튼이라 얘는 no 라는 속성을 가지고 있지 않다 
-		
-		$('#myModal').modal({
-			keyboard: true			
-		});
-		
-		var no = $(this).attr("data-no");
-		console.log(no);
-		$( '#delete-no' ).val( no );
-		$('.modal-body').html("해당 투어를 삭제하시겠습니까?");
-	});	// 이벤트를 하나씩 연결?? 
+		 	
+		 		//이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소
+		 		//var startNo = $("#list-tour > *").last().attr('no') || 0;
+		 		//var no = $(this).data("no");
+		 		//this 는 버튼이라 얘는 no 라는 속성을 가지고 있지 않다 
+		 		
+		 	$('#myModal').modal({
+		 			keyboard: true			
+		 	});
+		 		
+		 	var no = $(this).attr("data-no");
+		 	console.log(no);
+		 	$( '#delete-no' ).val( no );
+		 		
+		 	});	// 이벤트를 하나씩 연결?? 
+
 			
 	// 확인 버튼 누르면 ajax 통신으로 글 삭제하는 이벤트 
-	$( document ).on("click", "#deleteConfirm" ,function(event){
-		if(userId == authUser){
-		var no = $( '#delete-no' ).val();
-		console.log( no + "clicked!!!");
-		$('#myModal').modal("hide");
-		
-			$.ajax({
-				url:"/breezer/" + userId + "/tourdelete?idx=" + no,
-				type: "get",
-				dataType: 'json',
-				success: function( response ){
-					if( response.result == "fail" ) {
-						console.log( response.message );
-						
-						return;					
-					}
-					
-					if( response.data == -1 ) {
+	$( document ).on("click", "#deleteConfirm" ,function(event){		
+ 		var no = $( '#delete-no' ).val();
+ 		console.log( no + "clicked!!!");
 
-						console.log( "response.data == -1")
+ 		if(userId == authUser){
+ 			$.ajax({
+ 				url:"/breezer/" + userId + "/tourdelete?idx=" + no,
+ 				type: "get",
+ 				dataType: 'json',
+ 				success: function( response ){
+ 					if( response.result == "fail" ) {
+						console.log( response.message );
+ 						return;		
+ 					}
+ 					if( response.data == -1 ) {
+						console.log("response.data == -1");
 						return;
-					}
-					
-					console.log( typeof(response.data))
-					console.log( response.data + "삭제")
-					$( "#list-tour div[no=" + response.data + "]" ).remove();
-					console.log( "페치")
-					//fetchList();					
-				},
+ 					}
+ 						console.log( typeof(response.data))
+ 						console.log( response.data + "삭제")
+ 				    	$( "#list-tour div[no=" + response.data + "]" ).remove();
+ 						console.log( "페치")
+ 				},
 				error: function( xhr, status, e){
-					console.error( status + ":" + e );
-				}						
-			});// ajax 
-		} else {			
-			
-			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다.");
-			//$('#myModal').modal("hide");			
-		}
-	});	
-	
+					 		console.error( status + ":" + e );
+		 				}						
+ 			});// ajax 
+ 	 		$('#myModal').modal("hide");
+ 			
+ 		} else {
+ 			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다.");
+
+ 		}	
+ 			
+		});
+		
 	$( window ).scroll( function(){
 		var $window = $(this);
 		var scrollTop = $window.scrollTop();
