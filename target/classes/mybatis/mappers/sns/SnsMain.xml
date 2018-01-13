@@ -70,6 +70,22 @@
 		 	 		postIdx = #{postIdx } 
 	    ]]>		
 	</delete>	
+	
+	<update id="refreshTourFavorite" parameterType="long">
+		<![CDATA[
+		 	 update TB_TOUR  
+		 	 set favorite = (select count(*) from TB_FAVORITE where tourIdx = #{idx })
+		 	  where idx = #{idx }
+	    ]]>	
+	</update>
+	
+	<update id="refreshPostFavorite" parameterType="long">
+		<![CDATA[
+		 	 update TB_POST  
+		 	 set favorite = (select count(*) from TB_FAVORITE where postIdx = #{idx })
+		 	  where idx = #{idx }
+	    ]]>	
+	</update>
 			
 	
 </mapper>

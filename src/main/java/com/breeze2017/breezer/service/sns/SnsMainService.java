@@ -38,6 +38,13 @@ public class SnsMainService {
 		}
 		
 		
+		// 갯수 refresh 
+		if (type.equals("tour")) {
+			snsMainDao.refreshTourFavorite(idx);
+		} else {
+			snsMainDao.refreshPostFavorite(idx);
+		}
+
 			
 	
 	

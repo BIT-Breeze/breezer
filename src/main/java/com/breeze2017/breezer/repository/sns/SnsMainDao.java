@@ -50,4 +50,33 @@ public class SnsMainDao {
 	}
 
 	
+	public void refreshTourFavorite(long idx) {
+		System.out.println("-- refreshTourFavorite --");
+		System.out.println("result : " +sqlSession.update("sns.refreshTourFavorite", idx));
+	}
+	
+	public void refreshPostFavorite(long idx) {
+		System.out.println("-- refreshPostFavorite --");
+		System.out.println("result : " +sqlSession.update("sns.refreshPostFavorite", idx));
+	}
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

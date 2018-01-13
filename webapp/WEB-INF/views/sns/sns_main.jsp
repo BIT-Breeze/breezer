@@ -91,11 +91,11 @@
 		// postIdx가 0이면 tour,  아니면 post 
 		
 		if (post == 0) {
-			console.log("this is tour")
+			//console.log("this is tour")
 			//TB_FAVORITE 에 delete 9 id, tourIdx, null)
 			doLikeUpDown('down', 'tour', tour)
 		} else {
-			console.log("this is post")
+			//console.log("this is post")
 			doLikeUpDown('down', 'post', post)
 		}
 	}
@@ -103,7 +103,7 @@
 	
 	function doLikeUpDown(flag, type, idx) {
 		var id = "${userid }"
-		console.log("id : "+id+", flag : "+flag+", type : "+type+", idx : "+idx)
+		//console.log("id : "+id+", flag : "+flag+", type : "+type+", idx : "+idx)
 		
 		
 		
