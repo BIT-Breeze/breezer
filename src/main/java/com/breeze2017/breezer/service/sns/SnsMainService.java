@@ -18,4 +18,32 @@ public class SnsMainService {
 		List<SNSVo> list = snsMainDao.getList(idx);
 		return list;
 	}
+	
+	
+	public void doLikeMessage(String id, String flag, String type, long idx) {
+		
+		
+		if (flag.equals("up")) {
+			if (type.equals("tour")) {
+				snsMainDao.insertFavorite( id, idx, null);
+			} else {
+				snsMainDao.insertFavorite( id, null, idx);
+			}
+		} else {
+			if (type.equals("tour")) {
+				snsMainDao.deleteTourFavorite( id, idx);
+			} else {
+				snsMainDao.deletePostFavorite( id, idx);
+			}
+		}
+		
+		
+			
+	
+	
+		
+		
+		
+		
+	}
 }

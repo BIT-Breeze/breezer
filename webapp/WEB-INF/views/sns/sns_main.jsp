@@ -65,15 +65,74 @@
 	    $('<script>').attr('src', src).appendTo('head');
 	}
 	
+	
+	
+	function resizeimg() {
+		
+	}
 
+	function likeup(voidx, tour, post) {
+		console.log(voidx+", "+tour+", "+post)
+		// postIdx가 0이면 tour,  아니면 post 
+		if (post == 0) {
+			console.log("this is tour")
+			//TB_FAVORITE 에 insert (tourIdx, null)
+			doLikeUpDown('up', 'tour', tour)
+		} else {
+			console.log("this is post")
+			doLikeUpDown('up', 'post', post)
+		}
+		
+		//버튼 이름이랑 함수 바꿔줘야지 
+	}
+	
+	function likedown(voidx, tour, post) {
+		console.log(voidx+", "+tour+", "+post)
+		// postIdx가 0이면 tour,  아니면 post 
+		
+		if (post == 0) {
+			console.log("this is tour")
+			//TB_FAVORITE 에 delete 9 id, tourIdx, null)
+			doLikeUpDown('down', 'tour', tour)
+		} else {
+			console.log("this is post")
+			doLikeUpDown('down', 'post', post)
+		}
+	}
+	
+	
+	function doLikeUpDown(flag, type, idx) {
+		var id = "${userid }"
+		console.log("id : "+id+", flag : "+flag+", type : "+type+", idx : "+idx)
+		
+		
+		
+		$.ajax({
+			url : "/breezer/api/sns/dolike",
+			type : "post",
+			dataType : "json",
+			data : "id="+id+"&flag="+flag+"&type="+type+"&idx="+idx,
+			success : function(response) {
+				console.log("dolike success")
+			},
+			error : function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+		
+	}
 		
 
 	
 	
 	
+	
+	
+	
+	
 
 
-
+	var userid
 	var isEnd = false;
 	var sliderCount = 0
 	
@@ -255,7 +314,7 @@
 				+ '   		<div class="w3-content w3-display-container slider" id="div'+sliderCount+'">  '
 				
 				for( var i in photos ) {
-					html = html + '       <img src="${pageContext.request.contextPath }'+photos[i]+'" class="mySlides"  style="width:100%; height: 600px;" /> '
+					html = html + '       <img src="${pageContext.request.contextPath }'+photos[i]+'" class="mySlides"  style="width:100%; height: 600px;" onload="resizeimg(this)" /> '
 				}
 				
 				html = html
@@ -274,9 +333,19 @@
 				+ "<div id='post-info'  style='height:auto; width:100%;' >"
 				+ "<div id='info-status' >"
 				// postIdx가 0이면 tour,  아니면 post 
-				+ "<button type='button' > like </button><br> "
+				
+				// 1 좋아요
+				if ( vo.favoCount == 0) {
+					//좋아요
+					html = html + "<button id='btnFavo"+vo.idx+"' type='button' onclick='likeup("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> 좋아요 </button><br> "
+				} else {
+					html = html + "<button id='btnFavo"+vo.idx+"' type='button' onclick='likedown("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> 좋아요 취소 </button><br> "
+				}
+				
+				html = html
+				//+ "<button id='btnFavo"+vo.idx+"' type='button' onclick='clicklike("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> "+didFavo+" </button><br> "
 				+ "<label>좋아요 : "
-				+ vo.like
+				+ vo.favorite
 				+ "</label><br> "
 				+ "<label>평점 : "
 				+ vo.score

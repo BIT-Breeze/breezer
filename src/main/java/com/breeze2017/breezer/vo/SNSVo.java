@@ -16,11 +16,12 @@ public class SNSVo {
 	private String endDate;
 	private double score;
 	private double price;
-	private long like;
+	private long favorite;
 	private String postDateTime;
 	private String tripDateTime;
 	private String location;
 	private String pictureUrl;
+	private int favoCount;
 	
 	
 	public String getKind() {
@@ -52,6 +53,12 @@ public class SNSVo {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	public String getTitle() {
 		return title;
@@ -95,11 +102,11 @@ public class SNSVo {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public long getLike() {
-		return like;
+	public long getFavorite() {
+		return favorite;
 	}
-	public void setLike(long like) {
-		this.like = like;
+	public void setFavorite(long favorite) {
+		this.favorite = favorite;
 	}
 	public String getPostDateTime() {
 		return postDateTime;
@@ -125,22 +132,27 @@ public class SNSVo {
 	public void setPictureUrl(String pictureUrl) {
 		this.pictureUrl = pictureUrl;
 	}
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
 	
+	
+	
+	public int getFavoCount() {
+		return favoCount;
+	}
+	public void setFavoCount(int favoCount) {
+		this.favoCount = favoCount;
+	}
 	
 	@Override
 	public String toString() {
 		return "SNSVo [kind=" + kind + ", idx=" + idx + ", tourIdx=" + tourIdx + ", postIdx=" + postIdx + ", userId="
 				+ userId + ", nickName=" + nickName + ", title=" + title + ", content=" + content + ", photo=" + photo
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", price=" + price
-				+ ", like=" + like + ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime + ", location="
-				+ location + ", pictureUrl=" + pictureUrl + "]";
+				+ ", favorite=" + favorite + ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime
+				+ ", location=" + location + ", pictureUrl=" + pictureUrl + ", favoCount=" + favoCount + "]";
 	}
+	
+	
+	
 	
 	
 	
