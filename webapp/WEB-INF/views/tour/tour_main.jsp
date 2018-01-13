@@ -77,7 +77,10 @@
 		});
 		
 		function addPost(){
-			window.open('${pageContext.servletContext.contextPath}/${userId}/post/add?touridx=${tourIdx}', 'window', 'width=1100, height=900,scroll=yes');
+			var url = '${pageContext.servletContext.contextPath}/${userId}/post/add?tourIdx=${tourIdx}';
+			var name = 'addPost';
+			var option = 'width=1100, height=900, scroll=yes, resizable=yes, ';
+			window.open(url, name, option);
 		}
 		
 		</script>
@@ -94,7 +97,7 @@
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">
 				<div>
-<!-- 					<a style="float: right;" href="javascript:addPost()">여행기 추가</a> -->
+					<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
 				</div>
 				<c:forEach var="post" items="${postList }">
 					<c:if test="${post.dateGap != 0}">

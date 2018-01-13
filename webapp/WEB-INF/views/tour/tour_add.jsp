@@ -176,11 +176,15 @@ $(document).ready(function() {
 	});
 });
 
-/* controller 로 submit 하는 부분 */
-var add = function() {
+/*  controller 로 submit 하는 부분 
+ var add = function() {
 	$("#imagePath").val(imagePath);
-	document.getElementById("addform").submit();
-}
+	 document.getElementById("addform").submit(); 
+	
+	 imagePath value 값을 받아서 add 하면서 같이 넘겨야하는데 
+	submit을 다중 form으로 해버리는걸로 바껴서 이걸 어케 넘겨줘여할지 생각해야딤 (imagePath)
+	
+} */
 
 
 </script>
@@ -219,23 +223,39 @@ function security() {
 }
 
 function securityEventOccur() {
-	console.log("securityEventOccur() Clicked");
+	/* console.log("securityEventOccur() Clicked"); */
+		
+	if(changeCode == 0) {
+		console.log("공개 - changeCode:" + changeCode);
+		$("#publicImg").attr("src", "/breezer/assets/images/tour/private_button.png");
+		$("#private").attr("checked", "checked");
+		$("#public").removeAttr("checked");
+		changeCode = 1;
 		
 
-		if(changeCode == 0) {
-			console.log("if:" + changeCode);
-			$("#publicImg").attr("src", "/breezer/assets/images/tour/private_button.PNG");
-			changeCode = 1;
-
-		} else if (changeCode == 1) {
-			console.log("else: " + changeCode);
-			$("#publicImg").attr("src", "/breezer/assets/images/tour/public_button.png");
-			changeCode = 0;
-		} else {
-			alert("Error Change");
-		}
+	} else if (changeCode == 1) {
+		console.log("비공개 - changeCode:" + changeCode);
+		$("#publicImg").attr("src", "/breezer/assets/images/tour/public_button.png");
+		$("#public").attr("checked", "checked");
+		$("#private").removeAttr("checked");
+		changeCode = 0;
+	
+	} else {
+		alert("Error Change");
+	}
 		
 }
+</script>
+
+<!-- 다중 form 전송 부분 -->
+<script type="text/javascript">
+$(function(){
+	$("#add").click(function(){
+		$.post("${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add", $(".addform").serialize(), function(data){
+			console.log(" >> 다중 Form serialize post 전송");
+		});
+	});
+});
 
 </script>
 
@@ -247,7 +267,6 @@ function securityEventOccur() {
 		<div id="tour_main_header">
 			<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
 			
-			<!-- 사진 추가 구간, 백그라운드로 바꿔야됨 -->
 			<div id=imgContainer></div>
 			
 			<!-- 왼쪽 구간 -->
@@ -256,22 +275,17 @@ function securityEventOccur() {
 				<!-- 이미지 업로드 -->
 				<form id="fileForm">
 					<input type="file" name="file" id="fileUpload"><br><br>
-					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onClick="check()" >
+					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.png" onClick="check()" >
 				</form>
 				<br><br>
 				
 				<!-- 공개/비공개 부분 -->
-				
-				<!-- 
-				- public 이미지 클릭시 private 이미지로 바뀌어야한다.
-				- 클릭시(private 상태) radio에서 value값 1인 것을 checked 되게 한다.
-				- 클릭시(public 상태) radio에서 value값 0인 것을 checked 되게 한다. 
-				 -->
-				<form id="lock">
-					<!-- <input type="radio" name="secret" value="0" checked="checked" />					
-					<input type="radio" name="secret" value="1" /> -->
+				<form class="addform">
 					
 					<img id="publicImg" src="/breezer/assets/images/tour/public_button.png" onclick="security()" >
+					<br>
+					<input id="public" type="radio" name="secret" value="0" checked="checked" />  <br>					
+					<input id="private" type="radio" name="secret" value="1" /> 
 					
 				</form>
 				
@@ -279,13 +293,15 @@ function securityEventOccur() {
 			
 			<!-- 오른쪽 구간 -->
 			<div class="tourAdd_right">
-				<a href="/breezer">Cancel</a><br> <!-- 취소(Leave) 부분 -->		
-				<input type="button" value="add" onclick="add()"> <!-- 등록(add) 부분 -->
+				<a href="/breezer">Cancel</a><br> <!-- 취소(Leave) 부분 -->
+				<input type="button" id="add" value="add" onclick="add()"> <!-- 등록(add) 부분 -->		
 			</div>
 			
 			<!-- 센터 구간 -->
 			<div class="tourAdd_center">
-				<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
+				<%-- <form class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add"> --%>
+
+				<form class="addform">
 					<input type="text" value="title" name="title"><br>
 					<input type="text" id="start-datepicker" value="start date" name="startDate">
 					<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
@@ -294,7 +310,6 @@ function securityEventOccur() {
 			</div>
 		</div>
 	</div>	
-	
 	
 	
 	
@@ -331,7 +346,6 @@ function securityEventOccur() {
 		</div> --%>
 		
 		
-
 		
 		<!-- POST VIEW 부분 -->
 		<div id="wrapper">
