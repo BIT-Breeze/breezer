@@ -15,9 +15,8 @@ public class PostVo {
 	private String category;
 	private double price;
 	private double score;
-	private long hit;
+	private long favorite;
 	private long dateGap;
-	
 	public long getIdx() {
 		return idx;
 	}
@@ -102,11 +101,11 @@ public class PostVo {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public long getHit() {
-		return hit;
+	public long getFavorite() {
+		return favorite;
 	}
-	public void setHit(long hit) {
-		this.hit = hit;
+	public void setFavorite(long favorite) {
+		this.favorite = favorite;
 	}
 	public long getDateGap() {
 		return dateGap;
@@ -114,12 +113,13 @@ public class PostVo {
 	public void setDateGap(long dateGap) {
 		this.dateGap = dateGap;
 	}
-	
 	@Override
 	public String toString() {
 		return "PostVo [idx=" + idx + ", userId=" + userId + ", postDateTime=" + postDateTime + ", tripDateTime="
 				+ tripDateTime + ", photo=" + photo + ", content=" + content + ", location=" + location + ", locale="
 				+ locale + ", lat=" + lat + ", lot=" + lot + ", tourIdx=" + tourIdx + ", category=" + category
-				+ ", price=" + price + ", score=" + score + ", hit=" + hit + ", dateGap=" + dateGap + "]";
+				+ ", price=" + price + ", score=" + score + ", favorite=" + favorite + ", dateGap=" + dateGap + "]";
 	}
+	
+	
 }

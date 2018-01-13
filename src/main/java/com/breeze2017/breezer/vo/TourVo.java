@@ -10,7 +10,7 @@ public class TourVo {
 	private double score;
 	private String mainPhoto;
 	private long postCount;
-	private long hit;
+	private long favorite;
 	private int secret; //1 : true, 0: false
 	private int rn;
 	
@@ -70,11 +70,12 @@ public class TourVo {
 	public void setPostCount(long postCount) {
 		this.postCount = postCount;
 	}
-	public long getHit() {
-		return hit;
+	
+	public long getFavorite() {
+		return favorite;
 	}
-	public void setHit(long hit) {
-		this.hit = hit;
+	public void setFavorite(long favorite) {
+		this.favorite = favorite;
 	}
 	public int getSecret() {
 		return secret;
@@ -88,12 +89,15 @@ public class TourVo {
 	public void setRn(int rn) {
 		this.rn = rn;
 	}
+	
 	@Override
 	public String toString() {
 		return "TourVo [idx=" + idx + ", userId=" + userId + ", seq=" + seq + ", title=" + title + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", score=" + score + ", mainPhoto=" + mainPhoto + ", postCount="
-				+ postCount + ", hit=" + hit + ", secret=" + secret + ", rn=" + rn + "]";
+				+ postCount + ", favorite=" + favorite + ", secret=" + secret + ", rn=" + rn + "]";
 	}
+
+
 	
 	
 	
