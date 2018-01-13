@@ -4,18 +4,24 @@
 <mapper namespace="sns">
 	<select id="getlist" parameterType="long" resultType="snsvo">
 		<![CDATA[
-			select * 
+
+			select * ,
+					(select count(*) 
+					  from TB_FAVORITE 
+					  where userId=result.userId and  IF( result.postIdx is null, 
+					  													tourIdx = result.tourIdx, 
+																		postIdx = result.postIdx)  ) as favoCount
 			from (select @ROWNUM := @ROWNUM + 1 as idx, f.*
 					from (select p.tourIdx tourIdx, p.idx postIdx, p.userId, u.nickName nickName,
 					  				null title,  p.content, p.photo, null startDate, 
-					  				null endDate, p.score, p.hit,    p.postDateTime, 
+					  				null endDate, p.score, p.favorite,    p.postDateTime, 
 									p.tripDateTime,  p.location, u.pictureUrl
 							from TB_POST p, TB_TOUR t, TB_USER u
 							where p.userId = u.id and p.tourIdx = t.idx
 							UNION ALL 
 							select 	t.idx tourIdx, null postIdx, t.userId, u.nickName nickName, t.title title, 
 										null content, t.mainPhoto photo,    t.startDate,    
-										t.endDate, t.score, t.hit, null postDateTime, 
+										t.endDate, t.score, t.favorite, null postDateTime, 
 										p.tripDateTime, null location, u.pictureUrl
 							from TB_TOUR t, (	select p.tourIdx, p.idx, p.userId, max(p.tripDateTime) tripDateTime
 													from TB_POST p
@@ -30,12 +36,40 @@
 		   ]]>
 	    </if>
 		<![CDATA[
-			order by idx desc
-	    	limit 10
+			
+	    	
+	    	
+	    	order by idx desc
+	    	limit 10 
+				    	
 		]]>
 	</select>		
 	
-			
+		
+		
+		
+	<insert id="insertFavorite" parameterType="map">
+		<![CDATA[
+		 	 insert into TB_FAVORITE (userId, tourIdx, postIdx, insertDateTime)
+		 	 values(#{id }, #{tourIdx }, #{postIdx }, now() ) 
+	    ]]>		
+	</insert>	
+	
+	<delete id="deleteTourFavorite" parameterType="map">
+		<![CDATA[
+		 	 delete from TB_FAVORITE
+		 	 where  userId = #{id } and
+		 	 		tourIdx = #{tourIdx } 
+	    ]]>		
+	</delete>	
+	
+	<delete id="deletePostFavorite" parameterType="map">
+		<![CDATA[
+		 	 delete from TB_FAVORITE
+		 	 where  userId = #{id } and
+		 	 		postIdx = #{postIdx } 
+	    ]]>		
+	</delete>	
 			
 	
 </mapper>

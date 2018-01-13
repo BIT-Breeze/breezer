@@ -23,8 +23,26 @@ public class SnsMainController {
 	@RequestMapping("/list")
 	public JSONResult list(
 			@RequestParam( value="idx", required=true, defaultValue="0") long idx) {
-		
+		System.out.println("====== /api/sns/list : idx : "+idx+" ======");
 		List<SNSVo> list = snsMainService.getListMessage(idx);
 		return JSONResult.success(list);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/dolike")
+	public JSONResult dolike(
+			@RequestParam("id") String id,
+			@RequestParam("flag") String flag,
+			@RequestParam("type") String type,
+			@RequestParam("idx") long idx ) {
+		
+		System.out.println("====== /api/sns/dolike ======");
+		System.out.println("id : "+id+", flag : "+flag+", type : "+type+", idx : "+idx);
+		snsMainService.doLikeMessage(id, flag, type, idx);
+		
+		
+		
+		return JSONResult.success("");
 	}
 }
