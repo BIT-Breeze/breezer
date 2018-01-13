@@ -10,7 +10,7 @@
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 <link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
-<link	href="${pageContext.servletContext.contextPath }/assets/css/includes/side_navigation.css"	rel="stylesheet" type="text/css">
+
 <link	href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"	rel="stylesheet" type="text/css">
 <link   rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -137,17 +137,30 @@ var fetchList = function(){
 $(function(){
 	fetchList();
 	//live event
+	/*
+	$('#sidenav').on('mouseover', function(){
+		$(this).css('visibility','visible');
+	});
 	
-	$( document ).on("mouseover","#sidenav",function(event){
+	
+	$('#sidenav').on('mouseout', function(){
+		$(this).css('visibility','hidden');
+	});
+	
+	
+
+	$( window ).on("mouseover","#sidenav",function(event){
+		console.log("사이드 내비 하이딩")
 		$('#sidenav').css('visibility','visible');
 		
 	})
 	
-	$( document ).on("mouseout","#sidenav",function(event){
+	$( window ).on("mouseout","#sidenav",function(event){
+		console.log("사이드 내비 비저블")
 		$('#sidenav').css('visibility','hidden');
 		
 	})
-	
+	*/
 	
 	
 	$( document ).on( "click", "#list-tour div button", function(event){
@@ -222,7 +235,7 @@ $(function(){
 		if( scrollTop + windowHeight + 30 > documentHeight ) {
 			fetchList();
 		}
-	});
+	}); // window scroll
 
 
 })
@@ -241,14 +254,16 @@ $(function(){
   
   	<div class="row" id="container">
 	  	<div class="col-sm-12">
+	  	
 		  	<c:import url="/WEB-INF/views/includes/header.jsp">
 		
 			</c:import>
+		
 		</div>
   	</div>
   	
   	<div class="row content">
-  
+
 	<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 		<c:param name="menu" value="login" />
 	</c:import>
@@ -266,7 +281,7 @@ $(function(){
 
 			<h4>${uservo2.nickName }님은</h4><br>
 			${uservo2.tours }개의 여행을 하셨습니다.<br>
-			
+			/* 마우스를 헤더 위에 올리면 사이드 메뉴 나옴 */
 			</div>
 			
 			<div class="col-sm-3" id="firstrow" align="right">
@@ -279,6 +294,7 @@ $(function(){
       				
       			</c:otherwise>
 			</c:choose>
+
 			</div>
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
