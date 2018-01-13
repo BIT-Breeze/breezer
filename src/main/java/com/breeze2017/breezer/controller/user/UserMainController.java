@@ -109,9 +109,9 @@ public class UserMainController {
 		System.out.println(idx);
 		
 		return JSONResult.success( bSuccess ? idx : -1);
+		
 		} else {
-			
-			
+						
 			return JSONResult.fail("타인의 게시글을 지울 수 없습니다.");
 		}
 	}
