@@ -83,7 +83,21 @@
 			doLikeUpDown('up', 'post', post)
 		}
 		
+		
+		/* 
+		
+		html = html + "<button id='btnFavo"+vo.idx+"' type='button' onclick='likeup("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> 좋아요 </button><br> "
+	} else {
+		html = html + "<button id='btnFavo"+vo.idx+"' type='button' onclick='likedown("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> 좋아요 취소 </button><br> "
+		 */
+		
 		//버튼 이름이랑 함수 바꿔줘야지 
+		var html = ""
+			+ "<button id='btnFavo"+voidx+"' type='button' onclick='likedown("+voidx+", "+tour+", "+post+")'> 좋아요 취소 </button><br> "
+			
+		
+		$("#likebtn"+voidx).empty();
+		$("#likebtn"+voidx).append(html);
 	}
 	
 	function likedown(voidx, tour, post) {
@@ -98,6 +112,15 @@
 			//console.log("this is post")
 			doLikeUpDown('down', 'post', post)
 		}
+		
+		
+		//버튼 이름이랑 함수 바꿔줘야지 
+		var html = ""
+			+ "<button id='btnFavo"+voidx+"' type='button' onclick='likeup("+voidx+", "+tour+", "+post+")'> 좋아요 </button><br> "
+			
+		
+		$("#likebtn"+voidx).empty();
+		$("#likebtn"+voidx).append(html);
 	}
 	
 	
@@ -333,7 +356,7 @@
 				+ "<div id='post-info'  style='height:auto; width:100%;' >"
 				+ "<div id='info-status' >"
 				// postIdx가 0이면 tour,  아니면 post 
-				
+				+ "		<div id='likebtn"+vo.idx+"'> "
 				// 1 좋아요
 				if ( vo.favoCount == 0) {
 					//좋아요
@@ -343,6 +366,7 @@
 				}
 				
 				html = html
+				+ "	</div>"
 				//+ "<button id='btnFavo"+vo.idx+"' type='button' onclick='clicklike("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> "+didFavo+" </button><br> "
 				+ "<label>좋아요 : "
 				+ vo.favorite
