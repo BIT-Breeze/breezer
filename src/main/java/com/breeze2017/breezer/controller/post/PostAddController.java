@@ -41,7 +41,7 @@ public class PostAddController {
 		System.out.println("--id--:" + id);
 		System.out.println(" >> PostAddController post/add");
 		vo.setUserId(id);
-		postAddService.insertMessage(vo);
+		postAddService.insertPost(vo);
 
 		//return은 임시
 		//return "post/post_add";

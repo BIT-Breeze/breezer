@@ -100,7 +100,7 @@
 </head>
 
 <body>
-${touridx }
+
 	<div id="top-section">
 	
 	</div>
