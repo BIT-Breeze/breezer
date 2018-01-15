@@ -119,7 +119,7 @@ ${touridx }
 			score <input type="text" value="0" name="score"><br>
 			content <input type="text" value="content" name="content"><br>
 			<input type="hidden"  id="imagePath" value="imagePath" name="photo"><br>
-			<input type="hidden" name="tourIdx" value=${touridx }>
+			<input type="hidden" name="tourIdx" value=${tourIdx }>
 	
 			<div id=multiImgContainer></div>
 			
