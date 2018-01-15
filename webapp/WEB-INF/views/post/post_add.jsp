@@ -27,7 +27,6 @@
 	//	if(('#multiImgContainer').isEmpty != null) {
 	//		$('#fileUpload').on('change', )	
 	//	}
-		
 	 $('#fileUpload').on('change', ImgFileSelect);
 	
 	});
@@ -36,7 +35,7 @@
 	
 	// 파일 업로더 했을 때 실행되는 함수
 	function ImgFileSelect(e) {
-		console.log("====== ImgFileSelect ======")
+		console.log("====== ImgFileSelect ======");
 		var files = e.target.files; // 넘어 오는 파일들을 files에 담고
 		var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
 		
@@ -87,7 +86,6 @@
 		}).fail(function(jqXHRm, textStatus) {
 			alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 		});
-	
 	}
 	
 	
@@ -119,7 +117,7 @@ ${touridx }
 			score <input type="text" value="0" name="score"><br>
 			content <input type="text" value="content" name="content"><br>
 			<input type="hidden"  id="imagePath" value="imagePath" name="photo"><br>
-			<input type="hidden" name="tourIdx" value=${touridx }>
+			<input type="hidden" name="tourIdx" value=${tourIdx }>
 	
 			<div id=multiImgContainer></div>
 			
@@ -140,7 +138,6 @@ ${touridx }
 	<!-- 다중 파일 업로더 -->
 	<form id="MultifileForm">
 		<input type="file" multiple="multiple" name="multiFile" id="fileUpload"><br><br>
-		
 	</form>
 	
 </body>
