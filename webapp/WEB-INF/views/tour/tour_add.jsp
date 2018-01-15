@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
  
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
+<%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css"> --%>
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_add.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -79,7 +79,7 @@
 			}
 		});
 		
-		function addPost(){
+		function addPost() {
 			window.open('${pageContext.servletContext.contextPath}/${userId}/post/add?touridx=${tourIdx}', 'window', 'width=1100, height=900,scroll=yes');
 		}
 		
@@ -164,6 +164,8 @@ $(document).ready(function() {
 			console.log(data);
 			console.log(img);
  			imgContainer.append(img);
+ 			
+ 			
  			
  			//var backgroundImage = "${pageContext.request.contextPath }" + data;
  			//console.log(backgroundImage);
@@ -264,6 +266,7 @@ $(function(){
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 	
 	<div id="tour_main_header_bg">
+		
 		<div id="tour_main_header">
 			<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
 			
@@ -293,8 +296,8 @@ $(function(){
 			
 			<!-- 오른쪽 구간 -->
 			<div class="tourAdd_right">
-				<a href="/breezer">Cancel</a><br> <!-- 취소(Leave) 부분 -->
-				<input type="button" id="add" value="add" onclick="add()"> <!-- 등록(add) 부분 -->		
+				<a href="/breezer">LEAVE</a><br><br> <!-- 취소(Leave) 부분 -->
+				<input type="button" id="add" value="SAVE" onclick="add()"> <!-- 등록(add) 부분 -->		
 			</div>
 			
 			<!-- 센터 구간 -->
@@ -302,9 +305,9 @@ $(function(){
 				<%-- <form class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add"> --%>
 
 				<form class="addform">
-					<input type="text" value="title" name="title"><br>
-					<input type="text" id="start-datepicker" value="start date" name="startDate">
-					<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
+					<input type="text" id="title_area" placeholder="Enter Title" name="title"><br><br><br>
+					<input type="text" id="start-datepicker" placeholder="start date" name="startDate">
+					<input type="text" id="end-datepicker" placeholder="end date" name="endDate"><br><br>
 					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
 				</form>
 			</div>
@@ -312,7 +315,44 @@ $(function(){
 	</div>	
 	
 	
+	<!-- POST VIEW 부분 -->
+	<div id="wrapper">
+		<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
+		<div id="content">
+			<div class="row">
+				<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
+			</div>
+			<c:forEach var="post" items="${postList }">
+				<c:if test="${post.dateGap != 0}">
+					<div>${post.dateGap}일차</div>
+				</c:if>
+				<div class="post" id="post-${post.idx}">
+					<dl>
+						<dd>${post.tripDateTime }</dd>
+						<dd>${post.content }</dd>
+						<dd>${post.location }</dd>
+						<dd>${post.locale }</dd>
+						<dd>${post.lat }</dd>
+						<dd>${post.lot }</dd>
+						<dd>${post.category }</dd>
+						<dd>${post.price }</dd>
+						<dd>${post.score }</dd>
+						<dd>${post.favorite }</dd>
+					</dl>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	<c:import url="/WEB-INF/views/includes/footer.jsp" />
+
+</body>
+</html>
+
 	
+
+
+
+
 <%-- 		<div id="tour_main_header_bg">
 			
 			<div id=imgContainer></div>
@@ -345,39 +385,3 @@ $(function(){
 			</div>
 		</div> --%>
 		
-		
-		
-		<!-- POST VIEW 부분 -->
-		<div id="wrapper">
-			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
-			<div id="content">
-				<div class="row">
-					<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
-				</div>
-				<c:forEach var="post" items="${postList }">
-					<c:if test="${post.dateGap != 0}">
-						<div>${post.dateGap}일차</div>
-					</c:if>
-					<div class="post" id="post-${post.idx}">
-						<dl>
-							<dd>${post.tripDateTime }</dd>
-							<dd>${post.content }</dd>
-							<dd>${post.location }</dd>
-							<dd>${post.locale }</dd>
-							<dd>${post.lat }</dd>
-							<dd>${post.lot }</dd>
-							<dd>${post.category }</dd>
-							<dd>${post.price }</dd>
-							<dd>${post.score }</dd>
-							<dd>${post.hit }</dd>
-						</dl>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		<c:import url="/WEB-INF/views/includes/footer.jsp" />
-
-</body>
-</html>
-
-	
