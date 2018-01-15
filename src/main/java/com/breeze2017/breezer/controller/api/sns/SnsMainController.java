@@ -31,7 +31,7 @@ public class SnsMainController {
 		// 그뭐냐.. 해당 포스트의 내가 좋아요를 했는지 알려면 내 아이디를 보내줘야해.. 그래서 맵 사용
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("idx", idx);
-		map.put("myid", idx);
+		map.put("myid", userId);
 		
 		List<SNSVo> list = snsMainService.getListMessage(map);
 		return JSONResult.success(list);

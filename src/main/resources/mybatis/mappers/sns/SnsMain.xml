@@ -36,9 +36,6 @@
 		   ]]>
 	    </if>
 		<![CDATA[
-			
-	    	
-	    	
 	    	order by idx desc
 	    	limit 10 
 				    	
