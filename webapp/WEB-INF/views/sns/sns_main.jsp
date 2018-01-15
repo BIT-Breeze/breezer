@@ -430,7 +430,7 @@
 		}
 		var startNo = $("#list-sns #post").last().data("idx") || 0;
 		$.ajax({
-			url : "/breezer/api/sns/list?idx=" + startNo,
+			url : "/breezer/api/sns/list?idx=" + startNo+"&userid=${userid }",
 			type : "get",
 			dataType : "json",
 			data : "",

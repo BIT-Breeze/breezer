@@ -1,6 +1,7 @@
 package com.breeze2017.breezer.service.sns;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,8 @@ public class SnsMainService {
 	@Autowired
 	private SnsMainDao snsMainDao;
 	
-	public List<SNSVo> getListMessage(long idx) {
-		List<SNSVo> list = snsMainDao.getList(idx);
+	public List<SNSVo> getListMessage(Map<String, Object> map) {
+		List<SNSVo> list = snsMainDao.getList(map);
 		return list;
 	}
 	

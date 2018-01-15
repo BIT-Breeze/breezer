@@ -16,8 +16,12 @@ public class SnsMainDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<SNSVo> getList(long idx) {
-		List<SNSVo> list = sqlSession.selectList("sns.getlist", idx);
+	public List<SNSVo> getList(Map<String, Object> map) {
+		
+		// 그뭐냐.. 해당 포스트의 내가 좋아요를 했는지 알려면 내 아이디를 보내줘야해.. 그래서 맵 사용
+		
+		
+		List<SNSVo> list = sqlSession.selectList("sns.getlist", map);
 		System.out.println("SNSVO TEST = " + list);
 		return list;
 	}

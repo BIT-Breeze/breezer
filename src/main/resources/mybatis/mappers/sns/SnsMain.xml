@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sns">
-	<select id="getlist" parameterType="long" resultType="snsvo">
+	<select id="getlist" parameterType="map" resultType="snsvo">
 		<![CDATA[
 
 			select * ,
 					(select count(*) 
 					  from TB_FAVORITE 
-					  where userId=result.userId and  IF( result.postIdx is null, 
+					  where userId=#{myid } and  IF( result.postIdx is null, 
 					  													tourIdx = result.tourIdx, 
 																		postIdx = result.postIdx)  ) as favoCount
 			from (select @ROWNUM := @ROWNUM + 1 as idx, f.*
@@ -30,9 +30,9 @@
 					
 					order by f.tripDateTime, f.title ) result
 		]]>
-		<if test="_parameter > 0"> 
+		<if test="idx > 0"> 
 		   <![CDATA[
-		   		where idx < #{_parameter }
+		   		where idx < #{idx }
 		   ]]>
 	    </if>
 		<![CDATA[

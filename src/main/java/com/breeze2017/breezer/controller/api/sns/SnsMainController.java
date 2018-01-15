@@ -1,6 +1,8 @@
 package com.breeze2017.breezer.controller.api.sns;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +24,16 @@ public class SnsMainController {
 	@ResponseBody
 	@RequestMapping("/list")
 	public JSONResult list(
-			@RequestParam( value="idx", required=true, defaultValue="0") long idx) {
-		System.out.println("====== /api/sns/list : idx : "+idx+" ======");
-		List<SNSVo> list = snsMainService.getListMessage(idx);
+			@RequestParam( value="idx", required=true, defaultValue="0") long idx,
+			@RequestParam("userid") String userId) {
+		System.out.println("====== /api/sns/list : idx : "+idx+", id : "+userId+" ======");
+		
+		// 그뭐냐.. 해당 포스트의 내가 좋아요를 했는지 알려면 내 아이디를 보내줘야해.. 그래서 맵 사용
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idx", idx);
+		map.put("myid", idx);
+		
+		List<SNSVo> list = snsMainService.getListMessage(map);
 		return JSONResult.success(list);
 	}
 	
