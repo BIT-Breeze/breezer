@@ -324,8 +324,8 @@
 		}
 
 		html = html
-				+ '   				<a class=" " onclick="plusDivs(this,-1)" style="margin-left:330px; width:100px; background-color:#ffffff" > <이전  </a> '
-				+ '  	 			<a class=" " onclick="plusDivs(this,1)"  style="margin-left:30px; width:100px; background-color:#ffffff" > 다음>  </a> '
+				+ '   				<a class=" " onclick="plusDivs(this,-1)" style="margin-left:330px;  width:100px; background-color:#ffffff" > <이전  </a> '
+				+ '  	 			<a class=" " onclick="plusDivs(this,1)"  style="margin-left:30px;   width:100px; background-color:#ffffff" > 다음>  </a> '
 				//+ '  	 			<a class="w3-btn-floating w3-display-right" onclick="plusDivs(this,1)" style="width:390px; background-color:#ffffff" >&#10095;</a  '
 				+ '   		</div>' 
 
@@ -334,7 +334,7 @@
 				+ "<div id='post-info'  style='height:auto; width:780px; margin-left:10px;' >"
 				+ "	  	<div id='info-status' >"
 				// postIdx가 0이면 tour,  아니면 post 
-				+ "			<div id='likebtn"+vo.idx+"' style='height: 27px; float:left'> "
+				+ "			<div id='likebtn"+vo.idx+"' style='width: 120px; height: 27px; float:left'> "
 		// 1 좋아요
 		if (vo.favoCount == 0) {
 			//좋아요
