@@ -15,13 +15,114 @@
 	display:none;
 }
 
+/* z-index 설정 */
+/* Area -1 <z-index>  */
+#header {
+	color: white;
+	position: relative;
+	/* z-index: 0; */
+}
+
+#tour_main_header {
+	vertical-align: middle;
+	text-align: center; 
+	width: 100%; 
+	height: 300px; 
+	margin: 0 auto;
+	background-color: #ABABAB; 
+	clear: both;
+	position: relative;
+	/* z-index: 0; */
+}
+
+/* Area 0 <z-index>  */
+
+/* background */
+#tour_main_header_bg {
+	background-image:url('/breezer/assets/images/tour/nature.jpg');
+	
+	/* z-index: 1; */
+}
+
+/* Area 1 <z-index>  */
+
+.addform {
+	position: relative;
+	/* z-index: 2; */
+}
+
+.tourAdd_right {
+	position: relative;
+	/* z-index: 2; */
+}
+
+.tourAdd_right #add,#leave {
+	background-color: white;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 20px;
+    -moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+}
+
+/* addform style */
+.tourAdd_center #title_area {
+	vertical-align: middle;
+	text-align:center; 
+	display: block;
+	width: 500px;
+	height: 50px;
+	outline: none;
+	border: none;
+	background: #ABABAB;
+	color: white;
+	font-size: 30px;
+	font-weight: bold;
+	opacity: 0.6;
+}
+
+.tourAdd_center #start-datepicker,#end-datepicker {
+	
+	text-align: center; 
+	/* display: block; */
+ 	outline: none;
+	border: none;
+	border-bottom: 2px solid white;
+	color: white;
+	background: #ABABAB;
+	font-size: 20px;
+	
+}
+
+/* placeholder color */
+.tourAdd_center #title_area::-webkit-input-placeholder {
+	color: white;
+}
+.tourAdd_center #start-datepicker::-webkit-input-placeholder {
+	color: white;
+}
+.tourAdd_center #end-datepicker::-webkit-input-placeholder {
+	color: white;
+}
+
+
+#imgContainer {
+	/* background-image:url('/breezer/assets/images/tour/nature.jpg'); */
+	
+}
+
 /* layout */
 nav#tour_navigation	{ 
   z-index: 1; float:left; width:200px; height:100%; overflow: auto; position: fixed; padding-left: 170px; }
 
-div#tour_main_header {
-	vertical-align: middle;
-	text-align:center; width:100%; height:300px; margin:0 auto; background-color:#ABABAB; clear:both;
+
+#fileForm {
+/* 	float: left;
+	padding-left: 50px; */
 }
 
 div#tour_main_header_bg #tour_main_header .tourAdd_left {

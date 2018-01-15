@@ -20,7 +20,7 @@
 							where p.userId = u.id and p.tourIdx = t.idx
 							UNION ALL 
 							select 	t.idx tourIdx, null postIdx, t.userId, u.nickName nickName, t.title title, 
-										null content, t.mainPhoto photo,    t.startDate,    
+										t.title content, t.mainPhoto photo,    t.startDate,    
 										t.endDate, t.score, t.favorite, null postDateTime, 
 										p.tripDateTime, null location, u.pictureUrl
 							from TB_TOUR t, (	select p.tourIdx, p.idx, p.userId, max(p.tripDateTime) tripDateTime
