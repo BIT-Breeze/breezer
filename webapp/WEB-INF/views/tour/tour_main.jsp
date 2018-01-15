@@ -114,7 +114,7 @@
 							<dd>${post.category }</dd>
 							<dd>${post.price }</dd>
 							<dd>${post.score }</dd>
-							<dd>${post.hit }</dd>
+							<dd>${post.favorite }</dd>
 						</dl>
 					</div>
 				</c:forEach>
