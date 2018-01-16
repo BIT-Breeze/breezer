@@ -1,5 +1,10 @@
 package com.breeze2017.breezer.controller.user;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -66,9 +71,7 @@ public class UserMainController {
 		System.out.println("======JSON REQUEST CONTROLLER======"+ no);
 		System.out.println(authUser.getId());
 		System.out.println(id);
-		boolean check = authUser.getId().equals(id);
-		System.out.println(check);
-		
+
 		if(authUser.getId().equals(id)) {
 			System.out.println("자기 페이지를 보는 쿼리 ");		
 			List<TourVo> tours = userMainService.getTours(id,no);		
@@ -81,12 +84,20 @@ public class UserMainController {
 			
 		} else {
 			System.out.println("타인 페이지를 보는 쿼리");
-			List<TourVo> tours = userMainService.getTours1(id,no);		
-			
+			//타인페이지를 볼때 로그를 남긴다. 
+
+			List<TourVo> tours = userMainService.getTours1(id, no);
+			// 다른사람의 페이지는 secret 이 1인 게시물은 가져오지 않는 쿼리
 			if(tours.isEmpty()) {
 				return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
 			}
-		
+			// 로그 남기는 메소드 
+			try {
+				userMainService.leaveLog(authUser.getId(), id);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return JSONResult.success(tours);
 						
 		}

@@ -18,6 +18,7 @@
     #sidenav {      	 	
       height: 100%;
       visibility: hidden;
+      
     }
     
     #button_area{    
@@ -37,6 +38,7 @@
 		padding-top:60px; 
 		padding-bottom:900px;       
     }
+    
 
 </style>
 <script>

@@ -1,5 +1,10 @@
 package com.breeze2017.breezer.service.user;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +64,37 @@ public class UserMainService {
 		return count == 1;
 		// 하나가 삭제되었다면 true가 리턴되고 삭제가 안 되었다면 false가 리턴된다. 
 	}
+
+	public void leaveLog(String authUser, String otherUser) throws IOException {
+		String logMessage = authUser + 	" took a look at " +
+							otherUser + "'s page"; 
+		File dir;
+		File file;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+		String visitedDay = sdf.format(new Date());
+		System.out.println(visitedDay);
+		
+		dir = new File("D:\\bigdata\\breezerLog\\"+authUser);
+		if(dir.exists() == false) {dir.mkdirs();}
+		file = new File("D:\\bigdata\\breezerLog\\"+authUser+"\\"+visitedDay+".txt");
+		if(file.exists() == false) {
+			System.out.println("파일이 존재하지 않습니다.");
+			file.createNewFile();
+		}
+			try {
+				System.out.println("line 80");
+				FileWriter fw = new FileWriter(file);
+				fw.write(logMessage);
+				System.out.println("쓰기 성공!");
+				fw.flush();
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("파일생성");
+		} 
+
 
 
 
