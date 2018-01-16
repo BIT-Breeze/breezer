@@ -29,7 +29,6 @@ public class FileUploadController {
 	private MultiFileUploadService multiFileUploadService;
 
 	// Single Upload
-	
 	@ResponseBody
 	@RequestMapping(value="/echofile", method=RequestMethod.POST)
 	public String upload( @RequestParam("file") MultipartFile file, Model model ) {

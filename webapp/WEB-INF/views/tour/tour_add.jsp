@@ -156,29 +156,26 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 		}).done(function(data) {
-			imgContainer.html('');
-			
-			var img = '<img id="imgCon" src="${pageContext.request.contextPath }'+data+'" width="auto" height="auto"/>';
-			
-			imagePath = data;
-			console.log(data);
-			console.log(img);
- 			imgContainer.append(img);
- 			
- 			
- 			
- 			//var backgroundImage = "${pageContext.request.contextPath }" + data;
- 			//console.log(backgroundImage);
- 			//document.getElementById("tour_main_header_bg").style.backgroundImage="url('"+backgroundImage+"')";
- 			
-		}).fail(function(jqXHRm, textStatus) {
-			alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
-			
+			var data = data;
+			// css selector를 통해 background 변경
+			$("#header").css("background-color", "transparent");
+			$("#tour_main_header").css("background-color", "transparent");
+			//$("#tour_main_header_bg").css('background-image',"url(/breezer/assets/images/tour/nature.jpg)");
+			$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+data+")");
+	
+			/* }).fail(function(jqXHRm, textStatus) {
+				alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
+				*/
 		});
 	});
 });
-
-
+	/*
+	imgContainer.html(''); 
+	var img = '<img id="imgCon" src="${pageContext.request.contextPath }'+data+'" width="auto" height="auto"/>';
+	imagePath = data;
+	console.log(data);
+	console.log(img);
+	imgContainer.append(img); */
 
 </script>
 
@@ -240,25 +237,17 @@ function securityEventOccur() {
 }
 </script>
 
-<!-- 다중 form 전송 부분 -->
+<!-- form 전송 -->
 <script type="text/javascript">
 $(function(){
 	$("#add").click(function(){
 		$.post("${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add", $(".addform").serialize(), function(data){
-			console.log(" >> 다중 Form serialize post 전송");
+			console.log("addform 전송완료! tour_add data DB저장 완료!");
 		});
 	});
 });
-
 </script>
 
-<script type="text/javascript">
-	var add = function() {
-		$("#imagePath").val(imagePath);
-		 document.getElementById("addform").submit();
-	}	
-	
-</script>
 
 <title>Breezer</title>
 </head>
@@ -269,29 +258,29 @@ $(function(){
 		<div id="tour_main_header">
 			<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
 			
-			<div id=imgContainer></div>
-			
-			<!-- 이미지 업로드 -->
-			<div class="tourAdd_left">
-				<form id="fileForm">
-					<input type="file" name="file" id="fileUpload"><br><br>
-					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.png" onClick="check()" >
-				</form>
-			</div>
+			<!-- <div id=imgContainer></div> -->
+		
 			<br><br>
 				
-			<form class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">	
+			<form id="fileForm" class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">	
 				
 				<!-- 왼쪽 구간 -->
 				<div class="tourAdd_left">
-					
+					<!-- 이미지 업로드 -->
+					<input type="file" name="file" id="fileUpload"><br><br>
+					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.png" onClick="check()" >
+					<br><br>
 					<!-- 공개/비공개 부분 -->
 					<img id="publicImg" src="/breezer/assets/images/tour/public_button.png" onclick="security()" ><br>
 					<input id="public" type="radio" name="secret" value="0" checked="checked" />  <br>					
 					<input id="private" type="radio" name="secret" value="1" />
-					
 				</div>
 				
+				<!-- 오른쪽 구간 -->
+				<div class="tourAdd_right">
+					<input type="button" id="leave" value="LEAVE" onClick="location.href='/breezer'"><br><br> <!-- 취소(Leave) 부분 -->
+					<input type="button" id="add" value="SAVE" onclick="add()"> <!-- 등록(add) 부분 -->		
+				</div>
 				<!-- 센터 구간 -->
 				<div class="tourAdd_center">
 					<input type="text" id="title_area" placeholder="Enter Title" name="title"><br><br><br>
@@ -299,14 +288,9 @@ $(function(){
 					<input type="text" id="end-datepicker" placeholder="End Date" name="endDate"><br><br>
 					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
 				</div>
-			
+				
+				
 			</form>
-			
-			<!-- 오른쪽 구간 -->
-			<div class="tourAdd_right">
-				<input type="button" id="leave" value="LEAVE" onClick="location.href='/breezer'"><br><br> <!-- 취소(Leave) 부분 -->
-				<input type="button" id="add" value="SAVE" onclick="add()"> <!-- 등록(add) 부분 -->		
-			</div>
 			
 			
 		</div>
