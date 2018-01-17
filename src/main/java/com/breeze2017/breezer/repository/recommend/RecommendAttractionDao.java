@@ -23,4 +23,9 @@ public class RecommendAttractionDao {
 	public List<PostVo> getNearbyInfo(PostVo vo) {
 		return sqlSession.selectList("recommend.getNearby", vo);
 	}
+	
+	// search country
+	public String getCountry(String[] address) {
+		return sqlSession.selectOne("recommend.getCountry", address);
+	}
 }

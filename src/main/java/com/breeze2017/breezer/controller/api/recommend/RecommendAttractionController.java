@@ -28,7 +28,15 @@ public class RecommendAttractionController {
 	public JSONResult recommend(@RequestParam(value="location", required=true, defaultValue="null") List<String> searchPlaces) {
 		List<String> searchRecommend = new ArrayList<String>(); 
 		
+		// 나라검사 값이 넘어올 때 ',' 있으면 배열로 취급하는거 같다.
+		// ex) 일본 〒814-0001 Fukuoka Prefecture, Fukuoka, Sawara Ward, Momochihama, 2 Chome−３番26号 -> 5개
 		for (int i = 0; i < searchPlaces.size(); i++) {
+			String name = recommendAttractionService.countryDic(searchPlaces.get(i).split(" "));
+
+			if (!"대한민국".equals(name)) {
+				return JSONResult.fail("점검중입니다.");
+			}
+			
 			String[] s_address = searchPlaces.get(i).split(" ");
 			String searchAddress = s_address[0] + " " + s_address[1] + " " + s_address[2];
 			

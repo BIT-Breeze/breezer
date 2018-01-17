@@ -164,6 +164,7 @@ div.scrollmenu a:hover {
 				success: function( response ) {
 					if( response.result != "success" ) {
 						console.log( response.message );
+						alert("죄송합니다.\n서비스 점검중입니다.");
 						return;
 					}
 					

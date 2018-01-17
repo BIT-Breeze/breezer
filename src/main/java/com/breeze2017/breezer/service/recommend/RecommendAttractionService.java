@@ -23,4 +23,9 @@ public class RecommendAttractionService {
 	public List<PostVo> getNearbyInfo(PostVo vo) {
 		return recommendAttractionDao.getNearbyInfo(vo);
 	}
+	
+	// search country
+	public String countryDic(String[] address) {
+		return recommendAttractionDao.getCountry(address);
+	}
 }

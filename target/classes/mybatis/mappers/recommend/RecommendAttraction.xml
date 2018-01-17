@@ -19,4 +19,11 @@
 			LIMIT 0, 100;
 	]]>
 </select>
+
+<select id="getCountry" resultType="String">
+	select name from countrytest where name in
+		<foreach collection="array" item="item" index="index" separator="," open="(" close=")">
+	       	#{item }
+	    </foreach>   
+</select>
 </mapper>
