@@ -88,7 +88,7 @@
 <!-- 달력 js -->
 <script type="text/javascript">
 $(function() {
-	$("#start-datepicker").datepicker({
+	$("#start-datepicker, #end-datepicker").datepicker({
 		showOn: "both", 
         buttonImage: "/breezer/assets/images/tour/calendar_button.JPG", 
         buttonImageOnly: true,
@@ -204,8 +204,10 @@ function uploadEventOccur(evEle, evType) {
 
 </script>
 
-<!-- public, private checked 이미지 변경 -->
+<!-- public, private checked 이미지 변경 및 hover -->
 <script type="text/javascript">
+
+
 var changeCode = 0;
 
 function security() {
@@ -215,26 +217,68 @@ function security() {
 function securityEventOccur() {
 	/* console.log("securityEventOccur() Clicked"); */
 		
-	if(changeCode == 0) {
-		console.log("공개 - changeCode:" + changeCode);
+	if(changeCode == 1) {
+		console.log("공개 상태 - changeCode:" + changeCode);
+		$("#publicImg").attr("class", "public_ico");
+		$("#cover_public").attr("value", "public");
+		$("#publicImg").attr("src", "/breezer/assets/images/tour/public_button.png");
+		$("#public").attr("checked", "checked");
+		$("#private").removeAttr("checked");
+		changeCode = 0;
+		
+	} else if (changeCode == 0) {
+		console.log("비공개 상태 - changeCode:" + changeCode);
+		$("#publicImg").attr("class", "private_ico");
+		$("#cover_public").attr("value", "private");
 		$("#publicImg").attr("src", "/breezer/assets/images/tour/private_button.png");
 		$("#private").attr("checked", "checked");
 		$("#public").removeAttr("checked");
 		changeCode = 1;
 		
-
-	} else if (changeCode == 1) {
-		console.log("비공개 - changeCode:" + changeCode);
-		$("#publicImg").attr("src", "/breezer/assets/images/tour/public_button.png");
-		$("#public").attr("checked", "checked");
-		$("#private").removeAttr("checked");
-		changeCode = 0;
-	
 	} else {
-		alert("Error Change");
+		alert("Error the public, private status!!");
 	}
 
 }
+
+</script>
+
+<!-- hover -->
+<script type="text/javascript">
+$(function() {
+	var class_name = $("#publicImg").attr("class"); 
+	console.log(class_name);
+
+	if (class_name == "public_ico") {
+		console.log("public_ico hover");
+		$("#publicImg").hover(
+			function(){
+				$(".tourAdd_left .hover_me_pp .type_pp #cover_public").css("display", "block");
+			},
+			function() {
+				$(".tourAdd_left .hover_me_pp .type_pp #cover_public").css("display", "none");
+			}
+		);
+		
+		
+	} else if (class_name == "private_ico") {
+		console.log("private_ico hover");
+	 	$("#publicImg").hover(
+	 		function() {
+				$(".tourAdd_left .hover_me_pp .type_pp #cover_private").css("display", "block");
+	 		},
+	 		function() {
+	 			$(".tourAdd_left .hover_me_pp .type_pp #cover_private").css("display", "none");
+	 		}
+	 	);
+	 	
+	 	
+	} else {
+		alert("Error the public, private hover status!!");
+	}
+	
+	
+});
 </script>
 
 <!-- form 전송 -->
@@ -258,8 +302,6 @@ $(function(){
 		<div id="tour_main_header">
 			<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
 			
-			<!-- <div id=imgContainer></div> -->
-		
 			<br><br>
 				
 			<form id="fileForm" class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">	
@@ -268,19 +310,22 @@ $(function(){
 				<div class="tourAdd_left">
 					
 					<!-- 이미지 업로드 -->
-					<div class="hover_me">
+					<div class="hover_me_img">
 						<input type="file" name="file" id="fileUpload"><br><br>
 						<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.png" onClick="check()" >
-						<div class="hover_target">
+						<div class="hover_target_img">
 							<input type="text" id="cover_photo" value="Cover Photo" ><br><br>	
 						</div>
 					</div>
-
+					
 					
 					<!-- 공개/비공개 부분 -->
-					<img id="publicImg" src="/breezer/assets/images/tour/public_button.png" onclick="security()" ><br>
-					<input type="text" id="cover_public" value="public" >
-					<input type="text" id="cover_private" value="private" >
+					<div class="hover_me_pp">
+						<img id="publicImg" class="public_ico" src="/breezer/assets/images/tour/public_button.png" onclick="security()" ><br>
+						<div class="type_pp">
+							<input type="text" id="cover_public" value="public" >
+						</div>
+					</div>
 					<br><br>
 					<input id="public" type="radio" name="secret" value="0" checked="checked" />  <br>					
 					<input id="private" type="radio" name="secret" value="1" />
