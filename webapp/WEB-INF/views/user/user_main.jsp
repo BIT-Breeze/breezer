@@ -62,7 +62,7 @@ var render0 = function( tourvo, mode ){
 				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
 				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
 				 + "</a><br>" +	"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + 
-				"<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'> X </button></div>" ;
+				" &nbsp<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>X</button></div>" ;
 	/*var no = $("#tour").attr('no');
 					"<a href='${pageContext.servletContext.contextPath }/" + id +"/tourdelete?idx=" + tourvo.idx + 
 				"'>   </a>
@@ -75,6 +75,25 @@ var render0 = function( tourvo, mode ){
 		$( "#list-tour" ).append(html);	
 	}
 	//render2();
+}
+	
+var render2 = function( tourvo, mode ){
+		console.log(tourvo.idx);	
+		//var id = "${authUser.id}";
+		var id = userId;
+		var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  +   "' align='center'>"+ tourvo.title + "<br>" + 
+					"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
+					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
+					 + "</a><br>" +	"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + "</div>" ;
+					 
+		console.log(html);
+		console.log(typeof(html));	
+		if( mode == true ){
+			$( "#list-tour" ).prepend(html);		
+		} else {		
+			$( "#list-tour" ).append(html);	
+		}
+
 }
 
 var renderNoTour = function(){
@@ -110,13 +129,16 @@ var fetchList = function(){
 						// JavaScript 배열에는 length라는 속성이 있다.
 						// response.data는 배열로 인식된다
 						isEnd = true;
-						//$( "#btn-next" ).prop( "disabled", true );
 					}
 		
 					$.each( response.data, function(index, tourvo){
-			
+						if(userId == authUser){
 						render0( tourvo, false );
-						//render2();
+						//자기 투어 가져오는 렌더링 함수, 
+						} else {
+						render2( tourvo, false );
+						//다른사람 투어 가져오는 렌더링 함수, 삭제버튼이 없음 
+						}
 					}); //each
 				} //success
 			}); //ajax			
@@ -129,13 +151,13 @@ var fetchList = function(){
 $(function(){
 	fetchList();
 
-	$( document ).on( "click", "#list-tour div button", function(event){
-		 	
+	$( document ).on( "click", "#list-tour div button", function(){
+			//event.preventDefault();	
 		 		//이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소
 		 		//var startNo = $("#list-tour > *").last().attr('no') || 0;
 		 		//var no = $(this).data("no");
 		 		//this 는 버튼이라 얘는 no 라는 속성을 가지고 있지 않다 
-		 		
+		 	//$('#myModal').modal("show");	
 		 	$('#myModal').modal({
 		 			keyboard: true			
 		 	});
@@ -143,15 +165,17 @@ $(function(){
 		 	var no = $(this).attr("data-no");
 		 	console.log(no);
 		 	$( '#delete-no' ).val( no );
-		 		
+		 	//$('#myModal').modal("show");	
 		 	});	// 이벤트를 하나씩 연결?? 
-
+			
 			
 	// 확인 버튼 누르면 ajax 통신으로 글 삭제하는 이벤트 
-	$( document ).on("click", "#deleteConfirm" ,function(event){		
- 		var no = $( '#delete-no' ).val();
+	$( document ).on("click", "#deleteConfirm" ,function(){		
+		//$('#myModal').modal("hide");
+		//event.preventDefault();
+		var no = $( '#delete-no' ).val();
  		console.log( no + "clicked!!!");
-
+		
  		if(userId == authUser){
  			$.ajax({
  				url:"/breezer/" + userId + "/tourdelete?idx=" + no,
@@ -169,19 +193,21 @@ $(function(){
  						console.log( typeof(response.data))
  						console.log( response.data + "삭제")
  				    	$( "#list-tour div[no=" + response.data + "]" ).remove();
- 						console.log( "페치")
+ 						//$('#myModal').modal("hide");
+ 						//$("#myModal .close").click()
  				},
 				error: function( xhr, status, e){
 					 		console.error( status + ":" + e );
 		 				}						
  			});// ajax 
- 	 		$('#myModal').modal("hide");
+ 	 		//$('#myModal').attr('aria-hidden','true');
  			
  		} else {
  			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다.");
-
+ 			
  		}	
  			
+ 			//$('#myModal').modal("toggle");
 		});
 		
 	$( window ).scroll( function(){
@@ -244,7 +270,7 @@ $(function(){
 
 			<h4>${uservo2.nickName }님은</h4><br>
 			${uservo2.tours }개의 여행을 하셨습니다.<br>
-			/* 마우스를 헤더 위에 올리면 사이드 메뉴 나옴 */
+			/* 헤더 Breezer 클릭하면 사이드 메뉴 나옴 */
 			</div>
 			
 			<div class="col-sm-3" id="firstrow" align="right">

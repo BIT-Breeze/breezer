@@ -17,8 +17,7 @@
 
     #sidenav {      	 	
       height: 100%;
-      visibility: hidden;
-      
+           
     }
     
     #button_area{    
@@ -43,51 +42,24 @@
 </style>
 <script>
 
-//var status = show;
-
 $(function(){
-/*	
-	$('#header').mouseover(function(event){
-		status = $('#sidenav').attr('status');
-		console.log("mouse on header")
-		if(status == 'show'){
-			$('#sidenav').css('visibility','visible');
-			status = show;
-		}else if(status == 'show'){
-				event.preventDefault();
-				$('#sidenav').mouseout(function(event){
-					$('#sidenav').css('visibility','hidden');
-					status = hide;
-				});
-				
-				
-				
-		}else{
-			
-		}
-	 })
-  });
-	
-	*/
-	
-	
-	
-
-	$('#header').mouseover(function(event){
+	/*
+	$('h1').click(function(event){
 			event.preventDefault();
 			$('#sidenav').css('visibility','visible');
-			$('#sidenav').mouseover(function(event){
+			$('h1').click(function(event){
 				event.preventDefault();
-				$('#sidenav').css('visibility','visible');
+				$('#sidenav').css('visibility','hidden');
 			})
 	});
+
+	*/
 	
-	$('#sidenav').mouseout(function(event){
+	$('h1').click(function(event){
 		event.preventDefault();
-		$('#sidenav').css('visibility','hidden');
+		$('#sidenav').toggle('slow');
 
-	});
-
+});
 	
 });
 
@@ -117,13 +89,13 @@ $(function(){
     	<div class="row" id='button_area'>
     		<div class="col-sm-4" align="center">
 
-      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/myinfo" class="btn btn-success" role="button">내 정보</a>
+      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/myinfo" class="btn btn-primary" role="button">내 정보</a>
 
     		</div>    	
     	
     		<div class="col-sm-4" align="center">
 
-      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/analysis" class="btn btn-primary" role="button">성향</a>
+      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/analysis" class="btn btn-primary" role="button">성  향</a>
 
     		</div>
     		
@@ -144,19 +116,19 @@ $(function(){
       	<c:when test="${param.menu == 'login' }">
         <li class="active"><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
         <li><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
-        <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/map?idx=${1}">위치검색</a></li>        
+        <li><a href="${pageContext.servletContext.contextPath }/recommend">위치검색</a></li>        
         </c:when>
         
         <c:when test="${param.menu == 'sns' }">
         <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
         <li class="active"><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
-        <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/map?idx=${1}">위치검색</a></li>        
+        <li><a href="${pageContext.servletContext.contextPath }/recommend">위치검색</a></li>        
         </c:when>
         
         <c:when test="${param.menu == 'location' }">
         <li ><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
         <li><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
-        <li class="active"><a href="${pageContext.servletContext.contextPath }/${authUser.id}/tour/map?idx=${1}">위치검색</a></li>        
+        <li class="active"><a href="${pageContext.servletContext.contextPath }/recommend">위치검색</a></li>        
         </c:when>
         
       </c:choose>
