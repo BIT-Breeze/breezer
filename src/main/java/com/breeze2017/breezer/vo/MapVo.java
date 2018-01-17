@@ -4,12 +4,12 @@ public class MapVo {
 	private long idx;
 	private String name;
 	private String image;
-	private String lat;
-	private String lot;
+	private double lat;
+	private double lot;
 	
 	public MapVo() {}
 
-	public MapVo(long idx, String name, String image, String lat, String lot) {
+	public MapVo(long idx, String name, String image, double lat, double lot) {
 		this.idx = idx;
 		this.name = name;
 		this.image = image;
@@ -41,19 +41,19 @@ public class MapVo {
 		this.image = image;
 	}
 
-	public String getLat() {
+	public double getLat() {
 		return lat;
 	}
 
-	public void setLat(String lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
 
-	public String getLot() {
+	public double getLot() {
 		return lot;
 	}
 
-	public void setLot(String lot) {
+	public void setLot(double lot) {
 		this.lot = lot;
 	}
 

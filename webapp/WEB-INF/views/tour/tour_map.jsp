@@ -446,16 +446,14 @@ var imageArr = [
 				len = response.data.length;
 				
 				$.each(response.data, function(index, data){
-					// 문자열을 정수로 변환(location 설정)
-					var loc = {lat:  Number(data.lat), lng: Number(data.lot)};
 					if (index == 0) {
-						start.push(loc);
+						start.push({lat: data.lat, lng: data.lot});
 					} else if (index == len - 1) {
-						destination.push(loc);
+						destination.push({lat: data.lat, lng: data.lot});
 					}else {
 						// Way Point Settings.
 						waypts.push({
-				  	        location: loc,
+				  	        location: {lat: data.lat, lng: data.lot},
 				  	        stopover: true
 				      	});
 					}
@@ -464,7 +462,7 @@ var imageArr = [
 						// marker Icon resize & create.
 						var markerIcon = new google.maps.MarkerImage(imageArr[index], null, null, null, new google.maps.Size(50,50));
 						markerArray[index] = new google.maps.Marker({
-					          position: loc,
+					          position: {lat: data.lat, lng: data.lot},
 					          map: map,
 					          icon: markerIcon,
 					          animation:google.maps.Animation.BOUNCE,
@@ -486,7 +484,7 @@ var imageArr = [
 									'<h1>' + data.name + '</h1>' + 
 									'<p class="title">Contents</p>' +
 									'<p>ETC...</p>' +
-									'<p><button onclick=moreInfo('+data.name+') >More...</button></p>' + 
+									'<p><button onclick=moreInfo('+ data.name +') >More...</button></p>' + 
 								'</div>';
 							
 							infowindow.setContent(contents);

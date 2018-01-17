@@ -156,6 +156,16 @@ div.scrollmenu a:hover {
 	        	search_place.push(places[i].formatted_address);
 			}
 	        
+	        $(".scrollmenu").empty();
+			
+			// Clear out the old markers.
+			recommendMarkers.forEach(function(marker) {
+	        	marker.setMap(null);
+	        });
+			nearbyMarkers.forEach(function(marker) {
+	        	marker.setMap(null);
+	        });
+	        
 	        $.ajax({
 				url: "/breezer/api/recommend",
 				type: "post",
@@ -167,16 +177,6 @@ div.scrollmenu a:hover {
 						alert("죄송합니다.\n서비스 점검중입니다.");
 						return;
 					}
-					
-					$(".scrollmenu").empty();
-					
-					// Clear out the old markers.
-					recommendMarkers.forEach(function(marker) {
-			        	marker.setMap(null);
-			        });
-					nearbyMarkers.forEach(function(marker) {
-			        	marker.setMap(null);
-			        });
 					
 					// Recommend data
 					$.each(response.data, function(index, data){
@@ -324,6 +324,8 @@ div.scrollmenu a:hover {
 	
 	<!-- 구글 맵 호출 -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script>
+	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
+	
 	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 	
 	<br>

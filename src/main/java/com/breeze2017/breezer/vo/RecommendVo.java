@@ -5,12 +5,12 @@ public class RecommendVo {
 	private String photo;
 	private String content;
 	private String location;
-	private float lat;
-	private float lot;
+	private double lat;
+	private double lot;
 	
 	public RecommendVo() {}
 	
-	public RecommendVo(long idx, String photo, String content, String location, float lat, float lot) {
+	public RecommendVo(long idx, String photo, String content, String location, double lat, double lot) {
 		this.idx = idx;
 		this.photo = photo;
 		this.content = content;
@@ -51,19 +51,19 @@ public class RecommendVo {
 		this.location = location;
 	}
 
-	public float getLat() {
+	public double getLat() {
 		return lat;
 	}
 
-	public void setLat(float lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
 
-	public float getLot() {
+	public double getLot() {
 		return lot;
 	}
 
-	public void setLot(float lot) {
+	public void setLot(double lot) {
 		this.lot = lot;
 	}
 
