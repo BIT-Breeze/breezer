@@ -270,7 +270,7 @@ $(function(){
 
 			<h4>${uservo2.nickName }님은</h4><br>
 			${uservo2.tours }개의 여행을 하셨습니다.<br>
-			/* 헤더 Breezer 클릭하면 사이드 메뉴 나옴 */
+
 			</div>
 			
 			<div class="col-sm-3" id="firstrow" align="right">
