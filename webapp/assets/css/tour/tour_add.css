@@ -1,20 +1,52 @@
 @charset "UTF-8";
 
-#newFile {
-	cursor:pointer;
+/* hover */
+.tourAdd_left .hover_me .hover_target #cover_photo {
+	visibility: hidden;
+}
+
+.tourAdd_left .hover_me:hover .hover_target #cover_photo	{
+	visibility: visible;
+}
+
+
+
+/*  */
+#cover_public, #cover_private {
+	display: none;
+}
+
+.tourAdd_left #cover_photo {
+	vertical-align: middle;
+	text-align: center;
+	background-color: transparent;
+	border: none;
+	color: white;
+}
+
+.tourAdd_left #cover_public,#cover_private {
+	vertical-align: middle;
+	text-align: center;
+	background-color: transparent;
+	border: none;
+	color: white;
+}
+
+#newFile, #publicImg, #add, #leave {
+	cursor: pointer;
+	
 }
 
 #fileUpload {
-	display:none;
+	display: none;
 }
 
 .addform #public {
-	display:none;
+	display: none;
 }
 .addform #private {
 	display:none;
 }
-
 
 #header {
 	color: white;
@@ -48,17 +80,17 @@
 	/* z-index: 2; */
 }
 .tourAdd_left{
-	padiign-left : 60px;
+	padding-left: 60px;
 }
 
 .tourAdd_right {
-    padding-top : 35px;
+    padding-top: 10px;
     padding-right: 60px;
 }
 
 .tourAdd_right #leave{
-	padding-right:5px;
-	padding-left : 5px;
+	padding-right: 5px;
+	padding-left: 5px;
 	
 }
 
@@ -121,20 +153,17 @@
 }
 
 
-/* #imgContainer {
-	background-image:url('/breezer/assets/images/tour/nature.jpg');
-	
-} */
+
+
+
+
+
+
 
 /* layout */
 nav#tour_navigation	{ 
   z-index: 1; float:left; width:200px; height:100%; overflow: auto; position: fixed; padding-left: 170px; }
 
-
-#fileForm {
-/* 	float: left;
-	padding-left: 50px; */
-}
 
 #tour_main_header_bg #tour_main_header .addform .tourAdd_left {
 	float: left;

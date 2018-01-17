@@ -185,7 +185,7 @@ function check() {
 	uploadEventOccur(document.getElementById('fileUpload'),'click');
 }
 
-function uploadEventOccur(evEle, evType){
+function uploadEventOccur(evEle, evType) {
 	 if (evEle.fireEvent) {
 	 	evEle.fireEvent('on' + evType);
 	 } else {
@@ -266,21 +266,32 @@ $(function(){
 				
 				<!-- 왼쪽 구간 -->
 				<div class="tourAdd_left">
+					
 					<!-- 이미지 업로드 -->
-					<input type="file" name="file" id="fileUpload"><br><br>
-					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.png" onClick="check()" >
-					<br><br>
+					<div class="hover_me">
+						<input type="file" name="file" id="fileUpload"><br><br>
+						<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.png" onClick="check()" >
+						<div class="hover_target">
+							<input type="text" id="cover_photo" value="Cover Photo" ><br><br>	
+						</div>
+					</div>
+
+					
 					<!-- 공개/비공개 부분 -->
 					<img id="publicImg" src="/breezer/assets/images/tour/public_button.png" onclick="security()" ><br>
+					<input type="text" id="cover_public" value="public" >
+					<input type="text" id="cover_private" value="private" >
+					<br><br>
 					<input id="public" type="radio" name="secret" value="0" checked="checked" />  <br>					
 					<input id="private" type="radio" name="secret" value="1" />
 				</div>
 				
 				<!-- 오른쪽 구간 -->
 				<div class="tourAdd_right">
-					<input type="button" id="leave" value="LEAVE" onClick="location.href='/breezer'"><br><br> <!-- 취소(Leave) 부분 -->
-					<input type="button" id="add" value="SAVE" onclick="add()"> <!-- 등록(add) 부분 -->		
+					<input type="button" id="leave" value="LEAVE" onClick="location.href='/breezer'"><br><br><br>
+					<input type="button" id="add" value="SAVE" onclick="add()">		
 				</div>
+				
 				<!-- 센터 구간 -->
 				<div class="tourAdd_center">
 					<input type="text" id="title_area" placeholder="Enter Title" name="title"><br><br><br>
@@ -288,7 +299,6 @@ $(function(){
 					<input type="text" id="end-datepicker" placeholder="End Date" name="endDate"><br><br>
 					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
 				</div>
-				
 				
 			</form>
 			
@@ -329,41 +339,3 @@ $(function(){
 
 </body>
 </html>
-
-	
-
-
-
-
-<%-- 		<div id="tour_main_header_bg">
-			
-			<div id=imgContainer></div>
-			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
-			
-			<div id="tour_main_header"> <!-- main_header css 부분 대체 추가 -->
-			<!-- TOUR_ADD 작업 부분 -->
-
-			<!-- 파일업로더 -->
-				<form id="fileForm">
-					<a href="/breezer">Cancel</a><br>
-					<input type="file" name="file" id="fileUpload"><br><br>
-					<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.PNG" onclick="check()" >
-				</form>
-				
-			 	<form id="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">
-				
-					<input type="text" value="title" name="title"><br>
-					<input type="text" id="start-datepicker" value="start date" name="startDate"> ~
-					<input type="text" id="end-datepicker" value="end date" name="endDate"><br><br>
-					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
-					<input type="radio" name="secret" value="0" checked="checked" /> public
-					<input type="radio" name="secret" value="1" /> private
-					
-					<input type="button" value="add" onclick="add()">
-			
-				</form>
-
-			</div>
-		</div> --%>
-		
