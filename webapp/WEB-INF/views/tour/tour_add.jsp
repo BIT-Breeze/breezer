@@ -103,24 +103,9 @@ $(function() {
 	});
 });
 
-$(function() {
-	$("#end-datepicker").datepicker({
-		showOn: "both", 
-        buttonImage: "/breezer/assets/images/tour/calendar_button.JPG",
-        buttonImageOnly: true,
-        changeMonth: true,
-        changeYear: true,
-        nextText: '다음 달',
-        prevText: '이전 달',
-        showButtonPanel: true,
-        closeText: '닫기', 
-        dateFormat: "yy-mm-dd"
-	});
-});
-
 </script>
 
-<!-- 파일 업로더 onchange -->
+<!-- 이미지 파일 업로더 onchange -->
 <script type="text/javascript">
 
 var isJpg = function(name) {
@@ -130,11 +115,12 @@ var isJpg = function(name) {
 var isPng = function(name) {
 	return name.match(/png$/i)
 }
+
 var imagePath;
+var dbImagePath;
 
 $(document).ready(function() {
 	var file = $('[name="file"]');
-	var imgContainer = $('#imgContainer');
 
 	$('#fileUpload').on('change', function() {
 		
@@ -157,25 +143,18 @@ $(document).ready(function() {
 			contentType: false,
 		}).done(function(data) {
 			var data = data;
+			imagePath = data;
+			dbImagePath = $("#imagePath").val(imagePath);
+			console.log("dbImagePath" + dbImagePath);
+			
 			// css selector를 통해 background 변경
 			$("#header").css("background-color", "transparent");
 			$("#tour_main_header").css("background-color", "transparent");
-			//$("#tour_main_header_bg").css('background-image',"url(/breezer/assets/images/tour/nature.jpg)");
 			$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+data+")");
-	
-			/* }).fail(function(jqXHRm, textStatus) {
-				alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus);
-				*/
+
 		});
 	});
 });
-	/*
-	imgContainer.html(''); 
-	var img = '<img id="imgCon" src="${pageContext.request.contextPath }'+data+'" width="auto" height="auto"/>';
-	imagePath = data;
-	console.log(data);
-	console.log(img);
-	imgContainer.append(img); */
 
 </script>
 
@@ -247,10 +226,8 @@ function securityEventOccur() {
 <script type="text/javascript">
 $(function() {
 	var class_name = $("#publicImg").attr("class"); 
-	console.log(class_name);
 
 	if (class_name == "public_ico") {
-		console.log("public_ico hover");
 		$("#publicImg").hover(
 			function(){
 				$(".tourAdd_left .hover_me_pp .type_pp #cover_public").css("display", "block");
@@ -260,9 +237,7 @@ $(function() {
 			}
 		);
 		
-		
 	} else if (class_name == "private_ico") {
-		console.log("private_ico hover");
 	 	$("#publicImg").hover(
 	 		function() {
 				$(".tourAdd_left .hover_me_pp .type_pp #cover_private").css("display", "block");
@@ -283,15 +258,12 @@ $(function() {
 
 <!-- form 전송 -->
 <script type="text/javascript">
-$(function(){
-	$("#add").click(function(){
-		$.post("${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add", $(".addform").serialize(), function(data){
-			console.log("addform 전송완료! tour_add data DB저장 완료!");
-		});
-	});
-});
+function submitForm() {
+	$("#imagePath").val(imagePath); /* imagePath 값을 얻어와서 DB에 같이 */
+	document.getElementById("fileForm").submit();
+}	
+	
 </script>
-
 
 <title>Breezer</title>
 </head>
@@ -305,7 +277,7 @@ $(function(){
 			<br><br>
 				
 			<form id="fileForm" class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">	
-				
+
 				<!-- 왼쪽 구간 -->
 				<div class="tourAdd_left">
 					
@@ -333,8 +305,8 @@ $(function(){
 				
 				<!-- 오른쪽 구간 -->
 				<div class="tourAdd_right">
-					<input type="button" id="leave" value="LEAVE" onClick="location.href='/breezer'"><br><br><br>
-					<input type="button" id="add" value="SAVE" onclick="add()">		
+					<input type="button" id="add" value="SAVE" onclick="submitForm()"><br><br><br>
+					<input type="button" id="leave" value="LEAVE" onClick="location.href='/breezer'">		
 				</div>
 				
 				<!-- 센터 구간 -->
