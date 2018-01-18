@@ -1,21 +1,24 @@
 @charset "UTF-8";
 
 /* hover */
-.tourAdd_left .hover_me .hover_target #cover_photo {
+.tourAdd_left .hover_me_img .hover_target_img #cover_photo {
 	visibility: hidden;
 }
 
-.tourAdd_left .hover_me:hover .hover_target #cover_photo	{
+.tourAdd_left .hover_me_img:hover .hover_target_img #cover_photo {
 	visibility: visible;
 }
 
+.tourAdd_left .hover_me_pp .type_pp #cover_public {
+	display: none;	
+}
 
-
-/*  */
-#cover_public, #cover_private {
+.tourAdd_left .hover_me_pp .type_pp #cover_private {
 	display: none;
 }
 
+
+/*  */
 .tourAdd_left #cover_photo {
 	vertical-align: middle;
 	text-align: center;
@@ -71,7 +74,7 @@
 	margin:auto;
 	background-repeat:no-repeat; 
 	background-position:center center;
-	opacity: 0.6;
+	opacity: 0.5;
 
 }
 
