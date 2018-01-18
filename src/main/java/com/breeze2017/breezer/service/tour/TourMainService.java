@@ -15,11 +15,11 @@ public class TourMainService {
 	@Autowired
 	private TourMainDao tourMainDao;
 	
-	public List<PostVo> getPostList(String userId, int tourIdx){
+	public List<PostVo> getPostList(String userId, long tourIdx){
 		return tourMainDao.getPostList(userId, tourIdx);
 	}
 	
-	public TourVo getTour(String userId, int tourIdx){
+	public TourVo getTour(String userId, long tourIdx){
 		return tourMainDao.getTour(userId, tourIdx);
 	}
 }

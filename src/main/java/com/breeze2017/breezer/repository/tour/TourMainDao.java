@@ -17,7 +17,7 @@ public class TourMainDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<PostVo> getPostList(String userId, int tourIdx){
+	public List<PostVo> getPostList(String userId, long tourIdx){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
@@ -28,7 +28,7 @@ public class TourMainDao {
 		return postList;
 	}
 	
-	public TourVo getTour(String userId, int tourIdx){
+	public TourVo getTour(String userId, long tourIdx){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);

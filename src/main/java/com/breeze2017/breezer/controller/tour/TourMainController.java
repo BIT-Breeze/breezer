@@ -25,10 +25,11 @@ public class TourMainController {
 	@Autowired
 	private TourMainService tourMainService;
 
+	@Auth
 	@RequestMapping("")
 	public String mytour(
 			@PathVariable String id,
-			@RequestParam(value="idx", required=false) int tourIdx,
+			@RequestParam(value="idx", required=false) long tourIdx,
 			Model model) {
 		
 		String userId = id;

@@ -15,7 +15,7 @@
 					#{score },
 					#{tourIdx },
 					now(),
-					now()
+					#{tripDateTime }
 					)
 		 
 		]]>	
