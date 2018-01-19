@@ -26,8 +26,21 @@ public class PostAddController {
 			@ModelAttribute PostVo vo,
 			@PathVariable String id
 			) {
-		System.out.println(vo.getContent());
-		System.out.println(vo.getPhoto());
+		
+		String[] tripDateTime = vo.getTripDateTime().split(" ");
+				
+		String date = tripDateTime[0];
+		String[] time = tripDateTime[1].split(":");
+		String hour = time[0];
+		String min = time[1];
+		String amPm = tripDateTime[2];
+		
+		if(amPm.equalsIgnoreCase("pm") && Integer.parseInt(hour) < 12) {
+			hour = String.valueOf(Integer.valueOf(hour) + 12);
+		}
+		vo.setTripDateTime(date+" "+hour+":"+min);
+		System.out.println(date+" "+hour+":"+min);
+		
 		vo.setUserId(id);
 		
 		boolean YN = postAddService.insertPost(vo);

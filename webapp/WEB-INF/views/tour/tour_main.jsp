@@ -13,19 +13,79 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="/breezer/assets/js/jquery/jquery-1.9.0.js"></script>
+		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
+		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
+		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
 		
+		<!------------------------------ datePicker ------------------------------>
+		<link href="${pageContext.servletContext.contextPath }/assets/datePicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
+        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
+        <!-- Include English language -->
+        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
+        <!------------------------------------------------------------------------>
+        
 		<script type="text/javascript">
+		
+		function initAutocomplete() {
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: -33.8688, lng: 151.2195},
+				zoom: 13,
+				mapTypeId: 'roadmap'
+			});
+			
+			// Create the search box and link it to the UI element.
+			var input = document.getElementById('pac-input');
+			var searchBox = new google.maps.places.SearchBox(input);
+			map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+		};
 		
 		var imagePath = ""; // 이미지 경로 저장 변수
 		var file = $('[name="file"]');
 		var sel_files = []; // 파일 저장되는 변수 [배열]
+		var fileTypes = [
+			  'image/jpeg',
+			  'image/pjpeg',
+			  'image/jpg',
+			  'image/png'
+		];
+		
+		function validFileType(file) {
+			console.log(file.type);
+			for(var i = 0; i < fileTypes.length; i++) {
+				if(file.type === fileTypes[i]) {
+					return true;
+				}
+			}
+			return false;
+		}
 		
 		$(function () {
 			
+			var mapDialog = $("#searchMap-form").dialog({
+				autoOpen: false,
+				maxWidth:"100%",
+				maxHeight:"100%",
+				minWidth:1000,
+				minHeight:800,
+		        width: 1000,
+		        height: 800,
+				modal: true,
+				buttons: {
+				},
+				close: function () {
+				}
+			});
+			
 			var addPostDialog = $("#add-post-form").dialog({
 				autoOpen: false,
+				maxWidth:600,
+				maxHeight:800,
+				minWidth:600,
+				minHeight:600,
+		        width: 600,
+		        height: 600,
 				modal: true,
 				buttons: {
 					"추가": function() {
@@ -35,6 +95,7 @@
 						console.log("추가>"+id+":"+tourIdx);
 						
 						$("#imagePath").val(imagePath);
+						$("#input-tourIdx").val(tourIdx);
 						var addPostForm = $("#addPostForm").serialize();
 						
 						$.ajax({
@@ -47,7 +108,8 @@
 									console.log(response);
 									return;
 								}
-
+								
+								$("#input-date").val("");
 								$("#input-location").val("");
 								$("#input-category").val("");
 								$("#input-price").val("");
@@ -56,6 +118,7 @@
 								$("#imagePath").val("");
 								$("#input-tourIdx").val("");
 								$('#multiImgContainer').html('');
+								$("#fileUpload").val("");
 								
 								addPostDialog.dialog("close");
 							},
@@ -65,7 +128,8 @@
 						});
 					},
 					"취소": function () {
-						
+
+						$("#input-date").val("");
 						$("#input-location").val("");
 						$("#input-category").val("");
 						$("#input-price").val("");
@@ -74,12 +138,14 @@
 						$("#imagePath").val("");
 						$("#input-tourIdx").val("");
 						$('#multiImgContainer').html('');
+						$("#fileUpload").val("");
 						
 						$(this).dialog("close");
 					}
 				},
 				close: function () {
-					
+
+					$("#input-date").val("");
 					$("#input-location").val("");
 					$("#input-category").val("");
 					$("#input-price").val("");
@@ -88,6 +154,7 @@
 					$("#imagePath").val("");
 					$("#input-tourIdx").val("");
 					$('#multiImgContainer').html('');
+					$("#fileUpload").val("");
 				}
 			});
 			
@@ -128,6 +195,11 @@
 				event.preventDefault();				
 				addPostDialog.dialog("open");
 			});
+		    
+			$(document).on("click", "#searchMap", function (event) {
+				event.preventDefault();				
+				mapDialog.dialog("open");
+			});
 			
 			$('#fileUpload').on('change', ImgFileSelect);
 		});
@@ -139,12 +211,23 @@
 			var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
 			
 			var index = 0; // 순서를 위해 index를 선언
+			var isValidFileType = true;
 			filesArr.forEach(function(f) { // 반복문으로
-				index++; // 인덱스를 한순차씩 올려주며
-				sel_files.push(f); // 배열로 선언했던 파일저장변수에 하나씩 push
-				console.log(f); // 로그 출력
-				
+				if(validFileType(f)){
+					index++; // 인덱스를 한순차씩 올려주며
+					sel_files.push(f); // 배열로 선언했던 파일저장변수에 하나씩 push
+					console.log(f); // 로그 출력
+				} else {
+					isValidFileType = false;
+					return;
+				};
 			});
+			if(isValidFileType === false){
+				alert("올바른 파일('.jpg', '.jpeg', '.pjpeg', '.png')을 선택해주세요.");
+				$('#multiImgContainer').html('');
+				$("#fileUpload").val("");
+				return;
+			}
 			
 			//console.log("sel_files = "+sel_files)
 			
@@ -217,14 +300,8 @@
 			}
 		});
 		
-		/* function addPost(){
-			var url = '${pageContext.servletContext.contextPath}/${userId}/post/add?tourIdx=${tourIdx}';
-			var name = 'addPost';
-			var option = 'width=1100, height=900, scroll=yes, resizable=yes, ';
-			window.open(url, name, option);
-		} */
-		
 		</script>
+		
 </head>
 	
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
@@ -263,33 +340,81 @@
 				<div id="add-post-form" title="여행기 추가" style="display:none">
 	  				<form id="addPostForm" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
 						<div>
-							location <input id="input-location" type="text" value="location" name="location"><br>
-							category <input id="input-category" type="text" value="0" name="category"><br>
-							price <input id="input-price" type="text" value="0" name="price"><br>
-							score <input id="input-score" type="text" value="0" name="score"><br>
-							content <input id="input-content" type="text" value="content" name="content"><br>
-							<input type="hidden" id="imagePath" value="imagePath" name="photo"><br>
-							<input id="input-tourIdx" type="hidden" name="tourIdx" value=${tourIdx }>
-					
-							<div id=multiImgContainer></div>
-							
-							<!-- Map Modal 띄우기 -->
-							<!-- <input type="button" value="map" onclick=""><br><br> -->
-							
-							<!-- MODAL TEST -->
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-							  Modal 띄우기(MAP)
-							</button>
+							<table>
+								<tr>
+									<td>장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</td>
+									<td><input id="input-location" type="text" value="" name="location"></td>
+									<td><button id="searchMap">검색</button></td>
+								</tr>
+								<tr>
+									<td>날짜/시간</td><td><input id="input-date" type="text" name="tripDateTime" class="datepicker-here" >
+									<script>
+										var prevDay;
+										
+									    $('#input-date').datepicker({
+									        timepicker: true,
+									        language: 'en',
+										   	dateFormat: 'yyyy-mm-dd',
+										   	/* timeFormat: 'hh:ii', */
+										   	todayButton: true,
+										   	clearButton: true,
+									        onSelect: function (fd, d, picker) {
+									            // Do nothing if selection was cleared
+									            if (!d) return;
+									
+									            var day = d.getDay();
+									
+									            // Trigger only if date is changed
+									            if (prevDay != undefined && prevDay == day) return;
+									            prevDay = day;
+									        }
+									    });
+									</script></td>
+								</tr>
+								<tr>
+									<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td><td><input id="input-content" type="text" value="" name="content"></td>
+								</tr>
+								<tr>
+									<td>카테고리</td><td><input id="input-category" type="text" value="" name="category"></td>
+								</tr>
+								<tr>
+									<td>가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격</td><td><input id="input-price" type="text" value="" name="price"></td>
+								</tr>
+								<tr>
+									<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td><input id="input-score" type="text" value="" name="score"></td>
+								</tr>
+							</table>
+							<input id="imagePath" type="hidden" name="photo" value="imagePath" ><br>
+							<input id="input-tourIdx" type="hidden" name="tourIdx" value="">
 						</div>
 					</form>
 					
 					<!-- 다중 파일 업로더 -->
 					<form id="MultifileForm">
-						<input type="file" multiple="multiple" name="multiFile" id="fileUpload"><br><br>
+						<div>
+							<table>
+								<tr>
+									<td>사진</td>
+								</tr>
+								<tr>
+									<td><input type="file" multiple="multiple" name="multiFile" id="fileUpload" accept="image/*"></td>
+								</tr>
+							</table>
+							<div id=multiImgContainer></div>
+						</div>
 					</form>
 				</div>
-				
 			</div>
+			
+			<!-- Map Test -->
+			<div id="searchMap-form" title="여행지 검색" style="display:none">
+				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+				
+				<div id="map"></div>
+				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzThJYOAvyAEWJryfDhAtIN2MkjVk58Gg&libraries=places&callback=initAutocomplete" async defer></script>
+				<!-------------->
+			</div>
+			
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
