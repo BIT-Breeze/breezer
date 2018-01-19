@@ -18,7 +18,6 @@
 }
 
 
-/*  */
 .tourAdd_left #cover_photo {
 	vertical-align: middle;
 	text-align: center;
@@ -54,7 +53,6 @@
 #header {
 	color: white;
 	position: relative;
-	/* z-index: -1; */
 }
 
 #tour_main_header {
@@ -134,7 +132,6 @@
 .tourAdd_center #start-datepicker,#end-datepicker {
 	
 	text-align: center; 
-	/* display: block; */
  	outline: none;
 	border: none;
 	border-bottom: 2px solid white;
@@ -154,13 +151,6 @@
 .tourAdd_center #end-datepicker::-webkit-input-placeholder {
 	color: white;
 }
-
-
-
-
-
-
-
 
 
 /* layout */

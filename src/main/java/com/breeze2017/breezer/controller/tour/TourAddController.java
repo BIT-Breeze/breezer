@@ -19,11 +19,11 @@ public class TourAddController {
 	@Autowired
 	private TourAddService tourAddService;
 	
-	/*@Auth
-	@RequestMapping(value="tour/add", method=RequestMethod.GET)
-	public String tourAdd() {
-		return "tour/tour_add";
-	}*/
+	@Auth
+	@RequestMapping(value="tour/addm", method=RequestMethod.GET)
+	public String toudModify() {
+		return "tour/tour_main_header_test";
+	}
 	
 	@Auth
 	@RequestMapping(value="tour/add", method=RequestMethod.GET)
@@ -40,10 +40,6 @@ public class TourAddController {
 		System.out.println(id);
 		vo.setUserId(id);
 		tourAddService.insertMessage(vo);
-		// 저장되면 db에 idx가 생성되고
-		// 이걸 select 해오자
-		// idx를 무슨기준으로 가져오까? -> img 경로를 기준으로 가져오자
-		// idx select하는 부분
 		
 		System.out.println("current idx >> " + vo.getIdx());
 		

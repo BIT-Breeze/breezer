@@ -1,46 +1,77 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<% %>
 
-<div id="tour_main_header">
-	<div style="float: right;">
-		<%-- <a id="" style="float: right;" href="${pageContext.servletContext.contextPath}/${userId}/tour/modify?idx=${tourIdx}">여행 정보 수정</a> --%>
-		<a id="modifyTour" class="toModify"
-			style="float: right; cursor: pointer;">여행 정보 수정</a> <a
-			id="completeModifyTour" class="modified"
-			style="float: right; cursor: pointer; display: none;">수정 완료</a>
-	</div>
-	<div class="tourInfo_left">
-		<ul>
-			<li>
-				<button>
-					<span class="ico_cover"></span>
-				</button>
-			</li>
-		</ul>
-	</div>
-	<div class="tourInfo_right">
-		<div class="toModify">
-			<div>
-				<strong id="tourTitle" class="toModify">${tour.title }</strong>
-			</div>
-			<div>
-				<strong id="tourDate" class="toModify">${tour.startDate } ~
-					${tour.endDate }</strong>
-			</div>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- css --> 
+<%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"> --%>
+<%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_add.css"> --%>
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_modify.css">
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- jQuery 기본 js파일 -->
+<script src="/breezer/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>  
+
+<!-- jQuery datepicker를 사용하기 위한 라이브러리 추가 -->
+<!-- jQuery UI CSS파일 , jQuery UI 라이브러리 js파일, jQuery form 라이브러리 js파일 -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css">
+<script src="/breezer/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(function() {
+	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+"${tour.mainPhoto }");
+});
+
+</script>
+
+
+<title>Breezer</title>
+</head>
+<body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
+	
+	<div id="tour_main_header_bg">
+		<br><br>
+		<div id="tour_main_header">
+			<form id="fileForm" class="addform" >	
+
+				<!-- 왼쪽 구간 -->
+				<div class="tourAdd_left">
+				</div>
+				
+				<!-- 오른쪽 구간 -->
+				<div class="tourAdd_right">
+					<input type="button" id="edit" value="EDIT" onclick="submitForm()"><br><br><br>
+				</div>
+				
+				<!-- 센터 구간 -->
+				<div class="tourAdd_center">
+					<input type="text" id="title_area" value=${tour.title } name="title"><br><br><br>
+						<%-- <strong id="title_area" class="tourModify">${tour.title } </strong> --%>
+				
+					<div class="tourDate">
+						<input type="text" id="startDate" value=${tour.startDate } name="startDate">
+						<input type="text" id="endDate" value=${tour.endDate } name="endDate">
+					</div>
+				</div>
+				
+			</form>
+			
+			
 		</div>
-		<div class="modified">
-			<div>
-				<textarea id="tourTitle" class="modified" rows="3"
-					placeholder="여행기 제목을 입력해주세요" style="display: none;"
-					onclick="this.select()">${tour.title }</textarea>
-			</div>
-			<div>
-				<textarea id="tourDate" class="modified" rows="1"
-					style="display: none;" onclick="this.select()">${tour.startDate } ~ ${tour.endDate }</textarea>
-			</div>
-		</div>
 	</div>
-</div>
+
+</body>
+</html>

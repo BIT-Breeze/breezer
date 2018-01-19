@@ -144,6 +144,9 @@ $(document).ready(function() {
 		}).done(function(data) {
 			var data = data;
 			imagePath = data;
+			
+			
+			
 			dbImagePath = $("#imagePath").val(imagePath);
 			console.log("dbImagePath" + dbImagePath);
 			

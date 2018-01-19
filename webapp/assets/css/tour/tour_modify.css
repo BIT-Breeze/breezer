@@ -1,0 +1,111 @@
+@charset "UTF-8";
+
+.tourAdd_center #title_area {
+	vertical-align: middle;
+	text-align:center; 
+	width: 500px;
+	height: 50px;
+	outline: none;
+	border: none;
+	background: none;
+	color: white;
+	font-size: 30px;
+	font-weight: bold;
+	/* opacity: 0.8; */
+	z-index: 1;
+}
+
+.touAdd_center .tourDate {
+	z-index: 1;
+}
+
+.tourAdd_center .tourDate #startDate {
+	text-align: center; 
+ 	outline: none;
+	border: none;
+	color: white;
+	background: none;
+	font-size: 20px;
+	border-bottom: 2px solid white;
+}
+
+.tourAdd_center .tourDate #endDate {
+	text-align: center; 
+ 	outline: none;
+	border: none;
+	color: white;
+	background: none;
+	font-size: 20px;
+	border-bottom: 2px solid white;
+}
+
+
+.tourAdd_right #edit {
+	cursor: pointer;
+	background-color: transparent;
+    border: 1px solid white;
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+
+    -moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	
+}
+
+
+#tour_main_header {
+	vertical-align: middle;
+	text-align: center; 
+	width: 100%; 
+	height: 300px; 
+	margin: 0 auto;
+	background-color: #ABABAB;
+	clear: both;
+	position: relative;
+	
+}
+
+#tour_main_header_bg {
+	margin:auto;
+	background-repeat:no-repeat; 
+	background-position:center center;
+	opacity: 0.5;
+
+}
+
+#header {
+	color: white;
+	position: relative;
+	opacity: 0.5;
+}
+
+.tourAdd_left{
+	padding-left: 60px;
+}
+
+.tourAdd_right {
+    padding-top: 10px;
+    padding-right: 60px;
+}
+
+#tour_main_header_bg #tour_main_header .addform .tourAdd_right {
+	float: right;
+	display: table;
+	width: 100px;
+	height: 100%;
+}
+
+#tour_main_header_bg #tour_main_header .addform .tourAdd_center {
+	display: table;
+	margin: auto;
+	width: auto;
+	height: auto;
+	
+}
+
+
+
+
