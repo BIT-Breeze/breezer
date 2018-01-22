@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.breeze2017.breezer.vo.MapVo;
+import com.breeze2017.breezer.vo.PostVo;
 
 @Repository
 public class TourMapDao {
@@ -15,6 +16,10 @@ public class TourMapDao {
 	private SqlSession sqlsession;
 	
 	public List<MapVo> selectList(){
-		return sqlsession.selectList("maptest.select");
+		return sqlsession.selectList("tourmap.select");
+	}
+	
+	public List<PostVo> getMapInfo(PostVo postVo){
+		return sqlsession.selectList("tourmap.getmapinfo", postVo);
 	}
 }

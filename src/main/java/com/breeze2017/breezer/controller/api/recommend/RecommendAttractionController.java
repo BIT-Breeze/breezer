@@ -59,8 +59,8 @@ public class RecommendAttractionController {
 		String[] sAddress = address.split(" ");
 		
 		PostVo vo = new PostVo();
-		vo.setLat(Float.parseFloat(lat));
-		vo.setLot(Float.parseFloat(lot));
+		vo.setLat(Double.parseDouble(lat));
+		vo.setLot(Double.parseDouble(lot));
 		vo.setLocation(sAddress[2]);
 		
 		// Nearby Data
