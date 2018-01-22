@@ -123,9 +123,7 @@ $(document).ready(function() {
 	var file = $('[name="file"]');
 
 	$('#fileUpload').on('change', function() {
-		
-		console.log("response from btnUpload Button")
-		
+
 		var filename = $.trim(file.val());
 		
 		if(!(isJpg(filename) || isPng(filename))) {
@@ -145,10 +143,7 @@ $(document).ready(function() {
 			var data = data;
 			imagePath = data;
 			
-			
-			
 			dbImagePath = $("#imagePath").val(imagePath);
-			console.log("dbImagePath" + dbImagePath);
 			
 			// css selector를 통해 background 변경
 			$("#header").css("background-color", "transparent");
@@ -225,7 +220,7 @@ function securityEventOccur() {
 
 </script>
 
-<!-- hover -->
+<!-- public, private hover -->
 <script type="text/javascript">
 $(function() {
 	var class_name = $("#publicImg").attr("class"); 
@@ -264,7 +259,7 @@ $(function() {
 function submitForm() {
 	$("#imagePath").val(imagePath); /* imagePath 값을 얻어와서 DB에 같이 */
 	document.getElementById("fileForm").submit();
-}	
+}
 	
 </script>
 
@@ -328,7 +323,7 @@ function submitForm() {
 	
 	
 	<!-- POST VIEW 부분 -->
-	<div id="wrapper">
+	<%-- <div id="wrapper">
 		<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 		<div id="content">
 			<div class="row">
@@ -354,7 +349,7 @@ function submitForm() {
 				</div>
 			</c:forEach>
 		</div>
-	</div>
+	</div> --%>
 	<c:import url="/WEB-INF/views/includes/footer.jsp" />
 
 </body>
