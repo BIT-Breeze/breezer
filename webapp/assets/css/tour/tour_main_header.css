@@ -91,14 +91,14 @@
     padding-right: 60px;
 }
 
-#tour_main_header_bg #tour_main_header .addform .tourAdd_right {
+#tour_main_header_bg #tour_main_header .editForm .tourAdd_right {
 	float: right;
 	display: table;
 	width: 100px;
 	height: 100%;
 }
 
-#tour_main_header_bg #tour_main_header .addform .tourAdd_center {
+#tour_main_header_bg #tour_main_header .editForm .tourAdd_center {
 	display: table;
 	margin: auto;
 	width: auto;

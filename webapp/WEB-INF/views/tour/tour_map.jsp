@@ -432,9 +432,15 @@ var imageArr = [
 		var len;
 		var infowindow = new google.maps.InfoWindow();
 		
+		var userId = ${vo.userId };
+		var tourIdx = ${vo.idx };
+		
+		// test url : "/breezer/api/tour/location 
 		$.ajax({
-			url: "/breezer/api/tour/location",
+			url: "/breezer/api/tour/getmapinfo",
 			type: "post",
+			data: "userId=" + userId +
+				  "&tourIdx=" + tourIdx,
 			dataType: "json",
 			success: function(response) {
 				if( response.result == "fail" ) {
@@ -444,6 +450,8 @@ var imageArr = [
 				
 				// Direction Service 한번만 호출하기 위해
 				len = response.data.length;
+				
+				console.log(response.data);
 				
 				$.each(response.data, function(index, data){
 					if (index == 0) {
@@ -475,16 +483,16 @@ var imageArr = [
 							map.setZoom(8);
 							map.setCenter(markerArray[index].getPosition());
 							
-							var tourString = data.name;
+							// 장소 상호명
+							// 시카고 미술관:111 S Michigan Ave, Chicago, IL 60603 미국
+							var placeName = data.location.split(":"); 
 							
 							// 마커 정보
 							contents = 
 								'<div class="card">' + 
-									'<img src="/breezetest/assets/images/pic' + (index + 1) + '.jpg" style="width:100%">' + 
-									'<h1>' + data.name + '</h1>' + 
-									'<p class="title">Contents</p>' +
-									'<p>ETC...</p>' +
-									'<p><button onclick=moreInfo('+ data.name +') >More...</button></p>' + 
+									'<img src="/breezer/assets/images/pic' + (index + 1) + '.jpg" style="width:100%">' + 
+									'<h1>' + placeName[0] + '</h1>' + 
+									'<p class="title">' + data.content + '</p>' +
 								'</div>';
 							
 							infowindow.setContent(contents);

@@ -13,7 +13,7 @@
 <!-- css --> 
 <%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"> --%>
 <%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_add.css"> --%>
-<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_modify.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main_header.css">
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -37,38 +37,43 @@ $(function() {
 
 </script>
 
+<script type="text/javascript">
+function editForm() {
+	console.log("edit form clicked")
+	
+	$.ajax({
+		
+	
+	})
+}
+</script>
 
 <title>Breezer</title>
 </head>
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 	
 	<div id="tour_main_header_bg">
-		<br><br>
 		<div id="tour_main_header">
-			<form id="fileForm" class="addform" >	
-
-				<!-- 왼쪽 구간 -->
-				<div class="tourAdd_left">
-				</div>
+		
+			<form id="fileForm" class="editForm" >
 				
 				<!-- 오른쪽 구간 -->
 				<div class="tourAdd_right">
-					<input type="button" id="edit" value="EDIT" onclick="submitForm()"><br><br><br>
+					<input type="button" id="edit" value="EDIT" onclick="editForm()"><br><br><br>
 				</div>
 				
 				<!-- 센터 구간 -->
 				<div class="tourAdd_center">
-					<input type="text" id="title_area" value=${tour.title } name="title"><br><br><br>
+					<input type="text" id="title_area" value="${tour.title }" name="title"><br><br><br>
 						<%-- <strong id="title_area" class="tourModify">${tour.title } </strong> --%>
 				
 					<div class="tourDate">
-						<input type="text" id="startDate" value=${tour.startDate } name="startDate">
-						<input type="text" id="endDate" value=${tour.endDate } name="endDate">
+						<input type="text" id="startDate" value="${tour.startDate }" name="startDate">
+						<input type="text" id="endDate" value="${tour.endDate }" name="endDate">
 					</div>
 				</div>
 				
 			</form>
-			
 			
 		</div>
 	</div>
