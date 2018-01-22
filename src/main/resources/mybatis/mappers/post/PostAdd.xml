@@ -4,20 +4,22 @@
 <mapper namespace="post">
 	<insert id="insert" parameterType="postvo">
 		<![CDATA[
-		  	INSERT INTO TB_POST (userId, photo, content, location, category, price, score, tourIdx, postDateTime, tripDateTime )
+		  	INSERT INTO TB_POST (userId, postDateTime, tripDateTime, photo, content, location, locale, lat, lot, tourIdx, category, price, score)
 			VALUES (
 					#{userId },
+					SYSDATE(),
+					#{tripDateTime },
 					#{photo },
 					#{content },
 					#{location },
+					locale,
+					lat,
+					lot,
+					#{tourIdx },
 					#{category },
 					#{price },
-					#{score },
-					#{tourIdx },
-					now(),
-					#{tripDateTime }
+					#{score }
 					)
-		 
 		]]>	
 	</insert>
 </mapper>

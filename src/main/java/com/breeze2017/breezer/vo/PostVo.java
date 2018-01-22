@@ -13,10 +13,12 @@ public class PostVo {
 	private double lot;
 	private long tourIdx;
 	private String category;
-	private double price;
+	private int price;
 	private double score;
 	private long favorite;
 	private long dateGap;
+	private String placeName;
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -89,10 +91,10 @@ public class PostVo {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	public double getScore() {
@@ -113,6 +115,13 @@ public class PostVo {
 	public void setDateGap(long dateGap) {
 		this.dateGap = dateGap;
 	}
+	public String getPlaceName() {
+		return placeName;
+	}
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+	
 	@Override
 	public String toString() {
 		return "PostVo [idx=" + idx + ", userId=" + userId + ", postDateTime=" + postDateTime + ", tripDateTime="
@@ -120,6 +129,4 @@ public class PostVo {
 				+ locale + ", lat=" + lat + ", lot=" + lot + ", tourIdx=" + tourIdx + ", category=" + category
 				+ ", price=" + price + ", score=" + score + ", favorite=" + favorite + ", dateGap=" + dateGap + "]";
 	}
-	
-	
 }

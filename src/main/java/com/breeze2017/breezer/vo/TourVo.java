@@ -97,7 +97,6 @@ public class TourVo {
 				+ postCount + ", favorite=" + favorite + ", secret=" + secret + ", rn=" + rn + "]";
 	}
 
-
 	
 	
 	

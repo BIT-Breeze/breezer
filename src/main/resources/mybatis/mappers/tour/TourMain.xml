@@ -5,16 +5,17 @@
 
 	<select id="getPostList" parameterType="map" resultType="postvo">
 		<![CDATA[
-		select ifnull(G.dateGap, '') dateGap, P.*
-		  from TB_POST P left join (select DATEDIFF(DATE_FORMAT(P.tripDateTime, '%Y-%m-%d'), T.startDate)+1 dateGap, min(P.idx) idx
-									  from TB_POST P left join TB_TOUR T
-										on P.tourIdx = T.idx
-									 where P.userId = #{userId}
-									   and P.tourIdx = #{tourIdx}
-								  group by dateGap) G
+		select ifnull(G.dateGap, '') dateGap, P.idx, P.userId, P.postDateTime, DATE_FORMAT(P.tripDateTime, "%Y-%c-%e %l:%i %p") tripDateTime, P.photo, P.content, P.location, P.locale, P.lat, P.lot, P.tourIdx, C.transport category, P.price, P.score, P.favorite
+		  from TB_CATEGORY C, TB_POST P left join (select DATEDIFF(DATE_FORMAT(P.tripDateTime, '%Y-%m-%d'), T.startDate)+1 dateGap, min(P.idx) idx
+												  	 from TB_POST P left join TB_TOUR T
+													   on P.tourIdx = T.idx
+												    where P.userId = #{userId}
+												      and P.tourIdx = #{tourIdx}
+											     group by dateGap) G
 			on P.idx = G.idx
 		 where P.userId = #{userId}
 		   and P.tourIdx = #{tourIdx}
+	  	   and P.category = C.transport_id
       order by tripDateTime, postDateTime
 		]]>
 	</select>

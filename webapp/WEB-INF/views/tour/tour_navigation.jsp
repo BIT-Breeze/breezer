@@ -11,12 +11,12 @@
 			</c:if>
 			<c:if test="${status.first }">
 				<li>
-					<a class="active" href="#post-${post.idx}">${post.location }</a>
+					<a class="active" href="#post-${post.idx}">${post.placeName }</a>
 				</li>
 			</c:if>
 			<c:if test="${!status.first }">
 				<li>
-					<a href="#post-${post.idx}">${post.location }</a>
+					<a href="#post-${post.idx}">${post.placeName }</a>
 				</li>
 			</c:if>
 		</c:forEach>

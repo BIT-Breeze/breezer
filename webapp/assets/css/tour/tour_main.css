@@ -2,7 +2,7 @@
 
 /* layout */
 nav#tour_navigation	{ 
-  z-index: 1; float:left; width:180px; height:100%; overflow: auto; position: fixed; padding-left: 170px; }
+  z-index: 1; float:left; width:150px; height:100%; overflow: auto; position: fixed; padding-left: 200px; }
 
 div#tour_main_header {
 	vertical-align: middle;

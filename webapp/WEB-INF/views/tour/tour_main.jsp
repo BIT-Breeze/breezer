@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE HTML PUBLIC  '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Breezer</title>
@@ -12,7 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="/breezer/assets/js/jquery/jquery-1.9.0.js"></script>
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
@@ -27,19 +28,6 @@
         <!------------------------------------------------------------------------>
         
 		<script type="text/javascript">
-		
-		function initAutocomplete() {
-			var map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: -33.8688, lng: 151.2195},
-				zoom: 13,
-				mapTypeId: 'roadmap'
-			});
-			
-			// Create the search box and link it to the UI element.
-			var input = document.getElementById('pac-input');
-			var searchBox = new google.maps.places.SearchBox(input);
-			map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-		};
 		
 		var imagePath = ""; // 이미지 경로 저장 변수
 		var file = $('[name="file"]');
@@ -59,11 +47,13 @@
 				}
 			}
 			return false;
-		}
+		};
+		
+		var mapDialog;
 		
 		$(function () {
-			
-			var mapDialog = $("#searchMap-form").dialog({
+
+			mapDialog = $("#searchMap-form").dialog({
 				autoOpen: false,
 				maxWidth:"100%",
 				maxHeight:"100%",
@@ -300,6 +290,139 @@
 			}
 		});
 		
+		/* ---------------------------- map 시작 ------------------------------- */
+		
+		function initAutocomplete() {
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: -33.8688, lng: 151.2195},
+				zoom: 13,
+				mapTypeId: 'roadmap'
+			});
+			
+			google.maps.event.trigger(map, 'resize');
+			
+			var infoWindow2 = new google.maps.InfoWindow({map: map});
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				
+				infoWindow2.setPosition(pos);
+				infoWindow2.setContent('Here!!!');
+				
+				map.setCenter(pos);
+				}, function() {
+					handleLocationError(true, infoWindow2, map.getCenter());
+				});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow2, map.getCenter());
+			}
+
+	      // Create the search box and link it to the UI element.
+	      var input = document.getElementById('pac-input');
+	      var searchBox = new google.maps.places.SearchBox(input);
+	      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+	      
+	      // Bias the SearchBox results towards current map's viewport.
+	      map.addListener('bounds_changed', function() {
+	      	searchBox.setBounds(map.getBounds());	
+	      });
+
+	      var searchMarkers = [];
+	      // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+	      searchBox.addListener('places_changed', function() {
+		        var places = searchBox.getPlaces();
+		        
+		        console.log(places);
+		        
+		        if (places.length == 0) {
+		          return;
+		        } 
+		        
+		        var search_place = [];	        
+		        for (var i = 0; i < places.length; i++) {
+		        	search_place.push(places[i].formatted_address);
+				}
+		
+		        // Clear out the old markers.
+		        searchMarkers.forEach(function(marker) {
+		        	marker.setMap(null);
+		        });
+		        searchMarkers = [];
+
+		        var infowindow = new google.maps.InfoWindow();
+		        
+		        // For each place, get the icon, name and location.
+		        var bounds = new google.maps.LatLngBounds();
+		        
+		        // forEach callBack함수 파라미터(value, index, array)
+				places.forEach(function(place, index, array) {
+					if (!place.geometry) {
+						console.log("Returned place contains no geometry");
+						return;
+					}
+					var icon = {
+						url: place.icon,
+						size: new google.maps.Size(71, 71),
+						origin: new google.maps.Point(0, 0),
+						anchor: new google.maps.Point(17, 34),
+						scaledSize: new google.maps.Size(25, 25)
+					};
+		
+					// Create a marker for each place.
+					searchMarkers.push(new google.maps.Marker({
+						map: map,
+						icon: icon,
+						title: place.name,
+						position: place.geometry.location,
+						formatted_address: place.formatted_address
+					}));
+					
+					// 마커 검색 장소 정보
+					searchMarkers[index].addListener('click', function() {
+						console.log(searchMarkers[index].title);
+						console.log(searchMarkers[index].formatted_address);
+						console.log('lat:'+searchMarkers[index].position.lat());
+						console.log('lot:'+searchMarkers[index].position.lng());
+						$('#input-location').val(searchMarkers[index].title+':'+searchMarkers[index].formatted_address);
+						$('#input-lat').val(searchMarkers[index].position.lat);
+						$('#input-lot').val(searchMarkers[index].position.lot);
+						mapDialog.dialog("close");
+						return;
+						infowindow.setContent(place.name);
+						infowindow.open(map, searchMarkers[index]);
+						
+						// 클릭 시 확대
+						map.setZoom(15);
+						map.setCenter(searchMarkers[index].getPosition());
+						
+					});
+		
+					if (place.geometry.viewport) {
+						// Only geocodes have viewport.
+						bounds.union(place.geometry.viewport);
+					} else {
+						bounds.extend(place.geometry.location);
+					}
+				});
+				
+				map.fitBounds(bounds);
+			});
+		}
+		
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+			infoWindow.setPosition(pos);
+			infoWindow.setContent(browserHasGeolocation ?
+			                      'Error: The Geolocation service failed.' :
+			                      'Error: Your browser doesn\'t support geolocation.');
+		}
+		
+		/* ---------------------------- map 끝 ------------------------------- */
+		
 		</script>
 		
 </head>
@@ -323,16 +446,14 @@
 					</c:if>
 					<div class="post" id="post-${post.idx}">
 						<dl>
-							<dd>${post.tripDateTime }</dd>
-							<dd>${post.content }</dd>
-							<dd>${post.location }</dd>
-							<dd>${post.locale }</dd>
-							<dd>${post.lat }</dd>
-							<dd>${post.lot }</dd>
-							<dd>${post.category }</dd>
-							<dd>${post.price }</dd>
-							<dd>${post.score }</dd>
-							<dd>${post.favorite }</dd>
+							<dd>장소: ${post.placeName }</dd>
+							<dd>주소: ${post.location }</dd>
+							<dd>일시: ${post.tripDateTime }</dd>
+							<dd>내용: ${post.content }</dd>
+							<dd>이동수단: ${post.category }</dd>
+							<dd>지출비용: ${post.price }</dd>
+							<dd>평점: ${post.score }</dd>
+							<dd>추천수: ${post.favorite }</dd>
 						</dl>
 					</div>
 				</c:forEach>
@@ -344,6 +465,8 @@
 								<tr>
 									<td>장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</td>
 									<td><input id="input-location" type="text" value="" name="location"></td>
+									<td><input id="input-lat" type="text" value="" name="lat" style="display: none;"></td>
+									<td><input id="input-lot" type="text" value="" name="lot" style="display: none;"></td>
 									<td><button id="searchMap">검색</button></td>
 								</tr>
 								<tr>
@@ -411,9 +534,16 @@
 				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 				
 				<div id="map"></div>
+				
+				<!-- 구글 맵 호출 -->
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzThJYOAvyAEWJryfDhAtIN2MkjVk58Gg&libraries=places&callback=initAutocomplete" async defer></script>
-				<!-------------->
+				<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
+				
+				<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 			</div>
+			<script type="text/javascript">
+			
+			</script>
 			
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />

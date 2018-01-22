@@ -1,5 +1,6 @@
 package com.breeze2017.breezer.controller.tour;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,6 +36,14 @@ public class TourMainController {
 		String userId = id;
 		
 		List<PostVo> postList = tourMainService.getPostList(userId, tourIdx);
+		Iterator<PostVo> it = postList.iterator();
+		while(it.hasNext()) {
+			PostVo vo = it.next();
+			String[] locationArr = vo.getLocation().split(":");
+			vo.setPlaceName(locationArr[0]);
+			vo.setLocation(locationArr[1]);
+		}
+		
 		TourVo tour = tourMainService.getTour(userId, tourIdx);
 
 		model.addAttribute("userId", userId);
