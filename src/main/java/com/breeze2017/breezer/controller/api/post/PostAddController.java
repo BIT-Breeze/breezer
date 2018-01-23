@@ -41,8 +41,6 @@ public class PostAddController {
 		vo.setTripDateTime(date+" "+hour+":"+min);
 		
 		vo.setUserId(id);
-		System.out.println("lat: "+ vo.getLat());
-		System.out.println("lot: "+ vo.getLot());
 		
 		boolean YN = postAddService.insertPost(vo);
 		

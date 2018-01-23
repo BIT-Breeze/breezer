@@ -34,6 +34,8 @@ textarea#tourTitle,#tourDate{
 }
 
 button {
+	border-color: black;
+	border-width: 1px;
 	margin: 0;
 	padding: 0;
 	background-color: transparent;
