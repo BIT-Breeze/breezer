@@ -3,7 +3,7 @@
 /* reset */
 *				{ margin:0; padding:0; }
 div				{ box-sizing: border-box; }
-body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; }
+body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; overflow-x: hidden; }
 ul, ol			{ list-style-type: none; }
 
 /* a:link 			{ color: #337AB7; text-decoration: none;}
