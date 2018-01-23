@@ -42,6 +42,24 @@
 </style>
 <script>
 
+
+
+var stringFormat = function(){
+
+	str = "${countryList}";
+	console.log(str);
+	str = str.replace('[','');
+	str = str.replace(']','');
+	str = str.replace('null','');
+	str = str.replace(',',' ');
+	console.log(str);
+	
+	return str;
+} 
+
+
+var countries = stringFormat();
+
 $(function(){
 	/*
 	$('h1').click(function(event){
@@ -59,7 +77,11 @@ $(function(){
 		event.preventDefault();
 		$('#sidenav').toggle('slow');
 
-});
+	});  // 사이드 내비 토글 
+	
+	
+	
+	
 	
 });
 
@@ -69,7 +91,7 @@ $(function(){
 
 <body>	
 
-    <div class="col-sm-3 sidenav">
+    <div class="col-sm-2 sidenav">
 	<div id="sidenav">
     	<div class="row">
     		<div class="col-sm-6" id="photoframe" align='center'>
@@ -77,11 +99,12 @@ $(function(){
 			
     		</div>   	
     	
-    		<div class="col-sm-6" id="info">
+    		<div class="col-sm-6" id="info" align='left'>
 
-    		<h4 align="center">투어수 : ${ uservo.tours }</h4>
-    		<h4 align="center">방문국가:</h4>
-    		<h4 align="center">방문국가수 : </h4>
+    		<h4>투어수 : ${ uservo.tours }</h4>
+    		<h4>방문국가:  </h4>
+    		<h4>${ countryList } </h4>
+    		<h4>방문국가수 : ${ countries }  </h4>
     		
     		</div>
     	

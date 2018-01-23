@@ -40,15 +40,23 @@ public class UserMainController {
 
 
 		
-		if(authUser.getId() == id) {
+		if(authUser.getId().equals(id)) {
 		UserVo uservo = userMainService.getUserInfo(authUser.getId());
+		//UserVo uservo2 = userMainService.getUserInfo(authUser.getId());
+		List<String> list = userMainService.getCountries(authUser.getId());
+		int numOfCountries = list.size();
+		String countries = list.toString();
+		countries = countries.replace("[", "");
+		countries = countries.replace("]", "");
+		countries = countries.replace(",", " ");
 		model.addAttribute("uservo",uservo);
 		model.addAttribute("uservo2",uservo);
-		
+		model.addAttribute("countryList",countries);
+		model.addAttribute("countries",numOfCountries);
 		} else {
 
 		UserVo uservo = userMainService.getUserInfo(authUser.getId());
-		UserVo uservo2 = userMainService.getUserInfo(id);
+		UserVo uservo2 = userMainService.getOtherUserInfo(id);
 		
 			if(uservo2.getId() != null) {
 			model.addAttribute("uservo", uservo);
@@ -79,7 +87,7 @@ public class UserMainController {
 			if(tours.isEmpty()) {
 				return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
 			}
-		
+			System.out.println(tours);
 			return JSONResult.success(tours);
 			
 		} else {

@@ -3,18 +3,19 @@
 
 <mapper namespace="user">
 
-	<select id="getUserInfo" 
+	<select id="getOtherUserInfo" 
 			parameterType="string"
 			resultType="uservo">
 		<![CDATA[
 
-		select t1.nickName as nickName, count(t2.title) as tours, pictureUrl, id  
-		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.id = t2.userId 
-		 where t1.id= #{ id }
+		 	select count(*)as rn, t1.id, t1.nickName, t1.pictureUrl, t2.tours
+			 from TB_USER t1, (select count(*) as tours from TB_TOUR where userId=#{id } and secret = 1) t2
+			  where id=#{id }
 		]]>
 	</select>
+	
 	<!-- 유저의 투어수가 0일 경우 이 쿼리가 실행된다. -->
-	<select id="getUserInfo2" 
+	<select id="getUserInfo" 
 			parameterType="string"
 			resultType="uservo">
 		<![CDATA[
@@ -25,15 +26,18 @@
 
 		]]>
 	</select>
-	<!-- original query -> tour가 없는경우 쿼리 조회가 안된다 
-	select t1.nickName as nickName, count(t2.title) as tours, pictureUrl, id  
-		 from TB_USER as t1 inner join TB_TOUR as t2 on t1.id = t2.userId 
-		 where t1.id= #{ id }; 상훈이 쿼리
-		 
-		 	select id, pictureUrl, gender, ageRange, email 
-			 from TB_USER where id=#{ id }
-	-->
 	
+	<select id="getCountries" 
+			parameterType="string"
+			resultType="string">
+		<![CDATA[
+
+			select distinct locale from TB_POST where userId=#{id }
+
+		]]>
+	</select>
+	
+
 	
 	<!-- secret 1, 즉 공개투어만  가져오기, 즉 다른사람페이지에서 작동하는 쿼리 -->
 	<select id="gettours1" parameterType="map" resultType="tourvo">
@@ -41,7 +45,7 @@
 		
 		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
 		 from TB_TOUR 
-		  where userId = #{id } and secret = 1 order by idx desc limit #{ startNo } , 6
+		  where userId = #{id } and secret = 1 order by idx desc limit #{ startNo } , 8
 			
 		]]>		
 	</select>	
@@ -51,30 +55,38 @@
 		
 		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
 		 from TB_TOUR 
-		  where userId = #{id } order by idx desc limit #{ startNo } , 6
+		  where userId = #{id } order by idx desc limit #{ startNo } , 8
 			
 		]]>		
 	</select>	
 	
 	<select id="getTotalCount" parameterType="string" resultType="int">
 		<![CDATA[
-			select count(*) from TB_TOUR			
+			select count(*) from TB_TOUR 			
 		]]>
 		
 		<if test="_parameter != null and _parameter !=''">
 			<![CDATA[
-				where userId=#{keyword }
+				where userId=#{keyword } 
 			]]>
 		</if>		
 	</select>
 	
 	
+	<delete id="allPostDelete" parameterType="tourvo">
+		<![CDATA[
+			delete from TB_POST where tourIdx = #{ idx }		
+		]]>
+		
+
+	</delete>
+	
+		
 	<delete id="tourDelete" parameterType="tourvo">
 		<![CDATA[
 			delete from TB_TOUR where idx = #{ idx }		
 		]]>
 		
-
 	</delete>
 	
 	

@@ -20,20 +20,18 @@ public class UserMainDao {
 	
 	public UserVo getUserInfo( String id ) {
 		System.out.println("===UserMainDao getUserInfo()===");
-		UserVo result = sqlSession.selectOne("user.getUserInfo2", id);
+		UserVo result = sqlSession.selectOne("user.getUserInfo", id);
 		
 		return result; 
 	}
-	/*/  사용하지 않는 메소드 , 삭제 예정 
-	public List<TourVo> getTours(String id) {
+	
+	public UserVo getOtherUserInfo( String id ) {
+		System.out.println("===UserMainDao getUserInfo()===");
+		UserVo result = sqlSession.selectOne("user.getOtherUserInfo", id);
 		
-		System.out.println("===UserMainDao getTours()==");
-		List<TourVo> result = sqlSession.selectList("user.gettours", id);
-				
-		return result;
+		return result; 
 	}
-	*/
-	// 자기 페이지 보는 쿼리 
+
 	public List<TourVo> getTours(String id, Long startNo) {
 		
 		System.out.println("UserMainDao- getTours with 2 params");
@@ -62,9 +60,15 @@ public class UserMainDao {
 	}
 
 	public int tourDelete(String idx) {
-		int count = sqlSession.delete("user.tourDelete", idx);
-		
-		return count;
+		int countPost = sqlSession.delete("user.allPostDelete", idx);	
+		int countTour = sqlSession.delete("user.tourDelete", idx);
+	
+		return countTour;
+	}
+
+	public List<String> getCountries(String id) {
+		List<String> result = sqlSession.selectList("user.getCountries",id);
+		return result;
 	}
 
 
