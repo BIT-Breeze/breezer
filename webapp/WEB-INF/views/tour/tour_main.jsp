@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE HTML PUBLIC  '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Breezer</title>
@@ -12,7 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="/breezer/assets/js/jquery/jquery-1.9.0.js"></script>
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
@@ -27,19 +28,9 @@
         <!------------------------------------------------------------------------>
         
 		<script type="text/javascript">
-		
-		function initAutocomplete() {
-			var map = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: -33.8688, lng: 151.2195},
-				zoom: 13,
-				mapTypeId: 'roadmap'
-			});
-			
-			// Create the search box and link it to the UI element.
-			var input = document.getElementById('pac-input');
-			var searchBox = new google.maps.places.SearchBox(input);
-			map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-		};
+
+		/* ----------------------------------------------------------------------------- */
+		/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 시작 ---------------- */
 		
 		var imagePath = ""; // 이미지 경로 저장 변수
 		var file = $('[name="file"]');
@@ -59,11 +50,63 @@
 				}
 			}
 			return false;
-		}
+		};
+		/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 끝 ---------------- */
+		/* --------------------------------------------------------------------------- */
+		
+		var mapDialog;
 		
 		$(function () {
-			
-			var mapDialog = $("#searchMap-form").dialog({
+		    
+		    $('#modifyTour').click(function(){
+				$('.toModify').hide();
+				$('.modified').show();
+			});
+		    
+		    $('#completeModifyTour').click(function(){
+				$('.modified').hide();
+				$('.toModify').show();
+			});
+
+			/* ------------------------------------------------------------------ */
+			/* ------------------------ star rating 시작 ------------------------ */
+			var starRating = function(){
+				var $star = $(".input-score"),
+					$result = $star.find("output>b");
+				$(document)
+					.on("focusin", ".input-score>.input", function(){
+						$(this).addClass("focus");
+					})
+			        .on("focusout", ".input-score>.input", function(){
+						var $this = $(this);
+						setTimeout(function(){
+							if($this.find(":focus").length === 0){
+								$this.removeClass("focus");
+							}
+						}, 100);
+					})
+			        .on("change", ".input-score :radio", function(){
+						$result.text($(this).next().text());
+					})
+			        .on("mouseover", ".input-score label", function(){
+						$result.text($(this).text());
+					})
+			        .on("mouseleave", ".input-score>.input", function(){
+						var $checked = $star.find(":checked");
+						if($checked.length === 0){
+							$result.text("0");
+						} else {
+							$result.text($checked.next().text());
+						}
+					});
+			};
+			starRating();
+			/* ------------------------ star rating 끝 ------------------------ */
+			/* ---------------------------------------------------------------- */
+
+			/* --------------------------------------------------------------------- */
+			/* ------------------------ 장소 검색 모달 시작 ------------------------ */
+			mapDialog = $("#searchMap-form").dialog({
 				autoOpen: false,
 				maxWidth:"100%",
 				maxHeight:"100%",
@@ -77,7 +120,16 @@
 				close: function () {
 				}
 			});
+		    
+			$(document).on("click", "#searchMap", function (event) {
+				event.preventDefault();				
+				mapDialog.dialog("open");
+			});
+			/* ------------------------ 장소 검색 모달 끝 ------------------------ */
+			/* ------------------------------------------------------------------- */
 			
+			/* --------------------------------------------------------------------- */
+			/* ------------------------ Post 추가 모달 시작 ------------------------ */
 			var addPostDialog = $("#add-post-form").dialog({
 				autoOpen: false,
 				maxWidth:600,
@@ -157,7 +209,16 @@
 					$("#fileUpload").val("");
 				}
 			});
+		    
+			$(document).on("click", "#addPostButton", function (event) {
+				event.preventDefault();				
+				addPostDialog.dialog("open");
+			});
+			/* ------------------------ Post 추가 모달 끝 ------------------------ */
+			/* ------------------------------------------------------------------- */
 			
+			/* ------------------------------------------------------------------------------------- */
+			/* ------------------------ Scroll 반응 Side Navigation #1 시작 ------------------------ */
 		    $(document).on("scroll", onScroll);
 		    
 		    //smoothscroll
@@ -180,31 +241,14 @@
 		            $(document).on("scroll", onScroll);
 		        });
 		    });
-		    
-		    $('#modifyTour').click(function(){
-				$('.toModify').hide();
-				$('.modified').show();
-			});
-		    
-		    $('#completeModifyTour').click(function(){
-				$('.modified').hide();
-				$('.toModify').show();
-			});
-		    
-			$(document).on("click", "#addPostButton", function (event) {
-				event.preventDefault();				
-				addPostDialog.dialog("open");
-			});
-		    
-			$(document).on("click", "#searchMap", function (event) {
-				event.preventDefault();				
-				mapDialog.dialog("open");
-			});
+			/* ------------------------ Scroll 반응 Side Navigation #1 끝 ------------------------- */
+			/* ------------------------------------------------------------------------------------ */
 			
 			$('#fileUpload').on('change', ImgFileSelect);
 		});
-		
-		// 파일 업로더 했을 때 실행되는 함수
+
+		/* ----------------------------------------------------------------- */
+		/* ------------------------ 파일업로드 시작 ------------------------ */
 		function ImgFileSelect(e) {
 			console.log("====== ImgFileSelect ======");
 			var files = e.target.files; // 넘어 오는 파일들을 files에 담고
@@ -269,12 +313,11 @@
 				alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 			});
 		}
+		/* ------------------------ 파일업로드 끝 ------------------------ */
+		/* --------------------------------------------------------------- */
 		
-		/* var add = function() {
-			$("#imagePath").val(imagePath);
-			document.getElementById("addPostForm").submit();
-		} */
-
+		/* ------------------------------------------------------------------------------------- */
+		/* ------------------------ Scroll 반응 Side Navigation #2 시작 ------------------------ */
 		function onScroll(event){
 		    var scrollPos = $(document).scrollTop();
 		    $('#tour_navigation a').each(function () {
@@ -299,6 +342,159 @@
 				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 0px');
 			}
 		});
+		/* ------------------------ Scroll 반응 Side Navigation #2 끝 -------------------------- */
+		/* ------------------------------------------------------------------------------------- */
+
+		/* --------------------------------------------------------------------- */
+		/* ---------------------------- map 시작 ------------------------------- */
+		function initAutocomplete() {
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: -33.8688, lng: 151.2195},
+				zoom: 13,
+				mapTypeId: 'roadmap'
+			});
+			
+			google.maps.event.trigger(map, 'resize');
+			
+			var infoWindow2 = new google.maps.InfoWindow({map: map});
+			// Try HTML5 geolocation.
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				
+				infoWindow2.setPosition(pos);
+				infoWindow2.setContent('Here!!!');
+				
+				map.setCenter(pos);
+				}, function() {
+					handleLocationError(true, infoWindow2, map.getCenter());
+				});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow2, map.getCenter());
+			}
+
+	      // Create the search box and link it to the UI element.
+	      var input = document.getElementById('pac-input');
+	      var searchBox = new google.maps.places.SearchBox(input);
+	      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+	      
+	      // Bias the SearchBox results towards current map's viewport.
+	      map.addListener('bounds_changed', function() {
+	      	searchBox.setBounds(map.getBounds());	
+	      });
+
+	      var searchMarkers = [];
+	      // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+	      searchBox.addListener('places_changed', function() {
+		        var places = searchBox.getPlaces();
+		        
+		        console.log(places);
+		        
+		        if (places.length == 0) {
+		          return;
+		        } 
+		        
+		        var search_place = [];	        
+		        for (var i = 0; i < places.length; i++) {
+		        	search_place.push(places[i].formatted_address);
+				}
+		
+		        // Clear out the old markers.
+		        searchMarkers.forEach(function(marker) {
+		        	marker.setMap(null);
+		        });
+		        searchMarkers = [];
+
+		        var infowindow = new google.maps.InfoWindow();
+		        
+		        // For each place, get the icon, name and location.
+		        var bounds = new google.maps.LatLngBounds();
+		        
+		        // forEach callBack함수 파라미터(value, index, array)
+				places.forEach(function(place, index, array) {
+					if (!place.geometry) {
+						console.log("Returned place contains no geometry");
+						return;
+					}
+					var icon = {
+						url: place.icon,
+						size: new google.maps.Size(71, 71),
+						origin: new google.maps.Point(0, 0),
+						anchor: new google.maps.Point(17, 34),
+						scaledSize: new google.maps.Size(25, 25)
+					};
+		
+					// Create a marker for each place.
+					searchMarkers.push(new google.maps.Marker({
+						map: map,
+						icon: icon,
+						title: place.name,
+						position: place.geometry.location,
+						formatted_address: place.formatted_address
+					}));
+					
+					// 마커 검색 장소 정보
+					searchMarkers[index].addListener('click', function() {
+						var title = searchMarkers[index].title,
+							formatted_address = searchMarkers[index].formatted_address,
+							fa_array = formatted_address.split(" "),
+							lat = searchMarkers[index].position.lat(),
+							lot = searchMarkers[index].position.lng(),
+							locale;
+						$('#input-location').val(title+':'+formatted_address);
+						$('#input-lat').val(lat);
+						$('#input-lot').val(lot);
+						if(fa_array[0] === '대한민국' || fa_array[fa_array.length-1] === '대한민국'){
+							$('#input-locale').val('대한민국');
+							locale = '대한민국';
+						} else if(fa_array[0] === '일본' || fa_array[fa_array.length-1] === '일본'){
+							$('#input-locale').val('일본');
+							locale = '일본';
+						} else if(fa_array[0] === '미국' || fa_array[fa_array.length-1] === '미국'){
+							$('#input-locale').val('미국');
+							locale = '미국';
+						}
+						
+						console.log('location> '+title+":"+formatted_address);
+						console.log('lat> '+lat);
+						console.log('lot> '+lot);
+						console.log('locale> '+locale);
+						
+						mapDialog.dialog("close");
+						return;
+						infowindow.setContent(place.name);
+						infowindow.open(map, searchMarkers[index]);
+						
+						// 클릭 시 확대
+						map.setZoom(15);
+						map.setCenter(searchMarkers[index].getPosition());
+						
+					});
+		
+					if (place.geometry.viewport) {
+						// Only geocodes have viewport.
+						bounds.union(place.geometry.viewport);
+					} else {
+						bounds.extend(place.geometry.location);
+					}
+				});
+				
+				map.fitBounds(bounds);
+			});
+		}
+		
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+			infoWindow.setPosition(pos);
+			infoWindow.setContent(browserHasGeolocation ?
+			                      'Error: The Geolocation service failed.' :
+			                      'Error: Your browser doesn\'t support geolocation.');
+		}
+		/* ---------------------------- map 끝 ------------------------------- */
+		/* --------------------------------------------------------------------- */
 		
 		</script>
 		
@@ -309,7 +505,7 @@
 	<div id="container">
 		<div id="tour_main_header_bg">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
+			<c:import url="/WEB-INF/views/tour/tour_main_header2.jsp" />
 		</div>
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
@@ -323,16 +519,14 @@
 					</c:if>
 					<div class="post" id="post-${post.idx}">
 						<dl>
-							<dd>${post.tripDateTime }</dd>
-							<dd>${post.content }</dd>
-							<dd>${post.location }</dd>
-							<dd>${post.locale }</dd>
-							<dd>${post.lat }</dd>
-							<dd>${post.lot }</dd>
-							<dd>${post.category }</dd>
-							<dd>${post.price }</dd>
-							<dd>${post.score }</dd>
-							<dd>${post.favorite }</dd>
+							<dd>장소: ${post.placeName }</dd>
+							<dd>주소: ${post.location }</dd>
+							<dd>일시: ${post.tripDateTime }</dd>
+							<dd>내용: ${post.content }</dd>
+							<dd>이동수단: ${post.category }</dd>
+							<dd>지출비용: ${post.price }</dd>
+							<dd>평점: ${post.score }</dd>
+							<dd>추천수: ${post.favorite }</dd>
 						</dl>
 					</div>
 				</c:forEach>
@@ -344,6 +538,9 @@
 								<tr>
 									<td>장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</td>
 									<td><input id="input-location" type="text" value="" name="location"></td>
+									<td><input id="input-lat" type="text" value="" name="lat" style="display: none;"></td>
+									<td><input id="input-lot" type="text" value="" name="lot" style="display: none;"></td>
+									<td><input id="input-locale" type="text" value="" name="locale" style="display: none;"></td>
 									<td><button id="searchMap">검색</button></td>
 								</tr>
 								<tr>
@@ -375,13 +572,40 @@
 									<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td><td><input id="input-content" type="text" value="" name="content"></td>
 								</tr>
 								<tr>
-									<td>카테고리</td><td><input id="input-category" type="text" value="" name="category"></td>
+									<td>이동수단</td><td><select id="input-category" name="category" style="width: 158px;">
+															<option value="01" selected>자동차</option>
+															<option value="02">택시</option>
+															<option value="03">기차</option>
+															<option value="04">트램</option>
+															<option value="05">버스</option>
+															<option value="06">지하철</option>
+															<option value="07">비행기</option>
+															<option value="08">배</option>
+															<option value="09">도보</option>
+															<option value="10">자전거</option>
+															<option value="11">오토바이</option>
+															<option value="12">기타</option>
+														</select></td>
 								</tr>
 								<tr>
 									<td>가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격</td><td><input id="input-price" type="text" value="" name="price"></td>
 								</tr>
 								<tr>
-									<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td><input id="input-score" type="text" value="" name="score"></td>
+									<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td>	<span id="input-score" class="input-score">
+																											<span class="input">
+																												<input type="radio" name="score" id="p1" value="0.5"><label for="p1">0.5</label>
+																												<input type="radio" name="score" id="p2" value="1"><label for="p2">1</label>
+																												<input type="radio" name="score" id="p3" value="1.5"><label for="p3">1.5</label>
+																												<input type="radio" name="score" id="p4" value="2"><label for="p4">2</label>
+																												<input type="radio" name="score" id="p5" value="2.5"><label for="p5">2.5</label>
+																												<input type="radio" name="score" id="p6" value="3"><label for="p6">3</label>
+																												<input type="radio" name="score" id="p7" value="3.5"><label for="p7">3.5</label>
+																												<input type="radio" name="score" id="p8" value="4"><label for="p8">4</label>
+																												<input type="radio" name="score" id="p9" value="4.5"><label for="p9">4.5</label>
+																												<input type="radio" name="score" id="p10" value="5"><label for="p10">5</label>
+																											</span>
+																											<output for="input-score"><b>0</b>점</output>
+																										</span></td>
 								</tr>
 							</table>
 							<input id="imagePath" type="hidden" name="photo" value="imagePath" ><br>
@@ -411,9 +635,16 @@
 				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
 				
 				<div id="map"></div>
+				
+				<!-- 구글 맵 호출 -->
 				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzThJYOAvyAEWJryfDhAtIN2MkjVk58Gg&libraries=places&callback=initAutocomplete" async defer></script>
-				<!-------------->
+				<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
+				
+				<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 			</div>
+			<script type="text/javascript">
+			
+			</script>
 			
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />

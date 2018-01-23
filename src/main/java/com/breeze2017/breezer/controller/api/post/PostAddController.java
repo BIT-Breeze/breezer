@@ -39,7 +39,6 @@ public class PostAddController {
 			hour = String.valueOf(Integer.valueOf(hour) + 12);
 		}
 		vo.setTripDateTime(date+" "+hour+":"+min);
-		System.out.println(date+" "+hour+":"+min);
 		
 		vo.setUserId(id);
 		
