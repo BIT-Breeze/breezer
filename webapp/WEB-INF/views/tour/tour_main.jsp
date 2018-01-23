@@ -28,6 +28,9 @@
         <!------------------------------------------------------------------------>
         
 		<script type="text/javascript">
+
+		/* ----------------------------------------------------------------------------- */
+		/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 시작 ---------------- */
 		
 		var imagePath = ""; // 이미지 경로 저장 변수
 		var file = $('[name="file"]');
@@ -48,11 +51,61 @@
 			}
 			return false;
 		};
+		/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 끝 ---------------- */
+		/* --------------------------------------------------------------------------- */
 		
 		var mapDialog;
 		
 		$(function () {
+		    
+		    $('#modifyTour').click(function(){
+				$('.toModify').hide();
+				$('.modified').show();
+			});
+		    
+		    $('#completeModifyTour').click(function(){
+				$('.modified').hide();
+				$('.toModify').show();
+			});
 
+			/* ------------------------------------------------------------------ */
+			/* ------------------------ star rating 시작 ------------------------ */
+			var starRating = function(){
+				var $star = $(".input-score"),
+					$result = $star.find("output>b");
+				$(document)
+					.on("focusin", ".input-score>.input", function(){
+						$(this).addClass("focus");
+					})
+			        .on("focusout", ".input-score>.input", function(){
+						var $this = $(this);
+						setTimeout(function(){
+							if($this.find(":focus").length === 0){
+								$this.removeClass("focus");
+							}
+						}, 100);
+					})
+			        .on("change", ".input-score :radio", function(){
+						$result.text($(this).next().text());
+					})
+			        .on("mouseover", ".input-score label", function(){
+						$result.text($(this).text());
+					})
+			        .on("mouseleave", ".input-score>.input", function(){
+						var $checked = $star.find(":checked");
+						if($checked.length === 0){
+							$result.text("0");
+						} else {
+							$result.text($checked.next().text());
+						}
+					});
+			};
+			starRating();
+			/* ------------------------ star rating 끝 ------------------------ */
+			/* ---------------------------------------------------------------- */
+
+			/* --------------------------------------------------------------------- */
+			/* ------------------------ 장소 검색 모달 시작 ------------------------ */
 			mapDialog = $("#searchMap-form").dialog({
 				autoOpen: false,
 				maxWidth:"100%",
@@ -67,7 +120,16 @@
 				close: function () {
 				}
 			});
+		    
+			$(document).on("click", "#searchMap", function (event) {
+				event.preventDefault();				
+				mapDialog.dialog("open");
+			});
+			/* ------------------------ 장소 검색 모달 끝 ------------------------ */
+			/* ------------------------------------------------------------------- */
 			
+			/* --------------------------------------------------------------------- */
+			/* ------------------------ Post 추가 모달 시작 ------------------------ */
 			var addPostDialog = $("#add-post-form").dialog({
 				autoOpen: false,
 				maxWidth:600,
@@ -147,7 +209,16 @@
 					$("#fileUpload").val("");
 				}
 			});
+		    
+			$(document).on("click", "#addPostButton", function (event) {
+				event.preventDefault();				
+				addPostDialog.dialog("open");
+			});
+			/* ------------------------ Post 추가 모달 끝 ------------------------ */
+			/* ------------------------------------------------------------------- */
 			
+			/* ------------------------------------------------------------------------------------- */
+			/* ------------------------ Scroll 반응 Side Navigation #1 시작 ------------------------ */
 		    $(document).on("scroll", onScroll);
 		    
 		    //smoothscroll
@@ -170,31 +241,14 @@
 		            $(document).on("scroll", onScroll);
 		        });
 		    });
-		    
-		    $('#modifyTour').click(function(){
-				$('.toModify').hide();
-				$('.modified').show();
-			});
-		    
-		    $('#completeModifyTour').click(function(){
-				$('.modified').hide();
-				$('.toModify').show();
-			});
-		    
-			$(document).on("click", "#addPostButton", function (event) {
-				event.preventDefault();				
-				addPostDialog.dialog("open");
-			});
-		    
-			$(document).on("click", "#searchMap", function (event) {
-				event.preventDefault();				
-				mapDialog.dialog("open");
-			});
+			/* ------------------------ Scroll 반응 Side Navigation #1 끝 ------------------------- */
+			/* ------------------------------------------------------------------------------------ */
 			
 			$('#fileUpload').on('change', ImgFileSelect);
 		});
-		
-		// 파일 업로더 했을 때 실행되는 함수
+
+		/* ----------------------------------------------------------------- */
+		/* ------------------------ 파일업로드 시작 ------------------------ */
 		function ImgFileSelect(e) {
 			console.log("====== ImgFileSelect ======");
 			var files = e.target.files; // 넘어 오는 파일들을 files에 담고
@@ -259,12 +313,11 @@
 				alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 			});
 		}
+		/* ------------------------ 파일업로드 끝 ------------------------ */
+		/* --------------------------------------------------------------- */
 		
-		/* var add = function() {
-			$("#imagePath").val(imagePath);
-			document.getElementById("addPostForm").submit();
-		} */
-
+		/* ------------------------------------------------------------------------------------- */
+		/* ------------------------ Scroll 반응 Side Navigation #2 시작 ------------------------ */
 		function onScroll(event){
 		    var scrollPos = $(document).scrollTop();
 		    $('#tour_navigation a').each(function () {
@@ -289,9 +342,11 @@
 				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 0px');
 			}
 		});
-		
+		/* ------------------------ Scroll 반응 Side Navigation #2 끝 -------------------------- */
+		/* ------------------------------------------------------------------------------------- */
+
+		/* --------------------------------------------------------------------- */
 		/* ---------------------------- map 시작 ------------------------------- */
-		
 		function initAutocomplete() {
 			var map = new google.maps.Map(document.getElementById('map'), {
 				center: {lat: -33.8688, lng: 151.2195},
@@ -384,13 +439,31 @@
 					
 					// 마커 검색 장소 정보
 					searchMarkers[index].addListener('click', function() {
-						console.log(searchMarkers[index].title);
-						console.log(searchMarkers[index].formatted_address);
-						console.log('lat:'+searchMarkers[index].position.lat());
-						console.log('lot:'+searchMarkers[index].position.lng());
-						$('#input-location').val(searchMarkers[index].title+':'+searchMarkers[index].formatted_address);
-						$('#input-lat').val(searchMarkers[index].position.lat);
-						$('#input-lot').val(searchMarkers[index].position.lot);
+						var title = searchMarkers[index].title,
+							formatted_address = searchMarkers[index].formatted_address,
+							fa_array = formatted_address.split(" "),
+							lat = searchMarkers[index].position.lat(),
+							lot = searchMarkers[index].position.lng(),
+							locale;
+						$('#input-location').val(title+':'+formatted_address);
+						$('#input-lat').val(lat);
+						$('#input-lot').val(lot);
+						if(fa_array[0] === '대한민국' || fa_array[fa_array.length-1] === '대한민국'){
+							$('#input-locale').val('대한민국');
+							locale = '대한민국';
+						} else if(fa_array[0] === '일본' || fa_array[fa_array.length-1] === '일본'){
+							$('#input-locale').val('일본');
+							locale = '일본';
+						} else if(fa_array[0] === '미국' || fa_array[fa_array.length-1] === '미국'){
+							$('#input-locale').val('미국');
+							locale = '미국';
+						}
+						
+						console.log('location> '+title+":"+formatted_address);
+						console.log('lat> '+lat);
+						console.log('lot> '+lot);
+						console.log('locale> '+locale);
+						
 						mapDialog.dialog("close");
 						return;
 						infowindow.setContent(place.name);
@@ -420,8 +493,8 @@
 			                      'Error: The Geolocation service failed.' :
 			                      'Error: Your browser doesn\'t support geolocation.');
 		}
-		
 		/* ---------------------------- map 끝 ------------------------------- */
+		/* --------------------------------------------------------------------- */
 		
 		</script>
 		
@@ -432,7 +505,7 @@
 	<div id="container">
 		<div id="tour_main_header_bg">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
+			<c:import url="/WEB-INF/views/tour/tour_main_header2.jsp" />
 		</div>
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
@@ -467,6 +540,7 @@
 									<td><input id="input-location" type="text" value="" name="location"></td>
 									<td><input id="input-lat" type="text" value="" name="lat" style="display: none;"></td>
 									<td><input id="input-lot" type="text" value="" name="lot" style="display: none;"></td>
+									<td><input id="input-locale" type="text" value="" name="locale" style="display: none;"></td>
 									<td><button id="searchMap">검색</button></td>
 								</tr>
 								<tr>
@@ -498,13 +572,40 @@
 									<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td><td><input id="input-content" type="text" value="" name="content"></td>
 								</tr>
 								<tr>
-									<td>카테고리</td><td><input id="input-category" type="text" value="" name="category"></td>
+									<td>이동수단</td><td><select id="input-category" name="category" style="width: 158px;">
+															<option value="01" selected>자동차</option>
+															<option value="02">택시</option>
+															<option value="03">기차</option>
+															<option value="04">트램</option>
+															<option value="05">버스</option>
+															<option value="06">지하철</option>
+															<option value="07">비행기</option>
+															<option value="08">배</option>
+															<option value="09">도보</option>
+															<option value="10">자전거</option>
+															<option value="11">오토바이</option>
+															<option value="12">기타</option>
+														</select></td>
 								</tr>
 								<tr>
 									<td>가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격</td><td><input id="input-price" type="text" value="" name="price"></td>
 								</tr>
 								<tr>
-									<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td><input id="input-score" type="text" value="" name="score"></td>
+									<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td>	<span id="input-score" class="input-score">
+																											<span class="input">
+																												<input type="radio" name="score" id="p1" value="0.5"><label for="p1">0.5</label>
+																												<input type="radio" name="score" id="p2" value="1"><label for="p2">1</label>
+																												<input type="radio" name="score" id="p3" value="1.5"><label for="p3">1.5</label>
+																												<input type="radio" name="score" id="p4" value="2"><label for="p4">2</label>
+																												<input type="radio" name="score" id="p5" value="2.5"><label for="p5">2.5</label>
+																												<input type="radio" name="score" id="p6" value="3"><label for="p6">3</label>
+																												<input type="radio" name="score" id="p7" value="3.5"><label for="p7">3.5</label>
+																												<input type="radio" name="score" id="p8" value="4"><label for="p8">4</label>
+																												<input type="radio" name="score" id="p9" value="4.5"><label for="p9">4.5</label>
+																												<input type="radio" name="score" id="p10" value="5"><label for="p10">5</label>
+																											</span>
+																											<output for="input-score"><b>0</b>점</output>
+																										</span></td>
 								</tr>
 							</table>
 							<input id="imagePath" type="hidden" name="photo" value="imagePath" ><br>

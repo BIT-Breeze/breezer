@@ -12,9 +12,11 @@
 					#{photo },
 					#{content },
 					#{location },
-					locale,
-					lat,
-					lot,
+					(select code 
+					   from TB_COUNTRY 
+					  where name = #{locale }),
+					#{lat},
+					#{lot},
 					#{tourIdx },
 					#{category },
 					#{price },

@@ -20,7 +20,7 @@ public class PostAddController {
 	@Autowired
 	PostAddService postAddService;
 	
-	@Auth
+	/*@Auth
 	@RequestMapping(value="post/add", method=RequestMethod.GET)
 	public String addPost(
 			@RequestParam(value="tourIdx", required=true) long tourIdx,
@@ -34,19 +34,13 @@ public class PostAddController {
 	@Auth
 	@RequestMapping(value="post/add", method=RequestMethod.POST)
 	public String addPost(@ModelAttribute PostVo vo, @PathVariable String id) {
-		System.out.println("====== post/add(post) ======");
-		System.out.println("PostVo : " + vo );
-		
-		
-		System.out.println("--id--:" + id);
-		System.out.println(" >> PostAddController post/add");
+		System.out.println("lat: "+ vo.getLat());
+		System.out.println("lot: "+ vo.getLot());
 		vo.setUserId(id);
 		postAddService.insertPost(vo);
 
 		//return은 임시
 		//return "post/post_add";
 		return "redirect:/"+id+"/tour?idx="+vo.getTourIdx();
-	}
-	
-	
+	}*/
 }
