@@ -1,6 +1,5 @@
 package com.breeze2017.breezer.service.tour;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +12,13 @@ public class TourAddService {
 	@Autowired
 	private TourAddDao tourAddDao;
 	
-	@Autowired
-	private SqlSession sqlSession;
-	
 	public boolean insertMessage(TourVo vo) {
-		System.out.println("TourAddService vo >> " + vo);
-		
 		return tourAddDao.insert(vo) == 1;
-		
+	}
+	
+	public boolean modify(TourVo vo) {
+		System.out.println("update service!!!!!!!!!!");
+		return tourAddDao.modify(vo) == 1;
 	}
 	
 }

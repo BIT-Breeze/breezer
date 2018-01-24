@@ -21,11 +21,19 @@
 					#{mainPhoto },
 					#{secret }
 					)
-			
 		]]>		
 	</insert>
 	
-	
-	
+	<update id="modify" parameterType="tourvo">
+		<![CDATA[
+			update TB_TOUR
+			set title= #{title }, 
+				startDate= #{startDate }, 
+				endDate= #{endData },
+				mainPhoto= #{mainPhoto }, 
+				secret= #{secret }
+			where idx= #{idx };
+		]]>
+	</update>
 	
 </mapper>
