@@ -17,7 +17,6 @@ public class TourMainController {
 	@Autowired
 	private TourMainService tourMainService;
 
-	@Auth
 	@RequestMapping("")
 	public String mytour(
 			@PathVariable String id,

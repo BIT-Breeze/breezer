@@ -571,9 +571,11 @@
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
 			<div id="content">
-				<div id="addPost">
-					<a id="addPostButton" style="float: right;">여행기 추가</a>
-				</div>
+				<c:if test="${userId eq authUser.id}">
+					<div id="addPost">
+						<a id="addPostButton" style="float: right;">여행기 추가</a>
+					</div>
+				</c:if>
 				<div id="PostList">
 					<%-- <c:forEach var="post" items="${postList }">
 						<c:if test="${post.dateGap != 0}">
