@@ -29,6 +29,26 @@
         
 		<script type="text/javascript">
 
+		/* --------------------------------------------------------------------------------- */
+		/* ---------------------------- Post 렌더링 함수 시작 ------------------------------ */
+		var render = function (post) {
+			var html = 
+				"<div class='post' id='"+post.idx+"'>" +
+				"<dl>" +
+				"<dd>장소: "+(post.placeName || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>주소: "+(post.location || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>일시: "+(post.tripDateTime || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>내용: "+(post.content || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>이동수단: "+(post.category || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>지출비용: "+(post.price || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>평점: "+(post.score || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>추천수: "+(post.favorite || "").replace("\n", "<br>")+"</dd>"+
+				"<dl>" +
+				"</div>";
+		}
+		/* ---------------------------- Post 렌더링 함수 끝 ------------------------------ */
+		/* ------------------------------------------------------------------------------- */
+
 		/* ----------------------------------------------------------------------------- */
 		/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 시작 ---------------- */
 		
@@ -505,7 +525,7 @@
 	<div id="container">
 		<div id="tour_main_header_bg">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/tour/tour_main_header2.jsp" />
+			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
 		</div>
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
