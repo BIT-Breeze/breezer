@@ -16,7 +16,7 @@
 		 where P.userId = #{userId}
 		   and P.tourIdx = #{tourIdx}
 	  	   and P.category = C.transport_id
-      order by tripDateTime, postDateTime
+      order by timestamp(tripDateTime) asc, timestamp(postDateTime) asc
 		]]>
 	</select>
 
