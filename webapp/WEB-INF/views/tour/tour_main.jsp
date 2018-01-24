@@ -20,23 +20,40 @@
   		<!------------------------------------------------------------------------------------------------------------------->
   		<!----------------------------------------------------- JS 시작 ----------------------------------------------------->  		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<!-- <script src="/breezer/assets/js/jquery/jquery-1.9.0.js"></script> -->
-		<%-- <script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
-		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script> --%>
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
   		<!---------------------------------------------------- JS 끝 ------------------------------------------------------->
   		<!------------------------------------------------------------------------------------------------------------------>
 		
-		<!------------------------------ datePicker ------------------------------>
+		<!---------------------------------------------------------------------------->
+		<!------------------------------ datePicker 시작 ----------------------------->
 		<link href="${pageContext.servletContext.contextPath }/assets/datePicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
         <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
         <!-- Include English language -->
         <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
-        <!------------------------------------------------------------------------>
+        <!------------------------------ datePicker 끝 ------------------------------->
+		<!---------------------------------------------------------------------------->
         
 		<script type="text/javascript">
+
+		/* --------------------------------------------------------------------------- */
+		/* ---------------------------- messageBox 시작 ------------------------------ */
+		var messageBox = function (message, callback) {
+			$("#dialog-message p").text(message);
+			$("#dialog-message").dialog({
+				modal: true,
+				buttons: {
+					"확인": function () {
+						$(this).dialog("close");
+					}
+				},
+				close: callback || function () {
+					
+				}
+			}); 
+		}
+		/* ------------------------------------------------------------------------- */
+		/* ---------------------------- messageBox 끝 ------------------------------ */
 
 		/* --------------------------------------------------------------------------------------------- */
 		/* ---------------------------- Post & Tour Navi 렌더링 함수 시작 ------------------------------ */
@@ -209,6 +226,42 @@
 				modal: true,
 				buttons: {
 					"추가": function() {
+						
+						if($("#input-location").val() === ''){
+							messageBox(
+									"장소를 선택해주세요.",
+									function () {
+										$("#searchMap").focus();
+									});
+							return;
+						}
+						if($("#input-date").val() === ''){
+							messageBox(
+									"날짜/시간을 선택해주세요.",
+									function () {
+										$("#input-date").focus();
+									});
+							return;
+						}
+						if($("#input-content").val() === ''){
+							messageBox(
+									"내용을 입력해주세요.",
+									function () {
+										$("#input-content").focus();
+									});
+							return;
+						}
+						
+						if($("#input-price").val() === ''){
+							$("#input-price").val(0);
+						}
+						if($("#input-score").val() === ''){
+							$("#input-score").val(0);
+						}
+						if($("#fileUpload").val() === ''){
+							$("#fileUpload").val('');
+						}
+						
 						var id = '${userId}';
 						var tourIdx = '${tourIdx}';
 						
@@ -228,17 +281,20 @@
 									console.log(response);
 									return;
 								}
-								
-								$("#input-date").val("");
+
 								$("#input-location").val("");
-								$("#input-category").val("");
+								$("#input-lat").val("");
+								$("#input-lot").val("");
+								$("#input-locale").val("");
+								$("#input-date").val("");
+								$("#input-content").val("");
+								$("#input-category").val("01");
 								$("#input-price").val("");
 								$("#input-score").val("");
-								$("#input-content").val("");
 								$("#imagePath").val("");
 								$("#input-tourIdx").val("");
-								$('#multiImgContainer').html('');
 								$("#fileUpload").val("");
+								$('#multiImgContainer').html('');
 								
 								addPostDialog.dialog("close");
 							},
@@ -249,32 +305,38 @@
 					},
 					"취소": function () {
 
-						$("#input-date").val("");
 						$("#input-location").val("");
-						$("#input-category").val("");
+						$("#input-lat").val("");
+						$("#input-lot").val("");
+						$("#input-locale").val("");
+						$("#input-date").val("");
+						$("#input-content").val("");
+						$("#input-category").val("01");
 						$("#input-price").val("");
 						$("#input-score").val("");
-						$("#input-content").val("");
 						$("#imagePath").val("");
 						$("#input-tourIdx").val("");
-						$('#multiImgContainer').html('');
 						$("#fileUpload").val("");
+						$('#multiImgContainer').html('');
 						
 						$(this).dialog("close");
 					}
 				},
 				close: function () {
 
-					$("#input-date").val("");
 					$("#input-location").val("");
-					$("#input-category").val("");
+					$("#input-lat").val("");
+					$("#input-lot").val("");
+					$("#input-locale").val("");
+					$("#input-date").val("");
+					$("#input-content").val("");
+					$("#input-category").val("01");
 					$("#input-price").val("");
 					$("#input-score").val("");
-					$("#input-content").val("");
 					$("#imagePath").val("");
 					$("#input-tourIdx").val("");
-					$('#multiImgContainer').html('');
 					$("#fileUpload").val("");
+					$('#multiImgContainer').html('');
 				}
 			});
 		    
@@ -575,7 +637,7 @@
 	<div id="container">
 		<div id="tour_main_header_bg">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/tour/tour_main_header2.jsp" />
+			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
 		</div>
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
@@ -662,7 +724,7 @@
 														</select></td>
 								</tr>
 								<tr>
-									<td>가&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;격</td><td><input id="input-price" type="text" value="" name="price"></td>
+									<td>지출비용</td><td><input id="input-price" type="text" value="" name="price"></td>
 								</tr>
 								<tr>
 									<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td>	<span id="input-score" class="input-score">
@@ -701,6 +763,11 @@
 							<div id=multiImgContainer></div>
 						</div>
 					</form>
+					
+				</div>
+			
+				<div id="dialog-message" title="" style="display:none">
+	  				<p></p>
 				</div>
 			</div>
 			
@@ -716,10 +783,6 @@
 				
 				<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 			</div>
-			<script type="text/javascript">
-			
-			</script>
-			
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
