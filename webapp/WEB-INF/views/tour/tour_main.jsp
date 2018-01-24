@@ -86,8 +86,8 @@
 				naviHtml +=
 					"<li><a href='#post-"+post.idx+"'>"+post.placeName+"</a></li>";
 			}
-				
-			$("#PostList").append(postHtml);
+			
+			$("#PostBox").append(postHtml);
 			$("#tour_navigation ul").append(naviHtml);
 			
 			
@@ -296,6 +296,14 @@
 								$("#fileUpload").val("");
 								$('#multiImgContainer').html('');
 								
+								$("#PostBox").remove();
+								$("#tour_navigation ul").remove();
+								
+								$("#PostList").append("<div id='PostBox'></div>");
+								$("#tour_navigation").append("<ul></ul>");
+								
+								fetchAllPost();
+								
 								addPostDialog.dialog("close");
 							},
 							error: function (xhr, status, e) {
@@ -304,7 +312,7 @@
 						});
 					},
 					"취소": function () {
-
+					
 						$("#input-location").val("");
 						$("#input-lat").val("");
 						$("#input-lot").val("");
@@ -648,6 +656,7 @@
 					</div>
 				</c:if>
 				<div id="PostList">
+					<div id="PostBox">
 					<%-- <c:forEach var="post" items="${postList }">
 						<c:if test="${post.dateGap != 0}">
 							<div id="dateGap">${post.dateGap}일차</div>
@@ -665,6 +674,7 @@
 							</dl>
 						</div>
 					</c:forEach> --%>
+					</div>
 				</div>
 				
 				<div id="add-post-form" title="여행기 추가" style="display:none">
