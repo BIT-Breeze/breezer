@@ -55,36 +55,31 @@ var messageBox = function(title, message, callback){
 	*/
 
 var render0 = function( tourvo, mode ){
-	console.log(tourvo.idx);	
-	//var id = "${authUser.id}";
+	//console.log(tourvo.idx);	
+
 	var id = userId;
-	var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  +   "' align='center'>"+ tourvo.title + "<br>" + 
+	var html = 	"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "' align='center'>"+ tourvo.title + 
+				
 				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
-				 + "</a><br>" +	"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + 
-				" &nbsp<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>X</button></div>" ;
-	/*var no = $("#tour").attr('no');
-					"<a href='${pageContext.servletContext.contextPath }/" + id +"/tourdelete?idx=" + tourvo.idx + 
-				"'>   </a>
-					*/
-	console.log(html);
-	console.log(typeof(html));	
+				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='280px' height='160px'>"
+				 + "</a><br>" +	"start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
+				 " &nbsp<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>x</button>" + "</div>" ;
+
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
 	} else {		
 		$( "#list-tour" ).append(html);	
 	}
-	//render2();
 }
 	
 var render2 = function( tourvo, mode ){
-		console.log(tourvo.idx);	
-		//var id = "${authUser.id}";
+		//console.log(tourvo.idx);	
+
 		var id = userId;
-		var html = 	"<div class='col-sm-4' id='tour' no='" + tourvo.idx  +   "' align='center'>"+ tourvo.title + "<br>" + 
+		var html = 	"<div class='col-sm-3' id='tour' no='" + tourvo.idx  +   "' align='center'>"+ tourvo.title + "<br>" + 
 					"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
-					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='330px' height='160px'>"
-					 + "</a><br>" +	"투어시작일:" + tourvo.startDate + " ~ 투어종료일: " + tourvo.endDate + "</div>" ;
+					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='280px' height='160px'>"
+					 + "</a><br>" +	"투어시작일:" + tourvo.startDate + "<br> ~ 투어종료일: " + tourvo.endDate + "</div>" ;
 					 
 		console.log(html);
 		console.log(typeof(html));	
@@ -125,7 +120,7 @@ var fetchList = function(){
 						return;				
 					}
 		
-					if( response.data.length < 6){
+					if( response.data.length < 8){
 						// JavaScript 배열에는 length라는 속성이 있다.
 						// response.data는 배열로 인식된다
 						isEnd = true;
@@ -143,7 +138,7 @@ var fetchList = function(){
 				} //success
 			}); //ajax			
 	
-	startNo += 6;
+	startNo += 8;
 	console.log(startNo);
 	} // fetchList
 
@@ -154,16 +149,17 @@ $(function(){
 	$( document ).on( "click", "#list-tour div button", function(){
 			//event.preventDefault();	
 		 		//이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소
-		 		//var startNo = $("#list-tour > *").last().attr('no') || 0;
+
 		 		//var no = $(this).data("no");
-		 		//this 는 버튼이라 얘는 no 라는 속성을 가지고 있지 않다 
+
 		 	//$('#myModal').modal("show");	
+
 		 	$('#myModal').modal({
 		 			keyboard: true			
 		 	});
 		 		
 		 	var no = $(this).attr("data-no");
-		 	console.log(no);
+
 		 	$( '#delete-no' ).val( no );
 		 	//$('#myModal').modal("show");	
 		 	});	// 이벤트를 하나씩 연결?? 
@@ -174,7 +170,6 @@ $(function(){
 		//$('#myModal').modal("hide");
 		//event.preventDefault();
 		var no = $( '#delete-no' ).val();
- 		console.log( no + "clicked!!!");
 		
  		if(userId == authUser){
  			$.ajax({
@@ -190,8 +185,7 @@ $(function(){
 						console.log("response.data == -1");
 						return;
  					}
- 						console.log( typeof(response.data))
- 						console.log( response.data + "삭제")
+
  				    	$( "#list-tour div[no=" + response.data + "]" ).remove();
  						//$('#myModal').modal("hide");
  						//$("#myModal .close").click()
@@ -257,7 +251,7 @@ $(function(){
 		<c:param name="menu" value="login" />
 	</c:import>
 
-    <div class="col-sm-9">
+    <div class="col-sm-8">
 		<div class="row" id="firstrow">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
@@ -337,7 +331,10 @@ $(function(){
 			</div> <!-- sm-12 -->
 		</div>
 						
-    </div>	<!-- col sm-9 -->
+    </div>	<!-- col sm-8 -->
+    <div class="col-sm-2">
+    </div>
+    
   </div>	<!-- row content -->    
 </div>	<!-- container -->
 

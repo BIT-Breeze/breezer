@@ -33,14 +33,16 @@ public class UserMainService {
 		return result;		
 	}	
 	
-	/*
-	public List<TourVo> getTours(String id){
-		System.out.println("==UserMainService getTours()==");
-		List<TourVo> result = userMainDao.getTours(id);
-		
-		return result;
-	}
-	*/
+	public UserVo getOtherUserInfo(String id) {
+		System.out.println("==UserMainService getUserInfo()==");
+		UserVo result = userMainDao.getOtherUserInfo(id);		
+
+		return result;		
+	}	
+	
+
+	
+	
 	// 자기페이지 보는 쿼리
 	public List<TourVo> getTours(String id, Long startNo){
 		System.out.println("UserMainService - with 2 params");
@@ -93,7 +95,13 @@ public class UserMainService {
 				e.printStackTrace();
 			}
 			System.out.println("파일생성");
-		} 
+		}
+
+	public List<String> getCountries(String id) {
+		List<String> result = userMainDao.getCountries(id);
+
+		return result;
+	} 
 
 
 
