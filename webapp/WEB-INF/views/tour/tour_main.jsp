@@ -29,29 +29,68 @@
         
 		<script type="text/javascript">
 
-		/* --------------------------------------------------------------------------------- */
-		/* ---------------------------- Post 렌더링 함수 시작 ------------------------------ */
-		var render = function (post) {
-			var html = 
-				"<div class='post' id='"+post.idx+"'>" +
+		/* --------------------------------------------------------------------------------------------- */
+		/* ---------------------------- Post & Tour Navi 렌더링 함수 시작 ------------------------------ */
+		var render = function (index, post) {
+			var postHtml, naviHtml;
+			if(post.dateGap != 0){
+				postHtml = "<div id='dateGap'>"+post.dateGap+"일차</div>";
+				naviHtml = "<li><p>"+post.dateGap+"일차</p></li>";
+			} else {
+				postHtml = "";
+				naviHtml = "";
+			}
+			postHtml += 
+				"<div class='post' id='post-"+post.idx+"'>" +
 				"<dl>" +
 				"<dd>장소: "+(post.placeName || "").replace("\n", "<br>")+"</dd>"+
 				"<dd>주소: "+(post.location || "").replace("\n", "<br>")+"</dd>"+
 				"<dd>일시: "+(post.tripDateTime || "").replace("\n", "<br>")+"</dd>"+
 				"<dd>내용: "+(post.content || "").replace("\n", "<br>")+"</dd>"+
 				"<dd>이동수단: "+(post.category || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>지출비용: "+(post.price || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>평점: "+(post.score || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>추천수: "+(post.favorite || "").replace("\n", "<br>")+"</dd>"+
+				"<dd>지출비용: "+post.price+"</dd>"+
+				"<dd>평점: "+post.score+"</dd>"+
+				"<dd>추천수: "+post.favorite+"</dd>"+
 				"<dl>" +
 				"</div>";
+			if(index === 0){
+				naviHtml +=
+					"<li><a class='active' href='#post-"+post.idx+"'>"+post.placeName+"</a></li>";
+			} else {
+				naviHtml +=
+					"<li><a href='#post-"+post.idx+"'>"+post.placeName+"</a></li>";
+			}
+				
+			$("#PostList").append(postHtml);
+			$("#tour_navigation ul").append(naviHtml);
+			
+			
 		}
-		/* ---------------------------- Post 렌더링 함수 끝 ------------------------------ */
-		/* ------------------------------------------------------------------------------- */
+		/* ---------------------------- Post & Tour Navi 렌더링 함수 끝 ------------------------------ */
+		/* ------------------------------------------------------------------------------------------- */
 
+		var fetchAllPost = function(){
+			
+			$.ajax({
+				url: "${pageContext.servletContext.contextPath }/${userId}/api/tour?idx=${tourIdx}",
+				type: "get",
+				dataType: "json",
+				data: "",
+				success: function (response) {
+					if(response.result != "success"){
+						console.log(response);
+						return;
+					}
+					
+					$.each(response.data, function (index, vo) {
+						render(index, vo);
+					});
+				}
+			});
+		}
+		
 		/* ----------------------------------------------------------------------------- */
 		/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 시작 ---------------- */
-		
 		var imagePath = ""; // 이미지 경로 저장 변수
 		var file = $('[name="file"]');
 		var sel_files = []; // 파일 저장되는 변수 [배열]
@@ -265,6 +304,8 @@
 			/* ------------------------------------------------------------------------------------ */
 			
 			$('#fileUpload').on('change', ImgFileSelect);
+			
+			fetchAllPost();
 		});
 
 		/* ----------------------------------------------------------------- */
@@ -533,23 +574,25 @@
 				<div id="addPost">
 					<a id="addPostButton" style="float: right;">여행기 추가</a>
 				</div>
-				<c:forEach var="post" items="${postList }">
-					<c:if test="${post.dateGap != 0}">
-						<div>${post.dateGap}일차</div>
-					</c:if>
-					<div class="post" id="post-${post.idx}">
-						<dl>
-							<dd>장소: ${post.placeName }</dd>
-							<dd>주소: ${post.location }</dd>
-							<dd>일시: ${post.tripDateTime }</dd>
-							<dd>내용: ${post.content }</dd>
-							<dd>이동수단: ${post.category }</dd>
-							<dd>지출비용: ${post.price }</dd>
-							<dd>평점: ${post.score }</dd>
-							<dd>추천수: ${post.favorite }</dd>
-						</dl>
-					</div>
-				</c:forEach>
+				<div id="PostList">
+					<%-- <c:forEach var="post" items="${postList }">
+						<c:if test="${post.dateGap != 0}">
+							<div id="dateGap">${post.dateGap}일차</div>
+						</c:if>
+						<div class="post" id="post-${post.idx}">
+							<dl>
+								<dd>장소: ${post.placeName }</dd>
+								<dd>주소: ${post.location }</dd>
+								<dd>일시: ${post.tripDateTime }</dd>
+								<dd>내용: ${post.content }</dd>
+								<dd>이동수단: ${post.category }</dd>
+								<dd>지출비용: ${post.price }</dd>
+								<dd>평점: ${post.score }</dd>
+								<dd>추천수: ${post.favorite }</dd>
+							</dl>
+						</div>
+					</c:forEach> --%>
+				</div>
 				
 				<div id="add-post-form" title="여행기 추가" style="display:none">
 	  				<form id="addPostForm" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
