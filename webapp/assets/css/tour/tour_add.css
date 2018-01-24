@@ -69,7 +69,6 @@
 
 /* 대문 배경 사진 이미지 속성 */
 #tour_main_header_bg {
-	
 	background-repeat:no-repeat; 
 	background-position:center center;
 	background-size: cover;
@@ -89,7 +88,8 @@
 
 .tourAdd_right {
     padding-top: 10px;
-    padding-right: 60px;
+    padding-left: 30px;
+    padding-right: 120px;
 }
 
 .tourAdd_right #leave{

@@ -1,6 +1,52 @@
 @charset "UTF-8";
 
-.tourAdd_center #title_area {
+#tour_main_header_bg {
+	position: relative;
+	z-index: 1;
+	background-repeat:no-repeat; 
+	background-position:center center;
+	background-size: cover;
+	max-width: none;
+	width: 100%;
+	/* opacity: 0.5; */
+}
+
+#tour_main_header {
+	vertical-align: middle;
+	text-align: center; 
+	width: 100%; 
+	height: 300px; 
+	margin: 0 auto;
+	clear: both;
+	position: relative;
+	
+}
+
+
+#header {
+	color: white;
+	position: relative;
+	background-color: transparent;
+
+}
+
+#tour_main_header_bg #tour_main_header .editForm .edit_tourAdd_right {
+	float: right;
+	display: table;
+	width: 100px;
+	height: 100%;
+	padding-right: 60px;
+}
+
+#tour_main_header_bg #tour_main_header .editForm .edit_tourAdd_center {
+	display: table;
+	margin: auto;
+	width: auto;
+	height: auto;
+	
+}
+
+#tour_main_header_bg #tour_main_header .edit_tourAdd_center #edit_title_area {
 	vertical-align: middle;
 	text-align:center; 
 	width: 500px;
@@ -11,36 +57,11 @@
 	color: white;
 	font-size: 30px;
 	font-weight: bold;
-	/* opacity: 0.8; */
-	z-index: 1;
+	position: relative;
+	z-index: 2;
 }
 
-.touAdd_center .tourDate {
-	z-index: 1;
-}
-
-.tourAdd_center .tourDate #startDate {
-	text-align: center; 
- 	outline: none;
-	border: none;
-	color: white;
-	background: none;
-	font-size: 20px;
-	border-bottom: 2px solid white;
-}
-
-.tourAdd_center .tourDate #endDate {
-	text-align: center; 
- 	outline: none;
-	border: none;
-	color: white;
-	background: none;
-	font-size: 20px;
-	border-bottom: 2px solid white;
-}
-
-
-.tourAdd_right #edit {
+.edit_tourAdd_right #edit {
 	cursor: pointer;
 	background-color: transparent;
     border: 1px solid white;
@@ -49,63 +70,211 @@
     font-size: 20px;
     padding: 10px;
     color: white;
-
     -moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	
 }
 
-
-#tour_main_header {
-	vertical-align: middle;
+#tour_main_header_bg #tour_main_header .edit_tourAdd_center .edit_tourDate #edit_startDate {
 	text-align: center; 
-	width: 100%; 
-	height: 300px; 
-	margin: 0 auto;
-	background-color: #ABABAB;
-	clear: both;
+ 	outline: none;
+	border: none;
+	color: white;
+	background: none;
+	font-size: 20px;
+	border-bottom: 2px solid white;
 	position: relative;
+	z-index: 2;
+}
+
+.edit_tourAdd_center .edit_tourDate #edit_endDate {
+	text-align: center; 
+ 	outline: none;
+	border: none;
+	color: white;
+	background: none;
+	font-size: 20px;
+	border-bottom: 2px solid white;
+}
+
+
+/* --------------------------------------------------------------- */
+
+
+.modify_addform {
+	display: none;
+}
+
+
+/* -------------------------------------------------------------- */
+
+/* hover */
+.modify_tourAdd_left .modify_hover_me_img .modify_hover_target_img #modify_cover_photo {
+	visibility: hidden;
+}
+
+.modify_tourAdd_left .modify_hover_me_img:hover .modify_hover_target_img #modify_cover_photo {
+	visibility: visible;
+}
+
+.modify_tourAdd_left .modify_hover_me_pp .modify_type_pp #modify_cover_public {
+	display: none;	
+}
+
+.modify_tourAdd_left .modify_hover_me_pp .modify_type_pp #modify_cover_private {
+	display: none;
+}
+
+.modify_tourAdd_left #modify_cover_photo {
+	vertical-align: middle;
+	text-align: center;
+	background-color: transparent;
+	border: none;
+	color: white;
 	
 }
 
-#tour_main_header_bg {
-	margin:auto;
-	background-repeat:no-repeat; 
-	background-position:center center;
-	opacity: 0.5;
-
-}
-
-#header {
+.modify_tourAdd_left #modify_cover_public,#modify_cover_private {
+	vertical-align: middle;
+	text-align: center;
+	background-color: transparent;
+	border: none;
 	color: white;
-	position: relative;
-	opacity: 0.5;
 }
 
-.tourAdd_left{
+#modify_newFile, #modify_publicImg, #modify_add, #modify_leave {
+	cursor: pointer;
+	
+}
+
+#modify_fileUpload {
+	display: none;
+}
+
+.modify_addform #modify_public {
+	display: none;
+}
+.modify_addform #modify_private {
+	display:none;
+}
+
+.modify_tourAdd_right #modify_add,#modify_leave {
+	
+	background-color: transparent;
+    border: 1px solid white;
+    text-align: center;
+    margin: auto;
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+    
+    padding-right: 5px;
+	padding-left: 5px;
+
+    -moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+}
+
+/* addform style */
+.modify_tourAdd_center #modify_title_area {
+	vertical-align: middle;
+	text-align:center; 
+	display: block;
+	width: 560px;
+	height: 50px;
+	outline: none;
+	border: none;
+	background: none;
+	color: white;
+	font-size: 30px;
+	font-weight: bold;
+	/* opacity: 0.8; */
+}
+
+.modify_tourAdd_center #modify_start-datepicker,#modify_end-datepicker {
+	
+	text-align: center; 
+ 	outline: none;
+	border: none;
+	border-bottom: 2px solid white;
+	color: white;
+	background: none;
+	font-size: 20px;
+	
+}
+
+/* placeholder color */
+.modify_tourAdd_center #modify_title_area::-webkit-input-placeholder {
+	color: white;
+}
+.modify_tourAdd_center #modify_start-datepicker::-webkit-input-placeholder {
+	color: white;
+}
+.modify_tourAdd_center #modify_end-datepicker::-webkit-input-placeholder {
+	color: white;
+}
+
+
+/* layout */
+nav#tour_navigation	{ 
+  z-index: 1; float:left; width:200px; height:100%; overflow: auto; position: fixed; padding-left: 170px; }
+
+
+#tour_main_header_bg #tour_main_header .modify_addform .modify_tourAdd_left {
+	float: left;
+	display: table;
+	width: 100px;
+	height: 100%;
 	padding-left: 60px;
 }
 
-.tourAdd_right {
-    padding-top: 10px;
-    padding-right: 60px;
-}
-
-#tour_main_header_bg #tour_main_header .editForm .tourAdd_right {
+#tour_main_header_bg #tour_main_header .modify_addform .modify_tourAdd_right {
 	float: right;
 	display: table;
 	width: 100px;
 	height: 100%;
+	padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 120px;
 }
 
-#tour_main_header_bg #tour_main_header .editForm .tourAdd_center {
+#tour_main_header_bg #tour_main_header .modify_addform .modify_tourAdd_center {
 	display: table;
 	margin: auto;
 	width: auto;
 	height: auto;
+	/* margin-right:50px; */
 	
 }
 
+textarea#tourTitle,#tourDate{
+	background-color: #ABABAB;
+	text-align: center;	
+	resize: none;
+	width: 630px;
+	outline: none;
+}
 
+button {
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	cursor: pointer;
+	text-align: center;
+	outline: none;
+}
+
+.ico_cover{
+	height: 36px;
+	display: inline-block;
+	background-size: 40px auto;
+	background-position: 50%;
+	width: 40px;
+	background: url('/breezer/assets/images/tourMain/cover_pic_button.PNG') no-repeat;
+}
+
+      
+      
 
 

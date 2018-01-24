@@ -117,7 +117,6 @@ var isPng = function(name) {
 }
 
 var imagePath;
-var dbImagePath;
 
 $(document).ready(function() {
 	var file = $('[name="file"]');
@@ -142,8 +141,6 @@ $(document).ready(function() {
 		}).done(function(data) {
 			var data = data;
 			imagePath = data;
-			
-			dbImagePath = $("#imagePath").val(imagePath);
 			
 			// css selector를 통해 background 변경
 			$("#header").css("background-color", "transparent");
@@ -321,35 +318,6 @@ function submitForm() {
 		</div>
 	</div>
 	
-	
-	<!-- POST VIEW 부분 -->
-	<%-- <div id="wrapper">
-		<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
-		<div id="content">
-			<div class="row">
-				<a style="float: right;" href="javascript:addPost()">여행기 추가</a>
-			</div>
-			<c:forEach var="post" items="${postList }">
-				<c:if test="${post.dateGap != 0}">
-					<div>${post.dateGap}일차</div>
-				</c:if>
-				<div class="post" id="post-${post.idx}">
-					<dl>
-						<dd>${post.tripDateTime }</dd>
-						<dd>${post.content }</dd>
-						<dd>${post.location }</dd>
-						<dd>${post.locale }</dd>
-						<dd>${post.lat }</dd>
-						<dd>${post.lot }</dd>
-						<dd>${post.category }</dd>
-						<dd>${post.price }</dd>
-						<dd>${post.score }</dd>
-						<dd>${post.favorite }</dd>
-					</dl>
-				</div>
-			</c:forEach>
-		</div>
-	</div> --%>
 	<c:import url="/WEB-INF/views/includes/footer.jsp" />
 
 </body>

@@ -219,7 +219,7 @@
 				+ "			<div id='header-picture' style='float: left;'>"
 				+ "				<div id='image-test' style='height: 40px; width: 40px; background-color: #ffffff; margin: 0px;'><img src = '"+vo.pictureUrl+"' style='height: 40px; width: 40px; border-radius: 20px;' > </div> "
 				+ "			</div>"
-				+ "			<div id='header-info' style='height: 40px; float: left; margin-left: 15px; '>"
+				+ "			<div id='header-info' style='height: 40px; float: left; margin-left: 15px;  '>"
 				+ "				<div id='header-nickname' style='height:auto; vertical-align: middle; position: relative;top: 50%;transform: translateY(-50%);'>"
 				+ "					<label><a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId + "(" + vo.nickName + ")" + "</a></label> "
 				
@@ -454,16 +454,16 @@
 
 	<!-- header -->
 	<div id="header"
-		style="background-color: #ABABAB; width: 100%; float: left">
+		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;">
 		<c:import url="/WEB-INF/views/includes/header.jsp">
 		</c:import>
 	</div>
 
 
-	<div id="container" style="background-color: #d6d4d4">
+	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">
 		
 		<!-- side_navi import -->
-		<div id="side_navi">
+		<div id="side_navi" style="position: fixed; width: 100%; top: 100px;" >
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
 			</c:import>
@@ -478,8 +478,7 @@
 				
 		</div> -->
 
-		<div id="list-sns"
-			style="width: 780px; background-color: #d6d4d4; margin: auto;">
+		<div id="list-sns"	style="width: 780px; background-color: #d6d4d4;  margin: auto;">
 			<br> <br> <br> <br> <br>
 
 
