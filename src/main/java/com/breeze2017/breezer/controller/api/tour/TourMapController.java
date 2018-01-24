@@ -32,6 +32,7 @@ public class TourMapController {
 	@RequestMapping("/getmapinfo")
 	public JSONResult getMapInfo(@ModelAttribute PostVo postVo) {
 		List<PostVo> info = tourMapService.getMapInfo(postVo);
+		System.out.println("gh : " + info.toString());
 		
 		if (info.size() == 0) {
 			return JSONResult.fail("데이터 로딩에 실패했습니다.");

@@ -8,11 +8,18 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<!-- Font Awesome Icon Library -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+<title>Insert title here</title>
 <style>
- #map {
+html, body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Roboto", sans-serif
+}
+
+#map {
 	width: 100%;
 	height: 60%;
 	background-color: grey;
@@ -47,82 +54,6 @@ html, body {
 	margin-top: 10px;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-/* Star Rating */
-/* body {
-    font-family: Arial;
-    margin: 0 auto; /* Center website */
-    max-width: 800px; /* Max width */
-    padding: 20px;
-} */
-
-.heading {
-    font-size: 25px;
-    margin-right: 25px;
-}
-
-.fa {
-    font-size: 25px;
-}
-
-.checked {
-    color: orange;
-}
-
-/* Three column layout */
-.side {
-    float: left;
-    width: 15%;
-    margin-top:10px;
-}
-
-.middle {
-    margin-top:10px;
-    float: left;
-    width: 70%;
-}
-
-/* Place text to the right */
-.right {
-    text-align: right;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* The bar container */
-.bar-container {
-    width: 100%;
-    background-color: #f1f1f1;
-    text-align: center;
-    color: white;
-}
-
-/* Individual bars */
-.bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
-.bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
-.bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
-.bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
-.bar-1 {width: 15%; height: 18px; background-color: #f44336;}
-
-/* Responsive layout - make the columns stack on top of each other instead of next to each other */
-@media (max-width: 400px) {
-    .side, .middle {
-        width: 100%;
-    }
-    .right {
-        display: none;
-    }
-}
-
-/* info css */
 /* info css */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -165,7 +96,7 @@ button:hover, a:hover {
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 <script type="text/javascript">
 // 맵 관련
 var map = null;
@@ -398,7 +329,7 @@ var imageArr = [
 			{name: 'Night Mode'});
 
 		// Create the map.
-		map = new google.maps.Map(document.getElementById('map'), {
+		map = new google.maps.Map(document.getElementById('googleMap'), {
 			zoom : 5,
 			center :  {lat: 39.750843, lng: -100.87454600000001},
 			disableDefaultUI: false, // 지도 내의 UI 표시 여부
@@ -431,6 +362,9 @@ var imageArr = [
  		
 		var len;
 		var infowindow = new google.maps.InfoWindow();
+		
+		/* var userId = ${list.get(0).userId };
+		var tourIdx = ${list.get(0).idx }; */
 		
 		var userId = ${vo.userId };
 		var tourIdx = ${vo.idx };
@@ -539,127 +473,125 @@ var imageArr = [
 			}
 		});
 	}
-	
-	// Google Chart.
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart);
-
-	// Draw the chart and set the chart values
-	function drawChart() {
-	  var data = google.visualization.arrayToDataTable([
-	  ['Task', 'Hours per Day'],
-	  ['Work', 8],
-	  ['Eat', 2],
-	  ['TV', 4],
-	  ['Gym', 2],
-	  ['Sleep', 8]
-	]);
-
-	  // Optional; add a title and set the width and height of the chart
-	  var options = {'title':'My Average Day', 'width':550, 'height':400};
-
-	  // Display the chart inside the <div> element with id="piechart"
-	  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-	  chart.draw(data, options);
-	}
 </script>
 
 </head>
-<body>
-	<h3>My Google Maps Demo</h3>
+<body class="w3-light-grey">
+	<!-- Page Container -->
+	<div class="w3-content w3-margin-top" style="max-width: 1400px;">
+
+		<!-- Map Column -->
+		<div class="w3-row-padding">
+			<div id="drive_mode">
+				<b>Mode of Travel : </b> 
+				<select id="mode">
+					<option value="DRIVING">Driving</option>
+					<option value="WALKING">Walking</option>
+					<option value="BICYCLING">Bicycling</option>
+					<option value="TRANSIT">Transit</option>
+				</select>
+			</div>
+			
+			<div id="zoom_box">
+				<b>Camera Zoom</b>
+				<div id="zoom"></div>
+			</div>
+		
+			<!-- <div id="map"></div> -->
+			<div id="googleMap" style="width: 100%; height: 600px;"></div>
+			<!-- Google Map -->
+			<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&callback=initMap"></script>
+		</div>
+		
+		<hr>
 	
-	<div id="drive_mode">
-		<b>Mode of Travel : </b> 
-		<select id="mode">
-			<option value="DRIVING">Driving</option>
-			<option value="WALKING">Walking</option>
-			<option value="BICYCLING">Bicycling</option>
-			<option value="TRANSIT">Transit</option>
-		</select>
-	</div>
+		<!-- Info Column -->
+		<div class="w3-row-padding">
 	
-	<div id="zoom_box">
-		<b>Camera Zoom</b>
-		<div id="zoom"></div>
-	</div>
-
-	<div id="map"></div>
-	<!-- Google Map -->
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&callback=initMap"></script>
-
-	<!-- Google Chart -->	
-	<div id="piechart"></div>
-
-	<!-- Star Rating -->
-	<span class="heading">User Rating</span>
-	<span class="fa fa-star checked"></span>
-	<span class="fa fa-star checked"></span>
-	<span class="fa fa-star checked"></span>
-	<span class="fa fa-star checked"></span>
-	<span class="fa fa-star"></span>
-	<p>4.1 average based on 254 reviews.</p>
-	<hr style="border: 3px solid #f1f1f1">
-
-	<div class="row">
-		<div class="side">
-			<div>5 star</div>
-		</div>
-		<div class="middle">
-			<div class="bar-container">
-				<div class="bar-5"></div>
-			</div>
-		</div>
-		<div class="side right">
-			<div>150</div>
-		</div>
-		<div class="side">
-			<div>4 star</div>
-		</div>
-		<div class="middle">
-			<div class="bar-container">
-				<div class="bar-4"></div>
-			</div>
-		</div>
-		<div class="side right">
-			<div>63</div>
-		</div>
-		<div class="side">
-			<div>3 star</div>
-		</div>
-		<div class="middle">
-			<div class="bar-container">
-				<div class="bar-3"></div>
-			</div>
-		</div>
-		<div class="side right">
-			<div>15</div>
-		</div>
-		<div class="side">
-			<div>2 star</div>
-		</div>
-		<div class="middle">
-			<div class="bar-container">
-				<div class="bar-2"></div>
-			</div>
-		</div>
-		<div class="side right">
-			<div>6</div>
-		</div>
-		<div class="side">
-			<div>1 star</div>
-		</div>
-		<div class="middle">
-			<div class="bar-container">
-				<div class="bar-1"></div>
-			</div>
-		</div>
-		<div class="side right">
-			<div>20</div>
-		</div>
-	</div>
+			<div class="w3-white w3-text-grey w3-card-4">
 	
-	<br>
-	<br>
+				<div class="w3-cell-row">
+					<div class="w3-container w3-cell w3-third">
+						<div class="w3-display-container w3-padding-16">
+							<img src="/breezetest/assets/images/pic10.jpg" style="width: 100%; height: 400px">
+						</div>
+						
+						<div class="w3-container w3-padding-16">
+							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>id</p>
+							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>title</p>
+							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>date</p>
+							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>score</p>
+						</div>
+					</div>
+					
+					<div class="w3-container w3-cell w3-twothird">
+						<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
+						<p>Adobe Photoshop</p>
+						
+						<div class="w3-light-grey w3-round-xlarge w3-small">
+							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 90%">90%</div>
+						</div>
+						
+						<p>Photography</p>
+						<div class="w3-light-grey w3-round-xlarge w3-small">
+							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 80%">
+								<div class="w3-center w3-text-white">80%</div>
+							</div>
+						</div>
+						
+						<p>Illustrator</p>
+						<div class="w3-light-grey w3-round-xlarge w3-small">
+							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 75%">75%</div>
+						</div>
+						
+						<p>Media</p>
+						<div class="w3-light-grey w3-round-xlarge w3-small">
+							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 50%">50%</div>
+						</div>
+						
+						<hr>
+						
+						<p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+						
+						<p>English</p>
+						<div class="w3-light-grey w3-round-xlarge">
+							<div class="w3-round-xlarge w3-teal" style="height: 24px; width: 100%"></div>
+						</div>
+						
+						<p>Spanish</p>
+						<div class="w3-light-grey w3-round-xlarge">
+							<div class="w3-round-xlarge w3-teal" style="height: 24px; width: 55%"></div>
+						</div>
+						
+						<p>German</p>
+						<div class="w3-light-grey w3-round-xlarge">
+							<div class="w3-round-xlarge w3-teal" style="height: 24px; width: 25%"></div>
+						</div>
+						
+					</div>
+
+				</div>
+	
+			</div>
+	
+			<!-- End Left Column -->
+		</div>
+
+		<!-- End Page Container -->
+	</div>
+
+	<footer class="w3-container w3-teal w3-center w3-margin-top">
+		<p>Find me on social media.</p>
+		<i class="fa fa-facebook-official w3-hover-opacity"></i>
+		<i class="fa fa-instagram w3-hover-opacity"></i>
+		<i class="fa fa-snapchat w3-hover-opacity"></i>
+		<i class="fa fa-pinterest-p w3-hover-opacity"></i>
+		<i class="fa fa-twitter w3-hover-opacity"></i>
+		<i class="fa fa-linkedin w3-hover-opacity"></i>
+		
+		<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+	</footer>
+
 	
 </body>
 </html>
