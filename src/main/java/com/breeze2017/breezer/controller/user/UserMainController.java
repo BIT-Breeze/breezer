@@ -35,20 +35,15 @@ public class UserMainController {
 	public String getUser(@AuthUser UserVo authUser,
 						  @PathVariable String id,
 							Model model) {
-		System.out.println("====== UserMainController : /{id} ======");
-		System.out.println("UserMainController");					
-
-
+		System.out.println("====== UserMainController : /{id} ======");				
 		
 		if(authUser.getId().equals(id)) {
 		UserVo uservo = userMainService.getUserInfo(authUser.getId());
-		//UserVo uservo2 = userMainService.getUserInfo(authUser.getId());
+
 		List<String> list = userMainService.getCountries(authUser.getId());
 		int numOfCountries = list.size();
-		String countries = list.toString();
-		countries = countries.replace("[", "");
-		countries = countries.replace("]", "");
-		countries = countries.replace(",", " ");
+		String countries = userMainService.countCountries(list);
+		
 		model.addAttribute("uservo",uservo);
 		model.addAttribute("uservo2",uservo);
 		model.addAttribute("countryList",countries);
@@ -129,8 +124,8 @@ public class UserMainController {
 		
 		return JSONResult.success( bSuccess ? idx : -1);
 		
-		} else {
-						
+		} else {						
+			
 			return JSONResult.fail("타인의 게시글을 지울 수 없습니다.");
 		}
 	}

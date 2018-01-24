@@ -31,14 +31,10 @@
 			parameterType="string"
 			resultType="string">
 		<![CDATA[
-
-			select distinct locale from TB_POST where userId=#{id }
-
+			select distinct locale from TB_POST where userId=#{id } and locale is not null
 		]]>
 	</select>
-	
-
-	
+		
 	<!-- secret 1, 즉 공개투어만  가져오기, 즉 다른사람페이지에서 작동하는 쿼리 -->
 	<select id="gettours1" parameterType="map" resultType="tourvo">
 		<![CDATA[
@@ -78,7 +74,6 @@
 			delete from TB_POST where tourIdx = #{ idx }		
 		]]>
 		
-
 	</delete>
 	
 		

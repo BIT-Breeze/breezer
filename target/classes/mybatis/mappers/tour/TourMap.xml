@@ -6,6 +6,11 @@
 	SELECT * FROM maptest;
 </select>
 
+<select id="gettourdata" resultType="tourvo" parameterType="tourvo">
+	<!-- select * from TB_TOUR where userId = #{userId } and tourIdx = #{tourIdx } -->
+	select * from TB_TOUR where userId = 'HailFederer' and idx = 282;
+</select>
+
 <select id="getmapinfo" resultType="postvo" parameterType="postvo">
 	select * from TB_POST where userId = #{userId } and tourIdx = #{tourIdx }
 </select>
