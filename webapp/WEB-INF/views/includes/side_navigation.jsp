@@ -42,46 +42,15 @@
 </style>
 <script>
 
-
-
-var stringFormat = function(){
-
-	str = "${countryList}";
-	console.log(str);
-	str = str.replace('[','');
-	str = str.replace(']','');
-	str = str.replace('null','');
-	str = str.replace(',',' ');
-	console.log(str);
-	
-	return str;
-} 
-
-
 var countries = stringFormat();
 
 $(function(){
-	/*
-	$('h1').click(function(event){
-			event.preventDefault();
-			$('#sidenav').css('visibility','visible');
-			$('h1').click(function(event){
-				event.preventDefault();
-				$('#sidenav').css('visibility','hidden');
-			})
-	});
-
-	*/
 	
 	$('h1').click(function(event){
 		event.preventDefault();
 		$('#sidenav').toggle('slow');
 
 	});  // 사이드 내비 토글 
-	
-	
-	
-	
 	
 });
 
@@ -103,8 +72,8 @@ $(function(){
 
     		<h4>투어수 : ${ uservo.tours }</h4>
     		<h4>방문국가:  </h4>
-    		<h4>${ countryList } </h4>
-    		<h4>방문국가수 : ${ countries }  </h4>
+    		<h4>${ uservo.countries } </h4>
+    		<h4>방문국가수 : ${ uservo.numOfcountries }  </h4>
     		
     		</div>
     	

@@ -43,15 +43,20 @@ public class UserMainController {
 		List<String> list = userMainService.getCountries(authUser.getId());
 		int numOfCountries = list.size();
 		String countries = userMainService.countCountries(list);
-		
+		uservo.setNumOfcountries(numOfCountries);
+		uservo.setCountries(countries);
 		model.addAttribute("uservo",uservo);
 		model.addAttribute("uservo2",uservo);
-		model.addAttribute("countryList",countries);
-		model.addAttribute("countries",numOfCountries);
+
 		} else {
 
 		UserVo uservo = userMainService.getUserInfo(authUser.getId());
 		UserVo uservo2 = userMainService.getOtherUserInfo(id);
+		List<String> list = userMainService.getCountries(authUser.getId());
+		int numOfCountries = list.size();
+		String countries = userMainService.countCountries(list);
+		uservo.setNumOfcountries(numOfCountries);
+		uservo.setCountries(countries);
 		
 			if(uservo2.getId() != null) {
 			model.addAttribute("uservo", uservo);

@@ -68,7 +68,7 @@ var render0 = function( tourvo, mode ){
 	*/
 		
 	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'> <div class='panel panel-info'>" + 
-				"<div class='panel-heading'><div class='row'><div class='col-sm-9'><h4>" + tourvo.title + "</h4></div>" +
+				"<div class='panel-heading'><div class='row'><div class='col-sm-9'><h5>" + tourvo.title + "</h5></div>" +
 				"<div class='col-sm-3'> <button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
 				"'>x</button></div>" + "</div> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "</div>" + 
 				"<div class='panel-body' align='left'>" +				

@@ -21,9 +21,23 @@ public class UserVo {
 	private String locale;
 	private String pictureUrl;
 	private int tours;
-	private int countries;
+	private int numOfcountries;
+	private String countries;
 	
 	
+	public String getCountries() {
+		return countries;
+	}
+	public void setCountries(String countries) {
+		this.countries = countries;
+	}
+	public int getNumOfcountries() {
+		return numOfcountries;
+	}
+	public void setNumOfcountries(int numOfcountries) {
+		this.numOfcountries = numOfcountries;
+	}
+
 	public long getIdx() {
 		return idx;
 	}
@@ -127,12 +141,7 @@ public class UserVo {
 	public void setTours(int tours) {
 		this.tours = tours;
 	}
-	public int getCountries() {
-		return countries;
-	}
-	public void setCountries(int countries) {
-		this.countries = countries;
-	}
+
 	
 	@Override
 	public String toString() {
