@@ -58,13 +58,24 @@ var render0 = function( tourvo, mode ){
 	//console.log(tourvo.idx);	
 
 	var id = userId;
+	/*
 	var html = 	"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "' align='center'>"+ tourvo.title + 
 				
 				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
 				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='280px' height='160px'>"
 				 + "</a><br>" +	"start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
 				 " &nbsp<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>x</button>" + "</div>" ;
-
+	*/
+		
+	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'> <div class='panel panel-info'>" + 
+				"<div class='panel-heading'><div class='row'><div class='col-sm-9'><h4>" + tourvo.title + "</h4></div>" +
+				"<div class='col-sm-3'> <button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
+				"'>x</button></div>" + "</div> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "</div>" + 
+				"<div class='panel-body' align='left'>" +				
+				"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +				
+				"</div></div>"
+	
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
 	} else {		
@@ -76,10 +87,14 @@ var render2 = function( tourvo, mode ){
 		//console.log(tourvo.idx);	
 
 		var id = userId;
-		var html = 	"<div class='col-sm-3' id='tour' no='" + tourvo.idx  +   "' align='center'>"+ tourvo.title + "<br>" + 
-					"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
-					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='280px' height='160px'>"
-					 + "</a><br>" +	"투어시작일:" + tourvo.startDate + "<br> ~ 투어종료일: " + tourvo.endDate + "</div>" ;
+		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'> <div class='panel panel-info'>" + 
+		"<div class='panel-heading'><h4>" + tourvo.title + "</h4>" +
+		"<br> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "</div>" + 
+		"<div class='panel-body' align='left'>" +				
+		"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+		"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +				
+		"</div></div>"
+
 					 
 		console.log(html);
 		console.log(typeof(html));	
@@ -281,7 +296,7 @@ $(function(){
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
 		
-		<div class="row" align="center" id="secondrow">
+		<div class="row"  id="secondrow">
 			
 			<div class="col-sm-12">
 			

@@ -17,7 +17,7 @@
 
     #sidenav {      	 	
       height: 100%;
-           
+      position: fixed;     
     }
     
     #button_area{    
