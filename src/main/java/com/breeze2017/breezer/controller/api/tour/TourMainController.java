@@ -27,8 +27,6 @@ public class TourMainController {
 			@PathVariable String id,
 			@RequestParam(value="idx", required=false) long tourIdx) {
 		
-		System.out.println("tourMainAPIController");
-		
 		String userId = id;
 		
 		List<PostVo> postList = tourMainService.getPostList(userId, tourIdx);

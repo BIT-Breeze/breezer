@@ -9,16 +9,25 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
   		
+  		<!------------------------------------------------------------------------------------------------------------------->
+  		<!---------------------------------------------------- CSS 시작 ----------------------------------------------------->
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  		<!---------------------------------------------------- CSS 끝 ------------------------------------------------------->
+  		<!------------------------------------------------------------------------------------------------------------------->
+  		
+  		<!------------------------------------------------------------------------------------------------------------------->
+  		<!----------------------------------------------------- JS 시작 ----------------------------------------------------->  		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script src="/breezer/assets/js/jquery/jquery-1.9.0.js"></script>
-		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
-		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
+		<!-- <script src="/breezer/assets/js/jquery/jquery-1.9.0.js"></script> -->
+		<%-- <script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
+		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script> --%>
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
+  		<!---------------------------------------------------- JS 끝 ------------------------------------------------------->
+  		<!------------------------------------------------------------------------------------------------------------------>
 		
 		<!------------------------------ datePicker ------------------------------>
 		<link href="${pageContext.servletContext.contextPath }/assets/datePicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
@@ -566,7 +575,7 @@
 	<div id="container">
 		<div id="tour_main_header_bg">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
+			<c:import url="/WEB-INF/views/tour/tour_main_header2.jsp" />
 		</div>
 		<div id="wrapper">
 			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
