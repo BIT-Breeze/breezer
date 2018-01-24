@@ -200,8 +200,7 @@ $(function(){
  			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다.");
  			
  		}	
- 			
- 			//$('#myModal').modal("toggle");
+
 		});
 		
 	$( window ).scroll( function(){
@@ -325,7 +324,8 @@ $(function(){
 
 						
 			<div class="col-sm-12" id="bottom-text" style="text-align:center; padding-top:20px">
-				<h4>투어를 더 보려면 아래로 스크롤 하세요!!</h4>
+				<h4>투어를 더 보려면 아래로 스크롤 하세요!! </h4>
+				<!--  <a href="#header"> 맨 위로 </a> -->
 			</div>
 			
 			</div> <!-- sm-12 -->

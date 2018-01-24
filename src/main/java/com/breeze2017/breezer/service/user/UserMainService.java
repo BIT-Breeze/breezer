@@ -39,10 +39,7 @@ public class UserMainService {
 
 		return result;		
 	}	
-	
-
-	
-	
+		
 	// 자기페이지 보는 쿼리
 	public List<TourVo> getTours(String id, Long startNo){
 		System.out.println("UserMainService - with 2 params");
@@ -99,11 +96,18 @@ public class UserMainService {
 
 	public List<String> getCountries(String id) {
 		List<String> result = userMainDao.getCountries(id);
-
+		countCountries(result);
 		return result;
 	} 
 
 
+	public String countCountries(List<String> list) {
+		String countries = list.toString();
+		countries = countries.replace("[", "");
+		countries = countries.replace("]", "");
+		countries = countries.replace(",", " ");		
+		return countries;
+	}
 
 
 	
