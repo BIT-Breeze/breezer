@@ -42,8 +42,12 @@ public class PostAddController {
 		
 		vo.setUserId(id);
 		
-		boolean YN = postAddService.insertPost(vo);
+		boolean successYN = postAddService.insertPost(vo);
 		
-		return JSONResult.success(YN);
+		if(successYN == false) {
+			return JSONResult.fail("포스트 등록에 실패했습니다.");
+		} else {
+			return JSONResult.success(vo);
+		}
 	}
 }

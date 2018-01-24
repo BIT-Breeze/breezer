@@ -17,5 +17,9 @@ public class TourAddDao {
 		
 	}
 	
+	public int modify(TourVo vo) {
+		System.out.println("update DAO DAO DAO!!!!!!!!!!");
+		return sqlSession.update("tour.modify", vo);
+	}
 	
 }

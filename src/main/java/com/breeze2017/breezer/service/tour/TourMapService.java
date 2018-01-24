@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.breeze2017.breezer.repository.tour.TourMapDao;
 import com.breeze2017.breezer.vo.MapVo;
 import com.breeze2017.breezer.vo.PostVo;
+import com.breeze2017.breezer.vo.TourVo;
 
 @Service
 public class TourMapService {
@@ -17,6 +18,10 @@ public class TourMapService {
 	
 	public List<MapVo> getData(){
 		return tourMapDao.selectList();
+	}
+	
+	public List<TourVo> getTourData(TourVo tourVo){
+		return tourMapDao.getTourData(tourVo);
 	}
 	
 	public List<PostVo> getMapInfo(PostVo postVo){

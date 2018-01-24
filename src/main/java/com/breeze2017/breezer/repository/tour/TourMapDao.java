@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.breeze2017.breezer.vo.MapVo;
 import com.breeze2017.breezer.vo.PostVo;
+import com.breeze2017.breezer.vo.TourVo;
 
 @Repository
 public class TourMapDao {
@@ -19,7 +20,12 @@ public class TourMapDao {
 		return sqlsession.selectList("tourmap.select");
 	}
 	
+	public List<TourVo> getTourData(TourVo tourVo){
+		return sqlsession.selectList("tourmap.gettourdata", tourVo);
+	}
+	
 	public List<PostVo> getMapInfo(PostVo postVo){
 		return sqlsession.selectList("tourmap.getmapinfo", postVo);
 	}
+
 }
