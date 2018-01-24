@@ -460,7 +460,7 @@
 	</div>
 
 
-	<div id="container" style="background-color: #d6d4d4; height: 100%; position: relative; ">
+	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">
 		
 		<!-- side_navi import -->
 		<div id="side_navi" style="position: fixed; width: 100%; top: 100px;" >
