@@ -28,12 +28,8 @@ public class TourMapController {
 		tourVo.setUserId(id);
 		
 		ModelAndView mav = new ModelAndView();
-//		mav.addObject("list", tourMapService.getTourData(tourVo));
-		mav.addObject("vo", tourVo);
+		mav.addObject("vo", tourMapService.getTourData(tourVo));
 		mav.setViewName("tour/tour_map");
-		
-		System.out.println("test : " + tourMapService.getTourData(tourVo).toString());
-		
 		return mav;
 	}
 }

@@ -1,8 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -369,7 +368,6 @@ var imageArr = [
 		var userId = ${vo.userId };
 		var tourIdx = ${vo.idx };
 		
-		// test url : "/breezer/api/tour/location 
 		$.ajax({
 			url: "/breezer/api/tour/getmapinfo",
 			type: "post",
@@ -477,8 +475,18 @@ var imageArr = [
 
 </head>
 <body class="w3-light-grey">
+	<!-- Header -->
+	<div class="w3-opacity">
+		<span class="w3-button w3-xxlarge w3-teal w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></span> 
+		<div class="w3-clear"></div>
+		
+		<header class="w3-center w3-margin-bottom">
+			<c:import url="/WEB-INF/views/includes/header.jsp" />
+		</header>
+	</div>
+
 	<!-- Page Container -->
-	<div class="w3-content w3-margin-top" style="max-width: 1400px;">
+	<div class="w3-content w3-margin-top w3-card-4" style="max-width: 1400px;">
 
 		<!-- Map Column -->
 		<div class="w3-row-padding">
@@ -497,7 +505,6 @@ var imageArr = [
 				<div id="zoom"></div>
 			</div>
 		
-			<!-- <div id="map"></div> -->
 			<div id="googleMap" style="width: 100%; height: 600px;"></div>
 			<!-- Google Map -->
 			<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&callback=initMap"></script>
@@ -508,19 +515,19 @@ var imageArr = [
 		<!-- Info Column -->
 		<div class="w3-row-padding">
 	
-			<div class="w3-white w3-text-grey w3-card-4">
+			<div class="w3-white w3-text-grey w3-padding-16">
 	
 				<div class="w3-cell-row">
-					<div class="w3-container w3-cell w3-third">
-						<div class="w3-display-container w3-padding-16">
+					<div class="w3-container w3-cell w3-third w3-padding-16">
+						<div class="w3-display-container">
 							<img src="/breezetest/assets/images/pic10.jpg" style="width: 100%; height: 400px">
 						</div>
 						
-						<div class="w3-container w3-padding-16">
-							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>id</p>
-							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>title</p>
-							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>date</p>
-							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>score</p>
+						<div class="w3-container w3-padding-32">
+							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.title }</p>
+							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.startDate } ~ ${vo.endDate }</p>
+							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.score }</p>
+							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.favorite }</p>
 						</div>
 					</div>
 					
@@ -569,27 +576,20 @@ var imageArr = [
 						</div>
 						
 					</div>
-
+					
 				</div>
-	
+				
 			</div>
-	
-			<!-- End Left Column -->
+			
 		</div>
-
-		<!-- End Page Container -->
+		
 	</div>
+	
+	<br>
+	<br>
 
 	<footer class="w3-container w3-teal w3-center w3-margin-top">
-		<p>Find me on social media.</p>
-		<i class="fa fa-facebook-official w3-hover-opacity"></i>
-		<i class="fa fa-instagram w3-hover-opacity"></i>
-		<i class="fa fa-snapchat w3-hover-opacity"></i>
-		<i class="fa fa-pinterest-p w3-hover-opacity"></i>
-		<i class="fa fa-twitter w3-hover-opacity"></i>
-		<i class="fa fa-linkedin w3-hover-opacity"></i>
-		
-		<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</footer>
 
 	

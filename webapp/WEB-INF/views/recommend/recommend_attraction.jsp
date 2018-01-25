@@ -7,17 +7,25 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <title>Insert title here</title>
 <style>
+html, body, h1, h2, h3, h4, h5, h6 {
+	font-family: "Roboto", sans-serif
+}
+
 /* Always set the map height explicitly to define the size of the div element that contains the map. */
 #map {
 	height: 60%;
 }
 
-/* Optional: Makes the sample page fill the window. */
 html, body {
 	height: 100%;
-	margin: 50px;
+	margin: 0;
 	padding: 0;
 }
 
@@ -56,6 +64,7 @@ html, body {
 }
 
 div.scrollmenu {
+	max-width: 1370px;
 	overflow: auto;
 	white-space: nowrap;
 }
@@ -103,7 +112,7 @@ div.scrollmenu a:hover {
 	];
     
 	function initAutocomplete() {
-		var map = new google.maps.Map(document.getElementById('map'), {
+		var map = new google.maps.Map(document.getElementById('googleMap'), {
 			center: {lat: -33.8688, lng: 151.2195},
 			zoom: 13,
 			mapTypeId: 'roadmap'
@@ -312,25 +321,54 @@ div.scrollmenu a:hover {
 
     </script>
 </head>
-<body>
-	<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+<body class="w3-light-grey">
+	<!-- Header -->
+	<div class="w3-opacity">
+		<span class="w3-button w3-xxlarge w3-teal w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></span> 
+		<div class="w3-clear"></div>
+		
+		<header class="w3-center w3-margin-bottom">
+			<c:import url="/WEB-INF/views/includes/header.jsp" />
+		</header>
+	</div>
 	
-	<div id="map"></div>
+	<!-- Page Container -->
+	<div class="w3-content w3-margin-top w3-card-4" style="max-width: 1400px;">
+
+		<!-- Map Column -->
+		<div class="w3-row-padding w3-padding-16">
+			<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+	
+			<div id="googleMap" style="width: 100%; height: 600px;"></div>
+			<!-- Google Map -->
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script>
+			<!-- Google Marker Cluster -->
+			<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+		</div>
+		
+		<hr>
+	
+		<!-- Info Column -->
+		<div class="w3-row-padding w3-padding-16">
+	
+			<div class="w3-white w3-text-grey">
+	
+				<div class="w3-cell-row">
+					<div class="scrollmenu"></div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	</div>
 	
 	<br>
 	<br>
-	
-	<div class="scrollmenu"></div>
-	
-	<!-- 구글 맵 호출 -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script>
-	<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
-	
-	<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-	
-	<br>
-	<br>
-	<br>
+
+	<footer class="w3-container w3-teal w3-center w3-margin-top">
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
+	</footer>
 	
 </body>
 </html>

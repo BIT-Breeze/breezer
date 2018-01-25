@@ -16,12 +16,8 @@ public class TourMapDao {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	public List<MapVo> selectList(){
-		return sqlsession.selectList("tourmap.select");
-	}
-	
-	public List<TourVo> getTourData(TourVo tourVo){
-		return sqlsession.selectList("tourmap.gettourdata", tourVo);
+	public TourVo getTourData(TourVo tourVo){
+		return sqlsession.selectOne("tourmap.gettourdata", tourVo);
 	}
 	
 	public List<PostVo> getMapInfo(PostVo postVo){

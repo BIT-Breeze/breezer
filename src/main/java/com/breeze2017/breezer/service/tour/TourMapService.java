@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.breeze2017.breezer.repository.tour.TourMapDao;
-import com.breeze2017.breezer.vo.MapVo;
 import com.breeze2017.breezer.vo.PostVo;
 import com.breeze2017.breezer.vo.TourVo;
 
@@ -16,11 +15,7 @@ public class TourMapService {
 	@Autowired
 	private TourMapDao tourMapDao;
 	
-	public List<MapVo> getData(){
-		return tourMapDao.selectList();
-	}
-	
-	public List<TourVo> getTourData(TourVo tourVo){
+	public TourVo getTourData(TourVo tourVo){
 		return tourMapDao.getTourData(tourVo);
 	}
 	
