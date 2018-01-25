@@ -29,7 +29,7 @@ ENGINE=InnoDB
 AUTO_INCREMENT=1
 ;
 
-drop table TB_POST
+drop table TB_POST;
 
 
 
@@ -91,8 +91,9 @@ insert into TB_COUNTRY values (idx, '미국', 'US');
 /* TOUR */
 select *
   from TB_TOUR
- where userId = 'HailFederer'
-   and idx = 1;
+ where userId = 'hailfederer'
+   and idx = 85
+   and secret = 0;
    
    
 delete from TB_TOUR where idx = 281;
@@ -105,16 +106,23 @@ insert into TB_TOUR values (idx, 'HailFederer', 0, 'Sample Data_Kor', '2018-01-1
 
 
 /* POST */
-select * 
-  from TB_POST
- where userId = 'HailFederer'
-   and tourIdx = 1;
+select p.* 
+  from TB_POST p
+ where p.userId = 'hailfederer'
+   and p.tourIdx = 282;
 
 
 delete
   from TB_POST
- where userId = 'HailFederer';
+ where userId = '1233'
+   and tourIdx = 282;
 
+
+insert into TB_POST values (idx, 'HailFederer', SYSDATE(), SYSDATE(), 'C:', '시카고 미술관을 방문하였다. 우왕ㅋ굳ㅋ!', '시카고 미술관:111 S Michigan Ave, Chicago, IL 60603 미국', 
+
+(select code from TB_COUNTRY where name = '일본')
+
+, 41.880148, -87.623669, 282, '07', 50000, 4.0, 0);
 
 insert into TB_POST values (idx, 'HailFederer', SYSDATE(), SYSDATE(), 'C:', '시카고 미술관을 방문하였다. 우왕ㅋ굳ㅋ!', '시카고 미술관:111 S Michigan Ave, Chicago, IL 60603 미국', 'US', 41.880148, -87.623669, 282, '07', 50000, 4.0, 0);
 insert into TB_POST values (idx, 'HailFederer', SYSDATE(), SYSDATE(), 'C:', '분위기 쩌는 윌리스 타워! 같이 가실분 급구!', '윌리스 타워:233 S Wacker Dr, Chicago, IL 60606 미국', 'US', 41.878951, -87.635982, 282, '01', 3000, 2.0, 0);
@@ -157,33 +165,36 @@ update TB_POST set tripDateTime = '2018-01-16 10:36:36' where idx = 59;
 
 
 
-
 	
-  select ifnull(G.dateGap, '') dateGap, P.*
-    from TB_POST P left join (select DATEDIFF(DATE_FORMAT(P.tripDateTime, '%Y-%m-%d'), T.startDate)+1 dateGap, min(P.idx) idx
-										  from TB_POST P left join TB_TOUR T
-										    on P.tourIdx = T.idx
-									    where P.userId = 'HailFederer'
-										   and P.tourIdx = 1
-								    group by dateGap) G
+  select ifnull(G.dateGap, '') dateGap, P.idx, P.userId, P.postDateTime, DATE_FORMAT(P.tripDateTime, "%Y-%c-%e %l:%i %p") tripDateTime, P.photo, P.content, P.location, P.locale, P.lat, P.lot, P.tourIdx, C.transport category, P.price, P.score, P.favorite
+    from TB_CATEGORY C, TB_POST P left join (select D.dateGap, min(P.idx) idx
+															  from TB_POST P right join (select DATEDIFF(DATE_FORMAT(P.tripDateTime, '%Y-%m-%d'), T.startDate)+1 dateGap, min(P.tripDateTime) tripDateTime
+																								    from TB_POST P left join TB_TOUR T
+																								      on P.tourIdx = T.idx
+																							      where P.userId = 'HailFederer'
+																								     and P.tourIdx = 282
+																						      group by dateGap) D 
+															    on D.tripDateTime = P.tripDateTime
+														 group by D.tripDateTime) G
 	   on P.idx = G.idx
    where P.userId = 'HailFederer'
-	  and P.tourIdx = 1
-order by tripDateTime, postDateTime;
+	  and P.tourIdx = 282
+	  and P.category = C.transport_id
+order by P.tripDateTime asc, P.postDateTime asc, P.idx asc;
 
 
 
 
-
-
-
-
-
-
-
-
-
-
+select t.*, ifnull((select round(avg(score),1) average
+					  from TB_POST p
+					 where p.userId = t.userId
+					   and p.tourIdx = t.idx), 0) score, (select count(*)
+															from TB_POST p
+														   where p.userId = t.userId
+															 and p.tourIdx = t.idx) postCount
+  from TB_TOUR t
+ where t.userId = 'hailfederer'
+   and secret = 0;
 
 
 
