@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.post.PostAddService;
 import com.breeze2017.breezer.vo.PostVo;
+import com.breeze2017.security.Auth;
 
 @Controller("postAddAPIController")
 @RequestMapping("{id}/api/post")
@@ -20,6 +20,7 @@ public class PostAddController {
 	@Autowired
 	private PostAddService postAddService;
 	
+	@Auth
 	@ResponseBody
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public JSONResult postAdd(
@@ -39,7 +40,7 @@ public class PostAddController {
 			hour = String.valueOf(Integer.valueOf(hour) + 12);
 		}
 		vo.setTripDateTime(date+" "+hour+":"+min);
-		
+
 		vo.setUserId(id);
 		
 		boolean successYN = postAddService.insertPost(vo);
