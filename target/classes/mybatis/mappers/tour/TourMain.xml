@@ -3,7 +3,7 @@
 
 <mapper namespace="tourMain">
 
-	<select id="getPostList" parameterType="map" resultType="postvo">
+	<select id="selectPostList" parameterType="map" resultType="postvo">
 		<![CDATA[
 		select ifnull(G.dateGap, '') dateGap, P.idx, P.userId, P.postDateTime, DATE_FORMAT(P.tripDateTime, "%Y-%c-%e %l:%i %p") tripDateTime, P.photo, P.content, P.location, P.locale, P.lat, P.lot, P.tourIdx, C.transport category, P.price, P.score, P.favorite
 		  from TB_CATEGORY C, TB_POST P left join (select D.dateGap, min(P.idx) idx
@@ -23,12 +23,13 @@
 		]]>
 	</select>
 
-	<select id="getTour" parameterType="map" resultType="tourvo">
+	<select id="deletePost" parameterType="postvo">
 		<![CDATA[
-		select *
-		  from TB_TOUR 
-		 where userId = #{userId} 
-		   and idx = #{tourIdx}
+		delete
+		  from TB_POST
+		 where userId = #{userId}
+   		   and tourIdx = #{tourIdx}
+		   and idx = #{idx}
 		]]>
 	</select>
 

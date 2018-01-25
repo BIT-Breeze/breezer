@@ -58,27 +58,28 @@
 		/* --------------------------------------------------------------------------------------------- */
 		/* ---------------------------- Post & Tour Navi 렌더링 함수 시작 ------------------------------ */
 		var render = function (index, post) {
-			var postHtml, naviHtml;
+			var postHtml = "<div>", naviHtml;
 			if(post.dateGap != 0){
-				postHtml = "<div id='dateGap'>"+post.dateGap+"일차</div>";
+				postHtml += "<li id='dateGap'>"+post.dateGap+"일차</li>";
 				naviHtml = "<li><p>"+post.dateGap+"일차</p></li>";
 			} else {
 				postHtml = "";
 				naviHtml = "";
 			}
 			postHtml += 
-				"<div class='post' id='post-"+post.idx+"'>" +
-				"<dl>" +
-				"<dd>장소: "+(post.placeName || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>주소: "+(post.location || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>일시: "+(post.tripDateTime || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>내용: "+(post.content || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>이동수단: "+(post.category || "").replace("\n", "<br>")+"</dd>"+
-				"<dd>지출비용: "+post.price+"</dd>"+
-				"<dd>평점: "+post.score+"</dd>"+
-				"<dd>추천수: "+post.favorite+"</dd>"+
-				"<dl>" +
-				"</div>";
+				"<li class='post' id='post-"+post.idx+"'>" +
+					"<div class='transbox'>" +
+						"<p><strong>장소:</strong> "+(post.placeName || "").replace("\n", "<br>")+"</p><br>"+
+						"<p><strong>주소:</strong> "+(post.location || "").replace("\n", "<br>")+"</p><br>"+
+						"<p><strong>일시:</strong> "+(post.tripDateTime || "").replace("\n", "<br>")+"</p><br>"+
+						"<p><strong>내용:</strong> "+(post.content || "").replace("\n", "<br>")+"</p><br>"+
+						"<p><strong>이동수단:</strong> "+(post.category || "").replace("\n", "<br>")+"</p><br>"+
+						"<p><strong>지출비용:</strong> "+post.price+"</p><br>"+
+						"<p><strong>평점:</strong> "+post.score+"</p><br>"+
+						"<p><strong>추천수:</strong> "+post.favorite+"</p><br>"+
+						"<a href='' data-no='"+post.idx+"'>삭제</a>"+
+					"</div>" +
+				"</li></div>";
 			if(index === 0){
 				naviHtml +=
 					"<li><a class='active' href='#post-"+post.idx+"'>"+post.placeName+"</a></li>";
@@ -152,6 +153,63 @@
 				$('.modified').hide();
 				$('.toModify').show();
 			});
+		    
+		    /* $("#PostList li a").click(function(event){
+				event.preventDefault();
+
+				var no = $(this).data("no");
+				alert(no);
+		    }); */
+			
+			// live event
+			$(document).on("click", "#PostList li a", function (event) {
+				event.preventDefault();
+				
+				var removeYN = confirm("정말 삭제하시겠습니까?");
+				
+				if(removeYN === true){
+					var idx = $(this).data("no");
+
+					$.ajax({
+						url: "/breezer/${userId}/api/tour/remove/post",
+						type: "post",
+						dataType: "json",
+						data: "idx="+idx+"&tourIdx=${tourIdx}",
+						success: function (response) {
+							if(response.result == "fail"){
+								console.log(response.message);
+								return;
+							}
+							
+							if(response.data == -1){
+								return;
+							}
+							
+							$("#PostBox").remove();
+							$("#tour_navigation ul").remove();
+							
+							$("#PostList").append("<ul id='PostBox'></ul>");
+							$("#tour_navigation").append("<ul></ul>");
+							
+							fetchAllPost();
+						},
+						error: function (xhr, status, e) {
+							console.error(status+":"+e);
+						}
+					});
+				} else {
+					return;
+				}
+			});
+
+		    /* --------------------------------------------------------------------- */
+		    /* ------------------ Post 클릭 시, opacity 이벤트 시작 ---------------- */
+		    $('[id^="post-"]').click(function(){
+		    	console.log('11');
+		    	$(this).animate({opacity: 0.6}, 500);
+		    });
+		    /* ------------------ Post 클릭 시, opacity 이벤트 끝 ------------------ */
+		    /* --------------------------------------------------------------------- */
 
 			/* ------------------------------------------------------------------ */
 			/* ------------------------ star rating 시작 ------------------------ */
@@ -299,7 +357,7 @@
 								$("#PostBox").remove();
 								$("#tour_navigation ul").remove();
 								
-								$("#PostList").append("<div id='PostBox'></div>");
+								$("#PostList").append("<ul id='PostBox'></ul>");
 								$("#tour_navigation").append("<ul></ul>");
 								
 								fetchAllPost();
@@ -656,25 +714,24 @@
 					</div>
 				</c:if>
 				<div id="PostList">
-					<div id="PostBox">
+					<ul id="PostBox">
 					<%-- <c:forEach var="post" items="${postList }">
 						<c:if test="${post.dateGap != 0}">
-							<div id="dateGap">${post.dateGap}일차</div>
+						<li id="dateGap">${post.dateGap}일차</li>
 						</c:if>
-						<div class="post" id="post-${post.idx}">
-							<dl>
-								<dd>장소: ${post.placeName }</dd>
-								<dd>주소: ${post.location }</dd>
-								<dd>일시: ${post.tripDateTime }</dd>
-								<dd>내용: ${post.content }</dd>
-								<dd>이동수단: ${post.category }</dd>
-								<dd>지출비용: ${post.price }</dd>
-								<dd>평점: ${post.score }</dd>
-								<dd>추천수: ${post.favorite }</dd>
-							</dl>
-						</div>
+						<li class="post" id="post-${post.idx}">
+							<strong>장소:</strong><p>${post.placeName }</p><br>
+							<strong>주소:</strong><p>${post.location }</p><br>
+							<strong>일시:</strong><p>${post.tripDateTime }</p><br>
+							<strong>내용:</strong><p>${post.content }</p><br>
+							<strong>이동수단:</strong><p>${post.category }</p><br>
+							<strong>지출비용:</strong><p>${post.price }</p><br>
+							<strong>평점:</strong><p>${post.score }</p><br>
+							<strong>추천수:</strong><p>${post.favorite }</p><br>
+							<a href="" data-no="${post.idx}">삭제</a>
+						</li>
 					</c:forEach> --%>
-					</div>
+					</ul>
 				</div>
 				
 				<div id="add-post-form" title="여행기 추가" style="display:none">

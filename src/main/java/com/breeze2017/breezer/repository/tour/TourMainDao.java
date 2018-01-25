@@ -17,25 +17,19 @@ public class TourMainDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<PostVo> getPostList(String userId, long tourIdx){
+	public List<PostVo> selectPostList(String userId, long tourIdx){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("tourIdx", tourIdx);
 		
-		List<PostVo> postList = sqlSession.selectList("tourMain.getPostList", map);
+		List<PostVo> postList = sqlSession.selectList("tourMain.selectPostList", map);
 		
 		return postList;
 	}
 	
-	public TourVo getTour(String userId, long tourIdx){
+	public boolean deletePost(PostVo postVo){
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
-		map.put("tourIdx", tourIdx);
-		
-		TourVo tour = sqlSession.selectOne("tourMain.getTour", map);
-		
-		return tour;
+		return sqlSession.delete("tourMain.deletePost", postVo) == 1 ? true : false;
 	}
 }

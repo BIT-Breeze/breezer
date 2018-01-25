@@ -57,7 +57,12 @@ button {
 	background: url('/breezer/assets/images/tourMain/cover_pic_button.PNG') no-repeat;
 }
 
-div.post { font-size:30px; clear: both; padding: 10px;}
+li.post { font-size:30px; clear: both; padding: 0px; margin-top: 15px; margin-bottom: 15px; border: 1px;}
+
+/* div.transbox {
+	background-color: #ffffff;
+	opacity: 1.0;
+} */
 
 a	{ border-radius: 4px; padding-left: 10px;}
 
@@ -84,6 +89,13 @@ li a, p{
          color:#F38A8A;
          border:3px solid #F38A8A;
       }
+nav a {
+        padding:10px 20px;
+        display:block;
+        color:black;
+        text-decoration:none;
+        transition:all 0.3s ease-in-out;
+}
 a{
         padding:10px 20px;
         display:block;

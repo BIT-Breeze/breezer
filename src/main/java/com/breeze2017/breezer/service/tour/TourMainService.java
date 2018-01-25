@@ -16,10 +16,10 @@ public class TourMainService {
 	private TourMainDao tourMainDao;
 	
 	public List<PostVo> getPostList(String userId, long tourIdx){
-		return tourMainDao.getPostList(userId, tourIdx);
+		return tourMainDao.selectPostList(userId, tourIdx);
 	}
 	
-	public TourVo getTour(String userId, long tourIdx){
-		return tourMainDao.getTour(userId, tourIdx);
+	public boolean removePost(PostVo postVo){
+		return tourMainDao.deletePost(postVo);
 	}
 }
