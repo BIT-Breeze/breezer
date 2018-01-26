@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tourMainInfo">
+	<select id="getTourInfo" parameterType="long" resultType="tourvo">
+		<![CDATA[
+		select *
+		  from TB_TOUR 
+		 where idx = #{tourIdx}
+		]]>
+	</select>
+
+</mapper>
+

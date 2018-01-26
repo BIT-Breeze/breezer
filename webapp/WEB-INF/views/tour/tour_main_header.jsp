@@ -52,14 +52,6 @@ $(function() {
 <!-- 이미지 파일 업로더 onchange -->
 <script type="text/javascript">
 
-var isJpg = function(name) {
-	return name.match(/jpg$/i)
-}
-
-var isPng = function(name) {
-	return name.match(/png$/i)
-}
-
 var imagePath;
 
 $(document).ready(function() {
@@ -196,12 +188,15 @@ $(function() {
 
 <!-- form 전송 -->
 <script type="text/javascript">
+function submitForm() {
+	$("#modify_imagePath").val(imagePath);
+	document.getElementById("modify_fileForm").submit();	
+}
 
+/* 
 $(document).ready(function() {
 	var url = "${pageContext.servletContext.contextPath }/${ authUser.id}/tour/modify";
 
-	$("#modify_imagePath").val(imagePath);
-	/* document.getElementById("modify_fileForm").submit(); */
 	
 	$("#modify_add").click(function(){
 		var formData = $("#modify_fileForm").serialize();
@@ -210,12 +205,13 @@ $(document).ready(function() {
 			url: url,
 			data: formData,
 		}).done(function(data) {
+		
+			alert(data);
 			
 		});
 	});
 });
-
-	
+ */
 
 	
 </script>
@@ -230,6 +226,14 @@ $(function() {
 	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+"${tour.mainPhoto }");
 
 });
+	
+	
+	var refreshHeaderImage = function(mainPhoto) {
+		console.log("refreshHeaderImage");
+		$("div#tour_main_header").css("background-color", "transparent");
+		$("div#header").css("background-color", "transparent");
+		$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
+	}
 </script>
 
 <!-- EDIT 버튼 클릭 시 -->
@@ -243,6 +247,34 @@ function editForm() {
 };
 </script>
 
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var idx = ${tourIdx }
+	
+	 $.ajax({
+			url: "/breezer/api/tourheader",
+			type: "post",
+			dataType: "json",
+			data: "idx=" + idx,
+			success: function( response ) {
+				if( response.result != "success" ) {
+					console.log( response.message );
+					alert("죄송합니다.\n서비스 점검중입니다.");
+					return;
+				}
+
+				console.log(response.data);
+				$("#edit_title_area").val(response.data.title);
+				$("#edit_startDate").val(response.data.startDate);
+				$("#edit_endDate").val(response.data.endDate);
+				refreshHeaderImage(response.data.mainPhoto);
+			}
+		});
+});
+
+</script>
 
 
 
@@ -263,11 +295,11 @@ function editForm() {
 				
 				<!-- 센터 구간 -->
 				<div class="edit_tourAdd_center">
-					<input type="text" id="edit_title_area" value="${tour.title }" name="title" readonly><br><br><br>
+					<input type="text" id="edit_title_area" name="title" readonly><br><br><br>
 				
 					<div class="edit_tourDate">
-						<input type="text" id="edit_startDate" value="${tour.startDate }" name="startDate" readonly>
-						<input type="text" id="edit_endDate" value="${tour.endDate }" name="endDate" readonly>
+						<input type="text" id="edit_startDate" name="startDate" readonly>
+						<input type="text" id="edit_endDate" name="endDate" readonly>
 					</div>
 				</div>
 				
@@ -275,7 +307,7 @@ function editForm() {
 			
 			
 			<!-- MODIFY FORM -->
-			<form id="modify_fileForm" class="modify_addform" method="post" action="">	
+			<form id="modify_fileForm" class="modify_addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/modify">	
 
 				<!-- 왼쪽 구간 -->
 				<div class="modify_tourAdd_left">
@@ -303,7 +335,7 @@ function editForm() {
 				
 				<!-- 오른쪽 구간 -->
 				<div class="modify_tourAdd_right">
-					<input type="button" id="modify_add" value="SAVE"><br><br><br>
+					<input type="button" id="modify_add" value="SAVE" onClick="submitForm()"><br><br><br>
 					<input type="button" id="modify_leave" value="LEAVE" onClick="location.href='/breezer'">		
 				</div>
 				

@@ -300,7 +300,7 @@ function submitForm() {
 				
 				<!-- 오른쪽 구간 -->
 				<div class="tourAdd_right">
-					<input type="button" id="add" value="SAVE" onclick="submitForm()"><br><br><br>
+					<input type="button" id="add" value="SAVE" onClick="submitForm()"><br><br><br>
 					<input type="button" id="leave" value="LEAVE" onClick="location.href='/breezer'">		
 				</div>
 				
