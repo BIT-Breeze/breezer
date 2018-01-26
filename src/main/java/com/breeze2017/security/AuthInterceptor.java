@@ -22,6 +22,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//1. hanlder 종류 확인
 		if( handler instanceof HandlerMethod == false ) {
+			System.out.println("handler is not instanceof HandlerMethod -> pass");
 			return true;
 		}
 		
@@ -43,6 +44,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//5. @Auth가 안붙어 있는 경우
 		if( auth == null ) {
+			System.out.println("@Auth is not exist -> pass");
 			return true;
 		}
 		
@@ -50,12 +52,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		
 		if( session == null ) { // 인증이 안되어 있음
+			System.out.println("authentication fail -> session is null ");
 			response.sendRedirect( request.getContextPath() + "/login" );
 			return false;
 		}
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if( authUser == null ) { // 인증이 안되어 있음
+			System.out.println("authentication fail -> authUser is null ");
 			response.sendRedirect( request.getContextPath() + "/login" );
 			return false;
 		}
@@ -65,6 +69,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//id가 존재하지 않는 경우 
 		if (authUser.getId() == null) {
+			System.out.println("authentication fail -> id is null");
 			response.sendRedirect(request.getContextPath() + "/login");
 			return false;
 		}
