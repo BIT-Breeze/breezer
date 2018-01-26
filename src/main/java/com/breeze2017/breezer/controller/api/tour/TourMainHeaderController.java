@@ -3,13 +3,17 @@ package com.breeze2017.breezer.controller.api.tour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.tour.TourMainHeaderService;
 import com.breeze2017.breezer.vo.TourVo;
+import com.breeze2017.security.Auth;
 
 @Controller("tourMainHeaderAPIController")
 @RequestMapping("/api/tourheader")
@@ -20,39 +24,30 @@ public class TourMainHeaderController {
 
 	@ResponseBody
 	@RequestMapping("")
-	public JSONResult getTourInfo(
-			@RequestParam (value="idx", required=false) long tourIdx,
-			Model model
-			) {
-			
-		System.out.println("controller idx : " + tourIdx);
-			
+	public JSONResult getTourInfo( @RequestParam (value="idx", required=false) long tourIdx ) {
+		System.out.println("== TourMainHeaderController getTourInfo ==");	
+
 		TourVo tour = tourMainHeaderService.getTourInfo(tourIdx);
-		System.out.println("tour >> " + tour);
-		/*System.out.println("aaaa : " + tour.toString());*/
-			
+
 		return JSONResult.success(tour);
 	}
 	
 	
-	
-	
-	
-	/*	@Auth
-	@ResponseBody
-	@RequestMapping(value="tour/modify", method=RequestMethod.POST)
-	public String tourModify( @ModelAttribute TourVo vo, @PathVariable String id) {
-		System.out.println(">> TourAddController tour/modify");
+/*	@ResponseBody
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String tourModify( @ModelAttribute TourVo vo ) {
+		System.out.println("== TourMainHeaderController modify ==");
+		
+		System.out.println("before modify vo : " + vo );
 
-		vo.setUserId(id);
+		TourVo tour = new TourVo();
+		tourMainHeaderService.modify(vo);
 		
-		System.out.println("modify vo : " + vo );
+		tour = tourMainHeaderService.getModifiedValue();
 		
-		tourAddService.modify(vo);
-
-		System.out.println("after vo :" + vo );
+		System.out.println("after modify vo :" + vo );
 		
-		return "";
+		return JSONResult.success(object);
 		
 	}*/
 

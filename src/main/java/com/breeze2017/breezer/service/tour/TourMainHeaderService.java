@@ -13,8 +13,11 @@ public class TourMainHeaderService {
 	private TourMainHeaderDao tourMainHeaderDao;
 	
 	public TourVo getTourInfo(long tourIdx) {
-		System.out.println("service : " + tourIdx);
 		return tourMainHeaderDao.getTourInfo(tourIdx);
 	}
 	
+	public boolean modify(TourVo vo) {
+		System.out.println("modify service!!!");
+		return tourMainHeaderDao.modify(vo) == 1;
+	}
 }
