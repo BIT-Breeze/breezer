@@ -18,6 +18,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		Object handler)
 		throws Exception {
 		
+		System.out.println("====== AuthInterceptor ======");
+		
 		//1. hanlder 종류 확인
 		if( handler instanceof HandlerMethod == false ) {
 			return true;
@@ -70,21 +72,23 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//현재 주소를 가져온다 
 		String url = request.getRequestURL().toString();
-		System.out.println("url : "+url);
+		//System.out.println("url : "+url);
 
 		// '/' 로 주소를 분리한다 
 		String[] array;
 		array = url.split("/");
 
 		// 현재 세션의 id와 입력된 주소창의 id를 가져온다 
-		System.out.println("array[4] : "+array[4]);
-		System.out.println(authUser.getId());
+		//System.out.println("array[4] : "+array[4]);
+		//System.out.println(authUser.getId());
 		String urlId = array[4];
 
 		// 현재 세션의 id와 입력된 주소창의 id가 같으면 true, 다르면 false 
 		if (urlId.equals(authUser.getId())) {
+			System.out.println("-> authentication success ");
 			return true;
 		} else {
+			System.out.println("-> authentication fail ");
 			response.sendRedirect(request.getContextPath() + "/" + array[4]);
 			return false;
 		}
