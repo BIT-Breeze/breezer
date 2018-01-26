@@ -18,12 +18,12 @@ public class UserLoginService {
 		
 		if ( getVo != null) {
 			// 있으면 token, expiresIn 을 업데이트
-			System.out.println("UserLoginService fbId is already exist");
+			System.out.println("UserLoginService - fbId is already exist");
 			userLoginDao.resetByFbId(getVo);
 			return getVo;
 		} else {
 			// 없으면 joinMessage
-			System.out.println("UserLoginService fbId is not exist - join");
+			System.out.println("UserLoginService - fbId is not exist - join");
 			userLoginDao.joinUser(vo);
 			return vo;
 		}
