@@ -31,7 +31,7 @@ public class UserMainDao {
 		
 		return result; 
 	}
-
+	// 자기 투어 가져오기 
 	public List<TourVo> getTours(String id, Long startNo) {
 		
 		System.out.println("UserMainDao- getTours with 2 params");
@@ -39,7 +39,7 @@ public class UserMainDao {
 		map.put("id", id);
 		map.put("startNo", startNo);
 		List<TourVo> result = sqlSession.selectList("user.gettours", map);
-		
+		System.out.println(result);
 		return result;
 	}
 	

@@ -42,7 +42,12 @@
 </style>
 <script>
 
-var countries = stringFormat();
+var id;
+var tours;
+var countries;
+var numOfcountries
+
+
 
 $(function(){
 	
@@ -52,7 +57,32 @@ $(function(){
 
 	});  // 사이드 내비 토글 
 	
+	console.log("${authUser.id}")
+	
+	// 유저 인포 가져오기 
+	$.ajax({
+		
+		url:"/breezer/"+ "${authUser.id}" +"/sideNavi",
+		type:"get",
+		dataType:"json",
+		data:"",
+		//response data
+		success: function( response ){
+			if( response.result != "success" ){
+				console.log( response.message );
+				return;				
+			}
+			
+			console.log(response.data.id + "sideNav ajax 확인")
+			console.log(response.data.numOfcountries + "sideNav ajax 확인")
+			console.log(response.data.countries + "sideNav ajax 확인")
+			
+		} //success
+	}); //ajax			
+	
+	
 });
+
 
 </script>
 </head>
@@ -122,6 +152,12 @@ $(function(){
         <li><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
         <li class="active"><a href="${pageContext.servletContext.contextPath }/recommend/">위치검색</a></li>        
         </c:when>
+        
+        <c:otherwise>
+        <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
+        <li><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
+        <li><a href="${pageContext.servletContext.contextPath }/recommend/">위치검색</a></li>        
+        </c:otherwise>
         
       </c:choose>
       </ul><br>

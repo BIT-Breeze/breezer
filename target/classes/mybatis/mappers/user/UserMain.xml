@@ -39,7 +39,7 @@
 	<select id="gettours1" parameterType="map" resultType="tourvo">
 		<![CDATA[
 		
-		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
+		select title, idx, startDate, mainPhoto, favorite, postCount, ifnull(endDate, '미정') as endDate 
 		 from TB_TOUR 
 		  where userId = #{id } and secret = 0 order by idx desc limit #{ startNo } , 8
 			
@@ -49,7 +49,8 @@
 	<select id="gettours" parameterType="map" resultType="tourvo">
 		<![CDATA[
 		
-		select title, idx, startDate, mainPhoto, ifnull(endDate, '미정') as endDate 
+		select title, idx, startDate, mainPhoto, favorite, postCount,
+		 case secret when 0 then '공개' else '비공개' end as 'secret', ifnull(endDate, '미정') as endDate 
 		 from TB_TOUR 
 		  where userId = #{id } order by idx desc limit #{ startNo } , 8
 			

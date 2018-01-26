@@ -22,6 +22,7 @@ import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.user.UserMainService;
 import com.breeze2017.breezer.vo.TourVo;
 import com.breeze2017.breezer.vo.UserVo;
+import com.breeze2017.security.Auth;
 import com.breeze2017.security.AuthUser;
 
 @Controller
@@ -38,29 +39,29 @@ public class UserMainController {
 		System.out.println("====== UserMainController : /{id} ======");				
 		
 		if(authUser.getId().equals(id)) {
-		UserVo uservo = userMainService.getUserInfo(authUser.getId());
-
-		List<String> list = userMainService.getCountries(authUser.getId());
-		int numOfCountries = list.size();
-		String countries = userMainService.countCountries(list);
-		uservo.setNumOfcountries(numOfCountries);
-		uservo.setCountries(countries);
-		model.addAttribute("uservo",uservo);
-		model.addAttribute("uservo2",uservo);
+			UserVo uservo = userMainService.getUserInfo(authUser.getId());
+	
+			List<String> list = userMainService.getCountries(authUser.getId());
+			int numOfCountries = list.size();
+			String countries = userMainService.countCountries(list);
+			uservo.setNumOfcountries(numOfCountries);
+			uservo.setCountries(countries);
+			model.addAttribute("uservo",uservo);
+			model.addAttribute("uservo2",uservo);
 
 		} else {
 
-		UserVo uservo = userMainService.getUserInfo(authUser.getId());
-		UserVo uservo2 = userMainService.getOtherUserInfo(id);
-		List<String> list = userMainService.getCountries(authUser.getId());
-		int numOfCountries = list.size();
-		String countries = userMainService.countCountries(list);
-		uservo.setNumOfcountries(numOfCountries);
-		uservo.setCountries(countries);
+			UserVo uservo = userMainService.getUserInfo(authUser.getId());
+			UserVo uservo2 = userMainService.getOtherUserInfo(id);
+			List<String> list = userMainService.getCountries(authUser.getId());
+			int numOfCountries = list.size();
+			String countries = userMainService.countCountries(list);
+			uservo.setNumOfcountries(numOfCountries);
+			uservo.setCountries(countries);
 		
 			if(uservo2.getId() != null) {
-			model.addAttribute("uservo", uservo);
-			model.addAttribute("uservo2", uservo2);
+				model.addAttribute("uservo", uservo);
+				model.addAttribute("uservo2", uservo2);
 			} else {
 				model.addAttribute("uservo",uservo);
 				model.addAttribute("uservo2",uservo);				
@@ -111,6 +112,7 @@ public class UserMainController {
 		}
 	}
 	
+
 	@ResponseBody
 	@RequestMapping(
 			value = "/tourdelete",
@@ -121,7 +123,7 @@ public class UserMainController {
 							 @PathVariable String id,
 							 Model model) {
 		// @authUser 인자로 넣고 자기 투어 아니면 못지우게 
-		if(authUser.getId().equals(id)) {
+
 		boolean bSuccess = 
 				userMainService.tourDelete(idx);
 		System.out.println(bSuccess);
@@ -129,10 +131,7 @@ public class UserMainController {
 		
 		return JSONResult.success( bSuccess ? idx : -1);
 		
-		} else {						
-			
-			return JSONResult.fail("타인의 게시글을 지울 수 없습니다.");
-		}
+
 	}
 			
 }

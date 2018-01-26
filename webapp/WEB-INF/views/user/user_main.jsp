@@ -41,40 +41,27 @@ if(authUser == uservo){
 }
 console.log(userId);
 
-
-/* 보통 세 가지 형태로 사용한다. 
-var messageBox = function(title, message, callback){
-	$( "#dialog-message" ).attr( "title", title);
-	// 클래스의 특정 속성에 값을 준다. 두번째 인자가 없으면 값을 가져온다.
-	// attr() 은 속성과 관련된 작업을 한다. 
-	1. attr(name, value)
-	2. attr(name, function(index, attr{}))
-	3. attr(object)
-	
-}
-	*/
-
 var render0 = function( tourvo, mode ){
-	//console.log(tourvo.idx);	
-
+	// 자기 투어를 그려주는 렌더링 함수
 	var id = userId;
-	/*
-	var html = 	"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "' align='center'>"+ tourvo.title + 
-				
-				"<a href='${pageContext.servletContext.contextPath }/" + id +"/tour?idx=" + tourvo.idx + "'>"+ 						
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='280px' height='160px'>"
-				 + "</a><br>" +	"start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-				 " &nbsp<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>x</button>" + "</div>" ;
-	*/
+	console.log(tourvo)	
+	
+	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" + 
+					"<div class='panel panel-info'>" + 
+						"<div class='panel-heading'>" + "<div class='row'>" + 
+							"<div class='col-sm-9'><h5>" + tourvo.title + "</h5></div>" +
+							"<div class='col-sm-3'>" + 
+								"<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>x</button></div>" + 
+								"</div> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
+								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + " &nbsp공개여부: " + tourvo.secret +"</div>" + 
+						"<div class='panel-body' align='left'>" +				
+							"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+							"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +
+					"</div>"+
+				"</div>"
 		
-	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'> <div class='panel panel-info'>" + 
-				"<div class='panel-heading'><div class='row'><div class='col-sm-9'><h5>" + tourvo.title + "</h5></div>" +
-				"<div class='col-sm-3'> <button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
-				"'>x</button></div>" + "</div> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "</div>" + 
-				"<div class='panel-body' align='left'>" +				
-				"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +				
-				"</div></div>"
+	//var html = 
+	
 	
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
@@ -84,26 +71,29 @@ var render0 = function( tourvo, mode ){
 }
 	
 var render2 = function( tourvo, mode ){
-		//console.log(tourvo.idx);	
-
+		//타인 페이지에서 투어를 그려주는 렌더링 함수, 삭제 버튼, 공개여부가 없음 	
 		var id = userId;
-		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'> <div class='panel panel-info'>" + 
-		"<div class='panel-heading'><h4>" + tourvo.title + "</h4>" +
-		"<br> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "</div>" + 
-		"<div class='panel-body' align='left'>" +				
-		"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-		"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +				
-		"</div></div>"
+		console.log(id)
+		console.log(tourvo.idx)
+		
+		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" + 
+						"<div class='panel panel-info'>" + 
+							"<div class='panel-heading'>" + "<div class='row'>" + 
+								"<div class='col-sm-9'><h5>" + tourvo.title + "</h5></div>" +
+								"<div class='col-sm-3'>" + "</div></div><br>" +
+								"start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
+								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + "</div>" + 
+							"<div class='panel-body' align='left'>" +				
+								"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+								"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +
+						"</div>"+
+					"</div>"
 
-					 
-		console.log(html);
-		console.log(typeof(html));	
 		if( mode == true ){
 			$( "#list-tour" ).prepend(html);		
 		} else {		
 			$( "#list-tour" ).append(html);	
 		}
-
 }
 
 var renderNoTour = function(){
@@ -202,7 +192,7 @@ $(function(){
  					}
 
  				    	$( "#list-tour div[no=" + response.data + "]" ).remove();
- 						//$('#myModal').modal("hide");
+ 						$('#myModal').modal("hide");
  						//$("#myModal .close").click()
  				},
 				error: function( xhr, status, e){
@@ -304,7 +294,7 @@ $(function(){
 
 			</div>			
 			
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+			<div class="modal" id="myModal" tabindex="-1" role="dialog" 
 	   			 aria-labelledby="myModalLabel" aria-hidden="true">
 					   <div class="modal-dialog">
 					      <div class="modal-content">
