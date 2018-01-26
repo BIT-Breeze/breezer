@@ -168,16 +168,17 @@ $(function() {
 		alert("Error the public, private hover status!!");
 	}
 	
-	
 });
 </script>
 
-<!-- form 전송 -->
+<!-- form 전송 (EDIT 후 SAVE 눌렀을 때)-->
 <script type="text/javascript">
 function submitForm() {
 	//$("#modify_imagePath").val(imagePath);
 	//document.getElementById("modify_fileForm").submit();
-	console.log("====== submitForm() ======")
+	var idx = ${tourIdx }
+	console.log(idx)
+	
 	$("#modify_imagePath").val(imagePath);
 	var formData = $("#modify_fileForm").serialize();
 	
@@ -185,20 +186,24 @@ function submitForm() {
 		url: "/breezer/api/tourheader/modify",
 		type: "post",
 		dataType: "json",
+		/* data: JSON.stringify(formData), */
 		data: formData,
 		success: function( response ) {
-			if( response.result != "success" ) {
-				console.log( response.message );
-				alert("modify 죄송");
-				return;
-			}
-		
+			if( response.result != "success" ) { 
+				console.log( response.message ); 
+				alert("modify 죄송"); return; }
+			
+			console.log("수정 완료 후");
 			console.log(response.data);
 			
-			/* ajax success시 컴포넌트 복구해주고 값을 세팅 
-				return 되어오는 값이 vo 객체이면 된다.
-			*/
+			$("#edit_title_area").val(response.data.title);
+			$("#edit_startDate").val(response.data.startDate);
+			$("#edit_endDate").val(response.data.endDate);
 			
+			$(".editForm").show();
+			$(".modify_addform").css("display", "none");
+			
+		
 		}
 	});
 }

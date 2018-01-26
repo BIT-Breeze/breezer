@@ -17,10 +17,8 @@ public class TourMainHeaderDao {
 		return vo;
 	}
 	
-	
 	public int modify(TourVo vo) {
 		System.out.println("modify DAO DAO DAO!!!!");
-		return sqlSesstion.update("tour.modify", vo);
+		return sqlSesstion.update("tourMainInfo.modify", vo);
 	}
-
 }
