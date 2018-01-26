@@ -463,7 +463,7 @@
 	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">
 		
 		<!-- side_navi import -->
-		<div id="side_navi" style="position: fixed; width: 100%; top: 100px;" >
+		<div id="side_navi" style="position: fixed; top: 100px;" >
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
 			</c:import>
