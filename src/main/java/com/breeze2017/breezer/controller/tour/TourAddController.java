@@ -27,6 +27,8 @@ public class TourAddController {
 		return "tour/tour_add";
 	}
 	
+	
+	// 값 DB에 insert하고 page는 tourmain page로 
 	@Auth
 	@RequestMapping(value="tour/add", method=RequestMethod.POST)
 	public String tourAdd( @ModelAttribute TourVo vo, @PathVariable String id ) {
@@ -36,63 +38,14 @@ public class TourAddController {
 		System.out.println(id);
 		vo.setUserId(id);
 		tourAddService.insertMessage(vo);
-		
+
 		System.out.println("current idx >> " + vo.getIdx());
 		
 		return "redirect:/{id}/tour?idx="+vo.getIdx();
 	}
 
 	
-	@Auth
-	@ResponseBody
-	@RequestMapping(value="tour/modify", method=RequestMethod.POST)
-	public String tourModify( @ModelAttribute TourVo vo, @PathVariable String id) {
-		System.out.println(">> TourAddController tour/modify");
 
-		vo.setUserId(id);
-		
-		System.out.println("modify vo : " + vo );
-		
-		tourAddService.modify(vo);
-
-		System.out.println("after vo :" + vo );
-		
-		return "";
-		
-	}
-
-	
-	
-	
-	
-/*	
-	@Auth
-	@RequestMapping(value="tour/modify", method=RequestMethod.POST)
-	public String tourModify( 
-			@RequestParam(value="title", required=false) String title,
-			@RequestParam(value="startDate", required=false) String startDate,
-			@RequestParam(value="endDate", required=false) String endDate,
-			@RequestParam(value="idx", required=false) Long idx,
-			@RequestParam(value="mainPhoto", required=false) String mainPhoto,
-			Model model
-			) {
-		
-		System.out.println(">> TourAddController tour/modify");
-		
-		TourVo vo = new TourVo();
-		vo.setTitle(title);
-		vo.setStartDate(startDate);
-		vo.setEndDate(endDate);
-		vo.setIdx(idx);
-		vo.setMainPhoto(mainPhoto);
-
-		System.out.println(vo);
-		
-		tourAddService.modify(vo);
-		
-		return "redirect:/{id}/tour?idx="+vo.getIdx();
-		
-	}*/
 }
 
 

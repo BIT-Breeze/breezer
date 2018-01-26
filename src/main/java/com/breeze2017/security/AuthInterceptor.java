@@ -18,8 +18,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		Object handler)
 		throws Exception {
 		
+		System.out.println("====== AuthInterceptor ======");
+		
 		//1. hanlder 종류 확인
 		if( handler instanceof HandlerMethod == false ) {
+			System.out.println("handler is not instanceof HandlerMethod -> pass");
 			return true;
 		}
 		
@@ -41,6 +44,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//5. @Auth가 안붙어 있는 경우
 		if( auth == null ) {
+			System.out.println("@Auth is not exist -> pass");
 			return true;
 		}
 		
@@ -48,12 +52,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		
 		if( session == null ) { // 인증이 안되어 있음
+			System.out.println("authentication fail -> session is null ");
 			response.sendRedirect( request.getContextPath() + "/login" );
 			return false;
 		}
 		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if( authUser == null ) { // 인증이 안되어 있음
+			System.out.println("authentication fail -> authUser is null ");
 			response.sendRedirect( request.getContextPath() + "/login" );
 			return false;
 		}
@@ -63,6 +69,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//id가 존재하지 않는 경우 
 		if (authUser.getId() == null) {
+			System.out.println("authentication fail -> id is null");
 			response.sendRedirect(request.getContextPath() + "/login");
 			return false;
 		}
@@ -70,21 +77,23 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		//현재 주소를 가져온다 
 		String url = request.getRequestURL().toString();
-		System.out.println("url : "+url);
+		//System.out.println("url : "+url);
 
 		// '/' 로 주소를 분리한다 
 		String[] array;
 		array = url.split("/");
 
 		// 현재 세션의 id와 입력된 주소창의 id를 가져온다 
-		System.out.println("array[4] : "+array[4]);
-		System.out.println(authUser.getId());
+		//System.out.println("array[4] : "+array[4]);
+		//System.out.println(authUser.getId());
 		String urlId = array[4];
 
 		// 현재 세션의 id와 입력된 주소창의 id가 같으면 true, 다르면 false 
 		if (urlId.equals(authUser.getId())) {
+			System.out.println("-> authentication success ");
 			return true;
 		} else {
+			System.out.println("-> authentication fail ");
 			response.sendRedirect(request.getContextPath() + "/" + array[4]);
 			return false;
 		}

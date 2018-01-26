@@ -16,9 +16,5 @@ public class TourAddService {
 		return tourAddDao.insert(vo) == 1;
 	}
 	
-	public boolean modify(TourVo vo) {
-		System.out.println("update service!!!!!!!!!!");
-		return tourAddDao.modify(vo) == 1;
-	}
 	
 }

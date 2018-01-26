@@ -24,6 +24,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
 		Object handler
 		)
 		throws Exception {
+		System.out.println("====== UserLoginService ======");
 		
 
 		// 요청 url로 부터 변수 데이터를 받는다 
@@ -43,7 +44,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
 		vo.setPictureUrl(pictureUrl);
 		
 		// 받은 데이터로부터 user 정보를 가져온다 
-		System.out.println("auth/user/login vo = " + vo );
+		// System.out.println("auth/user/login vo = " + vo );
 		UserVo userVo = userLoginService.loginMessage(vo);
 		
 		// userVo 가 null 이면 id가 존재하지 않으므로 다시 로그인 페이지로 보낸다 

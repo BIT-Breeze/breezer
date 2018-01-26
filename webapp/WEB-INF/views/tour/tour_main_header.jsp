@@ -52,14 +52,6 @@ $(function() {
 <!-- 이미지 파일 업로더 onchange -->
 <script type="text/javascript">
 
-var isJpg = function(name) {
-	return name.match(/jpg$/i)
-}
-
-var isPng = function(name) {
-	return name.match(/png$/i)
-}
-
 var imagePath;
 
 $(document).ready(function() {
@@ -67,13 +59,6 @@ $(document).ready(function() {
 
 	$('#modify_fileUpload').on('change', function() {
 
-		var filename = $.trim(file.val());
-		
-		if(!(isJpg(filename) || isPng(filename))) {
-			alert('Please browse a JPG/PNG file to upload...');
-			return;
-		}
-		
 		var formData = new FormData($('#modify_fileForm')[0]);
 		$.ajax({
 			url: '/breezer/upload/echofile',
@@ -196,40 +181,46 @@ $(function() {
 
 <!-- form 전송 -->
 <script type="text/javascript">
-
-$(document).ready(function() {
-	var url = "${pageContext.servletContext.contextPath }/${ authUser.id}/tour/modify";
-
+function submitForm() {
+	//$("#modify_imagePath").val(imagePath);
+	//document.getElementById("modify_fileForm").submit();
+	console.log("====== submitForm() ======")
 	$("#modify_imagePath").val(imagePath);
-	/* document.getElementById("modify_fileForm").submit(); */
+	var formData = $("#modify_fileForm").serialize();
 	
-	$("#modify_add").click(function(){
-		var formData = $("#modify_fileForm").serialize();
-		$.ajax({
-			type: "POST",
-			url: url,
-			data: formData,
-		}).done(function(data) {
+	$.ajax({
+		url: "/breezer/api/tourheader/modify",
+		type: "post",
+		dataType: "json",
+		data: formData,
+		success: function( response ) {
+			if( response.result != "success" ) {
+				console.log( response.message );
+				alert("modify 죄송");
+				return;
+			}
+		
+			console.log(response.data);
 			
-		});
+			/* ajax success시 컴포넌트 복구해주고 값을 세팅 
+				return 되어오는 값이 vo 객체이면 된다.
+			*/
+			
+		}
 	});
-});
-
-	
-
+}
 	
 </script>
 
-
 <!-- 대문 사진 가져오기 -->
 <script type="text/javascript">
-$(function() {
 
+var refreshHeaderImage = function(mainPhoto) {
 	$("div#tour_main_header").css("background-color", "transparent");
 	$("div#header").css("background-color", "transparent");
-	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+"${tour.mainPhoto }");
+	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
+}
 
-});
 </script>
 
 <!-- EDIT 버튼 클릭 시 -->
@@ -243,7 +234,43 @@ function editForm() {
 };
 </script>
 
+<!-- tour add 했을 때 tour main으로 value값 가져오기 -->
+<script type="text/javascript">
 
+$(document).ready(function() {
+	var idx = ${tourIdx }
+	
+	 $.ajax({
+			url: "/breezer/api/tourheader",
+			type: "post",
+			dataType: "json",
+			data: "idx=" + idx,
+			success: function( response ) {
+				if( response.result != "success" ) {
+					console.log( response.message );
+					alert("tour info 죄송.");
+					return;
+				}
+				
+				console.log(response.data)
+				$("#edit_title_area").val(response.data.title);
+				$("#edit_startDate").val(response.data.startDate);
+				$("#edit_endDate").val(response.data.endDate);
+				
+				refreshHeaderImage(response.data.mainPhoto);
+				
+				$("#modify_title_area").val(response.data.title);
+				$("#modify_start-datepicker").val(response.data.startDate);
+				$("#modify_end-datepicker").val(response.data.endDate);
+				$("#idx_value").val(response.data.idx);
+				$("#modify_imagePath").val(response.data.mainPhoto);
+				$("#user_id").val(response.data.userId);
+				
+			}
+		});
+});
+
+</script>
 
 
 <title>Breezer</title>
@@ -263,11 +290,11 @@ function editForm() {
 				
 				<!-- 센터 구간 -->
 				<div class="edit_tourAdd_center">
-					<input type="text" id="edit_title_area" value="${tour.title }" name="title" readonly><br><br><br>
+					<input type="text" id="edit_title_area" name="title" readonly><br><br><br>
 				
 					<div class="edit_tourDate">
-						<input type="text" id="edit_startDate" value="${tour.startDate }" name="startDate" readonly>
-						<input type="text" id="edit_endDate" value="${tour.endDate }" name="endDate" readonly>
+						<input type="text" id="edit_startDate" name="startDate" readonly>
+						<input type="text" id="edit_endDate" name="endDate" readonly>
 					</div>
 				</div>
 				
@@ -275,7 +302,7 @@ function editForm() {
 			
 			
 			<!-- MODIFY FORM -->
-			<form id="modify_fileForm" class="modify_addform" method="post" action="">	
+			<form id="modify_fileForm" class="modify_addform" method="post" action="">	<!-- ${pageContext.servletContext.contextPath }/${ authUser.id}/tour/modify -->
 
 				<!-- 왼쪽 구간 -->
 				<div class="modify_tourAdd_left">
@@ -303,29 +330,24 @@ function editForm() {
 				
 				<!-- 오른쪽 구간 -->
 				<div class="modify_tourAdd_right">
-					<input type="button" id="modify_add" value="SAVE"><br><br><br>
+					<input type="button" id="modify_add" value="SAVE" onClick="submitForm()"><br><br><br>
 					<input type="button" id="modify_leave" value="LEAVE" onClick="location.href='/breezer'">		
 				</div>
 				
 				<!-- 센터 구간 -->
 				<div class="modify_tourAdd_center">
-					<input type="text" id="modify_title_area" value="${tour.title }" name="title" ><br><br><br>
-					<input type="text" id="modify_start-datepicker" value="${tour.startDate }" name="startDate">
-					<input type="text" id="modify_end-datepicker" value="${tour.endDate }" name="endDate"><br><br>
-					<input type="hidden"  id="idx_value" value="${tour.idx }" name="idx">
+					<input type="text" id="modify_title_area" name="title" ><br><br><br>
+					<input type="text" id="modify_start-datepicker" name="startDate">
+					<input type="text" id="modify_end-datepicker" name="endDate"><br><br>
+					
+					<input type="hidden"  id="user_id" name="userId">
+					<input type="hidden"  id="idx_value" name="idx">
 					<input type="hidden"  id="modify_imagePath" value="imagePath" name="mainPhoto">
 					<%-- <input type="hidden"  id="modify_imagePath" value="${tour.mainPhoto }" name="mainPhoto"> --%>
 				</div>
 			</form>
 		</div>
 	</div>
-	
-	
-	
-	
-	
-			
-	
 
 </body>
 </html>
