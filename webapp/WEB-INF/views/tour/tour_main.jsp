@@ -752,6 +752,7 @@
 										var prevDay;
 										
 									    $('#input-date').datepicker({
+									    	autoClose: true,
 									        timepicker: true,
 									        language: 'en',
 										   	dateFormat: 'yyyy-mm-dd',
