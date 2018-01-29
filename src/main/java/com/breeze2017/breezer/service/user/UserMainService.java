@@ -27,14 +27,14 @@ public class UserMainService {
 	private UserMainDao userMainDao;
 	
 	public UserVo getUserInfo(String id) {
-		System.out.println("==UserMainService getUserInfo()==");
+		//System.out.println("==UserMainService getUserInfo()==");
 		UserVo result = userMainDao.getUserInfo(id);		
 
 		return result;		
 	}	
 	
 	public UserVo getOtherUserInfo(String id) {
-		System.out.println("==UserMainService getUserInfo()==");
+		//System.out.println("==UserMainService getUserInfo()==");
 		UserVo result = userMainDao.getOtherUserInfo(id);		
 
 		return result;		
@@ -42,7 +42,7 @@ public class UserMainService {
 		
 	// 자기페이지 보는 쿼리
 	public List<TourVo> getTours(String id, Long startNo){
-		System.out.println("UserMainService - with 2 params");
+		//System.out.println("UserMainService - with 2 params");
 		//System.out.println(id);
 		//System.out.println(startNo);
 		List<TourVo> result = userMainDao.getTours(id, startNo);
@@ -51,7 +51,7 @@ public class UserMainService {
 	}
 	// 다른 사람의 투어를 불러올 때 호출하는 메시지
 	public List<TourVo> getTours1(String id, Long startNo) {
-		System.out.println("UserMainService - with 2 params, other");
+		//System.out.println("UserMainService - with 2 params, other");
 
 		List<TourVo> result = userMainDao.getTours1(id, startNo);
 		return result;
@@ -59,7 +59,7 @@ public class UserMainService {
 
 	public boolean tourDelete(String idx) {
 		int count = userMainDao.tourDelete(idx);
-		System.out.println("count =" + count );
+		//System.out.println("count =" + count );
 		return count == 1;
 		// 하나가 삭제되었다면 true가 리턴되고 삭제가 안 되었다면 false가 리턴된다. 
 	}
@@ -71,27 +71,27 @@ public class UserMainService {
 		File file;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		String visitedDay = sdf.format(new Date());
-		System.out.println(visitedDay);
+		//System.out.println(visitedDay);
 		
 		dir = new File("D:\\bigdata\\breezerLog\\"+authUser);
 		if(dir.exists() == false) {dir.mkdirs();}
 		file = new File("D:\\bigdata\\breezerLog\\"+authUser+"\\"+visitedDay+".txt");
 		if(file.exists() == false) {
-			System.out.println("파일이 존재하지 않습니다.");
+			//System.out.println("파일이 존재하지 않습니다.");
 			file.createNewFile();
 		}
 			try {
 				System.out.println("line 80");
 				FileWriter fw = new FileWriter(file);
 				fw.write(logMessage);
-				System.out.println("쓰기 성공!");
+				//System.out.println("쓰기 성공!");
 				fw.flush();
 				fw.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("파일생성");
+			//System.out.println("파일생성");
 		}
 	// 공개 투어만 세기
 	public Integer getTourNumbers(String id) {

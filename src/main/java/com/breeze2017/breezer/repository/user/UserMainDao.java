@@ -19,7 +19,7 @@ public class UserMainDao {
 	private SqlSession sqlSession;
 	
 	public UserVo getUserInfo( String id ) {
-		System.out.println("===UserMainDao getUserInfo()===");
+		//System.out.println("===UserMainDao getUserInfo()===");
 		UserVo result = sqlSession.selectOne("user.getUserInfo", id);
 		List<String> list = sqlSession.selectList("user.getCountries", id);
 		String countries = list.toString();
@@ -31,7 +31,7 @@ public class UserMainDao {
 	}
 	
 	public UserVo getOtherUserInfo( String id ) {
-		System.out.println("===UserMainDao getUserInfo()===");
+		//System.out.println("===UserMainDao getUserInfo()===");
 		UserVo result = sqlSession.selectOne("user.getOtherUserInfo", id);
 		
 		return result; 
@@ -39,18 +39,18 @@ public class UserMainDao {
 	// 자기 투어 가져오기 
 	public List<TourVo> getTours(String id, Long startNo) {
 		
-		System.out.println("UserMainDao- getTours with 2 params");
+		//System.out.println("UserMainDao- getTours with 2 params");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("startNo", startNo);
 		List<TourVo> result = sqlSession.selectList("user.gettours", map);
-		System.out.println(result);
+		//System.out.println(result);
 		return result;
 	}
 	
 	public List<TourVo> getTours1(String id, Long startNo) {
 		
-		System.out.println("UserMainDao- getTours with 2 params, others");
+		//System.out.println("UserMainDao- getTours with 2 params, others");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("startNo", startNo);
