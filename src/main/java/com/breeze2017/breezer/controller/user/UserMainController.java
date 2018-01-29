@@ -131,9 +131,9 @@ public class UserMainController {
 							 @AuthUser UserVo authUser,	
 							 @PathVariable String id,
 							 Model model) {
-		// @authUser 인자로 넣고 자기 투어 아니면 못지우게 
+
 		if(authUser.getId().equals(id)) {
-			Integer getTotal = userMainService.getTotalCount(id);
+			Integer getTotal = userMainService.getTotalCount(authUser.getId());
 			return JSONResult.success(getTotal);
 		} else {
 			Integer getTourNumbers = userMainService.getTourNumbers(id);
