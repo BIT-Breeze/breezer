@@ -42,9 +42,9 @@ public class SnsMainController {
 	@RequestMapping("/dolike")
 	public JSONResult dolike(
 			@RequestParam("id") String id,
-			@RequestParam("flag") String flag,
-			@RequestParam("type") String type,
-			@RequestParam("idx") long idx ) {
+			@RequestParam("flag") String flag, // up or down
+			@RequestParam("type") String type, // tour or post
+			@RequestParam("idx") long idx ) {  
 		
 		System.out.println("====== /api/sns/dolike ======");
 		System.out.println("id : "+id+", flag : "+flag+", type : "+type+", idx : "+idx);
