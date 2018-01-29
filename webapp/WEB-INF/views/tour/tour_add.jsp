@@ -95,7 +95,7 @@ $(function() {
 	   	clearButton: true,
         language: 'en',
 		showOn: "both", 
-        buttonImage: "/breezer/assets/images/tour/calendar_button.JPG", 
+        buttonImage: "/breezer/assets/images/tour/calendar_button.jpg", 
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -313,6 +313,7 @@ function submitForm() {
 				<div class="tourAdd_center">
 					<input type="text" id="title_area" placeholder="Enter Title" name="title"><br><br><br>
 					<input type="text" id="start-datepicker" placeholder="Start Date" name="startDate">
+					<input type="text" id="wave" value="~" readonly>
 					<input type="text" id="end-datepicker" placeholder="End Date" name="endDate"><br><br>
 					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
 				</div>

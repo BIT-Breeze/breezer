@@ -212,6 +212,14 @@ function submitForm() {
 	
 </script>
 
+<!-- leave 눌렀을 때 전 화면으로 -->
+<script type="text/javascript">
+function leaveForm() {
+	$(".editForm").show();
+	$(".modify_addform").css("display", "none");
+}
+</script>
+
 <!-- 대문 사진 가져오기 -->
 <script type="text/javascript">
 
@@ -239,10 +247,10 @@ function editForm() {
 <script type="text/javascript">
 
 $(document).ready(function() {
-	var idx = ${tourIdx }
+	var idx = ${tourIdx };
 	
 	 $.ajax({
-			url: "/breezer/api/tourheader",
+			url: "/breezer/${id}/api/tourheader",
 			type: "post",
 			dataType: "json",
 			data: "idx=" + idx,
@@ -332,7 +340,7 @@ $(document).ready(function() {
 				<!-- 오른쪽 구간 -->
 				<div class="modify_tourAdd_right">
 					<input type="button" id="modify_add" value="SAVE" onClick="submitForm()"><br><br><br>
-					<input type="button" id="modify_leave" value="LEAVE" onClick="location.href='/breezer'">		
+					<input type="button" id="modify_leave" value="LEAVE" onClick="leaveForm()">		
 				</div>
 				
 				<!-- 센터 구간 -->
