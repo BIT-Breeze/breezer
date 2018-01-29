@@ -23,7 +23,7 @@
 		]]>
 	</select>
 
-	<select id="deletePost" parameterType="postvo">
+	<delete id="deletePost" parameterType="postvo">
 		<![CDATA[
 		delete
 		  from TB_POST
@@ -31,7 +31,7 @@
    		   and tourIdx = #{tourIdx}
 		   and idx = #{idx}
 		]]>
-	</select>
+	</delete>
 
 </mapper>
 

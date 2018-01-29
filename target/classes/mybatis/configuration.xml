@@ -21,7 +21,7 @@
 		<mapper resource="mybatis/mappers/tour/TourAdd.xml"/>
 		<mapper resource="mybatis/mappers/user/UserMain.xml"/>
 		
-		<mapper resource="mybatis/mappers/post/PostAdd.xml"/>
+		<mapper resource="mybatis/mappers/post/Post.xml"/>
 		
 		<mapper resource="mybatis/mappers/tour/TourMap.xml"/>
 		<mapper resource="mybatis/mappers/recommend/RecommendAttraction.xml"/>

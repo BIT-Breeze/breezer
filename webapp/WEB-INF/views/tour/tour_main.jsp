@@ -14,16 +14,16 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  		<!---------------------------------------------------- CSS 끝 ------------------------------------------------------->
-  		<!------------------------------------------------------------------------------------------------------------------->
+	  		<!---------------------------------------------------- CSS 끝 ------------------------------------------------------->
+	  		<!------------------------------------------------------------------------------------------------------------------->
   		
   		<!------------------------------------------------------------------------------------------------------------------->
   		<!----------------------------------------------------- JS 시작 ----------------------------------------------------->  		
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
-  		<!---------------------------------------------------- JS 끝 ------------------------------------------------------->
-  		<!------------------------------------------------------------------------------------------------------------------>
+	  		<!---------------------------------------------------- JS 끝 ------------------------------------------------------->
+	  		<!------------------------------------------------------------------------------------------------------------------>
 		
 		<!---------------------------------------------------------------------------->
 		<!------------------------------ datePicker 시작 ----------------------------->
@@ -31,10 +31,35 @@
         <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
         <!-- Include English language -->
         <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
-        <!------------------------------ datePicker 끝 ------------------------------->
-		<!---------------------------------------------------------------------------->
+	        <!------------------------------ datePicker 끝 ------------------------------->
+			<!---------------------------------------------------------------------------->
         
 		<script type="text/javascript">
+		
+		var datepicker;
+		
+		var clearDialog = function () {
+
+			$("#input-location").val("");
+			$("#input-lat").val("");
+			$("#input-lot").val("");
+			$("#input-locale").val("");
+			$("#input-date").val("");
+			$("#input-content").val("");
+			$("#input-category").val("01");
+			$("#input-price").val("");
+			$("#input-score").val("");
+			$("#imagePath").val("");
+			$("#input-tourIdx").val("");
+			$("#fileUpload").val("");
+			$('#multiImgContainer').html('');
+			
+			var $star = $(".input-score"),
+		    $result = $star.find("output>b");
+			$result.text("0");
+			var $checked = $star.find(":checked");
+			$checked.prop('checked', false);
+		}
 
 		/* --------------------------------------------------------------------------- */
 		/* ---------------------------- messageBox 시작 ------------------------------ */
@@ -52,8 +77,8 @@
 				}
 			}); 
 		}
-		/* ------------------------------------------------------------------------- */
-		/* ---------------------------- messageBox 끝 ------------------------------ */
+			/* ------------------------------------------------------------------------- */
+			/* ---------------------------- messageBox 끝 ------------------------------ */
 
 		/* --------------------------------------------------------------------------------------------- */
 		/* ---------------------------- Post & Tour Navi 렌더링 함수 시작 ------------------------------ */
@@ -77,7 +102,8 @@
 						"<p><strong>지출비용:</strong> "+post.price+"</p><br>"+
 						"<p><strong>평점:</strong> "+post.score+"</p><br>"+
 						"<p><strong>추천수:</strong> "+post.favorite+"</p><br>"+
-						"<a href='' data-no='"+post.idx+"'>삭제</a>"+
+						"<a id='post-delete-"+post.idx+"' href='' data-no='"+post.idx+"'>삭제</a>"+
+						"<a id='post-modify-"+post.idx+"' href='' data-no='"+post.idx+"'>수정</a>"+
 					"</div>" +
 				"</li></div>";
 			if(index === 0){
@@ -93,10 +119,16 @@
 			
 			
 		}
-		/* ---------------------------- Post & Tour Navi 렌더링 함수 끝 ------------------------------ */
-		/* ------------------------------------------------------------------------------------------- */
+			/* ---------------------------- Post & Tour Navi 렌더링 함수 끝 ------------------------------ */
+			/* ------------------------------------------------------------------------------------------- */
 
 		var fetchAllPost = function(){
+			
+			$("#PostBox").remove();
+			$("#tour_navigation ul").remove();
+			
+			$("#PostList").append("<ul id='PostBox'></ul>");
+			$("#tour_navigation").append("<ul></ul>");
 			
 			$.ajax({
 				url: "${pageContext.servletContext.contextPath }/${userId}/api/tour?idx=${tourIdx}",
@@ -137,83 +169,16 @@
 			}
 			return false;
 		};
-		/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 끝 ---------------- */
-		/* --------------------------------------------------------------------------- */
+			/* ----------------- 파일업로드 위한 변수 선언 & 포맷 제한 끝 ---------------- */
+			/* --------------------------------------------------------------------------- */
 		
 		var mapDialog;
 		
 		$(function () {
-		    
-		    $('#modifyTour').click(function(){
-				$('.toModify').hide();
-				$('.modified').show();
-			});
-		    
-		    $('#completeModifyTour').click(function(){
-				$('.modified').hide();
-				$('.toModify').show();
-			});
-		    
-		    /* $("#PostList li a").click(function(event){
-				event.preventDefault();
-
-				var no = $(this).data("no");
-				alert(no);
-		    }); */
-			
-			// live event
-			$(document).on("click", "#PostList li a", function (event) {
-				event.preventDefault();
-				
-				var removeYN = confirm("정말 삭제하시겠습니까?");
-				
-				if(removeYN === true){
-					var idx = $(this).data("no");
-
-					$.ajax({
-						url: "/breezer/${userId}/api/tour/remove/post",
-						type: "post",
-						dataType: "json",
-						data: "idx="+idx+"&tourIdx=${tourIdx}",
-						success: function (response) {
-							if(response.result == "fail"){
-								console.log(response.message);
-								return;
-							}
-							
-							if(response.data == -1){
-								return;
-							}
-							
-							$("#PostBox").remove();
-							$("#tour_navigation ul").remove();
-							
-							$("#PostList").append("<ul id='PostBox'></ul>");
-							$("#tour_navigation").append("<ul></ul>");
-							
-							fetchAllPost();
-						},
-						error: function (xhr, status, e) {
-							console.error(status+":"+e);
-						}
-					});
-				} else {
-					return;
-				}
-			});
-
-		    /* --------------------------------------------------------------------- */
-		    /* ------------------ Post 클릭 시, opacity 이벤트 시작 ---------------- */
-		    $('[id^="post-"]').click(function(){
-		    	console.log('11');
-		    	$(this).animate({opacity: 0.6}, 500);
-		    });
-		    /* ------------------ Post 클릭 시, opacity 이벤트 끝 ------------------ */
-		    /* --------------------------------------------------------------------- */
 
 			/* ------------------------------------------------------------------ */
 			/* ------------------------ star rating 시작 ------------------------ */
-			var starRating = function(){
+			var starRatingPost = function(){
 				var $star = $(".input-score"),
 					$result = $star.find("output>b");
 				$(document)
@@ -243,9 +208,63 @@
 						}
 					});
 			};
-			starRating();
-			/* ------------------------ star rating 끝 ------------------------ */
-			/* ---------------------------------------------------------------- */
+			starRatingPost();
+				/* ------------------------ star rating 끝 ------------------------ */
+				/* ---------------------------------------------------------------- */
+		    
+		    /* $("#PostList li a").click(function(event){
+				event.preventDefault();
+
+				var no = $(this).data("no");
+				alert(no);
+		    }); */
+		    
+		    /*---------------------------------------------------------------------*/
+			/*------------------------- 삭제 event 시작 ---------------------------*/
+			$(document).on("click", "[id^='post-delete-']", function (event) {
+				event.preventDefault();
+				
+				var removeYN = confirm("정말 삭제하시겠습니까?");
+				
+				if(removeYN === true){
+					var idx = $(this).data("no");
+
+					$.ajax({
+						url: "/breezer/${userId}/api/tour/remove/post",
+						type: "post",
+						dataType: "json",
+						data: "idx="+idx+"&tourIdx=${tourIdx}",
+						success: function (response) {
+							if(response.result == "fail"){
+								console.log(response.message);
+								return;
+							}
+							
+							if(response.data == -1){
+								return;
+							}
+							
+							fetchAllPost();
+						},
+						error: function (xhr, status, e) {
+							console.error(status+":"+e);
+						}
+					});
+				} else {
+					return;
+				}
+			});
+			    /*-------------------------------------------------------------------*/
+				/*------------------------- 삭제 event 끝 ---------------------------*/
+
+		    /* --------------------------------------------------------------------- */
+		    /* ------------------ Post 클릭 시, opacity 이벤트 시작 ---------------- */
+		    $('[id^="post-"]').click(function(){
+		    	console.log('11');
+		    	$(this).animate({opacity: 0.6}, 500);
+		    });
+			    /* ------------------ Post 클릭 시, opacity 이벤트 끝 ------------------ */
+			    /* --------------------------------------------------------------------- */
 
 			/* --------------------------------------------------------------------- */
 			/* ------------------------ 장소 검색 모달 시작 ------------------------ */
@@ -268,12 +287,88 @@
 				event.preventDefault();				
 				mapDialog.dialog("open");
 			});
-			/* ------------------------ 장소 검색 모달 끝 ------------------------ */
-			/* ------------------------------------------------------------------- */
+				/* ------------------------ 장소 검색 모달 끝 ------------------------ */
+				/* ------------------------------------------------------------------- */
+		    
+		    /*---------------------------------------------------------------------*/
+			/*------------------------- 수정 event 시작 ---------------------------*/
+			$(document).on("click", "[id^='post-modify-']", function (event) {
+				event.preventDefault();	
+				addModifyPostDialog.dialog("option", "title", "여행기 수정");
+				$("#addDialogButton").hide();
+				$("#modifyDialogButton").show();
+				
+				var idx = $(this).data("no");
+				
+				$.ajax({
+					url: "/breezer/${userId}/api/post/select",
+					type: "post",
+					dataType: "json",
+					data: "idx="+idx+"&tourIdx=${tourIdx}",
+					success: function(response) {
+						if(response.result != "success"){
+							console.log(response);
+							return;
+						}
+						
+						var vo = response.data;
+						$("#input-location").val(vo.location);
+						$("#input-lat").val(vo.lat);
+						$("#input-lot").val(vo.lot);
+						
+						var locale = vo.locale;
+						if(locale === 'US'){
+							$("#input-locale").val("미국");
+						} else if(locale === 'KR'){
+							$("#input-locale").val("대한민국");
+						} else if(locale === 'JP'){
+							$("#input-locale").val("일본");
+						}
+						
+						var tripDateTimeArray = vo.tripDateTime.split(" ");
+						var YMD = tripDateTimeArray[0];
+						var HMS = tripDateTimeArray[1];
+						var YMDArray = YMD.split("-");
+						var HMSArray = HMS.split(":");
+						
+						var start = new Date();
+						start.setYear(YMDArray[0]);
+						start.setMonth(YMDArray[1]);
+						start.setDate(YMDArray[2]);
+						start.setHours(HMSArray[0]);
+						start.setMinutes(HMSArray[1]);
+						
+						$("#input-date").val(tripDateTimeArray[0]+" "+(HMSArray[0]>12 ? HMSArray[0]-12 : HMSArray[0])
+									+":"+HMSArray[1]+" "+(HMSArray[0]>11 ? "pm" : "am"));
+						
+						$("#input-content").val(vo.content);
+						$("#input-category").val(vo.category);
+						$("#input-price").val(vo.price);
+						
+						var $star = $(".input-score"),
+					    $result = $star.find("output>b");
+						$result.text(vo.score);
+						
+						$("input:radio[name='score'][value='"+vo.score+"']").prop("checked", true);
+						
+						$("#input-tourIdx").val("${tourIdx}");
+						$("#imagePath").val("");
+						$("#fileUpload").val("");
+						$('#multiImgContainer').html('');
+					},
+					error: function (xhr, status, e) {
+						console.error(status+":"+e);
+					}
+				});
+				
+				addModifyPostDialog.dialog("open");
+			});
+			    /*-------------------------------------------------------------------*/
+				/*------------------------- 수정 event 끝 ---------------------------*/
 			
 			/* --------------------------------------------------------------------- */
 			/* ------------------------ Post 추가 모달 시작 ------------------------ */
-			var addPostDialog = $("#add-post-form").dialog({
+			var addModifyPostDialog = $("#addModify-post-form").dialog({
 				autoOpen: false,
 				maxWidth:600,
 				maxHeight:800,
@@ -282,9 +377,82 @@
 		        width: 600,
 		        height: 600,
 				modal: true,
-				buttons: {
-					"추가": function() {
+				buttons: [
+					{ text: "수정",
+					  id: "modifyDialogButton",
+					  click: function() {
+						  
+						if($("#input-location").val() === ''){
+							messageBox(
+									"장소를 선택해주세요.",
+									function () {
+										$("#searchMap").focus();
+									});
+							return;
+						}
+						if($("#input-date").val() === ''){
+							messageBox(
+									"날짜/시간을 선택해주세요.",
+									function () {
+										$("#input-date").focus();
+									});
+							return;
+						}
+						if($("#input-content").val() === ''){
+							messageBox(
+									"내용을 입력해주세요.",
+									function () {
+										$("#input-content").focus();
+									});
+							return;
+						}
 						
+						if($("#input-price").val() === ''){
+							$("#input-price").val(0);
+						}
+						if($("#input-score").val() === ''){
+							$("#input-score").val(0);
+						}
+						if($("#fileUpload").val() === ''){
+							$("#fileUpload").val('');
+						}
+						
+						var id = '${userId}';
+						var tourIdx = '${tourIdx}';
+						
+						console.log("수정>"+id+":"+tourIdx);
+						
+						$("#imagePath").val(imagePath);
+						$("#input-tourIdx").val(tourIdx);
+						var modifyPostForm = $("#addModifyPostForm").serialize();
+						
+						$.ajax({
+							url: "/breezer/${userId}/api/post/modify",
+							type: "post",
+							dataType: "json",
+							data: modifyPostForm,
+							success: function(response) {
+								if(response.result != "success"){
+									console.log(response);
+									return;
+								}
+
+								clearDialog();
+								
+								fetchAllPost();
+								
+								addModifyPostDialog.dialog("close");
+							},
+							error: function (xhr, status, e) {
+								console.error(status+":"+e);
+							}
+						});
+					  }
+					},
+					{ text: "추가",
+					  id: "addDialogButton",
+					  click: function() {
+						  
 						if($("#input-location").val() === ''){
 							messageBox(
 									"장소를 선택해주세요.",
@@ -327,7 +495,7 @@
 						
 						$("#imagePath").val(imagePath);
 						$("#input-tourIdx").val(tourIdx);
-						var addPostForm = $("#addPostForm").serialize();
+						var addPostForm = $("#addModifyPostForm").serialize();
 						
 						$.ajax({
 							url: "/breezer/${userId}/api/post/add",
@@ -339,79 +507,41 @@
 									console.log(response);
 									return;
 								}
-
-								$("#input-location").val("");
-								$("#input-lat").val("");
-								$("#input-lot").val("");
-								$("#input-locale").val("");
-								$("#input-date").val("");
-								$("#input-content").val("");
-								$("#input-category").val("01");
-								$("#input-price").val("");
-								$("#input-score").val("");
-								$("#imagePath").val("");
-								$("#input-tourIdx").val("");
-								$("#fileUpload").val("");
-								$('#multiImgContainer').html('');
 								
-								$("#PostBox").remove();
-								$("#tour_navigation ul").remove();
-								
-								$("#PostList").append("<ul id='PostBox'></ul>");
-								$("#tour_navigation").append("<ul></ul>");
+								clearDialog();
 								
 								fetchAllPost();
 								
-								addPostDialog.dialog("close");
+								addModifyPostDialog.dialog("close");
 							},
 							error: function (xhr, status, e) {
 								console.error(status+":"+e);
 							}
 						});
+					  }
 					},
-					"취소": function () {
-					
-						$("#input-location").val("");
-						$("#input-lat").val("");
-						$("#input-lot").val("");
-						$("#input-locale").val("");
-						$("#input-date").val("");
-						$("#input-content").val("");
-						$("#input-category").val("01");
-						$("#input-price").val("");
-						$("#input-score").val("");
-						$("#imagePath").val("");
-						$("#input-tourIdx").val("");
-						$("#fileUpload").val("");
-						$('#multiImgContainer').html('');
-						
+					{ text: "취소",
+					  id: "cancelDialogButton",
+					  click: function () {
+						clearDialog();
 						$(this).dialog("close");
+					  }
 					}
-				},
+				],
 				close: function () {
-
-					$("#input-location").val("");
-					$("#input-lat").val("");
-					$("#input-lot").val("");
-					$("#input-locale").val("");
-					$("#input-date").val("");
-					$("#input-content").val("");
-					$("#input-category").val("01");
-					$("#input-price").val("");
-					$("#input-score").val("");
-					$("#imagePath").val("");
-					$("#input-tourIdx").val("");
-					$("#fileUpload").val("");
-					$('#multiImgContainer').html('');
+					clearDialog();
 				}
 			});
 		    
 			$(document).on("click", "#addPostButton", function (event) {
-				event.preventDefault();				
-				addPostDialog.dialog("open");
+				event.preventDefault();		
+				addModifyPostDialog.dialog("option", "title", "여행기 추가");
+				$("#addDialogButton").show();
+				$("#modifyDialogButton").hide();
+				addModifyPostDialog.dialog("open");
 			});
-			/* ------------------------ Post 추가 모달 끝 ------------------------ */
-			/* ------------------------------------------------------------------- */
+				/* ------------------------ Post 추가 모달 끝 ------------------------ */
+				/* ------------------------------------------------------------------- */
 			
 			/* ------------------------------------------------------------------------------------- */
 			/* ------------------------ Scroll 반응 Side Navigation #1 시작 ------------------------ */
@@ -437,8 +567,8 @@
 		            $(document).on("scroll", onScroll);
 		        });
 		    });
-			/* ------------------------ Scroll 반응 Side Navigation #1 끝 ------------------------- */
-			/* ------------------------------------------------------------------------------------ */
+				/* ------------------------ Scroll 반응 Side Navigation #1 끝 ------------------------- */
+				/* ------------------------------------------------------------------------------------ */
 			
 			$('#fileUpload').on('change', ImgFileSelect);
 			
@@ -511,8 +641,8 @@
 				alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 			});
 		}
-		/* ------------------------ 파일업로드 끝 ------------------------ */
-		/* --------------------------------------------------------------- */
+			/* ------------------------ 파일업로드 끝 ------------------------ */
+			/* --------------------------------------------------------------- */
 		
 		/* ------------------------------------------------------------------------------------- */
 		/* ------------------------ Scroll 반응 Side Navigation #2 시작 ------------------------ */
@@ -540,8 +670,8 @@
 				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 0px');
 			}
 		});
-		/* ------------------------ Scroll 반응 Side Navigation #2 끝 -------------------------- */
-		/* ------------------------------------------------------------------------------------- */
+			/* ------------------------ Scroll 반응 Side Navigation #2 끝 -------------------------- */
+			/* ------------------------------------------------------------------------------------- */
 
 		/* --------------------------------------------------------------------- */
 		/* ---------------------------- map 시작 ------------------------------- */
@@ -691,8 +821,8 @@
 			                      'Error: The Geolocation service failed.' :
 			                      'Error: Your browser doesn\'t support geolocation.');
 		}
-		/* ---------------------------- map 끝 ------------------------------- */
-		/* --------------------------------------------------------------------- */
+			/* ---------------------------- map 끝 ------------------------------- */
+			/* --------------------------------------------------------------------- */
 		
 		</script>
 		
@@ -734,8 +864,10 @@
 					</ul>
 				</div>
 				
-				<div id="add-post-form" title="여행기 추가" style="display:none">
-	  				<form id="addPostForm" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
+				<!-------------------------------------------------------------------------------------------->
+				<!-------------------------------- 여행기 추가&수정 양식 시작 -------------------------------->
+				<div id="addModify-post-form" title="" style="display:none">
+	  				<form id="addModifyPostForm" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
 						<div>
 							<table>
 								<tr>
@@ -751,7 +883,7 @@
 									<script>
 										var prevDay;
 										
-									    $('#input-date').datepicker({
+										datepicker = $('#input-date').datepicker({
 									    	autoClose: true,
 									        timepicker: true,
 									        language: 'en',
@@ -833,6 +965,8 @@
 					</form>
 					
 				</div>
+				<!----------------------------------------------------------------------------------------->
+				<!-------------------------------- 여행기 추가&수정 양식 끝-------------------------------->
 			
 				<div id="dialog-message" title="" style="display:none">
 	  				<p></p>

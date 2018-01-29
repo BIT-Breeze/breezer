@@ -7,12 +7,16 @@ import org.springframework.stereotype.Repository;
 import com.breeze2017.breezer.vo.PostVo;
 
 @Repository
-public class PostAddDao {
+public class PostDao {
 	
 	@Autowired
 	private SqlSession sqlSession;
 	
 	public int insert(PostVo vo) {
 		return sqlSession.insert("post.insert", vo);
+	}
+	
+	public PostVo select(PostVo vo) {
+		return sqlSession.selectOne("post.selectPost", vo);
 	}
 }

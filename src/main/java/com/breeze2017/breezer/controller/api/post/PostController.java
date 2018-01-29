@@ -6,19 +6,41 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.breeze2017.breezer.dto.JSONResult;
-import com.breeze2017.breezer.service.post.PostAddService;
+import com.breeze2017.breezer.service.post.PostService;
 import com.breeze2017.breezer.vo.PostVo;
 import com.breeze2017.security.Auth;
 
-@Controller("postAddAPIController")
+@Controller("postAPIController")
 @RequestMapping("{id}/api/post")
-public class PostAddController {
+public class PostController {
 
 	@Autowired
-	private PostAddService postAddService;
+	private PostService postService;
+	
+	@Auth
+	@ResponseBody
+	@RequestMapping(value="/select", method=RequestMethod.POST)
+	public JSONResult postSelect(
+			@RequestParam(value="tourIdx", required=true) long tourIdx,
+			@ModelAttribute PostVo vo,
+			@PathVariable String id
+			) {
+
+		vo.setUserId(id);
+		vo.setTourIdx(tourIdx);
+		
+		vo = postService.selectPost(vo);
+		
+		if(vo == null) {
+			return JSONResult.fail("포스트 정보 가져오기에 실패했습니다.");
+		} else {
+			return JSONResult.success(vo);
+		}
+	}
 	
 	@Auth
 	@ResponseBody
@@ -43,7 +65,7 @@ public class PostAddController {
 
 		vo.setUserId(id);
 		
-		boolean successYN = postAddService.insertPost(vo);
+		boolean successYN = postService.insertPost(vo);
 		
 		if(successYN == false) {
 			return JSONResult.fail("포스트 등록에 실패했습니다.");
