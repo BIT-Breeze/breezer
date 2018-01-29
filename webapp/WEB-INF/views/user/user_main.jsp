@@ -117,7 +117,7 @@ var getCount = function(){
 				console.log( response.message );
 				return;		
 			}
-			console.log(response.data);
+			console.log(response.data+" getCount 함수에서 가져온  투어 수");
 			$("#counting").text(response.data + "개의 여행을 하셨습니다.");
 		} // success
 	}) //ajax
@@ -165,13 +165,13 @@ var fetchList = function(){
 			}); //ajax			
 	
 	startNo += 8;
-	console.log(startNo);
+	console.log(startNo + "투어리스트 가져오는 요청 보낼때  Request param 넘버");
 	} // fetchList
 
 
 $(function(){
 	fetchList();
-	//getCount();
+	getCount();
 	$( document ).on( "click", "#list-tour div button", function(){
 			//event.preventDefault();	
 		 	//$('#myModal').modal("show");	
