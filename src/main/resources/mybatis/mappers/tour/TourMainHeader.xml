@@ -6,7 +6,7 @@
 		<![CDATA[
 		select *
 		  from TB_TOUR 
-		 where idx = #{tourIdx}
+		 where idx = #{tourIdx }
 		]]>
 	</select>
 	
@@ -16,13 +16,13 @@
 			update TB_TOUR
 			set title= #{title }, 
 				startDate= #{startDate }, 
-				endDate= #{endData },
+				endDate= #{endDate },
 				mainPhoto= #{mainPhoto }, 
 				secret= #{secret }
-			where idx= #{idx };
+			where idx= #{idx }
 		]]>
 	</update>
 	
-
+	
 </mapper>
 

@@ -92,6 +92,10 @@ button:hover, a:hover {
   opacity: 0.7;
 }
 /* info css */
+
+.checked {
+    color: orange;
+}
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -362,9 +366,6 @@ var imageArr = [
 		var len;
 		var infowindow = new google.maps.InfoWindow();
 		
-		/* var userId = ${list.get(0).userId };
-		var tourIdx = ${list.get(0).idx }; */
-		
 		var userId = ${vo.userId };
 		var tourIdx = ${vo.idx };
 		
@@ -385,7 +386,12 @@ var imageArr = [
 				
 				console.log(response.data);
 				
+				var totalScore = 0;
+				var totalPrice = 0;
 				$.each(response.data, function(index, data){
+					totalScore += data.score;
+					totalPrice += data.price;
+					
 					if (index == 0) {
 						start.push({lat: data.lat, lng: data.lot});
 					} else if (index == len - 1) {
@@ -441,6 +447,17 @@ var imageArr = [
 						}, len * 600);	
 					}
 				});
+				
+				// 평균 점수
+				$("#score").empty();
+				$("#score").append("<i class='fa fa-star-half-o fa-fw w3-margin-right w3-large w3-text-teal'></i>");
+				$("#score").append(Math.round(totalScore / len) + "점");
+				
+				// 총 사용 금액
+				$("#price").empty();
+				$("#price").append("<i class='fa fa-krw fa-fw w3-margin-right w3-large w3-text-teal'></i>");
+				$("#price").append(totalPrice + "원 입니다.");
+				
 			},
 			error: function(xhr, status, e){
 				console.error( status + ":" + e );
@@ -466,6 +483,24 @@ var imageArr = [
 		}, function(response, status) {
 			if (status === 'OK') {
 				directionsDisplay.setDirections(response)
+				console.log(response);
+
+				var route = response.routes[0];
+				var distance = 0;
+				var duration = 0;
+	            for (var i = 0; i < route.legs.length; i++) {
+		              distance += route.legs[i].distance.value;
+		              duration += route.legs[i].duration.value;
+	            }
+	            
+	            $("#distance").empty();
+	            $("#distance").append("<i class='fa fa-map-signs fa-fw w3-margin-right w3-large w3-text-teal'>")
+	            $("#distance").append("총 이동 거리는 " + distance / 1000 + "Km 입니다.");
+	            
+	            $("#duration").empty();
+	            $("#duration").append("<i class='fa fa-clock-o fa-fw w3-margin-right w3-large w3-text-teal'>")
+	            $("#duration").append("총 소요 시간은 " + duration / 60 + "분 입니다.");
+	            
 			} else {
 				window.alert('Directions request failed due to ' + status);
 			}
@@ -483,13 +518,17 @@ var imageArr = [
 		<header class="w3-center w3-margin-bottom">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 		</header>
+
+		<%-- <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
+ 			<c:import url="/WEB-INF/views/includes/header.jsp" />
+		</header> --%>
 	</div>
 
 	<!-- Page Container -->
 	<div class="w3-content w3-margin-top w3-card-4" style="max-width: 1400px;">
 
 		<!-- Map Column -->
-		<div class="w3-row-padding">
+		<div class="w3-row-padding w3-padding-16">
 			<div id="drive_mode">
 				<b>Mode of Travel : </b> 
 				<select id="mode">
@@ -523,16 +562,21 @@ var imageArr = [
 							<img src="/breezetest/assets/images/pic10.jpg" style="width: 100%; height: 400px">
 						</div>
 						
-						<div class="w3-container w3-padding-32">
-							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.title }</p>
-							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.startDate } ~ ${vo.endDate }</p>
-							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.score }</p>
-							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.favorite }</p>
-						</div>
 					</div>
 					
 					<div class="w3-container w3-cell w3-twothird">
-						<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
+						<div class="w3-container w3-padding-32">
+							<p><i class="fa fa-tag fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.title }</p>
+							<p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.startDate } ~ ${vo.endDate }</p>
+							<p id="score"><i class="fa fa-star-half-o fa-fw w3-margin-right w3-large w3-text-teal"></i></p>
+							<p><i class="fa fa-thumbs-o-up fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.favorite } 개의 추천을 받았습니다.</p>
+						    <p id="price"><i class="fa fa-krw fa-fw w3-margin-right w3-large w3-text-teal"></i>총 사용 금액 계산중... </p>
+						    
+						    <p id="distance"><i class="fa fa-spinner fa-fw w3-margin-right w3-large w3-text-teal"></i>총 이동 거리 계산중... </p>
+						    <p id="duration"><i class="fa fa-spinner fa-fw w3-margin-right w3-large w3-text-teal"></i>총 이동 시간 계산중... </p>
+						    
+						</div>
+						<!-- <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
 						<p>Adobe Photoshop</p>
 						
 						<div class="w3-light-grey w3-round-xlarge w3-small">
@@ -573,7 +617,7 @@ var imageArr = [
 						<p>German</p>
 						<div class="w3-light-grey w3-round-xlarge">
 							<div class="w3-round-xlarge w3-teal" style="height: 24px; width: 25%"></div>
-						</div>
+						</div> -->
 						
 					</div>
 					

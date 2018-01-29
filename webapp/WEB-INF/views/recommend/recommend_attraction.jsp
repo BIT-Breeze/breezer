@@ -38,13 +38,12 @@ html, body {
 	font-family: Roboto;
 	font-size: 15px;
 	font-weight: 300;
-	height: 29px;
-	margin-left: 17px;
-	margin-top: 10px;
+	width: 100%;
+	height: 40px;
 	outline: none;
 	padding: 0 11px 0 13px;
+	margin-bottom: 10px;
 	text-overflow: ellipsis;
-	width: 400px;
 }
 
 .controls:focus {
@@ -81,6 +80,7 @@ div.scrollmenu a:hover {
 	padding: 0 30px;
 	text-decoration: none;
 }
+
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -141,8 +141,9 @@ div.scrollmenu a:hover {
 
       // Create the search box and link it to the UI element.
       var input = document.getElementById('pac-input');
+      /* map.controls[google.maps.ControlPosition.TOP_LEFT].push(input); */
+      
       var searchBox = new google.maps.places.SearchBox(input);
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
       
       // Bias the SearchBox results towards current map's viewport.
       map.addListener('bounds_changed', function() {
@@ -329,6 +330,7 @@ div.scrollmenu a:hover {
 		
 		<header class="w3-center w3-margin-bottom">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
+			<%-- <c:import url="/WEB-INF/views/includes/side_navigation.jsp" /C --%>
 		</header>
 	</div>
 	
@@ -337,7 +339,8 @@ div.scrollmenu a:hover {
 
 		<!-- Map Column -->
 		<div class="w3-row-padding w3-padding-16">
-			<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+			<input id="pac-input" class="controls" type="text" placeholder="Search...">
+			<!-- <button type="button" onclick=""><i class="fa fa-search"></i></button> -->
 	
 			<div id="googleMap" style="width: 100%; height: 600px;"></div>
 			<!-- Google Map -->
