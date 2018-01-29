@@ -23,6 +23,7 @@
 <script type="text/javascript">
 $(function() {
 	$("#modify_start-datepicker, #modify_end-datepicker").datepicker({
+		autoClose: true,
 	   	todayButton: true,
 	   	clearButton: true,
         language: 'en',
@@ -174,19 +175,18 @@ $(function() {
 <!-- form 전송 (EDIT 후 SAVE 눌렀을 때)-->
 <script type="text/javascript">
 function submitForm() {
-	//$("#modify_imagePath").val(imagePath);
-	//document.getElementById("modify_fileForm").submit();
-	var idx = ${tourIdx }
-	console.log(idx)
+	var idx = ${tourIdx };
+	console.log(idx);
 	
-	$("#modify_imagePath").val(imagePath);
+	$("#modify_imagePath").val(imagePath); /* db로 이미지 경로 저장 */
+	// 근데 기존 이미지를 안바꿧을 때 디비에 어케 저장할꺼냐 그전에 있는걸 안지워야함
+	
 	var formData = $("#modify_fileForm").serialize();
 	
 	$.ajax({
 		url: "/breezer/api/tourheader/modify",
 		type: "post",
 		dataType: "json",
-		/* data: JSON.stringify(formData), */
 		data: formData,
 		success: function( response ) {
 			if( response.result != "success" ) { 
@@ -196,9 +196,11 @@ function submitForm() {
 			console.log("수정 완료 후");
 			console.log(response.data);
 			
+			
 			$("#edit_title_area").val(response.data.title);
 			$("#edit_startDate").val(response.data.startDate);
 			$("#edit_endDate").val(response.data.endDate);
+			
 			
 			$(".editForm").show();
 			$(".modify_addform").css("display", "none");
@@ -219,6 +221,7 @@ var refreshHeaderImage = function(mainPhoto) {
 	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
 }
 
+
 </script>
 
 <!-- EDIT 버튼 클릭 시 -->
@@ -232,7 +235,7 @@ function editForm() {
 };
 </script>
 
-<!-- tour add 했을 때 tour main으로 value값 가져오기 -->
+<!-- tour add 후 tour main으로 데이터값 가져오기 -->
 <script type="text/javascript">
 
 $(document).ready(function() {
