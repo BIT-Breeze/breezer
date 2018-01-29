@@ -20,7 +20,7 @@ public class TourMainHeaderController {
 	@Autowired
 	private TourMainHeaderService tourMainHeaderService;
 
-	@Auth
+
 	@ResponseBody
 	@RequestMapping("")
 	public JSONResult getTourInfo( @RequestParam (value="idx", required=false) Long tourIdx ) {

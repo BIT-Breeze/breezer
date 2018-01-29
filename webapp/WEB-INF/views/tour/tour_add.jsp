@@ -94,7 +94,7 @@ $(function() {
 	   	todayButton: true,
 	   	clearButton: true,
         language: 'en',
-		showOn: "both", 
+		showOn: "both",
         buttonImage: "/breezer/assets/images/tour/calendar_button.jpg", 
         buttonImageOnly: true,
         changeMonth: true,

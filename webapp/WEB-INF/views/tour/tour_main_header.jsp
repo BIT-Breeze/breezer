@@ -184,7 +184,7 @@ function submitForm() {
 	var formData = $("#modify_fileForm").serialize();
 	
 	$.ajax({
-		url: "/breezer/api/tourheader/modify",
+		url: "/breezer/${id}/api/tourheader/modify",
 		type: "post",
 		dataType: "json",
 		data: formData,
@@ -209,7 +209,7 @@ function submitForm() {
 		}
 	});
 }
-	
+
 </script>
 
 <!-- leave 눌렀을 때 전 화면으로 -->
@@ -248,6 +248,7 @@ function editForm() {
 
 $(document).ready(function() {
 	var idx = ${tourIdx };
+	var currentId = "${userId }";
 	
 	 $.ajax({
 			url: "/breezer/${id}/api/tourheader",
@@ -260,6 +261,8 @@ $(document).ready(function() {
 					alert("tour info 죄송.");
 					return;
 				}
+				
+				
 				
 				console.log(response.data)
 				$("#edit_title_area").val(response.data.title);
@@ -274,6 +277,17 @@ $(document).ready(function() {
 				$("#idx_value").val(response.data.idx);
 				$("#modify_imagePath").val(response.data.mainPhoto);
 				$("#user_id").val(response.data.userId);
+				
+				
+				/* id 가 다르면 edit 폼 지우기 */
+				var authId = response.data.userId;
+
+				if(authId != currentId) {
+					$("#edit").css("display", "none");
+				}
+				
+				
+								
 				
 			}
 		});
@@ -303,6 +317,7 @@ $(document).ready(function() {
 				
 					<div class="edit_tourDate">
 						<input type="text" id="edit_startDate" name="startDate" readonly>
+						<input type="text" id="wave" value="~" readonly>
 						<input type="text" id="edit_endDate" name="endDate" readonly>
 					</div>
 				</div>
@@ -347,6 +362,7 @@ $(document).ready(function() {
 				<div class="modify_tourAdd_center">
 					<input type="text" id="modify_title_area" name="title" ><br><br><br>
 					<input type="text" id="modify_start-datepicker" name="startDate">
+					<input type="text" id="wave" value="~" readonly>
 					<input type="text" id="modify_end-datepicker" name="endDate"><br><br>
 					
 					<input type="hidden"  id="user_id" name="userId">
