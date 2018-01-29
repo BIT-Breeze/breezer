@@ -22,6 +22,7 @@ public class SNSVo {
 	private String location;
 	private String pictureUrl;
 	private int favoCount;
+	private int postCount;
 	
 	
 	public String getKind() {
@@ -142,14 +143,25 @@ public class SNSVo {
 		this.favoCount = favoCount;
 	}
 	
+	
+	
+	public int getPostCount() {
+		return postCount;
+	}
+	public void setPostCount(int postCount) {
+		this.postCount = postCount;
+	}
 	@Override
 	public String toString() {
 		return "SNSVo [kind=" + kind + ", idx=" + idx + ", tourIdx=" + tourIdx + ", postIdx=" + postIdx + ", userId="
 				+ userId + ", nickName=" + nickName + ", title=" + title + ", content=" + content + ", photo=" + photo
 				+ ", startDate=" + startDate + ", endDate=" + endDate + ", score=" + score + ", price=" + price
 				+ ", favorite=" + favorite + ", postDateTime=" + postDateTime + ", tripDateTime=" + tripDateTime
-				+ ", location=" + location + ", pictureUrl=" + pictureUrl + ", favoCount=" + favoCount + "]";
+				+ ", location=" + location + ", pictureUrl=" + pictureUrl + ", favoCount=" + favoCount + ", postCount="
+				+ postCount + "]";
 	}
+
+
 	
 	
 	
