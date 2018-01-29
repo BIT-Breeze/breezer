@@ -102,13 +102,13 @@ var renderNoTour = function(){
 
 	isEnd = true;
 }
-/*
+
 var getCount = function(){
 	
 	console.log("========getCount========");
-	console.log(userId);
+	console.log(uservo);
 	$.ajax({
-		url:"/breezer/"+ userId + "/count",
+		url:"/breezer/"+ uservo + "/count",
 		type:"get",
 		data:"",
 		
@@ -123,7 +123,7 @@ var getCount = function(){
 	}) //ajax
 	
 }
-*/
+
 var fetchList = function(){
 	if( isEnd == true){		
 		return;
@@ -210,8 +210,8 @@ $(function(){
 
  				    	$( "#list-tour div[no=" + response.data + "]" ).remove();
  						$('#myModal').modal("hide");
- 						//getCount();
- 						//fetchList();
+ 						getCount();
+ 						fetchList();
  						console.log("삭제 성공!! 새로운 카운팅!!")
  						//$("#myModal .close").click()
  				},

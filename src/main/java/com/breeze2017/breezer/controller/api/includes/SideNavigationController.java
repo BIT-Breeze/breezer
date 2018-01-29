@@ -23,7 +23,7 @@ public class SideNavigationController {
 	public JSONResult getUserinfo(@AuthUser UserVo authUser,
 								  @PathVariable String id) {
 		System.out.println("SideNaviController - gerUserInfo");
-		UserVo uservo = userMainService.getUserInfo(id);
+		UserVo uservo = userMainService.getUserInfo(authUser.getId());
 		if(uservo == null ) {			
 			return JSONResult.fail("존재하는 유저가 없습니다.");
 		}
