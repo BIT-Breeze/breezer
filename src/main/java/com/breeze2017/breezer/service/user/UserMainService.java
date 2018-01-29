@@ -93,21 +93,19 @@ public class UserMainService {
 			}
 			System.out.println("파일생성");
 		}
+	// 공개 투어만 세기
+	public Integer getTourNumbers(String id) {
 
-	public List<String> getCountries(String id) {
-		List<String> result = userMainDao.getCountries(id);
-		countCountries(result);
-		return result;
-	} 
-
-
-	public String countCountries(List<String> list) {
-		String countries = list.toString();
-		countries = countries.replace("[", "");
-		countries = countries.replace("]", "");
-		countries = countries.replace(",", " ");		
-		return countries;
+		return userMainDao.getTourNumbers(id);
 	}
+	// 모든 투어 세기 
+	public Integer getTotalCount(String id) {
+
+		return userMainDao.getTotalCount(id);
+	}
+
+
+
 
 
 	

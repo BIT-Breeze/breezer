@@ -21,7 +21,12 @@ public class UserMainDao {
 	public UserVo getUserInfo( String id ) {
 		System.out.println("===UserMainDao getUserInfo()===");
 		UserVo result = sqlSession.selectOne("user.getUserInfo", id);
-		
+		List<String> list = sqlSession.selectList("user.getCountries", id);
+		String countries = list.toString();
+		countries = countries.replace("[", "");
+		countries = countries.replace("]", "");
+		countries = countries.replace(",", " ");	
+		result.setCountries(countries);
 		return result; 
 	}
 	
@@ -53,11 +58,17 @@ public class UserMainDao {
 		
 		return result;
 	}
-	
+	// 해당 유저의 모든 투어의 수 세기
 	public int getTotalCount(String keyword) {
 		
 		return sqlSession.selectOne("user.getTotalCount", keyword);
 	}
+	// 해당 유저의 공개 투어의 수 세기
+	public int getTourNumbers(String keyword) {
+
+		return sqlSession.selectOne("user.getTourNumbers", keyword);
+	}
+
 
 	public int tourDelete(String idx) {
 		int countPost = sqlSession.delete("user.allPostDelete", idx);	
@@ -70,6 +81,7 @@ public class UserMainDao {
 		List<String> result = sqlSession.selectList("user.getCountries",id);
 		return result;
 	}
+
 
 
 

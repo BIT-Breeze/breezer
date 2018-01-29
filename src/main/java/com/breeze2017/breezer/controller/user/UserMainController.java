@@ -41,11 +41,6 @@ public class UserMainController {
 		if(authUser.getId().equals(id)) {
 			UserVo uservo = userMainService.getUserInfo(authUser.getId());
 	
-			List<String> list = userMainService.getCountries(authUser.getId());
-			int numOfCountries = list.size();
-			String countries = userMainService.countCountries(list);
-			uservo.setNumOfcountries(numOfCountries);
-			uservo.setCountries(countries);
 			model.addAttribute("uservo",uservo);
 			model.addAttribute("uservo2",uservo);
 
@@ -53,12 +48,7 @@ public class UserMainController {
 
 			UserVo uservo = userMainService.getUserInfo(authUser.getId());
 			UserVo uservo2 = userMainService.getOtherUserInfo(id);
-			List<String> list = userMainService.getCountries(authUser.getId());
-			int numOfCountries = list.size();
-			String countries = userMainService.countCountries(list);
-			uservo.setNumOfcountries(numOfCountries);
-			uservo.setCountries(countries);
-		
+
 			if(uservo2.getId() != null) {
 				model.addAttribute("uservo", uservo);
 				model.addAttribute("uservo2", uservo2);
@@ -131,7 +121,27 @@ public class UserMainController {
 		
 		return JSONResult.success( bSuccess ? idx : -1);
 		
-
+			
+	}
+	
+	@ResponseBody
+	@RequestMapping(
+			value = "/count",
+			method = RequestMethod.GET
+			)
+	public JSONResult getCount( 
+							 @AuthUser UserVo authUser,	
+							 @PathVariable String id,
+							 Model model) {
+		// @authUser 인자로 넣고 자기 투어 아니면 못지우게 
+		if(authUser.getId().equals(id)) {
+			Integer getTotal = userMainService.getTotalCount(id);
+			return JSONResult.success(getTotal);
+		} else {
+			Integer getTourNumbers = userMainService.getTourNumbers(id);
+			return JSONResult.success( getTourNumbers);
+		}
+			
 	}
 			
 }

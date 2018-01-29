@@ -49,19 +49,20 @@ var render0 = function( tourvo, mode ){
 	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" + 
 					"<div class='panel panel-info'>" + 
 						"<div class='panel-heading'>" + "<div class='row'>" + 
-							"<div class='col-sm-9'><h5>" + tourvo.title + "</h5></div>" +
-							"<div class='col-sm-3'>" + 
+							"<div class='col-sm-10'><h5>" + tourvo.title + "</h5></div>" +
+							"<div class='col-sm-2'>" + 
 								"<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>x</button></div>" + 
 								"</div> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + " &nbsp공개여부: " + tourvo.secret +"</div>" + 
+								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + " &nbsp공개여부: " + 
+								tourvo.secret  + " 평점: " + tourvo.score +"</div>" +
 						"<div class='panel-body' align='left'>" +				
 							"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-							"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +
+							"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='270px' height='180px'></a><br>" +
 					"</div>"+
 				"</div>"
-		
-	//var html = 
-	
+	/*	다른 썸네일 형식으로 렌더링 하기 
+		var html = 
+	*/
 	
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
@@ -78,14 +79,13 @@ var render2 = function( tourvo, mode ){
 		
 		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" + 
 						"<div class='panel panel-info'>" + 
-							"<div class='panel-heading'>" + "<div class='row'>" + 
-								"<div class='col-sm-9'><h5>" + tourvo.title + "</h5></div>" +
-								"<div class='col-sm-3'>" + "</div></div><br>" +
+							"<div class='panel-heading'>" + 
+								"<h5>" + tourvo.title + "</h5>" +								
 								"start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + "</div>" + 
+								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + " &nbsp평점: " + tourvo.score + "</div>" + 
 							"<div class='panel-body' align='left'>" +				
 								"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-								"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='240px' height='180px'></a><br>" +
+								"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='270px' height='180px'></a><br>" +
 						"</div>"+
 					"</div>"
 
@@ -101,6 +101,26 @@ var renderNoTour = function(){
 	$("#bottom-text").html(str);
 	// .text() 로 하면 태그를 인식 못함. 
 	isEnd = true;
+}
+
+var getCount = function(){
+	
+	console.log("========getCount========");
+	$.ajax({
+		url:"/breezer/"+ userId + "/count",
+		type:"get",
+		data:"",
+		
+		success: function( response ){
+			if( response.result != "success" ){
+				console.log( response.message );
+				return;		
+			}
+			console.log(response.data);
+			$("#counting").text(response.data + "개의 여행을 하셨습니다.");
+		} // success
+	}) //ajax
+	
 }
 
 var fetchList = function(){
@@ -133,13 +153,16 @@ var fetchList = function(){
 		
 					$.each( response.data, function(index, tourvo){
 						if(userId == authUser){
-						render0( tourvo, false );
+							render0( tourvo, false );
+						
 						//자기 투어 가져오는 렌더링 함수, 
 						} else {
-						render2( tourvo, false );
+							render2( tourvo, false );
 						//다른사람 투어 가져오는 렌더링 함수, 삭제버튼이 없음 
 						}
 					}); //each
+					
+
 				} //success
 			}); //ajax			
 	
@@ -150,7 +173,7 @@ var fetchList = function(){
 
 $(function(){
 	fetchList();
-
+	getCount();
 	$( document ).on( "click", "#list-tour div button", function(){
 			//event.preventDefault();	
 		 		//이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소
@@ -193,6 +216,9 @@ $(function(){
 
  				    	$( "#list-tour div[no=" + response.data + "]" ).remove();
  						$('#myModal').modal("hide");
+ 						getCount();
+ 						fetchList();
+ 						console.log("삭제 성공!! 새로운 카운팅!!")
  						//$("#myModal .close").click()
  				},
 				error: function( xhr, status, e){
@@ -200,7 +226,8 @@ $(function(){
 		 				}						
  			});// ajax 
  	 		//$('#myModal').attr('aria-hidden','true');
- 			
+ 			//
+ 			//getCount();	
  		} else {
  			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다.");
  			
@@ -266,8 +293,8 @@ $(function(){
 			
 			<div class="col-sm-6" id="firstrow" align="center">
 
-			<h4>${uservo2.nickName }님은</h4><br>
-			${uservo2.tours }개의 여행을 하셨습니다.<br>
+			<h4>${uservo2.nickName }님은</h4>
+			<h4 id="counting"></h4>
 
 			</div>
 			

@@ -20,9 +20,10 @@
 			resultType="uservo">
 		<![CDATA[
 
-		 	select count(*)as rn, t1.id, t1.nickName, t1.pictureUrl, t2.tours
-			from TB_USER t1, (select count(*) as tours from TB_TOUR where userId=#{id }) t2
-			where id=#{id }
+		 	select count(*)as rn, t1.id, t1.nickName, t1.pictureUrl, 
+		 	 t2.tours, (select count(distinct locale) from TB_POST where userId='hongseok5' and locale is not null ) as numOfcountries
+			  from TB_USER t1, (select count(*) as tours from TB_TOUR where userId='hongseok5') t2
+			   where id='hongseok5'
 
 		]]>
 	</select>
@@ -39,9 +40,12 @@
 	<select id="gettours1" parameterType="map" resultType="tourvo">
 		<![CDATA[
 		
-		select title, idx, startDate, mainPhoto, favorite, postCount, ifnull(endDate, '미정') as endDate 
-		 from TB_TOUR 
-		  where userId = #{id } and secret = 0 order by idx desc limit #{ startNo } , 8
+		select t.title, t.idx, t.startDate, t.mainPhoto, t.favorite, 
+		 case secret when 0 then '공개' else '비공개' end as 'secret', ifnull(endDate, '미정') as endDate,
+		 ifnull((select round(avg(score),1) average from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx), 0) score, 
+		 (select count(*) from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx) postCount
+		  from TB_TOUR as t 
+		   where t.userId = #{id } and secret = 0 order by t.idx desc limit #{ startNo } , 8
 			
 		]]>		
 	</select>	
@@ -49,14 +53,18 @@
 	<select id="gettours" parameterType="map" resultType="tourvo">
 		<![CDATA[
 		
-		select title, idx, startDate, mainPhoto, favorite, postCount,
-		 case secret when 0 then '공개' else '비공개' end as 'secret', ifnull(endDate, '미정') as endDate 
-		 from TB_TOUR 
-		  where userId = #{id } order by idx desc limit #{ startNo } , 8
+		select t.title, t.idx, t.startDate, t.mainPhoto, t.favorite, 
+		 case secret when 0 then '공개' else '비공개' end as 'secret', ifnull(endDate, '미정') as endDate,
+		 ifnull((select round(avg(score),1) average from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx), 0) score, 
+		 (select count(*) from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx) postCount
+		  from TB_TOUR as t 
+		   where t.userId = #{id } order by t.idx desc limit #{ startNo } , 8
 			
-		]]>		
+		]]>
+			
 	</select>	
 	
+	<!-- 모든 투어의 수 세기 -->
 	<select id="getTotalCount" parameterType="string" resultType="int">
 		<![CDATA[
 			select count(*) from TB_TOUR 			
@@ -65,6 +73,18 @@
 		<if test="_parameter != null and _parameter !=''">
 			<![CDATA[
 				where userId=#{keyword } 
+			]]>
+		</if>		
+	</select>
+	<!-- 공개 투어의 수 세기, 다른 사람용 -->
+	<select id="getTourNumbers" parameterType="string" resultType="int">
+		<![CDATA[
+			select count(*) from TB_TOUR 			
+		]]>
+		
+		<if test="_parameter != null and _parameter !=''">
+			<![CDATA[
+				where userId=#{keyword } and secret = 0
 			]]>
 		</if>		
 	</select>

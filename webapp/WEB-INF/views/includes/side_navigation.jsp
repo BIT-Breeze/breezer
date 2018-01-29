@@ -17,9 +17,11 @@
 
     #sidenav {      	 	
       height: 100%;
-      position: fixed;     
+      position: fixed;
+      display: none;
+      z-index: 10;     
     }
-    
+    <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
 		padding-bottom:50px;    
     	padding-top:50px;
@@ -57,7 +59,7 @@ $(function(){
 
 	});  // 사이드 내비 토글 
 	
-	console.log("${authUser.id}")
+	//console.log("${authUser.id}")
 	
 	// 유저 인포 가져오기 
 	$.ajax({
@@ -66,16 +68,15 @@ $(function(){
 		type:"get",
 		dataType:"json",
 		data:"",
-		//response data
 		success: function( response ){
 			if( response.result != "success" ){
 				console.log( response.message );
 				return;				
 			}
-			
-			console.log(response.data.id + "sideNav ajax 확인")
-			console.log(response.data.numOfcountries + "sideNav ajax 확인")
-			console.log(response.data.countries + "sideNav ajax 확인")
+
+			$("#tourlist").text("투어수 : " + response.data.tours);
+			$("#countries").text("방문국가수 : "+ response.data.numOfcountries);
+			$("#numOfcountries").html("국가 : <br>" + response.data.countries);
 			
 		} //success
 	}); //ajax			
@@ -100,10 +101,9 @@ $(function(){
     	
     		<div class="col-sm-6" id="info" align='left'>
 
-    		<h4>투어수 : ${ uservo.tours }</h4>
-    		<h4>방문국가:  </h4>
-    		<h4>${ uservo.countries } </h4>
-    		<h4>방문국가수 : ${ uservo.numOfcountries }  </h4>
+    		<h4 id="tourlist">  </h4>
+    		<h4 id="countries">  </h4>
+    		<h4 id="numOfcountries">  </h4>
     		
     		</div>
     	
