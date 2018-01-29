@@ -352,7 +352,7 @@
 		 		 + "			<label style='margin-left:40px;'>&#10030;평점 : "+ vo.score + "</label> " 
 		 		 + "			<label style='margin-left:40px;'>&#x24; 비용 : " + vo.price	+  "</label>"
 		 		 
-		if (vo.postIdx != 0) {
+		if (vo.postIdx == 0) {
 			
 			html = html +  " 	<label style='margin-left:40px;'>P포스트 수 : " + vo.postCount	+  "</label>"
 		} 		 
