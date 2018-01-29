@@ -17,7 +17,13 @@
 			set title= #{title }, 
 				startDate= #{startDate }, 
 				endDate= #{endDate },
-				mainPhoto= #{mainPhoto }, 
+		]]>
+		<if test="mainPhoto != ''">
+		<![CDATA[
+				mainPhoto= #{mainPhoto },
+		]]>	
+		</if>
+		<![CDATA[
 				secret= #{secret }
 			where idx= #{idx }
 		]]>
