@@ -65,22 +65,22 @@ public class UserMainController {
 			@PathVariable String id,
 			@RequestParam( value="no", required=true)Long no
 			) {	
-		System.out.println("======JSON REQUEST CONTROLLER======"+ no);
-		System.out.println(authUser.getId());
-		System.out.println(id);
+		//System.out.println("======JSON REQUEST CONTROLLER======"+ no);
+		//System.out.println(authUser.getId());
+		//System.out.println(id);
 
 		if(authUser.getId().equals(id)) {
-			System.out.println("자기 페이지를 보는 쿼리 ");		
+			//System.out.println("자기 페이지를 보는 쿼리 ");		
 			List<TourVo> tours = userMainService.getTours(id,no);		
 		
 			if(tours.isEmpty()) {
 				return JSONResult.fail("더 이상 데이터가 존재하지 않습니다.");
 			}
-			System.out.println(tours);
+			//System.out.println(tours);
 			return JSONResult.success(tours);
 			
 		} else {
-			System.out.println("타인 페이지를 보는 쿼리");
+			//System.out.println("타인 페이지를 보는 쿼리");
 			//타인페이지를 볼때 로그를 남긴다. 
 
 			List<TourVo> tours = userMainService.getTours1(id, no);
@@ -114,8 +114,8 @@ public class UserMainController {
 
 		boolean bSuccess = 
 				userMainService.tourDelete(idx);
-		System.out.println(bSuccess);
-		System.out.println(idx);
+		//System.out.println(bSuccess);
+		//System.out.println(idx);
 		
 		return JSONResult.success( bSuccess ? idx : -1);
 		
