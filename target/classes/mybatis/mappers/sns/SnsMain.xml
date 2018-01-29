@@ -14,14 +14,14 @@
 			from (select @ROWNUM := @ROWNUM + 1 as idx, f.*
 					from (select p.tourIdx tourIdx, p.idx postIdx, p.userId, u.nickName nickName,
 					  				null title,  p.content, p.photo, null startDate, 
-					  				null endDate, p.score, p.favorite,    p.postDateTime, 
+					  				null endDate, p.score, p.favorite, null as postCount,  p.postDateTime, 
 									p.tripDateTime,  p.location, u.pictureUrl
 							from TB_POST p, TB_TOUR t, TB_USER u
 							where p.userId = u.id and p.tourIdx = t.idx
 							UNION ALL 
 							select 	t.idx tourIdx, null postIdx, t.userId, u.nickName nickName, t.title title, 
 										t.title content, t.mainPhoto photo,    t.startDate,    
-										t.endDate, t.score, t.favorite, null postDateTime, 
+										t.endDate, (select avg(score) from TB_POST where tourIdx = t.idx) as score, t.favorite, (select count(*) from TB_POST where tourIdx = t.idx) postCount, null postDateTime, 
 										p.tripDateTime, null location, u.pictureUrl
 							from TB_TOUR t, (	select p.tourIdx, p.idx, p.userId, max(p.tripDateTime) tripDateTime
 													from TB_POST p
