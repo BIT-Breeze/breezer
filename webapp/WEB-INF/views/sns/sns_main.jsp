@@ -350,7 +350,15 @@
 		//+ "<button id='btnFavo"+vo.idx+"' type='button' onclick='clicklike("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> "+didFavo+" </button><br> "
 				 + "			<label style='margin-left:40px;'> &#x2637; 여행일자 : " + vo.tripDateTime	+ "</label>"
 		 		 + "			<label style='margin-left:40px;'>&#10030;평점 : "+ vo.score + "</label> " 
-		 		 + "			<label style='margin-left:40px;'>&#x24; 비용 : " + vo.price	+  "</label><br>" 
+		 		 + "			<label style='margin-left:40px;'>&#x24; 비용 : " + vo.price	+  "</label>"
+		 		 
+		if (vo.postIdx == 0) {
+			
+			html = html +  " 	<label style='margin-left:40px;'>P포스트 수 : " + vo.postCount	+  "</label>"
+		} 		 
+		 		 
+		 		 
+		 		 html = html
 		 		 + " 		</div> "
 		 		 //+ "	<label>등록일자 : " + vo.postDateTime	+ "</label><br>" 
 		 		 

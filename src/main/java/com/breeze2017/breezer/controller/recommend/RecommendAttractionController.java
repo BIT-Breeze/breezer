@@ -6,9 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.breeze2017.security.Auth;
 
 @Controller
-@RequestMapping("/recommend")
+@RequestMapping("/{id}/recommend")
 public class RecommendAttractionController {
 	
+	@Auth
 	@RequestMapping("/")
 	public String searchPlace() {
 		return "recommend/recommend_attraction";

@@ -72,6 +72,7 @@
 #container {
 	width: 1300px;
 	margin: 0 auto;
+	vertical-align: middle;
 }
 
 
@@ -115,14 +116,16 @@
 	#container {
 		width: auto;
 	}
+	
+	#login-wrapper {
+		width: auto;
+	}
+	
 	#img-wrapper {
 		float: none;
 		width: auto;
 	}
-	#login-wrapper {
-		float: none;
-		width: auto;
-	}
+	
 }
 
 

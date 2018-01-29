@@ -158,7 +158,8 @@ div.scrollmenu a:hover {
 	        var places = searchBox.getPlaces();
 	        
 	        if (places.length == 0) {
-	          return;
+	        	alert("검색 결과가 없습니다.");
+				return;
 	        } 
 	        
 	        var search_place = [];	        
@@ -194,7 +195,7 @@ div.scrollmenu a:hover {
 					          position: {lat: data.lat, lng: data.lot},
 					          map: map,
 				        	  draggable:false // 드래그 가능 여부
-				        });
+			        	});
 						
 						render( index, data );
 					});
@@ -298,10 +299,8 @@ div.scrollmenu a:hover {
 		});
 	}
 	
-	// 추후 어떤 데이터를 띄울지 미정...
-	var render = function( index, data ) {
+	var render = function( index, data, result ) {
 		var location = data.location.split(" "); 
-		
 		var html = 
 			"<div class='card'>" +
 				"<img src='${pageContext.request.contextPath }/assets/images/pic" + (index + 1) + ".jpg' style='width: 100%'>" +
@@ -309,8 +308,8 @@ div.scrollmenu a:hover {
 				"<p class='title'>" + data.content + "</p>" +
 				"<p>lat: "+ data.lat +", lot : "+ data.lot +"</p>" + 
 			"</div>";
-			
-		$(".scrollmenu").append(html);
+
+		$(".scrollmenu").append(html);	
 	}
 	
 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -330,17 +329,16 @@ div.scrollmenu a:hover {
 		
 		<header class="w3-center w3-margin-bottom">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<%-- <c:import url="/WEB-INF/views/includes/side_navigation.jsp" /C --%>
+			<c:import url="/WEB-INF/views/includes/side_navigation.jsp"/>
 		</header>
 	</div>
 	
 	<!-- Page Container -->
-	<div class="w3-content w3-margin-top w3-card-4" style="max-width: 1400px;">
+	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1400px;">
 
 		<!-- Map Column -->
 		<div class="w3-row-padding w3-padding-16">
 			<input id="pac-input" class="controls" type="text" placeholder="Search...">
-			<!-- <button type="button" onclick=""><i class="fa fa-search"></i></button> -->
 	
 			<div id="googleMap" style="width: 100%; height: 600px;"></div>
 			<!-- Google Map -->
@@ -352,12 +350,14 @@ div.scrollmenu a:hover {
 		<hr>
 	
 		<!-- Info Column -->
-		<div class="w3-row-padding w3-padding-16">
+		<div class="w3-row-padding">
 	
 			<div class="w3-white w3-text-grey">
 	
 				<div class="w3-cell-row">
-					<div class="scrollmenu"></div>
+					<div class="scrollmenu">
+						<p>검색된 데이터가 없습니다.</p>
+					</div>
 				</div>
 				
 			</div>

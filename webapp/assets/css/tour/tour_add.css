@@ -74,7 +74,7 @@
 	background-size: cover;
 	max-width: none;
 	width: 100%;
-	opacity: 0.5;
+	/* opacity: 0.5; */
 
 }
 
@@ -129,7 +129,7 @@
 	color: white;
 	font-size: 30px;
 	font-weight: bold;
-	opacity: 0.8;
+	/* opacity: 0.8; */
 }
 
 .tourAdd_center #start-datepicker,#end-datepicker {
@@ -142,6 +142,19 @@
 	background: none;
 	font-size: 20px;
 	
+}
+
+#wave {
+	vertical-align: middle;
+	text-align:center; 
+	outline: none;
+	border: none;
+	background: none;
+	color: white;
+	font-size: 30px;
+	margin-left: -150px;
+	margin-right: -150px;
+	/* font-weight: bold; */
 }
 
 /* placeholder color */

@@ -15,15 +15,16 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_add.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<!-- jQuery 기본 js파일 -->
-<script src="/breezer/assets/js/jquery/jquery-1.9.0.js" type="text/javascript"></script>  
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
 
-<!-- jQuery datepicker를 사용하기 위한 라이브러리 추가 -->
-<!-- jQuery UI CSS파일 , jQuery UI 라이브러리 js파일, jQuery form 라이브러리 js파일 -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css">
-<script src="/breezer/assets/js/jquery/jquery-ui.js" type="text/javascript"></script>
-<script src="/breezer/assets/js/jquery/jquery-ui.min.js" type="text/javascript"></script>
-<script src="/breezer/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
+<link href="${pageContext.servletContext.contextPath }/assets/datePicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
+<script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
+        
+<!-- <script src="/breezer/assets/js/jquery/jquery-ui.js" type="text/javascript"></script> -->
+
 <script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
 <script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -89,8 +90,12 @@
 <script type="text/javascript">
 $(function() {
 	$("#start-datepicker, #end-datepicker").datepicker({
-		showOn: "both", 
-        buttonImage: "/breezer/assets/images/tour/calendar_button.JPG", 
+		autoClose: true,
+	   	todayButton: true,
+	   	clearButton: true,
+        language: 'en',
+		showOn: "both",
+        buttonImage: "/breezer/assets/images/tour/calendar_button.jpg", 
         buttonImageOnly: true,
         changeMonth: true,
         changeYear: true,
@@ -98,7 +103,7 @@ $(function() {
         prevText: '이전 달',
         showButtonPanel: true,
         closeText: '닫기',
-        dateFormat: "yy-mm-dd"
+        dateFormat: "yyyy-mm-dd"
  
 	});
 });
@@ -308,6 +313,7 @@ function submitForm() {
 				<div class="tourAdd_center">
 					<input type="text" id="title_area" placeholder="Enter Title" name="title"><br><br><br>
 					<input type="text" id="start-datepicker" placeholder="Start Date" name="startDate">
+					<input type="text" id="wave" value="~" readonly>
 					<input type="text" id="end-datepicker" placeholder="End Date" name="endDate"><br><br>
 					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
 				</div>

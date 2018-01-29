@@ -96,6 +96,11 @@ button:hover, a:hover {
 .checked {
     color: orange;
 }
+
+#info{
+	margin-top: 10px;
+	margin-left: 20%;
+}
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -451,12 +456,19 @@ var imageArr = [
 				// 평균 점수
 				$("#score").empty();
 				$("#score").append("<i class='fa fa-star-half-o fa-fw w3-margin-right w3-large w3-text-teal'></i>");
-				$("#score").append(Math.round(totalScore / len) + "점");
+				
+				for (var i = 0; i < 5; i++) {
+					if (i < Math.round(totalScore / len)) {
+						$("#score").append("<i class='fa fa-star checked' aria-hidden='true'></i>");	
+					} else{
+						$("#score").append("<i class='fa fa-star' aria-hidden='true'></i>");
+					}
+				}
 				
 				// 총 사용 금액
 				$("#price").empty();
 				$("#price").append("<i class='fa fa-krw fa-fw w3-margin-right w3-large w3-text-teal'></i>");
-				$("#price").append(totalPrice + "원 입니다.");
+				$("#price").append("총 사용 금액은 " + totalPrice + "원 입니다.");
 				
 			},
 			error: function(xhr, status, e){
@@ -518,14 +530,10 @@ var imageArr = [
 		<header class="w3-center w3-margin-bottom">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 		</header>
-
-		<%-- <header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
- 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-		</header> --%>
 	</div>
 
 	<!-- Page Container -->
-	<div class="w3-content w3-margin-top w3-card-4" style="max-width: 1400px;">
+	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1400px;">
 
 		<!-- Map Column -->
 		<div class="w3-row-padding w3-padding-16">
@@ -565,7 +573,7 @@ var imageArr = [
 					</div>
 					
 					<div class="w3-container w3-cell w3-twothird">
-						<div class="w3-container w3-padding-32">
+						<div id="info" class="w3-container w3-padding-32 w3-large" >
 							<p><i class="fa fa-tag fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.title }</p>
 							<p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.startDate } ~ ${vo.endDate }</p>
 							<p id="score"><i class="fa fa-star-half-o fa-fw w3-margin-right w3-large w3-text-teal"></i></p>
@@ -574,50 +582,7 @@ var imageArr = [
 						    
 						    <p id="distance"><i class="fa fa-spinner fa-fw w3-margin-right w3-large w3-text-teal"></i>총 이동 거리 계산중... </p>
 						    <p id="duration"><i class="fa fa-spinner fa-fw w3-margin-right w3-large w3-text-teal"></i>총 이동 시간 계산중... </p>
-						    
 						</div>
-						<!-- <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>
-						<p>Adobe Photoshop</p>
-						
-						<div class="w3-light-grey w3-round-xlarge w3-small">
-							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 90%">90%</div>
-						</div>
-						
-						<p>Photography</p>
-						<div class="w3-light-grey w3-round-xlarge w3-small">
-							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 80%">
-								<div class="w3-center w3-text-white">80%</div>
-							</div>
-						</div>
-						
-						<p>Illustrator</p>
-						<div class="w3-light-grey w3-round-xlarge w3-small">
-							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 75%">75%</div>
-						</div>
-						
-						<p>Media</p>
-						<div class="w3-light-grey w3-round-xlarge w3-small">
-							<div class="w3-container w3-center w3-round-xlarge w3-teal" style="width: 50%">50%</div>
-						</div>
-						
-						<hr>
-						
-						<p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
-						
-						<p>English</p>
-						<div class="w3-light-grey w3-round-xlarge">
-							<div class="w3-round-xlarge w3-teal" style="height: 24px; width: 100%"></div>
-						</div>
-						
-						<p>Spanish</p>
-						<div class="w3-light-grey w3-round-xlarge">
-							<div class="w3-round-xlarge w3-teal" style="height: 24px; width: 55%"></div>
-						</div>
-						
-						<p>German</p>
-						<div class="w3-light-grey w3-round-xlarge">
-							<div class="w3-round-xlarge w3-teal" style="height: 24px; width: 25%"></div>
-						</div> -->
 						
 					</div>
 					

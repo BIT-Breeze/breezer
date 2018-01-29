@@ -138,25 +138,25 @@ $(function(){
       	<c:when test="${param.menu == 'login' }">
         <li class="active"><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
         <li><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
-        <li><a href="${pageContext.servletContext.contextPath }/recommend/">위치검색</a></li>        
+        <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}/recommend/">위치검색</a></li>        
         </c:when>
         
         <c:when test="${param.menu == 'sns' }">
         <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
         <li class="active"><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
-        <li><a href="${pageContext.servletContext.contextPath }/recommend/">위치검색</a></li>        
+        <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}/recommend/">위치검색</a></li>        
         </c:when>
         
         <c:when test="${param.menu == 'location' }">
         <li ><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
         <li><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
-        <li class="active"><a href="${pageContext.servletContext.contextPath }/recommend/">위치검색</a></li>        
+        <li class="active"><a href="${pageContext.servletContext.contextPath }/${authUser.id}/recommend/">위치검색</a></li>        
         </c:when>
         
         <c:otherwise>
         <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}">Main</a></li>
         <li><a href="${pageContext.servletContext.contextPath }/sns">다른사람 이야기</a></li>
-        <li><a href="${pageContext.servletContext.contextPath }/recommend/">위치검색</a></li>        
+        <li><a href="${pageContext.servletContext.contextPath }/${authUser.id}/recommend/">위치검색</a></li>        
         </c:otherwise>
         
       </c:choose>

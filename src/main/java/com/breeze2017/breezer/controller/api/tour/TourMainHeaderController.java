@@ -11,13 +11,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.tour.TourMainHeaderService;
 import com.breeze2017.breezer.vo.TourVo;
+import com.breeze2017.security.Auth;
 
 @Controller("tourMainHeaderAPIController")
-@RequestMapping("/api/tourheader")
+@RequestMapping("/{id}/api/tourheader")
 public class TourMainHeaderController {
 
 	@Autowired
 	private TourMainHeaderService tourMainHeaderService;
+
 
 	@ResponseBody
 	@RequestMapping("")
@@ -30,6 +32,7 @@ public class TourMainHeaderController {
 	}
 	
 	
+	@Auth
 	@ResponseBody
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public JSONResult tourModify( 

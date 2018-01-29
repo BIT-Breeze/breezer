@@ -99,15 +99,16 @@ var render2 = function( tourvo, mode ){
 var renderNoTour = function(){
 	str = "<h4>투어가 없습니다!!!</h4>"
 	$("#bottom-text").html(str);
-	// .text() 로 하면 태그를 인식 못함. 
+
 	isEnd = true;
 }
 
 var getCount = function(){
 	
 	console.log("========getCount========");
+	console.log(uservo);
 	$.ajax({
-		url:"/breezer/"+ userId + "/count",
+		url:"/breezer/"+ uservo + "/count",
 		type:"get",
 		data:"",
 		
@@ -116,7 +117,7 @@ var getCount = function(){
 				console.log( response.message );
 				return;		
 			}
-			console.log(response.data);
+			console.log(response.data+" getCount 함수에서 가져온  투어 수");
 			$("#counting").text(response.data + "개의 여행을 하셨습니다.");
 		} // success
 	}) //ajax
@@ -128,8 +129,6 @@ var fetchList = function(){
 		return;
 	}
 		
-	//var startNo = $("#list-tour > *").last().attr('no') || 0;
-	// expr1을 true로 변환할 수 있으면 expr1을 반환하고, 그렇지 않으면 expr2를 반환합니다.
 	console.log("startno is" + startNo);
 
 			$.ajax({
@@ -146,8 +145,7 @@ var fetchList = function(){
 					}
 		
 					if( response.data.length < 8){
-						// JavaScript 배열에는 length라는 속성이 있다.
-						// response.data는 배열로 인식된다
+
 						isEnd = true;
 					}
 		
@@ -167,7 +165,7 @@ var fetchList = function(){
 			}); //ajax			
 	
 	startNo += 8;
-	console.log(startNo);
+	console.log(startNo + "투어리스트 가져오는 요청 보낼때  Request param 넘버");
 	} // fetchList
 
 
@@ -176,10 +174,6 @@ $(function(){
 	getCount();
 	$( document ).on( "click", "#list-tour div button", function(){
 			//event.preventDefault();	
-		 		//이벤트를 취소할 수 있는 경우, 이벤트의 전파를 막지않고 그 이벤트를 취소
-
-		 		//var no = $(this).data("no");
-
 		 	//$('#myModal').modal("show");	
 
 		 	$('#myModal').modal({
@@ -226,13 +220,10 @@ $(function(){
 		 				}						
  			});// ajax 
  	 		//$('#myModal').attr('aria-hidden','true');
- 			//
- 			//getCount();	
- 		} else {
- 			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다.");
- 			
- 		}	
 
+ 		} else {
+ 			$('.modal-body').html("다른사람의 투어는 삭제할 수 없습니다."); 			
+ 		}	
 		});
 		
 	$( window ).scroll( function(){
@@ -241,11 +232,6 @@ $(function(){
 		var windowHeight = $window.height();
 		var documentHeight = $( document ).height();
 		
-		//console.log( 
-		//	scrollTop + ":" + 
-		//	windowHeight + ":" + 
-		//	documentHeight );
-		// scollbar의 thumb가 바닥 전 30px 까지 도달 했을 때
 		if( scrollTop + windowHeight + 30 > documentHeight ) {
 			fetchList();
 		}
@@ -313,14 +299,10 @@ $(function(){
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
 		
-		<div class="row"  id="secondrow">
-			
-			<div class="col-sm-12">
-			
+		<div class="row"  id="secondrow">			
+			<div class="col-sm-12">			
 			<div id="list-tour">
-
-			</div>			
-			
+			</div>						
 			<div class="modal" id="myModal" tabindex="-1" role="dialog" 
 	   			 aria-labelledby="myModalLabel" aria-hidden="true">
 					   <div class="modal-dialog">
@@ -334,8 +316,7 @@ $(function(){
 					            </h4>
 					         </div>
 					         <div class="modal-body">
-					            	확인 버튼을 누르세요
-			        	
+					            	확인 버튼을 누르세요			        	
 					         <form>
 					         	<input type="hidden" id="delete-no" name="voNo" value=""/>					         
 					         </form>
@@ -352,17 +333,13 @@ $(function(){
 					         </div>
 					      </div><!-- /.modal-content -->
 					   </div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
-
-						
+			</div><!-- /.modal -->					
 			<div class="col-sm-12" id="bottom-text" style="text-align:center; padding-top:20px">
 				<h4>투어를 더 보려면 아래로 스크롤 하세요!! </h4>
 				<!--  <a href="#header"> 맨 위로 </a> -->
-			</div>
-			
+			</div>			
 			</div> <!-- sm-12 -->
-		</div>
-						
+		</div>						
     </div>	<!-- col sm-8 -->
     <div class="col-sm-2">
     </div>

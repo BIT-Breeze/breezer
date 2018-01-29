@@ -97,6 +97,19 @@
 	border-bottom: 2px solid white;
 }
 
+#wave {
+	vertical-align: middle;
+	text-align:center; 
+	outline: none;
+	border: none;
+	background: none;
+	color: white;
+	font-size: 30px;
+	margin-left: -150px;
+	margin-right: -150px;
+	/* font-weight: bold; */
+}
+
 
 /* --------------------------------------------------------------- */
 

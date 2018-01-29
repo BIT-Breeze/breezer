@@ -23,6 +23,7 @@
 <script type="text/javascript">
 $(function() {
 	$("#modify_start-datepicker, #modify_end-datepicker").datepicker({
+		autoClose: true,
 	   	todayButton: true,
 	   	clearButton: true,
         language: 'en',
@@ -174,19 +175,18 @@ $(function() {
 <!-- form 전송 (EDIT 후 SAVE 눌렀을 때)-->
 <script type="text/javascript">
 function submitForm() {
-	//$("#modify_imagePath").val(imagePath);
-	//document.getElementById("modify_fileForm").submit();
-	var idx = ${tourIdx }
-	console.log(idx)
+	var idx = ${tourIdx };
+	console.log(idx);
 	
-	$("#modify_imagePath").val(imagePath);
+	$("#modify_imagePath").val(imagePath); /* db로 이미지 경로 저장 */
+	// 근데 기존 이미지를 안바꿧을 때 디비에 어케 저장할꺼냐 그전에 있는걸 안지워야함
+	
 	var formData = $("#modify_fileForm").serialize();
 	
 	$.ajax({
-		url: "/breezer/api/tourheader/modify",
+		url: "/breezer/${id}/api/tourheader/modify",
 		type: "post",
 		dataType: "json",
-		/* data: JSON.stringify(formData), */
 		data: formData,
 		success: function( response ) {
 			if( response.result != "success" ) { 
@@ -196,9 +196,11 @@ function submitForm() {
 			console.log("수정 완료 후");
 			console.log(response.data);
 			
+			
 			$("#edit_title_area").val(response.data.title);
 			$("#edit_startDate").val(response.data.startDate);
 			$("#edit_endDate").val(response.data.endDate);
+			
 			
 			$(".editForm").show();
 			$(".modify_addform").css("display", "none");
@@ -207,7 +209,15 @@ function submitForm() {
 		}
 	});
 }
-	
+
+</script>
+
+<!-- leave 눌렀을 때 전 화면으로 -->
+<script type="text/javascript">
+function leaveForm() {
+	$(".editForm").show();
+	$(".modify_addform").css("display", "none");
+}
 </script>
 
 <!-- 대문 사진 가져오기 -->
@@ -218,6 +228,7 @@ var refreshHeaderImage = function(mainPhoto) {
 	$("div#header").css("background-color", "transparent");
 	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
 }
+
 
 </script>
 
@@ -232,14 +243,15 @@ function editForm() {
 };
 </script>
 
-<!-- tour add 했을 때 tour main으로 value값 가져오기 -->
+<!-- tour add 후 tour main으로 데이터값 가져오기 -->
 <script type="text/javascript">
 
 $(document).ready(function() {
-	var idx = ${tourIdx }
+	var idx = ${tourIdx };
+	var currentId = "${userId }";
 	
 	 $.ajax({
-			url: "/breezer/api/tourheader",
+			url: "/breezer/${id}/api/tourheader",
 			type: "post",
 			dataType: "json",
 			data: "idx=" + idx,
@@ -249,6 +261,8 @@ $(document).ready(function() {
 					alert("tour info 죄송.");
 					return;
 				}
+				
+				
 				
 				console.log(response.data)
 				$("#edit_title_area").val(response.data.title);
@@ -263,6 +277,17 @@ $(document).ready(function() {
 				$("#idx_value").val(response.data.idx);
 				$("#modify_imagePath").val(response.data.mainPhoto);
 				$("#user_id").val(response.data.userId);
+				
+				
+				/* id 가 다르면 edit 폼 지우기 */
+				var authId = response.data.userId;
+
+				if(authId != currentId) {
+					$("#edit").css("display", "none");
+				}
+				
+				
+								
 				
 			}
 		});
@@ -292,6 +317,7 @@ $(document).ready(function() {
 				
 					<div class="edit_tourDate">
 						<input type="text" id="edit_startDate" name="startDate" readonly>
+						<input type="text" id="wave" value="~" readonly>
 						<input type="text" id="edit_endDate" name="endDate" readonly>
 					</div>
 				</div>
@@ -329,13 +355,14 @@ $(document).ready(function() {
 				<!-- 오른쪽 구간 -->
 				<div class="modify_tourAdd_right">
 					<input type="button" id="modify_add" value="SAVE" onClick="submitForm()"><br><br><br>
-					<input type="button" id="modify_leave" value="LEAVE" onClick="location.href='/breezer'">		
+					<input type="button" id="modify_leave" value="LEAVE" onClick="leaveForm()">		
 				</div>
 				
 				<!-- 센터 구간 -->
 				<div class="modify_tourAdd_center">
 					<input type="text" id="modify_title_area" name="title" ><br><br><br>
 					<input type="text" id="modify_start-datepicker" name="startDate">
+					<input type="text" id="wave" value="~" readonly>
 					<input type="text" id="modify_end-datepicker" name="endDate"><br><br>
 					
 					<input type="hidden"  id="user_id" name="userId">
