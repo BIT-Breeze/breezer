@@ -248,7 +248,7 @@ function editForm() {
 
 $(document).ready(function() {
 	var idx = ${tourIdx };
-	var currentId = "${userId }";
+	var authId = "${authUser.id }";
 	
 	 $.ajax({
 			url: "/breezer/${id}/api/tourheader",
@@ -280,14 +280,11 @@ $(document).ready(function() {
 				
 				
 				/* id 가 다르면 edit 폼 지우기 */
-				var authId = response.data.userId;
+				var tourUserId = response.data.userId;
 
-				if(authId != currentId) {
-					$("#edit").css("display", "none");
+				if(tourUserId == authId) {
+					$("#edit").css("display", "block");
 				}
-				
-				
-								
 				
 			}
 		});
@@ -308,7 +305,7 @@ $(document).ready(function() {
 				
 				<!-- 오른쪽 구간 -->
 				<div class="edit_tourAdd_right">
-					<input type="button" id="edit" value="EDIT" onclick="editForm()"><br><br><br>
+					<input type="button" id="edit" value="EDIT" onclick="editForm()" style="display: none;" ><br><br><br>
 				</div>
 				
 				<!-- 센터 구간 -->
@@ -317,7 +314,7 @@ $(document).ready(function() {
 				
 					<div class="edit_tourDate">
 						<input type="text" id="edit_startDate" name="startDate" readonly>
-						<input type="text" id="wave" value="~" readonly>
+						<input type="text" id="wave" value="~" readonly >
 						<input type="text" id="edit_endDate" name="endDate" readonly>
 					</div>
 				</div>
