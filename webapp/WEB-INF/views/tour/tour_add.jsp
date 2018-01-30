@@ -86,6 +86,7 @@
 		
 		</script>
 
+
 <!-- 달력 js -->
 <script type="text/javascript">
 $(function() {
@@ -146,6 +147,7 @@ $(document).ready(function() {
 		}).done(function(data) {
 			var data = data;
 			imagePath = data;
+			console.log(data);
 			
 			// css selector를 통해 background 변경
 			$("#header").css("background-color", "transparent");
@@ -259,7 +261,29 @@ $(function() {
 <!-- form 전송 -->
 <script type="text/javascript">
 function submitForm() {
+	
 	$("#imagePath").val(imagePath); /* imagePath 값을 얻어와서 DB에 같이 */
+	
+	
+	var $inputTitle = $("#title_area");
+	if ($inputTitle.val() === '') { 
+		alert("제목은 필수 항목입니다.");
+		$inputTitle.focus();
+		return false;
+	}
+	
+	var $startDate = $("#start-datepicker");
+	if ($startDate.val() === '') { 
+		alert("날짜 입력은 필수 항목입니다.");
+		return false;
+	}
+	
+	var $endDate = $("#end-datepicker");
+	if ($endDate.val() === '') { 
+		alert("날짜 입력은 필수 항목입니다.");
+		return false;
+	}
+	
 	document.getElementById("fileForm").submit();
 }
 	
@@ -286,7 +310,8 @@ function submitForm() {
 						<input type="file" name="file" id="fileUpload"><br><br>
 						<img id="newFile" src="/breezer/assets/images/tour/cover_pic_button.png" onClick="check()" >
 						<div class="hover_target_img">
-							<input type="text" id="cover_photo" value="Cover Photo" ><br><br>	
+							<input type="text" id="cover_photo" value="Cover Photo" ><br><br>
+							<input type="hidden" id="userId" name="userId" value="${authUser.id }">
 						</div>
 					</div>
 					

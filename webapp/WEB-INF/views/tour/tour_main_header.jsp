@@ -19,6 +19,7 @@
 <script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
 <script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script>
 
+
 <!-- 달력 js -->
 <script type="text/javascript">
 $(function() {
@@ -352,7 +353,7 @@ $(document).ready(function() {
 				<!-- 오른쪽 구간 -->
 				<div class="modify_tourAdd_right">
 					<input type="button" id="modify_add" value="SAVE" onClick="submitForm()"><br><br><br>
-					<input type="button" id="modify_leave" value="LEAVE" onClick="leaveForm()">		
+					<input type="button" id="modify_leave" value="LEAVE" onClick="leaveForm()">	
 				</div>
 				
 				<!-- 센터 구간 -->
@@ -365,9 +366,14 @@ $(document).ready(function() {
 					<input type="hidden"  id="user_id" name="userId">
 					<input type="hidden"  id="idx_value" name="idx">
 					<input type="hidden"  id="modify_imagePath" value="imagePath" name="mainPhoto">
-					<%-- <input type="hidden"  id="modify_imagePath" value="${tour.mainPhoto }" name="mainPhoto"> --%>
+					
 				</div>
 			</form>
+			
+			<div id="toMain_section">
+				<a id="toMain" href="${pageContext.servletContext.contextPath }/${userId }">${userId }</a>
+			</div>
+			
 		</div>
 	</div>
 

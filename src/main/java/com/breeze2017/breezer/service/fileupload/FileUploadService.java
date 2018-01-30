@@ -4,12 +4,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.breeze2017.security.Auth;
+import com.breeze2017.breezer.repository.tour.TourAddDao;
+import com.breeze2017.breezer.vo.TourVo;
 
 @Service
 public class FileUploadService {
@@ -17,7 +18,7 @@ public class FileUploadService {
 	private static String SAVE_PATH = "/uploads";
 	private static String PREFIX_URL = "/uploads/images/";
 
-	public String restore(MultipartFile multipartFile) {
+	public String restore(MultipartFile multipartFile, String userId) {
 		
 		System.out.println();
 		String url = "";
@@ -38,12 +39,12 @@ public class FileUploadService {
 			/* 파일이름을 변경해서 서버에 저장할 때, 이름이 중복되면 안됨 */
 			String saveFileName = genSaveFileName(extName);
 			
-			System.out.println("## Photo Information >> " + originalFileName +" / "+ saveFileName +" / "+  size);
+			System.out.println("## Photo Information >> " + originalFileName +" / "+ userId + saveFileName +" / "+  size);
 			
 
-			writeFile(multipartFile, saveFileName);
+			writeFile(multipartFile, saveFileName, userId);
 
-			url = PREFIX_URL + saveFileName;
+			url = PREFIX_URL + userId + saveFileName;
 			System.out.println("## URL >> " + url);
 
 		} catch (IOException ex) {
@@ -53,9 +54,9 @@ public class FileUploadService {
 	}
 	
 	
-	private void writeFile(MultipartFile multipartFile, String saveFileName) throws IOException {
+	private void writeFile(MultipartFile multipartFile, String saveFileName, String userId) throws IOException {
 		byte[] fileData = multipartFile.getBytes();
-		FileOutputStream fos = new FileOutputStream(SAVE_PATH + "/" + saveFileName);
+		FileOutputStream fos = new FileOutputStream(SAVE_PATH + "/" + userId + saveFileName);
 		fos.write(fileData);
 		fos.close();
 	}
@@ -65,6 +66,7 @@ public class FileUploadService {
 		String fileName = "";
 
 		Calendar calendar = Calendar.getInstance();
+		
 		fileName += calendar.get(Calendar.YEAR);
 		fileName += calendar.get(Calendar.MONTH);
 		fileName += calendar.get(Calendar.DATE);
