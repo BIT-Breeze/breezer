@@ -102,8 +102,10 @@
 						"<p><strong>지출비용:</strong> "+post.price+"</p><br>"+
 						"<p><strong>평점:</strong> "+post.score+"</p><br>"+
 						"<p><strong>추천수:</strong> "+post.favorite+"</p><br>"+
-						"<a id='post-delete-"+post.idx+"' href='' data-no='"+post.idx+"'>삭제</a>"+
-						"<a id='post-modify-"+post.idx+"' href='' data-no='"+post.idx+"'>수정</a>"+
+						"<c:if test='${userId eq authUser.id}'>"+
+							"<a id='post-delete-"+post.idx+"' href='' data-no='"+post.idx+"'>삭제</a>"+
+							"<a id='post-modify-"+post.idx+"' href='' data-no='"+post.idx+"'>수정</a>"+
+						"</c:if>"+
 					"</div>" +
 				"</li></div>";
 			if(index === 0){
