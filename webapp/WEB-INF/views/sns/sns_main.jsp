@@ -20,32 +20,20 @@
 
 <!-- css -->
 
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/sns/sns_main.css"
-	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/sns/sns_main.css"	rel="stylesheet" type="text/css">
 <!-- bootstrap -->
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"
-	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css"	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 
 <!-- jquery -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <%-- <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script> --%>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
+<%-- <script type="text/javascript"	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
+<script type="text/javascript"	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script> --%>
+<script type="text/javascript"	src="http://malsup.github.io/jquery.cycle2.js"></script>
 
-
-
-
-<script type="text/javascript"
-	src="http://malsup.github.io/jquery.cycle2.js"></script>
-
-
+<!-- side_navi css를 위해 임시로 가져옴 -> 기본적으로 navi.jsp 에 임포트 되있어야 할듯 -->
+<%-- <link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css"> --%> 
 
 
 
@@ -452,10 +440,7 @@
 		fetchList();
 	})
 </script>
-<!-- side_navi css를 위해 임시로 가져옴 -> 기본적으로 navi.jsp 에 임포트 되있어야 할듯 -->
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"
-	rel="stylesheet" type="text/css">
+
 
 <body>
 	
@@ -471,7 +456,7 @@
 	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">
 		
 		<!-- side_navi import -->
-		<div id="side_navi" style="position: fixed; top: 100px;" >
+		<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; " align="center" >
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
 			</c:import>
