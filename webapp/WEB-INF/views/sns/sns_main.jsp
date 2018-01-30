@@ -461,9 +461,9 @@
 		
 		<!-- side_navi import -->
 		<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; " align="center" >
-			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+			<%-- <c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
-			</c:import>
+			</c:import> --%>
 		</div>
 
 		<!-- <div class="cycle-slideshow"   data-cycle-fx=scrollHorz    data-cycle-timeout=0    >
