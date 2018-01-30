@@ -195,7 +195,11 @@
 		if (sliderCount > 1) {
 			//return;
 		}
-
+		
+		//날짜 초 지우기 		
+		vo.tripDateTime = vo.tripDateTime.substring(0,16);
+		
+		
 		var photo = vo.photo;
 		var photos = photo.split(',');
 		for ( var i in photos) {
@@ -312,8 +316,8 @@
 		}
 
 		html = html
-				+ '   				<a class=" " onclick="plusDivs(this,-1)" style="margin-left:330px;  width:100px; background-color:#ffffff" > <이전  </a> '
-				+ '  	 			<a class=" " onclick="plusDivs(this,1)"  style="margin-left:30px;   width:100px; background-color:#ffffff" > 다음>  </a> '
+				+ '   				<label class="slidermove" onclick="plusDivs(this,-1)" style="margin-left:320px;   background-color:#ffffff" > < 이전  </label> '
+				+ '  	 			<label class="slidermove" onclick="plusDivs(this,1)"  style="margin-left:50px;    background-color:#ffffff" > 다음 >  </label> '
 				//+ '  	 			<a class="w3-btn-floating w3-display-right" onclick="plusDivs(this,1)" style="width:390px; background-color:#ffffff" >&#10095;</a  '
 				+ '   		</div>' 
 
