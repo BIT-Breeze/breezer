@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.breeze2017.breezer.service.tour.TourMainService;
+import com.breeze2017.breezer.vo.UserVo;
 import com.breeze2017.security.Auth;
+import com.breeze2017.security.AuthUser;
 
 @Controller
 @RequestMapping("/{id}/tour")
@@ -18,10 +20,14 @@ public class TourMainController {
 	private TourMainService tourMainService;
 
 	@RequestMapping("")
-	public String mytour(
+	public String mytour(@AuthUser UserVo authUser,
 			@PathVariable String id,
 			@RequestParam(value="idx", required=false) long tourIdx,
 			Model model) {
+		
+		if(authUser == null) {
+			return null;
+		}
 
 		model.addAttribute("userId", id);
 		model.addAttribute("tourIdx", tourIdx);
