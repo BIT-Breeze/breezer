@@ -451,7 +451,7 @@
 
 	<!-- header -->
 	<div id="header"
-		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;">
+		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10 ">
 		<c:import url="/WEB-INF/views/includes/header.jsp">
 		</c:import>
 	</div>
