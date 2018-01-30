@@ -13,18 +13,53 @@
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"	rel="stylesheet" type="text/css">
 <link   rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
 
+    .row.content {
+    	height: 100%;
+    	flex-direction:row;
+    	display:flex;
+    }
+
+    footer {
+      background-color: #555;
+      color: #808080;
+      padding: 15px;
+    }
+    
+    #th_buttons{    
+		padding-right:15px;    
+    }
+    
+    #bottom-text {     
+      color: black;
+      padding: 10px;    
+      height: 50px; 
+	  background-color: #F1F1F1;
+    }
+    
+   
+    #secondrow {     
+      color: black;
+      padding: 15px;    
+      height: 750px; 
+      padding-bottom: 20px;
+	  background-color: #F1F1F1;
+    }
+   
+    #firstrow {
+      padding: 30px; 
+      padding-bottom: 50px;
+      padding-top: 100px;
+      background-color: #F1F1F1;    
+    }
+    
+
+</style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
-
-<style>
-    #th_buttons{    
-		padding-right:15px; 
-    
-    }
-</style>
 
 <script>
 
@@ -63,8 +98,8 @@ var render0 = function( tourvo, mode ){
 							"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='270px' height='180px'></a><br>" + "</div>"+"</div>"
 	*/
 	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
-				"<div class='thumbnail'>" +
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'  width='245px' height='180px'>" +
+				"<div class='thumbnail'>" + 
+				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='300px' height='170px'>" + 
 					 "<div class='caption'>" + 
 					 	"<h5>" + tourvo.title + "</h5>" +
 					   	"<p>start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
@@ -131,7 +166,7 @@ var getCount = function(){
 			console.log(response.data+" getCount 함수에서 가져온  투어 수");
 			$("#counting").text(response.data + "개의 여행을 하셨습니다.");
 			if(userId == authUser){
-				$("#tourlist").text(response.data)
+				$("#tourlist").text("투어수 : " + response.data)
 				
 			}
 		} // success
@@ -268,7 +303,7 @@ $(function(){
   
   
   	<div class="row" id="container">
-	  	<div class="col-sm-12">
+	  	<div class="col-sm-12" style= "position: fixed; z-index: 100;">
 	  	
 		  	<c:import url="/WEB-INF/views/includes/header.jsp">
 		
@@ -277,18 +312,18 @@ $(function(){
 		</div>
   	</div>
   	
-  	<div class="row content">
+  	<div class="row content" >
 
 	<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 		<c:param name="menu" value="login" />
 	</c:import>
 
     <div class="col-sm-8">
-		<div class="row" id="firstrow">
+		<div class="row" id="firstrow" style="postion:relative;">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
 			<img src="${ uservo2.pictureUrl}" 
-				 width="150px" height="150px" class="img-circle">
+				 width="120px" height="120px" class="img-circle">
 			
 			</div> 
 			
@@ -356,13 +391,14 @@ $(function(){
 			</div> <!-- sm-12 -->
 		</div>						
     </div>	<!-- col sm-8 -->
-    <div class="col-sm-2">
+    <div class="col-sm-2" style="background-color: #F1F1F1;">
     </div>
     
-  </div>	<!-- row content -->    
+  </div>	<!-- row content --> 
+  <!--<c:import url="/WEB-INF/views/includes/footer.jsp" /> -->    
 </div>	<!-- container -->
 
-<!-- <c:import url="/WEB-INF/views/includes/footer.jsp" />  -->  
+   
 
 </body>
 </html>

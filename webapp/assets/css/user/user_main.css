@@ -6,36 +6,29 @@
     	flex-direction:row;
     	display:flex;
     }
-    
-    /* Set gray background color and 100% height 
-    .sidenav {
-      background-color: #f1f1f1;
-      position: fixed;
-      height: 100%;
-    }
-    */
-    
-    /* Set black background color, white text and some padding #555 */
+
     footer {
       background-color: #555;
       color: white;
       padding: 15px;
     }
        
-    #firstrow {
-      padding: 30px; 
-      padding-bottom: 50px;
-      padding-top: 50px;     
-    }
+
     
     #secondrow {     
       color: black;
       padding: 15px;    
       height: 750px; 
       padding-bottom: 20px;
+	  background-color: #FFFFE0;
 
     }
    
-    
+    #firstrow {
+      padding: 30px; 
+      padding-bottom: 50px;
+      padding-top: 100px;
+      background-color: #FFFFE0;     
+    }
 
     

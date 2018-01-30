@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
-<link	href="${pageContext.servletContext.contextPath }/assets/css/includes/side_navigation.css"	rel="stylesheet" type="text/css">
+
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
@@ -16,10 +16,15 @@
 <style>
 
     #sidenav {      	 	
-      height: 100%;
+
+      margin:0;
+      border: 0;
+      padding: 0;
       position: fixed;
       display: none;
-      z-index: 10;     
+      z-index: 10;
+	  opacity: 1.0;
+
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
@@ -28,16 +33,16 @@
     }  
     
     #info{    
-		padding-top:60px;        	
+		padding-top:100px;        	
     }     
     
     #photoframe{    
-		padding-top:60px;        
+		padding-top:100px;        
     }
     
     #menu{    
-		padding-top:60px; 
-		padding-bottom:900px;       
+		padding-top:45px; 
+		padding-bottom:500px;       
     }
     
 
@@ -53,7 +58,7 @@ var numOfcountries
 
 $(function(){
 	
-	$('h1').click(function(event){
+	$('#show_menu').click(function(event){
 		event.preventDefault();
 		$('#sidenav').toggle('slow');
 
@@ -89,7 +94,7 @@ $(function(){
 </head>
 
 
-<body>	
+
 
     <div class="col-sm-2 sidenav">
 	<div id="sidenav">
@@ -115,13 +120,13 @@ $(function(){
 
     		</div>    	
     	
-    		<div class="col-sm-4" align="center">
+    		<div class="col-sm-3" align="left">
 
-      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/analysis" class="btn btn-primary" role="button">성  향</a>
+      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/analysis" class="btn btn-primary" role="button">성향</a>
 
     		</div>
     		
-    		<div class="col-sm-4" align="center">
+    		<div class="col-sm-5" align="center">
 
       			<a href="${pageContext.servletContext.contextPath }/user/logout" class="btn btn-primary" role="button">로그아웃</a>
 
@@ -165,5 +170,4 @@ $(function(){
   	</div> <!-- id sidenav  -->
     </div> <!-- class sidenav -->	
 
-</body>
 </html>

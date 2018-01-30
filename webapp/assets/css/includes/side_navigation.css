@@ -1,16 +1,5 @@
 @charset "UTF-8";
 
-
-    
-        /* On small screens, set height to 'auto' for sidenav and grid 
-    @media screen and (max-width: 767px) {
-      .sidenav {
-		
-        padding: 15px;
-      }
-      .row.content {height: auto;} 
-    }
-    */
     #button_area{    
 		padding-bottom:50px;    
     	padding-top:50px;
@@ -26,6 +15,6 @@
     
 
     #active{
-    	background-color:DodgerBlue;
+    	background-color:#D6D4D4;
     }
     
