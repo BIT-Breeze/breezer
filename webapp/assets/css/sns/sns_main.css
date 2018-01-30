@@ -188,5 +188,11 @@
             border-radius: 5px;
             background-color: brown;
         }
+        
+        .slidermove {
+        	cursor:pointer;
+        	width : 50px;
+        	color: #1277f3;
+        }
 
 

@@ -20,32 +20,20 @@
 
 <!-- css -->
 
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/sns/sns_main.css"
-	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/sns/sns_main.css"	rel="stylesheet" type="text/css">
 <!-- bootstrap -->
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"
-	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css"	rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 
 <!-- jquery -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <%-- <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script> --%>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script>
+<%-- <script type="text/javascript"	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
+<script type="text/javascript"	src="${pageContext.request.contextPath }/assets/js/bootstrap.min.js"></script> --%>
+<script type="text/javascript"	src="http://malsup.github.io/jquery.cycle2.js"></script>
 
-
-
-
-<script type="text/javascript"
-	src="http://malsup.github.io/jquery.cycle2.js"></script>
-
-
+<!-- side_navi css를 위해 임시로 가져옴 -> 기본적으로 navi.jsp 에 임포트 되있어야 할듯 -->
+<%-- <link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css"> --%> 
 
 
 
@@ -207,7 +195,11 @@
 		if (sliderCount > 1) {
 			//return;
 		}
-
+		
+		//날짜 초 지우기 		
+		vo.tripDateTime = vo.tripDateTime.substring(0,16);
+		
+		
 		var photo = vo.photo;
 		var photos = photo.split(',');
 		for ( var i in photos) {
@@ -324,8 +316,8 @@
 		}
 
 		html = html
-				+ '   				<a class=" " onclick="plusDivs(this,-1)" style="margin-left:330px;  width:100px; background-color:#ffffff" > <이전  </a> '
-				+ '  	 			<a class=" " onclick="plusDivs(this,1)"  style="margin-left:30px;   width:100px; background-color:#ffffff" > 다음>  </a> '
+				+ '   				<label class="slidermove" onclick="plusDivs(this,-1)" style="margin-left:320px;   background-color:#ffffff" > < 이전  </label> '
+				+ '  	 			<label class="slidermove" onclick="plusDivs(this,1)"  style="margin-left:50px;    background-color:#ffffff" > 다음 >  </label> '
 				//+ '  	 			<a class="w3-btn-floating w3-display-right" onclick="plusDivs(this,1)" style="width:390px; background-color:#ffffff" >&#10095;</a  '
 				+ '   		</div>' 
 
@@ -452,17 +444,14 @@
 		fetchList();
 	})
 </script>
-<!-- side_navi css를 위해 임시로 가져옴 -> 기본적으로 navi.jsp 에 임포트 되있어야 할듯 -->
-<link
-	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"
-	rel="stylesheet" type="text/css">
+
 
 <body>
 	
 
 	<!-- header -->
 	<div id="header"
-		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;">
+		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10 ">
 		<c:import url="/WEB-INF/views/includes/header.jsp">
 		</c:import>
 	</div>
@@ -471,7 +460,7 @@
 	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">
 		
 		<!-- side_navi import -->
-		<div id="side_navi" style="position: fixed; top: 100px;" >
+		<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; " align="center" >
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
 			</c:import>
