@@ -528,14 +528,16 @@
 
 
 
-		<form id="logout" name="logout" method="post"
+		<%-- <form id="logout" name="logout" method="post"
 			action="${pageContext.servletContext.contextPath }/user/logout">
 			<button type="submit" class="join-button">logout</button>
-		</form>
+		</form> --%>
 
-		<!-- footer -->
-		<c:import url="/WEB-INF/views/includes/footer.jsp" />
+		
 	</div>
+	
+	<!-- footer -->
+	<c:import url="/WEB-INF/views/includes/footer.jsp" />
 </body>
 </html>
 
