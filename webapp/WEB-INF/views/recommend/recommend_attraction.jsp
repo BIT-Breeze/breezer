@@ -12,13 +12,17 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!-- bootstrap -->
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+
 <title>Insert title here</title>
 <style>
 html, body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Roboto", sans-serif
 }
 
-/* Always set the map height explicitly to define the size of the div element that contains the map. */
+/* 맵관련 */
 #map {
 	height: 60%;
 }
@@ -49,11 +53,9 @@ html, body {
 .controls:focus {
 	border-color: #4d90fe;
 }
+/*******/
 
-.title {
-	font-weight: bold;
-}
-
+/* info 관련 */
 #infowindow-content {
 	display: none;
 }
@@ -62,37 +64,36 @@ html, body {
 	display: inline;
 }
 
-div.scrollmenu {
+/* post 관련 */
+#title {
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+#card {
+	display: inline-block;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	max-width: 300px;
+	padding: 0 30px;
+	text-decoration: none;
+	margin-top: 10px;
+}
+
+div #scrollmenu {
 	max-width: 1370px;
+	height: 350px;
 	overflow: auto;
 	white-space: nowrap;
 }
 
-div.scrollmenu a:hover {
+div #scrollmenu a:hover {
 	background-color: #777;
-}
-
-.card {
-	display: inline-block;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	max-width: 300px;
-	text-align: center;
-	padding: 0 30px;
-	text-decoration: none;
 }
 
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-    // This example adds a search box to a map, using the Google Place Autocomplete
-    // feature. People can enter geographical searches. The search box will return a
-    // pick list containing a mix of places and predicted search terms.
-
-    // This example requires the Places library. Include the libraries=places
-    // parameter when you first load the API. For example:
-    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
     // Post Image
     var imageArr = [
 	'/breezetest/assets/images/pic1.jpg',
@@ -121,6 +122,7 @@ div.scrollmenu a:hover {
 		var infoWindow2 = new google.maps.InfoWindow({map: map});
 		// Try HTML5 geolocation.
 		if (navigator.geolocation) {
+
 			navigator.geolocation.getCurrentPosition(function(position) {
 			var pos = {
 				lat: position.coords.latitude,
@@ -141,7 +143,6 @@ div.scrollmenu a:hover {
 
       // Create the search box and link it to the UI element.
       var input = document.getElementById('pac-input');
-      /* map.controls[google.maps.ControlPosition.TOP_LEFT].push(input); */
       
       var searchBox = new google.maps.places.SearchBox(input);
       
@@ -167,7 +168,7 @@ div.scrollmenu a:hover {
 	        	search_place.push(places[i].formatted_address);
 			}
 	        
-	        $(".scrollmenu").empty();
+	        $("#scrollmenu").empty();
 			
 			// Clear out the old markers.
 			recommendMarkers.forEach(function(marker) {
@@ -189,6 +190,10 @@ div.scrollmenu a:hover {
 						return;
 					}
 					
+					if (response.data.length == 0) {
+						renderNoData();
+					}
+					
 					// Recommend data
 					$.each(response.data, function(index, data){
 						recommendMarkers[index] = new google.maps.Marker({
@@ -197,7 +202,7 @@ div.scrollmenu a:hover {
 				        	  draggable:false // 드래그 가능 여부
 			        	});
 						
-						render( index, data );
+						renderData( index, data );
 					});
 					
 					// Recommend MarkerCluster
@@ -247,11 +252,6 @@ div.scrollmenu a:hover {
 					map.setZoom(15);
 					map.setCenter(searchMarkers[index].getPosition());
 					
-					// 클릭 시 recommned 한번 클리어 하고 주변꺼만
-					/* recommendMarkers.forEach(function(marker) {
-			        	marker.setMap(null);
-			        }); */
-					
 					//비동기 식의 한번 더 디비 검색...
 					$.ajax({
 						url: "/breezer/api/nearby",
@@ -299,17 +299,22 @@ div.scrollmenu a:hover {
 		});
 	}
 	
-	var render = function( index, data, result ) {
+	var renderData = function( index, data ) {
 		var location = data.location.split(" "); 
 		var html = 
-			"<div class='card'>" +
+			"<div id='card'>" +
 				"<img src='${pageContext.request.contextPath }/assets/images/pic" + (index + 1) + ".jpg' style='width: 100%'>" +
-				"<h2>"+ location[location.length - 1] +"</h2>" +
-				"<p class='title'>" + data.content + "</p>" +
-				"<p>lat: "+ data.lat +", lot : "+ data.lot +"</p>" + 
+				"<p id='title' class='w3-xlarge w3-center'>"+ location[location.length - 1] +"</p>" +
+				"<p> <i class='fa fa-comment w3-large w3-text-teal' aria-hidden='true'></i> " + data.content + "</p>" +
+				"<p> <i class='fa fa-thumbs-o-up w3-large w3-text-teal'></i> " + data.favorite + "개</p>" + 
 			"</div>";
 
-		$(".scrollmenu").append(html);	
+		$("#scrollmenu").append(html);	
+	}
+
+	var renderNoData = function() {
+		var html = "<p class='w3-xlarge w3-center'><i class='fa fa-exclamation-triangle w3-xlarge w3-text-teal' aria-hidden='true'></i> 검색된 데이터가 없습니다.</p>";
+		$("#scrollmenu").append(html);	
 	}
 	
 	function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -323,13 +328,10 @@ div.scrollmenu a:hover {
 </head>
 <body class="w3-light-grey">
 	<!-- Header -->
-	<div class="w3-opacity">
-		<span class="w3-button w3-xxlarge w3-teal w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></span> 
-		<div class="w3-clear"></div>
-		
+	<div>
 		<header class="w3-center w3-margin-bottom">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/includes/side_navigation.jsp"/>
+			<c:import url="/WEB-INF/views/includes/side_navigation.jsp" />
 		</header>
 	</div>
 	
@@ -343,6 +345,7 @@ div.scrollmenu a:hover {
 			<div id="googleMap" style="width: 100%; height: 600px;"></div>
 			<!-- Google Map -->
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script>
+			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
 			<!-- Google Marker Cluster -->
 			<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 		</div>
@@ -355,8 +358,8 @@ div.scrollmenu a:hover {
 			<div class="w3-white w3-text-grey">
 	
 				<div class="w3-cell-row">
-					<div class="scrollmenu">
-						<p>검색된 데이터가 없습니다.</p>
+					<div id="scrollmenu" class="w3-container w3-padding-16">
+						<p class="w3-xlarge w3-center"><i class="fa fa-search w3-xlarge w3-text-teal" aria-hidden="true"></i> 원하는 장소를 검색 해주세요.</p>
 					</div>
 				</div>
 				

@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- bootstrap -->
+<%-- <link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css"> --%>
 	
 <title>Insert title here</title>
 <style>
@@ -511,7 +515,7 @@ var imageArr = [
 	            
 	            $("#duration").empty();
 	            $("#duration").append("<i class='fa fa-clock-o fa-fw w3-margin-right w3-large w3-text-teal'>")
-	            $("#duration").append("총 소요 시간은 " + duration / 60 + "분 입니다.");
+	            $("#duration").append("총 소요 시간은 " + Math.round(duration / 60) + "분 입니다.");
 	            
 			} else {
 				window.alert('Directions request failed due to ' + status);
@@ -523,14 +527,9 @@ var imageArr = [
 </head>
 <body class="w3-light-grey">
 	<!-- Header -->
-	<div class="w3-opacity">
-		<span class="w3-button w3-xxlarge w3-teal w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></span> 
-		<div class="w3-clear"></div>
-		
-		<header class="w3-center w3-margin-bottom">
-			<c:import url="/WEB-INF/views/includes/header.jsp" />
-		</header>
-	</div>
+	<header class="w3-center w3-margin-bottom ">
+		<c:import url="/WEB-INF/views/includes/header.jsp" />
+	</header>
 
 	<!-- Page Container -->
 	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1400px;">
@@ -600,7 +599,6 @@ var imageArr = [
 	<footer class="w3-container w3-teal w3-center w3-margin-top">
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</footer>
-
 	
 </body>
 </html>
