@@ -4901,6 +4901,8 @@ a.thumbnail.active {
 .thumbnail .caption {
   padding: 9px;
   color: #333;
+  width: 250px;
+  height: 150px;
 }
 .alert {
   padding: 15px;
