@@ -20,7 +20,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
 
 <style>
-
+    #th_buttons{    
+		padding-right:15px; 
+    
+    }
 </style>
 
 <script>
@@ -45,7 +48,7 @@ var render0 = function( tourvo, mode ){
 	// 자기 투어를 그려주는 렌더링 함수
 	var id = userId;
 	console.log(tourvo)	
-	
+	/*	다른 썸네일 형식으로 렌더링 하기 
 	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" + 
 					"<div class='panel panel-info'>" + 
 						"<div class='panel-heading'>" + "<div class='row'>" + 
@@ -57,13 +60,21 @@ var render0 = function( tourvo, mode ){
 								tourvo.secret  + " 평점: " + tourvo.score +"</div>" +
 						"<div class='panel-body' align='left'>" +				
 							"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-							"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='270px' height='180px'></a><br>" +
-					"</div>"+
-				"</div>"
-	/*	다른 썸네일 형식으로 렌더링 하기 
-		var html = 
+							"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='270px' height='180px'></a><br>" + "</div>"+"</div>"
 	*/
-	
+	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
+				"<div class='thumbnail'>" +
+				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'  width='245px' height='180px'>" +
+					 "<div class='caption'>" + 
+					 	"<h5>" + tourvo.title + "</h5>" +
+					   	"<p>start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
+						"<br> <div class='row' align='right'> <div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> &nbsp포스트: " + tourvo.postCount + "</div>" +
+						"<div class='col-sm-7'> 공개여부: " + tourvo.secret  + "<br> 평점: " + tourvo.score + "</p>" + "</div>" + "</div>" + 
+						"<div class='row' align='right' id='th_buttons'>" + 
+						"<p><a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "' class='btn btn-default' role='button'>보기</a>" + 
+						" &nbsp<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>삭제</button></p></div>" +
+						"</div></div></div>"
+						
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
 	} else {		
@@ -108,7 +119,7 @@ var getCount = function(){
 	console.log("========getCount========");
 	console.log(uservo);
 	$.ajax({
-		url:"/breezer/"+ uservo + "/count",
+		url:"/breezer/"+ userId + "/count",
 		type:"get",
 		data:"",
 		
@@ -119,6 +130,10 @@ var getCount = function(){
 			}
 			console.log(response.data+" getCount 함수에서 가져온  투어 수");
 			$("#counting").text(response.data + "개의 여행을 하셨습니다.");
+			if(userId == authUser){
+				$("#tourlist").text(response.data)
+				
+			}
 		} // success
 	}) //ajax
 	
