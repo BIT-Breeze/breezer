@@ -65,10 +65,20 @@
 	 */
 
 	// 이미지 크기를 조절하기 위한 함수.. 대기중 
-	function resizeimg() {
-
+	function resizeimg(obj) {
+		console.log("======resizeimg()======")
+		
+		var maxSize = 780;
+		if (obj.width > obj.height) {
+			obj.width = maxSize;
+		} else {
+			obj.height = maxSize;
+		}
+		
+		obj.align="middle";
 	}
-
+	 
+	 
 	 
 	 //좋아요
 	function likeup(voidx, tour, post, favoCnt) {
@@ -226,7 +236,7 @@
 				+ "			</div>"
 				+ "		</div>"
 
-				+ "		<div id='post-picture' style='height:620px; width:780px; margin: auto; margin-top:10px; margin-bottom:10px; background-color:#ffffff;'> "
+				+ "		<div id='post-picture' style='height:auto; width:780px; margin: auto; margin-top:10px; margin-bottom:10px; margin-bottom:10px; background-color:#ffffff;'> "
 				//+ 	"<img id='sns-img'src=${pageContext.request.contextPath }"+ vo.photo + " style='width:100%; height: auto;'>"
 				/* + '			<div id="wrapper" style="height:auto; width:100%;" >'
 				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/left.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
@@ -308,22 +318,30 @@
 				 */
 
 				// test 5  link : https://stackoverflow.com/questions/41541559/multiple-slideshows-on-one-page-makes-the-first-one-not-work-anymore
-				+ '   		<div class="w3-content w3-display-container slider" id="div'+sliderCount+'"  style="height:100%; width:100%"> '
+				+ '   		<div class="w3-content w3-display-container slider" id="div'+sliderCount+'"  style="height:100%; width:100%; margin-bottom : 0px; background-color: #ffffff;"> '
 
 		for ( var i in photos) {
-			html = html
-					+ '       <img src="${pageContext.request.contextPath }'	+ photos[i]		+ '" class="mySlides"  style="width:100%; height: 600px; border-radius: 20px; " onload="resizeimg(this)" /> '
+			
+			
+			
+			html = html //width:auto; height: auto;
+					+ '       <img id="postImg" src="${pageContext.request.contextPath }'	+ photos[i]		+ '" class="mySlides"  style="  border-radius: 20px; margin: auto; " onload="resizeimg(this)"  /> '
 		}
 
-		html = html
+		if ( photos.length > 1 ) {
+				html = html 
 				+ '   				<label class="slidermove" onclick="plusDivs(this,-1)" style="margin-left:320px;   background-color:#ffffff" > < 이전  </label> '
 				+ '  	 			<label class="slidermove" onclick="plusDivs(this,1)"  style="margin-left:50px;    background-color:#ffffff" > 다음 >  </label> '
+		}
+		
+		html = html
+				
 				//+ '  	 			<a class="w3-btn-floating w3-display-right" onclick="plusDivs(this,1)" style="width:390px; background-color:#ffffff" >&#10095;</a  '
 				+ '   		</div>' 
 
 				+ "	</div>"
 
-				+ "<div id='post-info'  style='height:auto; width:780px; margin-left:10px;' >"
+				+ "<div id='post-info'  style='height:auto; width:780px; margin-left:10px; margin-top:10px;' >"
 				+ "	  	<div id='info-status' >"
 				// postIdx가 0이면 tour,  아니면 post 
 				+ "			<div id='likebtn"+vo.idx+"' style='width: 120px; height: 27px; float:left'> "
@@ -412,8 +430,12 @@
 						}
 
 						$.each(response.data, function(index, vo) {
+							console.log("each_render")
 							render(vo, false);
 						});
+						
+						//이미지 크기 조절?
+						//resizeAllImg();
 					}
 				});
 	}

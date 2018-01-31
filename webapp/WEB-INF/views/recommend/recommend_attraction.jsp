@@ -16,7 +16,7 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 
-<title>Insert title here</title>
+<title>Breezer</title>
 <style>
 html, body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Roboto", sans-serif
@@ -348,7 +348,12 @@ div.scrollmenu a:hover {
 	
 			<div id="googleMap" style="width: 100%; height: 600px;"></div>
 			<!-- Google Map -->
+<<<<<<< HEAD
+			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script> -->
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script>
+=======
 			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script>
+>>>>>>> refs/remotes/origin/master
 			<!-- Google Marker Cluster -->
 			<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 		</div>
