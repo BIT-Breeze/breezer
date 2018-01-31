@@ -5,7 +5,7 @@
 
 <nav id="tour_navigation">
 	<ul>
-		<c:forEach var="post" items="${postList }" varStatus="status">
+		<%-- <c:forEach var="post" items="${postList }" varStatus="status">
 			<c:if test="${post.dateGap != 0}">
 				<li><p>${post.dateGap}일차</p></li>
 			</c:if>
@@ -19,6 +19,6 @@
 					<a href="#post-${post.idx}">${post.placeName }</a>
 				</li>
 			</c:if>
-		</c:forEach>
+		</c:forEach> --%>
 	</ul>
 </nav>
