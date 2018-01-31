@@ -323,7 +323,7 @@ div.scrollmenu a:hover {
 </head>
 <body class="w3-light-grey">
 	<!-- Header -->
-	<div class="w3-opacity">
+	<div>
 		<span class="w3-button w3-xxlarge w3-teal w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></span> 
 		<div class="w3-clear"></div>
 		
