@@ -50,6 +50,11 @@
       background-color: #F1F1F1;    
     }
     
+    #delete_button {
+      vertical-align: center;
+         
+    }
+    
 
 </style>
 
@@ -86,16 +91,18 @@ var render0 = function( tourvo, mode ){
 					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
 						 "<div class='caption'>" + 
 							"<div class='row'>" + 
-							 	"<div class='col-sm-10' align='center'><h4>" + tourvo.title + "</h4></div>" +
-							 	"<div class='col-sm-2'>" + 
-								 	"<span data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
-									"' class='glyphicon glyphicon-remove' style='color:red;'></span>" +							 	
-							 	"</div>" +
+						 		"<div class='col-sm-10' align='center'>" + tourvo.title + "</div>" +
+						 		"<div class='col-sm-2'>" + 
+							 		"<span data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
+								"' class='glyphicon glyphicon-remove' style='color:red; cursor:pointer;'></span>" +							 	
+						 		"</div>" +
 							"</div>" +	
-						 	"<div class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></div>" +
-							"<div class='row' align='right'>" + 
-								"<div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</div>" +
-								"<div class='col-sm-7'>공개여부: " + tourvo.secret  + "<br> 평점: " + tourvo.score +  "</div>" + 
+						 	"<div class='row' align='center'>" + " start : " + tourvo.startDate + " ~ end : " + tourvo.endDate + "<br><br></div>" +
+							"<div class='row' align='center'>" + 
+								"<div class='col-sm-6'><span class='glyphicon glyphicon-thumbs-up'> : " + tourvo.favorite + "</span>" + 
+								"<br><span class='glyphicon glyphicon-th-list'> : " + tourvo.postCount + "</span></div>" +
+								"<div class='col-sm-6' align='left'><span class='glyphicon glyphicon-lock'> : " + tourvo.secret  + "</span>" +
+								"<br><span class='glyphicon glyphicon-star'> : " + tourvo.score +  "</span></div>" + 
 							"</div>" + // row, right
 						"</div>"+ // caption
 					"</div>"+ // 썹네일
@@ -192,6 +199,7 @@ var fetchList = function(){
 					if( response.data.length < 8){
 
 						isEnd = true;
+						$("#bottom-text").html("더 이상 투어가 없습니다.");
 					}
 		
 					$.each( response.data, function(index, tourvo){
@@ -309,7 +317,7 @@ $(function(){
 	
 
   	<div class="row content" style="background-color: #F1F1F1; " >
-  		<div class="col-sm-2 sidenav" style=" top: 50px; margin-left: 10px;">
+
 				<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 					<c:param name="menu" value="login" />
 				</c:import>
