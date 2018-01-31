@@ -13,6 +13,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 <%-- <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css"> --%>
 <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_add.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -20,8 +22,6 @@
 <script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
 
 <link href="${pageContext.servletContext.contextPath }/assets/datePicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
-<script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
-<script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
         
 <!-- <script src="/breezer/assets/js/jquery/jquery-ui.js" type="text/javascript"></script> -->
 
@@ -294,14 +294,16 @@ function submitForm() {
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 	
 	<div id="tour_main_header_bg">
-		
-		<div id="tour_main_header">
-			<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
-			
-			<br><br>
-				
-			<form id="fileForm" class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">	
+	
+		<c:import url="/WEB-INF/views/includes/header.jsp" /> <!-- header -->
+					
+		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+			<c:param name="menu" value="login" />
+		</c:import>
 
+		<div id="tour_main_header">
+
+			<form id="fileForm" class="addform" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/tour/add">	
 				<!-- 왼쪽 구간 -->
 				<div class="tourAdd_left">
 					
@@ -315,7 +317,6 @@ function submitForm() {
 						</div>
 					</div>
 					
-					
 					<!-- 공개/비공개 부분 -->
 					<div class="hover_me_pp">
 						<img id="publicImg" class="public_ico" src="/breezer/assets/images/tour/public_button.png" onclick="security()" ><br>
@@ -323,7 +324,9 @@ function submitForm() {
 							<input type="text" id="cover_public" value="public" >
 						</div>
 					</div>
+					
 					<br><br>
+					
 					<input id="public" type="radio" name="secret" value="0" checked="checked" />  <br>					
 					<input id="private" type="radio" name="secret" value="1" />
 				</div>
@@ -341,6 +344,9 @@ function submitForm() {
 					<input type="text" id="wave" value="~" readonly>
 					<input type="text" id="end-datepicker" placeholder="End Date" name="endDate"><br><br>
 					<input type="hidden"  id="imagePath" value="imagePath" name="mainPhoto">
+					
+					<script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script> 
+					<script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
 				</div>
 				
 			</form>

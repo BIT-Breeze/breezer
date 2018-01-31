@@ -18,6 +18,7 @@
 }
 
 .tourAdd_left #cover_photo {
+	position: relative;
 	vertical-align: middle;
 	text-align: center;
 	background-color: transparent;
@@ -66,6 +67,7 @@ div#header {
 	background-color: transparent;
 	clear: both;
 	position: relative;
+	filter: brightness(100%);
 	
 }
 
@@ -77,11 +79,13 @@ div#header {
 	background-size: cover;
 	max-width: none;
 	width: 100%;
+	/* filter: brightness(50%); */
 	/* opacity: 0.5; */
 
 }
 
 .addform {
+	margin-top: 70px;
 	position: relative;
 	/* z-index: 2; */
 }
@@ -98,7 +102,6 @@ div#header {
 .tourAdd_right #leave{
 	padding-right: 5px;
 	padding-left: 5px;
-	
 }
 
 .tourAdd_right #add,#leave {
@@ -121,6 +124,7 @@ div#header {
 
 /* addform style */
 .tourAdd_center #title_area {
+	position: relative;
 	vertical-align: middle;
 	text-align:center; 
 	display: block;
@@ -136,7 +140,7 @@ div#header {
 }
 
 .tourAdd_center #start-datepicker,#end-datepicker {
-	
+	position: relative;
 	text-align: center; 
  	outline: none;
 	border: none;
@@ -148,6 +152,7 @@ div#header {
 }
 
 #wave {
+	position: relative;
 	vertical-align: middle;
 	text-align:center; 
 	outline: none;
@@ -195,7 +200,6 @@ nav#tour_navigation	{
 	margin: auto;
 	width: auto;
 	height: auto;
-	
 }
 
 textarea#tourTitle,#tourDate{

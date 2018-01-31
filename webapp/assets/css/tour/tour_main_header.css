@@ -7,6 +7,7 @@
 	background-position:center center;
 	background-size: cover;
 	max-width: none;
+	max-height: 430px;
 	width: 100%;
 	/* opacity: 0.5; */
 }
@@ -19,7 +20,6 @@
 	margin: 0 auto;
 	clear: both;
 	position: relative;
-	
 }
 
 
@@ -29,22 +29,6 @@
 	background-color: transparent;
 
 } */
-
-#tour_main_header_bg #tour_main_header .editForm .edit_tourAdd_right {
-	float: right;
-	display: table;
-	width: 100px;
-	height: 100%;
-	padding-right: 60px;
-}
-
-#tour_main_header_bg #tour_main_header .editForm .edit_tourAdd_center {
-	display: table;
-	margin: auto;
-	width: auto;
-	height: auto;
-	
-}
 
 #tour_main_header_bg #tour_main_header .edit_tourAdd_center #edit_title_area {
 	vertical-align: middle;
@@ -88,16 +72,18 @@
 }
 
 .edit_tourAdd_center .edit_tourDate #edit_endDate {
+	position: relative;
 	text-align: center; 
  	outline: none;
 	border: none;
+	border-bottom: 2px solid white;
 	color: white;
 	background: none;
 	font-size: 20px;
-	border-bottom: 2px solid white;
 }
 
 #wave {
+	position: relative;
 	vertical-align: middle;
 	text-align:center; 
 	outline: none;
@@ -116,7 +102,7 @@
 .toMain_section {
 	position: relative;
 	float: right;
-	margin-top: 130px;
+	margin-top: 70px;
 	margin-right: 200px;
 }
 
@@ -141,7 +127,12 @@
 
 
 .modify_addform {
+	margin-top: 70px;
 	display: none;
+}
+
+.editForm {
+	margin-top: 70px;
 }
 
 
@@ -183,7 +174,6 @@
 
 #modify_newFile, #modify_publicImg, #modify_add, #modify_leave {
 	cursor: pointer;
-	
 }
 
 #modify_fileUpload {
@@ -197,6 +187,11 @@
 	display:none;
 }
 
+.modify_tourAdd_right #modify_leave{
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
 .modify_tourAdd_right #modify_add,#modify_leave {
 	
 	background-color: transparent;
@@ -206,10 +201,6 @@
     font-size: 20px;
     padding: 10px;
     color: white;
-    
-   /*  padding-right: 5px;
-	padding-left: 5px; */
-
     -moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 
@@ -232,7 +223,7 @@
 }
 
 .modify_tourAdd_center #modify_start-datepicker,#modify_end-datepicker {
-	
+	position: relative;
 	text-align: center; 
  	outline: none;
 	border: none;
@@ -256,6 +247,24 @@
 
 
 /* layout */
+#tour_main_header_bg #tour_main_header .editForm .edit_tourAdd_right {
+	float: right;
+	display: table;
+	width: 100px;
+	height: 70px;
+	/* padding-top: 10px; */
+    padding-left: 30px;
+    padding-right: 120px;
+}
+
+#tour_main_header_bg #tour_main_header .editForm .edit_tourAdd_center {
+	display: table;
+	margin: auto;
+	width: auto;
+	height: auto;
+	margin-top: 90px;
+	padding-left: 135px;
+}
 
 #tour_main_header_bg #tour_main_header .modify_addform .modify_tourAdd_left {
 	float: left;
@@ -280,7 +289,7 @@
 	margin: auto;
 	width: auto;
 	height: auto;
-	/* margin-right:50px; */
+	/* padding-left: 0px; */
 	
 }
 
