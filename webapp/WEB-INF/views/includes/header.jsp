@@ -6,13 +6,13 @@
 
 	
 	<div class='row' id="header">
-		<div class='col-sm-2'> </div>
-		
-		<div class='col-sm-1' align='right'>
-	        <h1 class="glyphicon glyphicon-list" id='show_menu'></h1>
+		<div class='col-sm-1' align='center'> </div>
+			<h1 class="glyphicon glyphicon-list" id='show_menu'>☰</h1>
+		<div class='col-sm-1' align='left'>
+	        <h1> <a href="${pageContext.servletContext.contextPath }" >Breezer </a></h1>
 		</div>
 		
-		<div class='col-sm-9' align='left'>			
-			<h1> <a href="${pageContext.servletContext.contextPath }" >Breezer </a></h1>
+		<div class='col-sm-10' align='left'>			
+			
 		</div>
 	</div>
