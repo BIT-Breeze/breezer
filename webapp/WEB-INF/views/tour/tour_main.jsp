@@ -70,7 +70,7 @@
 			$("#fileUpload").val("");
 			$('#multiImgContainer').html('');
 			$("#input-idx").val('');
-			/* imagePath = ""; */
+			imagePath = "";
 			
 			$("#pac-input").val('');
 			
@@ -191,6 +191,23 @@
 						console.log(response);
 						return;
 					}
+					
+					$.ajax({
+						url: "${pageContext.servletContext.contextPath }/${userId}/api/post/selectRest?tourIdx=${tourIdx}",
+						type: "get",
+						dataType: "json",
+						data: "",
+						success: function (response) {
+							if(response.result != "success"){
+								console.log(response);
+								return;
+							}
+							
+							if(response.data == 0){
+								$("#PostBox").append('<div><li class="w3-large w3-text-black"><h style="margin-right: 250px;">여행기를 추가해주세요!</h></li></div>');
+							}
+						}
+					});
 					
 					$.each(response.data, function (index, vo) {
 						render(index, vo);
@@ -604,7 +621,7 @@
 		    //smoothscroll
 		    $(document).on("click", 'a[href^="#post"]', function (e) {
 		        e.preventDefault();
-		        $("#tour_navigation").css('margin', '-350px 0px 0px 300px');
+		        $("#tour_navigation").css('margin', '-430px 0px 0px 300px');
 		        $(document).off("scroll");
 		        
 		        $('a').each(function () {
@@ -723,7 +740,7 @@
 			var scrollTop = $(window).scrollTop();
 			var elementOffset = $("#tour_navigation").offset().top;
 			var currentElementOffset = (elementOffset - scrollTop);
-			if(currentElementOffset > 0 && scrollTop < 360){
+			if(currentElementOffset > 0 && scrollTop < 430){
 				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 300px');
 			}
 		});
@@ -894,8 +911,6 @@
 				<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 					<c:param name="menu" value="login" />
 				</c:import>
-				<div class="col-sm-8"></div>
-				<div class="col-sm-2"></div>
 			</div>
 			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
 		</div>
