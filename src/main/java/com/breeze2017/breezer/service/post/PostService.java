@@ -16,6 +16,10 @@ public class PostService {
 		return postDao.insert(vo) == 1;
 	}
 	
+	public boolean modifyPost(PostVo vo) {
+		return postDao.update(vo) == 1;
+	}
+	
 	public PostVo selectPost(PostVo vo) {
 		return postDao.select(vo);
 	}

@@ -12,6 +12,10 @@ public class PostDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	public int update(PostVo vo) {
+		return sqlSession.update("post.update", vo);
+	}
+	
 	public int insert(PostVo vo) {
 		return sqlSession.insert("post.insert", vo);
 	}

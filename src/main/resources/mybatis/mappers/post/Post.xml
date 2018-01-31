@@ -13,6 +13,27 @@
 		]]>
 	</select>
 
+	<insert id="update" parameterType="postvo">
+		<![CDATA[
+		update TB_POST 
+		   set tripDateTime = #{tripDateTime },
+			   photo = #{photo },
+			   content = #{content },
+			   location = #{location },
+			   locale = (select code 
+				   		   from TB_COUNTRY 
+				  		  where name = #{locale }),
+			   lat = #{lat},
+			   lot = #{lot},
+			   category = #{category },
+			   price = #{price },
+			   score = #{score }
+		 where userId = #{userId}
+		   and tourIdx = #{tourIdx}
+		   and idx = #{idx};
+		]]>	
+	</insert>
+
 	<insert id="insert" parameterType="postvo">
 		<![CDATA[
 	  	INSERT INTO TB_POST (userId, postDateTime, tripDateTime, photo, content, location, locale, lat, lot, tourIdx, category, price, score)

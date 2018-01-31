@@ -13,10 +13,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- bootstrap -->
-<%-- <link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css"> --%>
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 	
-<title>Insert title here</title>
+<title>Breezer</title>
 <style>
 html, body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Roboto", sans-serif
@@ -392,7 +392,6 @@ var imageArr = [
 				
 				// Direction Service 한번만 호출하기 위해
 				len = response.data.length;
-				
 				console.log(response.data);
 				
 				var totalScore = 0;
@@ -527,8 +526,9 @@ var imageArr = [
 </head>
 <body class="w3-light-grey">
 	<!-- Header -->
-	<header class="w3-center w3-margin-bottom ">
+	<header class="w3-center w3-margin-bottom w3-teal w3-text-black">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<c:import url="/WEB-INF/views/includes/side_navigation.jsp" />
 	</header>
 
 	<!-- Page Container -->
@@ -566,7 +566,7 @@ var imageArr = [
 				<div class="w3-cell-row">
 					<div class="w3-container w3-cell w3-third w3-padding-16">
 						<div class="w3-display-container">
-							<img src="/breezetest/assets/images/pic10.jpg" style="width: 100%; height: 400px">
+							<img src="/breezer/assets/images/pic10.jpg" style="width: 100%; height: 400px">
 						</div>
 						
 					</div>
@@ -582,7 +582,6 @@ var imageArr = [
 						    <p id="distance"><i class="fa fa-spinner fa-fw w3-margin-right w3-large w3-text-teal"></i>총 이동 거리 계산중... </p>
 						    <p id="duration"><i class="fa fa-spinner fa-fw w3-margin-right w3-large w3-text-teal"></i>총 이동 시간 계산중... </p>
 						</div>
-						
 					</div>
 					
 				</div>

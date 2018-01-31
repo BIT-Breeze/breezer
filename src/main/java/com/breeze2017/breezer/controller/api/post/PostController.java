@@ -44,6 +44,38 @@ public class PostController {
 	
 	@Auth
 	@ResponseBody
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public JSONResult postModify(
+			@ModelAttribute PostVo vo,
+			@PathVariable String id
+			) {
+		
+		String[] tripDateTime = vo.getTripDateTime().split(" ");
+				
+		String date = tripDateTime[0];
+		String[] time = tripDateTime[1].split(":");
+		String hour = time[0];
+		String min = time[1];
+		String amPm = tripDateTime[2];
+		
+		if(amPm.equalsIgnoreCase("pm") && Integer.parseInt(hour) < 12) {
+			hour = String.valueOf(Integer.valueOf(hour) + 12);
+		}
+		vo.setTripDateTime(date+" "+hour+":"+min);
+
+		vo.setUserId(id);
+		
+		boolean successYN = postService.modifyPost(vo);
+		
+		if(successYN == false) {
+			return JSONResult.fail("포스트 수정에 실패했습니다.");
+		} else {
+			return JSONResult.success(successYN);
+		}
+	}
+	
+	@Auth
+	@ResponseBody
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public JSONResult postAdd(
 			@ModelAttribute PostVo vo,
@@ -70,7 +102,7 @@ public class PostController {
 		if(successYN == false) {
 			return JSONResult.fail("포스트 등록에 실패했습니다.");
 		} else {
-			return JSONResult.success(vo);
+			return JSONResult.success(successYN);
 		}
 	}
 }

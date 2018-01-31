@@ -373,8 +373,12 @@ $(document).ready(function() {
 				</div>
 			</form>
 			
-			<div id="toMain_section">
-				<a id="toMain" href="${pageContext.servletContext.contextPath }/${userId }">${userId }</a>
+			<div class="toMain_section">
+				<div id="toMain">
+					<img id="toMain_pic" src="/breezer/assets/images/tour/tomain.png" style="cursor: pointer;" onClick="location.href='${pageContext.servletContext.contextPath }/${userId }'"> 
+					<a id="toMain_userId" href="${pageContext.servletContext.contextPath }/${userId }">${userId }</a>
+					
+				</div>
 			</div>
 			
 		</div>
