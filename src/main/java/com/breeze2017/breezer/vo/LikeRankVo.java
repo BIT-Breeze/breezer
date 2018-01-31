@@ -6,6 +6,8 @@ public class LikeRankVo {
 	private String kind;
 	private String insertDateTime;
 	private long tourIdx; // post일 경우만 
+	private String title; //tour=title, post=content
+	
 	public long getIdx() {
 		return idx;
 	}
@@ -36,12 +38,20 @@ public class LikeRankVo {
 	public void setTourIdx(long tourIdx) {
 		this.tourIdx = tourIdx;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	
 	@Override
 	public String toString() {
 		return "LikeRankVo [idx=" + idx + ", count=" + count + ", kind=" + kind + ", insertDateTime=" + insertDateTime
-				+ ", tourIdx=" + tourIdx + "]";
+				+ ", tourIdx=" + tourIdx + ", title=" + title + "]";
 	}
+	
+	
 	
 	
 	
