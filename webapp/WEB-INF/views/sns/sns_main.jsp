@@ -74,7 +74,7 @@
 	// 이미지 크기를 조절하기 위한 함수.. 대기중 
 	function resizeimg(obj) {
 		
-		var maxSize = 780;
+		var maxSize = 700;
 		if (obj.width > obj.height) {
 			obj.width = maxSize;
 		} else {
@@ -242,7 +242,7 @@
 				+ "			</div>"
 				+ "		</div>"
 
-				+ "		<div id='post-picture' style='height:auto; width:780px; margin: auto; margin-top:10px; margin-bottom:10px; margin-bottom:10px; background-color:#ffffff;'> "
+				+ "		<div id='post-picture' style='height:auto; width:700px; margin: auto; margin-top:10px; margin-bottom:10px; margin-bottom:10px; background-color:#ffffff;'> "
 				//+ 	"<img id='sns-img'src=${pageContext.request.contextPath }"+ vo.photo + " style='width:100%; height: auto;'>"
 				/* + '			<div id="wrapper" style="height:auto; width:100%;" >'
 				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/left.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
@@ -568,11 +568,11 @@
 	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">
 		
 		<!-- side_navi import -->
-		<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
+		<!-- <div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" > -->
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
 			</c:import> 
-		</div>
+		<!-- </div> -->
 
 		<!-- <div class="cycle-slideshow"   data-cycle-fx=scrollHorz    data-cycle-timeout=0    >
 			   	<div class="cycle-pager"></div>
@@ -582,7 +582,7 @@
 				
 				
 		</div> -->
-		<div id="leftEmpty" style="float:left; background-color: #d6d4d4; width:500px;">
+		<div id="leftEmpty" style="float:left; background-color: #d6d4d4; width:250px;">
 		</div>
 		
 		<div id="list-sns"	style="width: 800px; background-color: #d6d4d4;  margin: auto; float:left; ">

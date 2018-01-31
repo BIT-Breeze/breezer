@@ -226,7 +226,7 @@ a.hover {
 	width: 400px; 
 	height:auto; 
 	background-color: #d6cccc;  
-	margin-left:20px; 
+	margin-left:100px; 
 	float:right;  
 	position: fixed; 
 	left:1300px; 
@@ -247,7 +247,7 @@ a.hover {
 	text-align: left;
 	color: #646464;
 	font-weight: bold;
-	font-size:30px;
+	font-size:20px;
 }
 
 
