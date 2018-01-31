@@ -44,8 +44,6 @@ public class TourAddController {
 		return "redirect:/{id}/tour?idx="+vo.getIdx();
 	}
 
-	
-
 }
 
 

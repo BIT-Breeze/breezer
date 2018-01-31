@@ -1,22 +1,70 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 
-	
-
-	<div class='row' id="header">
-		<div class='col-sm-1' align='center'> <h1 id='show_menu'>☰</h1> </div>
-			
-		<div class='col-sm-1' align='left'>
-	        <h1> <a href="${pageContext.servletContext.contextPath }" >Breezer </a></h1>
-
-		</div>
-	
-		<div class='col-sm-10' align='left'>			
+<script>
+	 function goUserMain() {
+		 console.log("goUserMain")
+		 window.location.href = "/breezer/";	 
+	 }
+</script>
 
 
-		</div>
+<style>
+#header {
+	height: 70px;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	z-index: 10;
+	background-color: #454545;
+	vertical-align: middle;
+}
 
-	</div>
+#show_menu {
+	height: 50px;
+	font-size: 40px;
+	margin-left: 40px;
+	color: #ececec;
+	cursor:pointer;
+	margin-top: 10px;
+	vertical-align: middle;
+}
+
+#header_title {
+	height: 50px;
+	font-size: 40px;
+	margin-left: 20px;
+	color: #ececec;
+	cursor:pointer;
+	margin-top: 10px;
+	vertical-align: middle;
+}
+</style>
+
+
+<div  id="header">
+	<label id='show_menu'>☰</label> 
+	<label id="header_title" onclick="goUserMain()"> Breezer </label>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

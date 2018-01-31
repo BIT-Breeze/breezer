@@ -73,9 +73,8 @@
 	 
 	// 이미지 크기를 조절하기 위한 함수.. 대기중 
 	function resizeimg(obj) {
-		console.log("======resizeimg()======")
 		
-		var maxSize = 780;
+		var maxSize = 700;
 		if (obj.width > obj.height) {
 			obj.width = maxSize;
 		} else {
@@ -89,15 +88,15 @@
 	 
 	 //좋아요
 	function likeup(voidx, tour, post, favoCnt) {
-		console.log(voidx + ", " + tour + ", " + post + ", " + favoCnt )
+		//console.log(voidx + ", " + tour + ", " + post + ", " + favoCnt )
 		
 		// postIdx가 0이면 tour,  아니면 post 
 		if (post == 0) {
-			console.log("this is tour")
+			//console.log("this is tour")
 			//TB_FAVORITE 에 insert (tourIdx, null)
 			doLikeUpDown('up', 'tour', tour)
 		} else {
-			console.log("this is post")
+			//console.log("this is post")
 			doLikeUpDown('up', 'post', post)
 		}
 
@@ -114,7 +113,7 @@
 
 	 //좋아요 취소 
 	function likedown(voidx, tour, post, favoCnt) {
-		console.log(voidx + ", " + tour + ", " + post+ ", " + favoCnt)
+		//console.log(voidx + ", " + tour + ", " + post+ ", " + favoCnt)
 		// postIdx가 0이면 tour,  아니면 post 
 		if (post == 0) {
 			//console.log("this is tour")
@@ -149,7 +148,7 @@
 			dataType : "json",
 			data : "id=" + id + "&flag=" + flag + "&type=" + type + "&idx="	+ idx,
 			success : function(response) {
-				console.log("dolike success")
+				//console.log("dolike success")
 			},
 			error : function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -230,10 +229,10 @@
 				+ "			</div>"
 				+ "			<div id='header-info' style='height: 40px; float: left; margin-left: 15px;  '>"
 				+ "				<div id='header-nickname' style='height:auto; vertical-align: middle; position: relative;top: 50%;transform: translateY(-50%);'>"
-				+ "					<label><a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId + "(" + vo.nickName + ")" + "</a></label> "
+				+ "					<label><a style='color: #646464; font-weight:bold' href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId + "(" + vo.nickName + ")" + "</a></label> "
 				
 				if( vo.location != null) {
-					html = html + "					<br><label>" + vo.location + "</label>"
+					html = html + "					<br><label class='sns-text' >" + vo.location + "</label>"
 				}
 				
 				html = html
@@ -243,7 +242,7 @@
 				+ "			</div>"
 				+ "		</div>"
 
-				+ "		<div id='post-picture' style='height:auto; width:780px; margin: auto; margin-top:10px; margin-bottom:10px; margin-bottom:10px; background-color:#ffffff;'> "
+				+ "		<div id='post-picture' style='height:auto; width:700px; margin: auto; margin-top:10px; margin-bottom:10px; margin-bottom:10px; background-color:#ffffff;'> "
 				//+ 	"<img id='sns-img'src=${pageContext.request.contextPath }"+ vo.photo + " style='width:100%; height: auto;'>"
 				/* + '			<div id="wrapper" style="height:auto; width:100%;" >'
 				+ '             <div class="sliderbutton"><img src="${pageContext.servletContext.contextPath }/assets/css/sns/left.gif" width="32" height="38" alt="Previous" onclick="slideshow.move(-1)" /></div> '
@@ -337,8 +336,8 @@
 
 		if ( photos.length > 1 ) {
 				html = html 
-				+ '   				<label class="slidermove" onclick="plusDivs(this,-1)" style="margin-left:320px;   background-color:#ffffff" > < 이전  </label> '
-				+ '  	 			<label class="slidermove" onclick="plusDivs(this,1)"  style="margin-left:50px;    background-color:#ffffff" > 다음 >  </label> '
+				+ '   				<label class="slidermove" onclick="plusDivs(this,-1)" style="margin-left:320px; color: #646464;   background-color:#ffffff" > < 이전  </label> '
+				+ '  	 			<label class="slidermove" onclick="plusDivs(this,1)"  style="margin-left:50px; color: #646464;   background-color:#ffffff" > 다음 >  </label> '
 		}
 		
 		html = html
@@ -360,18 +359,18 @@
 			html = html + 	"	<button id='btnFavo" + vo.idx + "' type='button' onclick='likedown(" + vo.idx + ", " + vo.tourIdx + ", " + vo.postIdx+ ", "+ vo.favorite +")'> &#10084; </button> "
 		}
 
-		html = html + 		"	<label>좋아요  </label>"
-					+ 		"	<label id='favoidx"+vo.idx+"' style='margin-left:10px'>  "+ vo.favorite +"</label> "
+		html = html + 		"	<label class='sns-text' >좋아요  </label>"
+					+ 		"	<label class='sns-text' id='favoidx"+vo.idx+"' style='margin-left:10px'>  "+ vo.favorite +"</label> "
 				+ "			</div>  " 
 				+ "     	<div id='info-etc' style='margin-top:3px; height: 27px; float: left'>"
 		//+ "<button id='btnFavo"+vo.idx+"' type='button' onclick='clicklike("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> "+didFavo+" </button><br> "
-				 + "			<label style='margin-left:40px;'> &#x2637; 여행일자 : " + vo.tripDateTime	+ "</label>"
-		 		 + "			<label style='margin-left:40px;'>&#10030;평점 : "+ vo.score + "</label> " 
-		 		 + "			<label style='margin-left:40px;'>&#x24; 비용 : " + vo.price	+  "</label>"
+				 + "			<label class='sns-text' style='margin-left:40px;'> &#x2637; 여행일자 : " + vo.tripDateTime	+ "</label>"
+		 		 + "			<label class='sns-text' style='margin-left:40px;'>&#10030;평점 : "+ vo.score + "</label> " 
+		 		 + "			<label class='sns-text' style='margin-left:40px;'>&#x24; 비용 : " + vo.price	+  "</label>"
 		 		 
 		if (vo.postIdx == 0) {
 			
-			html = html +  " 	<label style='margin-left:40px;'>P포스트 수 : " + vo.postCount	+  "</label>"
+			html = html +  " 	<label class='sns-text' style='margin-left:40px;'>P포스트 수 : " + vo.postCount	+  "</label>"
 		} 		 
 		 		 
 		 		 
@@ -380,7 +379,7 @@
 		 		 //+ "	<label>등록일자 : " + vo.postDateTime	+ "</label><br>" 
 		 		 
 		 		 + "		<div id='info-content' style='width:780px;' >"
-				+ "				<label style='width:100%; height:100px; margin-top:10px;'> " + vo.content + " </label><br>"
+				+ "				<label class='sns-text' style='width:100%; height:100px; margin-top:10px;'> " + vo.content + " </label><br>"
 				//+ "				<label>info : tourIdx : " + vo.tourIdx + ",  postIdx : "	+ vo.postIdx + ", voIdx : " + vo.idx + " </label>"
 				+ "			</div>" 
 				+ "		</div>" 
@@ -437,7 +436,6 @@
 						}
 
 						$.each(response.data, function(index, vo) {
-							console.log("each_render")
 							render(vo, false);
 						});
 						
@@ -446,6 +444,80 @@
 						resizeLeftEmpty();
 					}
 				});
+	}
+	
+	function refresh_likerank() {
+		//console.log("====== refresh_likerank() ======")
+		fetchList_Rank();
+	}
+	
+	var fetchList_Rank = function() {
+		 $.ajax({
+			url : "/breezer/api/sns/likerank?interval=-5",
+			type : "get",
+			dataType : "json",
+			data : "",
+			success : function(response) {
+				if (response.result != "success") {
+					console.log(response.message);
+					return;
+				}
+				$("#favorite-list").empty();
+				var rank = 0;
+				//console.log("likerank data = "+response.data)
+				$.each(response.data, function(index, vo) {
+					++rank;
+					if (rank > 10) {
+						return;
+					}
+					likeRender(vo, rank);
+				});
+				
+				
+			}
+		}); 
+	}
+	
+	var likeRender = function(vo, rank) {
+		
+		//갱신해주도록해 
+		var html = "";
+		html = 
+			'<div class="rank-item" > '
+			  
+					  
+					  
+			html = html		  
+			+ '		<hr class="hrline" width=350px>'
+			
+		
+		switch(rank) {
+		case 1 : html = html + '		<label class="aaaa" style="color: #ff1e1e;"> '+rank+' </label>'
+			break;
+		case 2 : html = html + '		<label class="aaaa" style="color: #ff6b24;"> '+rank+' </label>'
+			break;
+		case 3 : html = html + '		<label class="aaaa" style="color: #ffab57;"> '+rank+' </label>'
+			break;
+		default: html = html + '		<label class="aaaa" style="color: #646464;"> '+rank+' </label>'
+			
+		}  	
+			
+			
+			
+		if (vo.kind == 't') {
+			html = html + '		<label class="bbbb"> <a style="color: #646464;" href="/breezer/'+vo.userId+'/tour?idx='+vo.idx+' " > '+vo.title+' </a></label>'
+		} else {
+			html = html + '		<label class="bbbb"> <a style="color: #646464;" href="/breezer/'+vo.userId+'/tour?idx='+vo.tourIdx+'#post-'+vo.idx+' " > '+vo.title+' </a></label>'
+		}	
+			
+					
+		html = html
+			+ '		<label class="cccc"> '+vo.count+' </label>'
+			+ "</div>"
+			
+		
+		$("#favorite-list").append(html);
+		
 	}
 
 	
@@ -473,31 +545,34 @@
 		});
 
 		fetchList();
+		fetchList_Rank();
 		
-		
+		setInterval(function() {
+			refresh_likerank();
+		}, 30000)
 	})
 </script>
 
 
-<body>
+<body style="background-color:#d6d4d4">
 	
 
 	<!-- header -->
-	<div id="header"
-		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10 ">
+	<!-- <div id="header"
+		style="background-color: #454545; width: 100%; top: 0px; position: fixed;  z-index:10; color : #ececec; "> -->
 		<c:import url="/WEB-INF/views/includes/header.jsp">
 		</c:import>
-	</div>
+	<!-- </div> -->
 
 
 	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">
 		
 		<!-- side_navi import -->
-		<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
+		<!-- <div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" > -->
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
 			</c:import> 
-		</div>
+		<!-- </div> -->
 
 		<!-- <div class="cycle-slideshow"   data-cycle-fx=scrollHorz    data-cycle-timeout=0    >
 			   	<div class="cycle-pager"></div>
@@ -507,7 +582,7 @@
 				
 				
 		</div> -->
-		<div id="leftEmpty" style="float:left; background-color: #d6d4d4; width:500px;">
+		<div id="leftEmpty" style="float:left; background-color: #d6d4d4; width:250px;">
 		</div>
 		
 		<div id="list-sns"	style="width: 800px; background-color: #d6d4d4;  margin: auto; float:left; ">
@@ -561,7 +636,35 @@
 			</div> -->
 		</div>
 
-		<div id="list-top"	style="width: 400px; height:200px; background-color: #d6cccc;  margin: auto; float:left">
+		<div id="rank-favorite"	>
+			 
+			 <div id="favorite-title">
+			 	실시간 인기글
+			 	<button  id="all_btn_reload" onclick="refresh_likerank()"> 
+			 		<img src = "/breezer/assets/images/sns/refresh.png" style="height:100%; width:100%; top:0; left:0;" />
+			 	</button>
+			 </div>
+			 
+			 <div id="favorite-list">
+			 	<!-- 
+			 	<div class='rank-item'>
+			 		<hr class="hrline" width=350px>
+			 		<label class="aaaa" > 1 </label>
+			 		<label class="bbbb"> 독일로 떠나는 맥주여행 ddddddddddddddddd</label>
+			 		<label class="cccc"> 242 </label>
+			 	</div>
+			 	
+			 	<div class='rank-item'>
+			 		<hr class="hrline" width=350px>
+			 		<label class="aaaa" > 1 </label>
+			 		<label class="bbbb"> 독일로 떠나는 맥주여행 ddddddddddddddddd</label>
+			 		<label class="cccc"> 242 </label>
+			 	</div>
+			 	 -->
+			 </div>
+			 
+			 
+			
 		</div>
 
 

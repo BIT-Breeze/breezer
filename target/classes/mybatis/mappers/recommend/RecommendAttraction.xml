@@ -3,17 +3,24 @@
 
 <mapper namespace="recommend">
 <select id="getRecommends" resultType="recommendvo">
-	select * from recommendtest where 
+	<!-- select * from recommendtest where 
 		<foreach collection="list" item="item" index="index" separator="or">
                  location like concat(#{item}, '%')
-        </foreach>   
+        </foreach>    -->
+        
+        select * from (
+			        	select * from recommendtest where 
+							<foreach collection="list" item="item" index="index" separator="or">
+			                	location like concat(#{item}, '%')
+			        		</foreach>   
+        			  ) t where t.lat != 0 and t.lot != 0
 </select>
 
 <select id="getNearby" resultType="postvo" parameterType="postvo">
 	<![CDATA[
 		SELECT *, (6371 * ACOS( COS( RADIANS( #{lat } ) ) * COS ( RADIANS( p.lat ) ) * COS ( RADIANS ( p.lot )-RADIANS( #{lot } ) ) + SIN( RADIANS( #{lat } ) ) * SIN( RADIANS( p.lat )))) AS distance 
-			FROM post_test p
-			where location like concat('%', #{location}, '%')
+			FROM TB_POST p
+			where location like concat('%', #{location}, '%') and p.lat != 0
 			HAVING distance <= 2
 			ORDER BY distance 
 			LIMIT 0, 100;
@@ -21,7 +28,12 @@
 </select>
 
 <select id="getCountry" resultType="String">
-	select name from countrytest where name in
+	<!-- select name from countrytest where name in
+		<foreach collection="array" item="item" index="index" separator="," open="(" close=")">
+	       	#{item }
+	    </foreach>    -->
+	    
+	    select name from TB_COUNTRY where name in
 		<foreach collection="array" item="item" index="index" separator="," open="(" close=")">
 	       	#{item }
 	    </foreach>   

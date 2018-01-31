@@ -23,4 +23,8 @@ public class PostService {
 	public PostVo selectPost(PostVo vo) {
 		return postDao.select(vo);
 	}
+	
+	public int selectPostCount(PostVo vo) {
+		return postDao.selectPostCount(vo);
+	}
 }
