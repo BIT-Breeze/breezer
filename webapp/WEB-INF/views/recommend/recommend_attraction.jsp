@@ -336,7 +336,7 @@ div #scrollmenu a:hover {
 	<!-- side_navi import -->
 	<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
 		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
-			<c:param name="menu" value="sns" />
+			<c:param name="menu" value="location" />
 		</c:import> 
 	</div>
 	
