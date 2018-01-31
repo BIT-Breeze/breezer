@@ -202,8 +202,21 @@
 	color : #ececec;
 }
 
+a.link {
+	color: #646464;
+	text-decoration: none;
+}
+a.hover {
+	color: #ff6fb7;
+	text-decoration: none;
+}
 
 
+
+/* sns-list */
+.sns-text {
+	color: #646464;
+}
 
 
 
@@ -232,7 +245,7 @@
 	margin-right: 0 auto;
 	margin-bottom: 20px;
 	text-align: left;
-	color: #ff8000;
+	color: #646464;
 	font-weight: bold;
 	font-size:30px;
 }
@@ -288,6 +301,7 @@
 	overflow: hidden; 
   	text-overflow: ellipsis;
   	white-space: nowrap; 
+  	color: #646464;
 }
 
 .cccc {
