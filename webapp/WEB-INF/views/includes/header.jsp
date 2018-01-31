@@ -30,6 +30,7 @@
 	margin-top: 20px;
 	margin-left: 40px;
 	color: #ececec;
+	cursor:pointer;
 }
 
 #title {
@@ -38,6 +39,7 @@
 	margin-top: 10px;
 	margin-left: 20px;
 	color: #ececec;
+	cursor:pointer;
 }
 </style>
 
