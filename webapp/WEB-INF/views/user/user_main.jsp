@@ -301,19 +301,18 @@ $(function(){
 <div class="container-fluid">
 
     <div class="row" id="container">
-	  	<div class="col-sm-12" style= "position: fixed; z-index: 100; background-color: #ABABAB; width: 100%;">	  	
+	  	<div class="col-sm-12" style= "z-index: 100; background-color: #ABABAB; width: 100%;">	  	
 		  	<c:import url="/WEB-INF/views/includes/header.jsp">		
 			</c:import>		
 		</div>				
   	</div>
 	
 
-  	<div class="row content" style="background-color: #F1F1F1;" >
-
-			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
-				<c:param name="menu" value="login" />
-			</c:import>
-
+  	<div class="row content" style="background-color: #F1F1F1; " >
+  		<div class="col-sm-2 sidenav" style=" top: 50px; margin-left: 10px;">
+				<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+					<c:param name="menu" value="login" />
+				</c:import>
     <div class="col-sm-8">
 		<div class="row" id="firstrow" style="postion:relative;">
 			<div class="col-sm-3" id="userprofile" align="center">

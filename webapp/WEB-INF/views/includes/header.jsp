@@ -5,28 +5,18 @@
 
 
 	
-<<<<<<< HEAD
+
 	<div class='row' id="header">
-		<div class='col-sm-1' align='center'> </div>
-			<h1 class="glyphicon glyphicon-list" id='show_menu'>☰</h1>
+		<div class='col-sm-1' align='center'> <h1 id='show_menu'>☰</h1> </div>
+			
 		<div class='col-sm-1' align='left'>
 	        <h1> <a href="${pageContext.servletContext.contextPath }" >Breezer </a></h1>
-=======
-	<div class='row' id="header" >
-		<div class='col-sm-1' align='right' style="padding-bottom:10px;"> 	
-			<h1 id='show_menu' >☰</h1>
->>>>>>> refs/remotes/origin/master
+
 		</div>
-		
-<<<<<<< HEAD
+	
 		<div class='col-sm-10' align='left'>			
-=======
-		<div class='col-sm-1' align='left' style="padding-bottom:10px;">
-	        <h1> <a href="${pageContext.servletContext.contextPath }" >Breezer </a></h1>
+
+
 		</div>
-		
-		<div class='col-sm-10'>			
->>>>>>> refs/remotes/origin/master
-			
-		</div>
+
 	</div>

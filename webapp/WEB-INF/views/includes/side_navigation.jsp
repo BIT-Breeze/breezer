@@ -17,9 +17,9 @@
 
     #sidenav {      	 	
 
-      margin: -20px;
+      margin: -15px;
       border: 0px;
-      padding:15px;
+      padding: 20px;
       position: fixed;
       display: none;
       z-index: 10;
@@ -94,7 +94,15 @@ $(function(){
 
 </head>
 
-	<div class="col-sm-2 sidenav">
+	<c:choose>
+      
+      	<c:when test="${param.menu == 'login' }">
+		</c:when>
+		
+		<c:otherwise>
+			<div class="col-sm-2 sidenav">
+		</c:otherwise>
+	</c:choose>
 	<div id="sidenav">
     	<div class="row">
     		<div class="col-sm-6" id="photoframe" align='center'>
