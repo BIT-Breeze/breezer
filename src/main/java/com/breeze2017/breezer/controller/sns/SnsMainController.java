@@ -14,6 +14,8 @@ public class SnsMainController {
 	public String main(
 			@AuthUser UserVo authUser,
 			Model model) {
+		
+		System.out.println("====== SnsMainController : /sns ======");
 
 		// 세션 확인
 		if (authUser == null) {

@@ -18,7 +18,19 @@
 					#{title },
 					#{startDate },
 					#{endDate },
-					#{mainPhoto },
+					]]>
+					<if test="mainPhoto == null">
+					<![CDATA[
+							'default',
+					]]>	
+					</if>
+					
+					<if test="mainPhoto != null">
+					<![CDATA[
+							#{mainPhoto },
+					]]>	
+					</if>
+					<![CDATA[
 					#{secret }
 					)
 		]]>		

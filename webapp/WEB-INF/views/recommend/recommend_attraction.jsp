@@ -12,6 +12,10 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!-- bootstrap -->
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+
 <title>Insert title here</title>
 <style>
 html, body, h1, h2, h3, h4, h5, h6 {
@@ -327,6 +331,8 @@ div.scrollmenu a:hover {
 		<span class="w3-button w3-xxlarge w3-teal w3-left" onclick="w3_open()"><i class="fa fa-bars"></i></span> 
 		<div class="w3-clear"></div>
 		
+	<div>
+	<div>
 		<header class="w3-center w3-margin-bottom">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp"/>
@@ -355,8 +361,8 @@ div.scrollmenu a:hover {
 			<div class="w3-white w3-text-grey">
 	
 				<div class="w3-cell-row">
-					<div class="scrollmenu">
-						<p>검색된 데이터가 없습니다.</p>
+					<div id="scrollmenu" class="w3-container w3-padding-16">
+						<p class="w3-xlarge w3-center"><i class="fa fa-search w3-xlarge w3-text-teal" aria-hidden="true"></i> 원하는 장소를 검색 해주세요.</p>
 					</div>
 				</div>
 				

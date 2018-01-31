@@ -463,7 +463,7 @@
 		<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; " align="center" >
 			<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
 				<c:param name="menu" value="sns" />
-			</c:import>
+			</c:import> 
 		</div>
 
 		<!-- <div class="cycle-slideshow"   data-cycle-fx=scrollHorz    data-cycle-timeout=0    >
@@ -528,14 +528,18 @@
 
 
 
-		<form id="logout" name="logout" method="post"
+		<!-- <form id="logout" name="logout" method="post"
 			action="${pageContext.servletContext.contextPath }/user/logout">
 			<button type="submit" class="join-button">logout</button>
-		</form>
-
-		<!-- footer -->
-		<c:import url="/WEB-INF/views/includes/footer.jsp" />
+		</form> -->
+		
+		
+		
 	</div>
+	
+	<!-- footer -->
+	<c:import url="/WEB-INF/views/includes/footer.jsp" />
+	
 </body>
 </html>
 

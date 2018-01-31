@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +18,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.fileupload.FileUploadService;
 import com.breeze2017.breezer.service.fileupload.MultiFileUploadService;
+import com.breeze2017.breezer.vo.TourVo;
+import com.breeze2017.security.Auth;
 
 
 @Controller
@@ -28,12 +32,17 @@ public class FileUploadController {
 	@Autowired
 	private MultiFileUploadService multiFileUploadService;
 
+	
 	// Single Upload
 	@ResponseBody
 	@RequestMapping(value="/echofile", method=RequestMethod.POST)
-	public String upload( @RequestParam("file") MultipartFile file, Model model ) {
+	public String upload( 
+			@RequestParam("file") MultipartFile file, 
+			Model model, 
+			@ModelAttribute TourVo vo ) {
 		System.out.println(" >> fileupload controller");
-		String url = fileUploadService.restore(file);
+
+		String url = fileUploadService.restore(file, vo.getUserId());
 		model.addAttribute("url", url);
 		
 		//System.out.println("id 조회 > " + id);
@@ -43,6 +52,7 @@ public class FileUploadController {
 	
 	}
 	
+
 	// Multi Upload
 	@ResponseBody
 	@RequestMapping(value="/multiechofile", method=RequestMethod.POST)
