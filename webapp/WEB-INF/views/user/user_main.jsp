@@ -85,28 +85,28 @@ var render0 = function( tourvo, mode ){
 	var id = userId;
 	console.log(tourvo)	
 
-	var html = 
-	"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
-		"<div class='thumbnail'>" + 
-			"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'style='width: 100%; height: 160px'>" + "</a><br>" +
-			"<div class='caption'>" + 
-				"<div class='row'>" + 
-				"<div class='col-sm-10' align='center'>" + tourvo.title + "</div>" +
-				"<div class='col-sm-2'>" + 
-				"<span id='showdelete' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "' class='glyphicon glyphicon-remove' style='color:red; cursor:pointer;'></span>" +							 	
-				"</div>" +
-				"</div>" +	
-				"<div class='row' align='center'>" + " start : " + tourvo.startDate + " ~ end : " + tourvo.endDate + "<br><br></div>" +
-				"<div class='row' align='center'>" + 
-				"<div class='col-sm-6'><span class='glyphicon glyphicon-thumbs-up'> : " + tourvo.favorite + "</span>" + 
-				"<br><span class='glyphicon glyphicon-th-list'> : " + tourvo.postCount + "</span></div>" +
-				"<div class='col-sm-6' align='left'><span class='glyphicon glyphicon-lock'> : " + tourvo.secret  + "</span>" +
-				"<br><span class='glyphicon glyphicon-star'> : " + tourvo.score +  "</span></div>" + 
-				"</div>" + // row, right
-			"</div>"+ // caption
-		"</div>"+ // 썹네일
-	"</div>" // col-sm-3
+	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
+				"<div class='thumbnail'>" + 
+				  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
+						 "<div class='caption'>" + 
+							"<div class='row'>" + 
+						 		"<div class='col-sm-10' align='center'>" + tourvo.title + "</div>" +
+						 		"<div class='col-sm-2'>" + 
+							 		"<span data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
+								"' class='glyphicon glyphicon-remove' style='color:red; cursor:pointer;'></span>" +							 	
+						 		"</div>" +
+							"</div>" +	
+						 	"<div class='row' align='center'>" + " start : " + tourvo.startDate + " ~ end : " + tourvo.endDate + "<br><br></div>" +
+							"<div class='row' align='center'>" + 
+								"<div class='col-sm-6'><span class='glyphicon glyphicon-thumbs-up'> : " + tourvo.favorite + "</span>" + 
+								"<br><span class='glyphicon glyphicon-th-list'> : " + tourvo.postCount + "</span></div>" +
+								"<div class='col-sm-6' align='left'><span class='glyphicon glyphicon-lock'> : " + tourvo.secret  + "</span>" +
+								"<br><span class='glyphicon glyphicon-star'> : " + tourvo.score +  "</span></div>" + 
+							"</div>" + // row, right
+						"</div>"+ // caption
+					"</div>"+ // 썹네일
+				"</div>" // col-sm-3
 
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
@@ -119,22 +119,18 @@ var render2 = function( tourvo, mode ){
 		//타인 페이지에서 투어를 그려주는 렌더링 함수, 삭제 버튼, 공개여부가 없음 	
 		var id = userId;
 		
-		var html = 
-		"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
-			"<div class='thumbnail'>" + 
-				"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' style='width: 100%; height: 160px'>" + "</a><br>" +
-				
-				"<div class='caption'>" + 
+		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
+		"<div class='thumbnail'>" + 
+		  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
+				 "<div class='caption'>" + 
 					"<div class='row'>" + 
-						"<p class='col-sm-12' align='center'><h4>" + tourvo.title + "</h4></p>" +
+					 	"<div class='col-sm-12' align='center'><h4>" + tourvo.title + "</h4></div>" +
 					"</div>" +	
-					
-					"<p class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></p>" +
-					
+				 	"<div class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></div>" +
 					"<div class='row' align='right'>" + 
-						"<p class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</p>" +
-						"<p class='col-sm-7'>"  + "<br> 평점: " + tourvo.score +  "</p>" + 
+						"<div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</div>" +
+						"<div class='col-sm-7'>"  + "<br> 평점: " + tourvo.score +  "</div>" + 
 					"</div>" + // row, right
 				"</div>"+ // caption
 			"</div>"+ // 썹네일
@@ -230,7 +226,7 @@ $(function(){
 
 	fetchList();
 	getCount();
-	$( document ).on( "click", "#showdelete", function(){
+	$( document ).on( "click", "#list-tour div span", function(){
 			//event.preventDefault();	
 		 	//$('#myModal').modal("show");	
 
