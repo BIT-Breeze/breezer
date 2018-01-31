@@ -141,15 +141,19 @@
 						"<c:if test='${userId eq authUser.id}'>"+
 							"<a style='margin-right:3px; padding:3px; vertical-align:bottom; margin-bottom:7px;' class='post-modify btn btn-secondary w3-small' id='post-modify-"+post.idx+"' href='' data-no='"+post.idx+"'><span style='font-size:15px; vertical-align: middle;' class='glyphicon glyphicon-scissors'></span> 수정</a>"+
 							"<a style='padding:3px; vertical-align:bottom; margin-bottom:7px;' class='post-modify btn btn-secondary w3-small' id='post-delete-"+post.idx+"' href='' data-no='"+post.idx+"'><span style='font-size:15px; vertical-align: middle;' class='glyphicon glyphicon-remove'></span> 삭제</a>"+
+						"</c:if>"+
+						"<c:if test='${userId ne authUser.id}'>"+
+							"<a style='margin-left:3px; padding:3px; vertical-align:bottom; margin-bottom:7px;' class='post-modify btn btn-secondary w3-small' id='post-thumbUp-"+post.idx+"' href='' data-no='"+post.idx+"'><span style='font-size:15px; vertical-align: middle;' class='glyphicon glyphicon-thumbs-up'></span> 좋아요</a>"+
 						"</c:if></p><br>"+
 						'<hr style="width:1190px;border:5px solid grey" class="w3-round">'+
-						"<p><strong><i class='material-icons' style='font-size:36px; vertical-align: middle;'>domain</i></strong> "+(post.location || "").replace("\n", "<br>")+"</p><br>"+
-						"<p style='padding-left:4px;'><strong><span class='glyphicon glyphicon-calendar'></span></strong> "+(post.tripDateTime || "").replace("\n", "<br>")+"</p><br>"+
-						"<p style='padding-left:2px;'><strong><span class='glyphicon glyphicon-align-justify'></span></strong> "+(post.content || "").replace("\n", "<br>")+"</p><br>"+
-						"<p><strong><i class='material-icons' style='font-size:36px; vertical-align: middle;'>flight_takeoff</i></strong> "+(post.category || "").replace("\n", "<br>")+"</p><br>"+
-						"<p style='padding-left:2px;'><strong><span class='fa fa-krw'></span></strong> "+post.price+"원</p><br>"+
-						"<p style='padding-left:2px;'><strong><span class='fa fa-star-half-o'></span></strong> "+post.score+"점</p><br>"+
-						"<p style='padding-left:2px;'><strong><span class='glyphicon glyphicon-thumbs-up'></span></strong> "+post.favorite+"</p><br>"+
+						"<p style='font-size:20px; padding-left:2px;'><strong><i class='material-icons' style='font-size:22px; vertical-align: middle;'>domain</i></strong> "+(post.location || "").replace("\n", "<br>")+"</p><br>"+
+						"<p style='font-size:20px; padding-left:4px;'><strong><span class='glyphicon glyphicon-calendar'></span></strong> "+(post.tripDateTime || "").replace("\n", "<br>")+"</p><br>"+
+						"<p style='font-size:20px; padding-left:2px;'><strong><span class='glyphicon glyphicon-align-justify'></span></strong> "+(post.content || "").replace("\n", "<br>")+"</p><br>"+
+						"<p style='font-size:20px;'><strong><i class='material-icons' style='font-size:22px; vertical-align: middle;'>flight_takeoff</i></strong> "+(post.category || "").replace("\n", "<br>")+"</p><br>"+
+						"<p style='font-size:20px; padding-left:2px;'><strong><span class='fa fa-krw'></span></strong> "+post.price+"원</p><br>"+
+						"<p style='font-size:20px; padding-left:2px;'><strong><span class='fa fa-star-half-o'></span></strong> "+post.score+"점</p><br>"+
+						"<p style='font-size:20px; padding-left:2px;'><strong><span class='glyphicon glyphicon-thumbs-up'></span></strong> "+post.favorite+"</p><br>"+
+						"<p style='font-size:20px; padding-left:2px;'><strong><span class='glyphicon glyphicon-camera'></span></strong> 사진</p><br>"+
 					"</div>" +
 				"</li></div>";
 			if(index === 0){
