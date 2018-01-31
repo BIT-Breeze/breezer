@@ -69,15 +69,6 @@ html, body {
 }
 
 /* post관련 */
-div #scrollmenu {
-	max-width: 1370px;
-	overflow: auto;
-	white-space: nowrap;
-}
-
-div #scrollmenu a:hover {
-	background-color: #777;
-}
 
 #card {
 	display: inline-block;
@@ -86,6 +77,17 @@ div #scrollmenu a:hover {
 	padding: 0 30px;
 	text-decoration: none;
 	margin-top: 10px;
+}
+
+div #scrollmenu {
+	max-width: 1280px;
+	/* height: 350px; */
+	overflow: auto;
+	white-space: nowrap;
+}
+
+div #scrollmenu a:hover {
+	background-color: #777;
 }
 
 </style>
@@ -268,10 +270,8 @@ div #scrollmenu a:hover {
 							nearbyMarkers.forEach(function(marker) {
 					        	marker.setMap(null);
 					        });
-							
-							$.each(response.data, function(index, data){
-								console.log(data);
 
+							$.each(response.data, function(index, data){
 								var resizeIcon = new google.maps.MarkerImage(imageArr[index], null, null, null, new google.maps.Size(50,50));
 								nearbyMarkers[index] = new google.maps.Marker({
 							          position: {lat: data.lat, lng: data.lot},
@@ -280,6 +280,8 @@ div #scrollmenu a:hover {
 							          animation:google.maps.Animation.BOUNCE,
 						        	  draggable:false // 드래그 가능 여부
 						        });
+								
+								// 추가 작업.
 							});
 						}
 					});
@@ -325,12 +327,10 @@ div #scrollmenu a:hover {
     </script>
 </head>
 <body class="w3-light-grey">
-<<<<<<< HEAD
 	<!-- header -->
-   <div id="header" style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10">
-      <c:import url="/WEB-INF/views/includes/header.jsp">
-      </c:import>
-   </div>
+	<div id="header" class="w3-teal" style="width: 100%; top: 0px; position: fixed; z-index:10;">
+		<c:import url="/WEB-INF/views/includes/header.jsp"/>
+	</div>
    
    <!-- side_navi import -->
    <div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
@@ -338,33 +338,9 @@ div #scrollmenu a:hover {
          <c:param name="menu" value="location" />
       </c:import> 
    </div>
-
-=======
-
-	<!-- header -->
-	<div id="header"
-		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10 ">
-		<c:import url="/WEB-INF/views/includes/header.jsp">
-		</c:import>
-	</div>
-	
-	<!-- side_navi import -->
-	<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
-		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
-			<c:param name="menu" value="location" />
-		</c:import> 
-	</div>
-	
-	<%-- <div>
-		<header class="w3-center w3-margin-bottom">
-			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/includes/side_navigation.jsp"/>
-		</header>
-	</div> --%>
->>>>>>> refs/remotes/origin/master
 	
 	<!-- Page Container -->
-	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1400px; ">
+	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1300px; ">
 
 		<!-- Map Column -->
 		<div class="w3-row-padding w3-padding-16" style="margin-top:100px;">
@@ -387,7 +363,7 @@ div #scrollmenu a:hover {
 	
 				<div class="w3-cell-row">
 					<div id="scrollmenu" class="w3-container w3-padding-16">
-						<p class="w3-xlarge w3-center"><i class="fa fa-search w3-xlarge w3-text-teal" aria-hidden="true"></i> 원하는 장소를 검색 해주세요.</p>
+						<!-- <p class="w3-xlarge w3-center"><i class="fa fa-search w3-xlarge w3-text-teal" aria-hidden="true"></i> 원하는 장소를 검색 해주세요.</p> -->
 					</div>
 				</div>
 				

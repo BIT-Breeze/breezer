@@ -32,6 +32,7 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	margin-top: 70px;
 } 
 
 #drive_mode{
@@ -392,6 +393,7 @@ var imageArr = [
 				
 				// Direction Service 한번만 호출하기 위해
 				len = response.data.length;
+				
 				console.log(response.data);
 				
 				var totalScore = 0;
@@ -526,13 +528,24 @@ var imageArr = [
 </head>
 <body class="w3-light-grey">
 	<!-- Header -->
-	<header class="w3-center w3-margin-bottom w3-teal w3-text-black">
+	<%-- <header class="w3-center w3-margin-bottom w3-teal w3-text-black">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<c:import url="/WEB-INF/views/includes/side_navigation.jsp" />
-	</header>
+	</header> --%>
+	
+	<div id="header" class="w3-teal" style="width: 100%; top: 0px; position: fixed; z-index:10;">
+		<c:import url="/WEB-INF/views/includes/header.jsp"/>
+	</div>
+   
+   <!-- side_navi import -->
+   <div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
+      <c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+         <c:param name="menu" value="tour" />
+      </c:import> 
+   </div>
 
 	<!-- Page Container -->
-	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1400px;">
+	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1300px;">
 
 		<!-- Map Column -->
 		<div class="w3-row-padding w3-padding-16">
@@ -571,7 +584,7 @@ var imageArr = [
 						
 					</div>
 					
-					<div class="w3-container w3-cell w3-twothird">
+					<div class="w3-container w3-cell w3-twothird w3-padding-32">
 						<div id="info" class="w3-container w3-padding-32 w3-large" >
 							<p><i class="fa fa-tag fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.title }</p>
 							<p><i class="fa fa-calendar fa-fw w3-margin-right w3-large w3-text-teal"></i>${vo.startDate } ~ ${vo.endDate }</p>
