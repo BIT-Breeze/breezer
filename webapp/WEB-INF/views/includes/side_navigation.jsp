@@ -17,14 +17,14 @@
 
     #sidenav {      	 	
 
-      margin: 0px;
+      margin: -20px;
       border: 0px;
-      padding: 15px;
+      padding:15px;
       position: fixed;
       display: none;
       z-index: 10;
 	  opacity: 1.0;
-      background-color: #F1F1F1;
+      /* background-color: #F1F1F1; */
 
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
@@ -34,13 +34,13 @@
     }  
     
     #info{    
-		padding-top:150px;
+		padding-top:15px;
 		padding-bottom:30px;
 		font-family: "Karma", sans-serif        	
     }     
     
     #photoframe{    
-		padding-top:150px;  
+		padding-top:15px;  
 		padding-bottom:30px;      
     }
     
