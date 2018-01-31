@@ -102,7 +102,7 @@ var render0 = function( tourvo, mode ){
 					"<p class='col-sm-12' align='center'><a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" + tourvo.title + "</a></p>" +
 				"</div>" +	
 				
-				"<div class='w3-row w3-padding-16'>" +
+				"<div class='w3-row'>" +
 					"<div class='w3-container w3-threequarter'>" + 
 						"<p><i class='fa fa-calendar' aria-hidden='true'></i> " + tourvo.startDate + " ~ " + tourvo.endDate + "</p>" +
 					"</div>" +
