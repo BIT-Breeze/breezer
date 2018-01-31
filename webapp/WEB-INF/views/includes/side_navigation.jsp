@@ -14,7 +14,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 
-    #sidenav {      	 	
+    #sidenav {      
       border: 0px;
       padding: 15px;
       position: fixed;
@@ -22,7 +22,8 @@
       z-index: 10;
 	  opacity: 1.0;
       background-color: #F1F1F1;
-      top: 70px;		
+      top: 70px;
+      margin-left: -15px;		
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
