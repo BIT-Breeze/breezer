@@ -73,7 +73,6 @@
 	 
 	// 이미지 크기를 조절하기 위한 함수.. 대기중 
 	function resizeimg(obj) {
-		console.log("======resizeimg()======")
 		
 		var maxSize = 780;
 		if (obj.width > obj.height) {
@@ -89,15 +88,15 @@
 	 
 	 //좋아요
 	function likeup(voidx, tour, post, favoCnt) {
-		console.log(voidx + ", " + tour + ", " + post + ", " + favoCnt )
+		//console.log(voidx + ", " + tour + ", " + post + ", " + favoCnt )
 		
 		// postIdx가 0이면 tour,  아니면 post 
 		if (post == 0) {
-			console.log("this is tour")
+			//console.log("this is tour")
 			//TB_FAVORITE 에 insert (tourIdx, null)
 			doLikeUpDown('up', 'tour', tour)
 		} else {
-			console.log("this is post")
+			//console.log("this is post")
 			doLikeUpDown('up', 'post', post)
 		}
 
@@ -114,7 +113,7 @@
 
 	 //좋아요 취소 
 	function likedown(voidx, tour, post, favoCnt) {
-		console.log(voidx + ", " + tour + ", " + post+ ", " + favoCnt)
+		//console.log(voidx + ", " + tour + ", " + post+ ", " + favoCnt)
 		// postIdx가 0이면 tour,  아니면 post 
 		if (post == 0) {
 			//console.log("this is tour")
@@ -149,7 +148,7 @@
 			dataType : "json",
 			data : "id=" + id + "&flag=" + flag + "&type=" + type + "&idx="	+ idx,
 			success : function(response) {
-				console.log("dolike success")
+				//console.log("dolike success")
 			},
 			error : function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -447,6 +446,11 @@
 				});
 	}
 	
+	function refresh_likerank() {
+		//console.log("====== refresh_likerank() ======")
+		fetchList_Rank();
+	}
+	
 	var fetchList_Rank = function() {
 		 $.ajax({
 			url : "/breezer/api/sns/likerank?interval=-5",
@@ -463,6 +467,9 @@
 				//console.log("likerank data = "+response.data)
 				$.each(response.data, function(index, vo) {
 					++rank;
+					if (rank > 10) {
+						return;
+					}
 					likeRender(vo, rank);
 				});
 				
@@ -540,7 +547,9 @@
 		fetchList();
 		fetchList_Rank();
 		
-		
+		setInterval(function() {
+			refresh_likerank();
+		}, 30000)
 	})
 </script>
 
@@ -631,6 +640,9 @@
 			 
 			 <div id="favorite-title">
 			 	실시간 인기글
+			 	<button  id="all_btn_reload" onclick="refresh_likerank()"> 
+			 		<img src = "/breezer/assets/images/sns/refresh.png" style="height:100%; width:100%; top:0; left:0;" />
+			 	</button>
 			 </div>
 			 
 			 <div id="favorite-list">
