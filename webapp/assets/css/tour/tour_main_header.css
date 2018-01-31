@@ -23,12 +23,12 @@
 }
 
 
-#header {
+/* #header {
 	color: white;
 	position: relative;
 	background-color: transparent;
 
-}
+} */
 
 #tour_main_header_bg #tour_main_header .editForm .edit_tourAdd_right {
 	float: right;
@@ -240,9 +240,6 @@
 
 
 /* layout */
-nav#tour_navigation	{ 
-  z-index: 1; float:left; width:200px; height:100%; overflow: auto; position: fixed; padding-left: 170px; }
-
 
 #tour_main_header_bg #tour_main_header .modify_addform .modify_tourAdd_left {
 	float: left;

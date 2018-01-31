@@ -28,34 +28,36 @@
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
-		padding-bottom:50px;    
+		padding-bottom:30px;    
     	padding-top:50px;
     }  
     
     #info{    
-		padding-top:100px;        	
+		padding-top:150px;
+		padding-bottom:30px;
+		font-family: "Karma", sans-serif        	
     }     
     
     #photoframe{    
-		padding-top:100px;        
+		padding-top:150px;  
+		padding-bottom:30px;      
     }
     
     #menu{    
 		padding-top:45px; 
-		padding-bottom:500px;       
+		padding-bottom:500px;
+		font-family: "Karma", sans-serif       
     }
     
 
 </style>
 <script>
-
+/*
 var id;
 var tours;
 var countries;
 var numOfcountries
-
-
-
+*/
 $(function(){
 	
 	$('#show_menu').click(function(event){
@@ -64,8 +66,7 @@ $(function(){
 
 	});  // 사이드 내비 토글 
 	
-	//console.log("${authUser.id}")
-	
+	//console.log("${authUser.id}")	
 	// 유저 인포 가져오기 
 	$.ajax({
 		
@@ -88,13 +89,9 @@ $(function(){
 	
 	
 });
-
-
 </script>
+
 </head>
-
-
-
 
     <div class="col-sm-2 sidenav">
 	<div id="sidenav">
