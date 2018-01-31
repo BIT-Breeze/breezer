@@ -89,22 +89,21 @@ var render0 = function( tourvo, mode ){
 	"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
 		"<div class='thumbnail'>" + 
 			"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'style='width: 100%; height: 300px'>" + "</a><br>" +
+			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'style='width: 100%; height: 160px'>" + "</a><br>" +
 			"<div class='caption'>" + 
-			"<div class='row'>" + 
-			"<div class='col-sm-10' align='center'>" + tourvo.title + "</div>" +
-			"<div class='col-sm-2'>" + 
-			"<span data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
-			"' class='glyphicon glyphicon-remove' style='color:red; cursor:pointer;'></span>" +							 	
-			"</div>" +
-			"</div>" +	
-			"<div class='row' align='center'>" + " start : " + tourvo.startDate + " ~ end : " + tourvo.endDate + "<br><br></div>" +
-			"<div class='row' align='center'>" + 
-			"<div class='col-sm-6'><span class='glyphicon glyphicon-thumbs-up'> : " + tourvo.favorite + "</span>" + 
-			"<br><span class='glyphicon glyphicon-th-list'> : " + tourvo.postCount + "</span></div>" +
-			"<div class='col-sm-6' align='left'><span class='glyphicon glyphicon-lock'> : " + tourvo.secret  + "</span>" +
-			"<br><span class='glyphicon glyphicon-star'> : " + tourvo.score +  "</span></div>" + 
-			"</div>" + // row, right
+				"<div class='row'>" + 
+				"<div class='col-sm-10' align='center'>" + tourvo.title + "</div>" +
+				"<div class='col-sm-2'>" + 
+				"<span id='showdelete' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "' class='glyphicon glyphicon-remove' style='color:red; cursor:pointer;'></span>" +							 	
+				"</div>" +
+				"</div>" +	
+				"<div class='row' align='center'>" + " start : " + tourvo.startDate + " ~ end : " + tourvo.endDate + "<br><br></div>" +
+				"<div class='row' align='center'>" + 
+				"<div class='col-sm-6'><span class='glyphicon glyphicon-thumbs-up'> : " + tourvo.favorite + "</span>" + 
+				"<br><span class='glyphicon glyphicon-th-list'> : " + tourvo.postCount + "</span></div>" +
+				"<div class='col-sm-6' align='left'><span class='glyphicon glyphicon-lock'> : " + tourvo.secret  + "</span>" +
+				"<br><span class='glyphicon glyphicon-star'> : " + tourvo.score +  "</span></div>" + 
+				"</div>" + // row, right
 			"</div>"+ // caption
 		"</div>"+ // 썹네일
 	"</div>" // col-sm-3
@@ -124,7 +123,7 @@ var render2 = function( tourvo, mode ){
 		"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
 			"<div class='thumbnail'>" + 
 				"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' style='width: 100%; height: 300px'>" + "</a><br>" +
+				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' style='width: 100%; height: 160px'>" + "</a><br>" +
 				
 				"<div class='caption'>" + 
 					"<div class='row'>" + 
@@ -231,7 +230,7 @@ $(function(){
 
 	fetchList();
 	getCount();
-	$( document ).on( "click", "#list-tour div span", function(){
+	$( document ).on( "click", "#showdelete", function(){
 			//event.preventDefault();	
 		 	//$('#myModal').modal("show");	
 
