@@ -229,10 +229,10 @@
 				+ "			</div>"
 				+ "			<div id='header-info' style='height: 40px; float: left; margin-left: 15px;  '>"
 				+ "				<div id='header-nickname' style='height:auto; vertical-align: middle; position: relative;top: 50%;transform: translateY(-50%);'>"
-				+ "					<label><a href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId + "(" + vo.nickName + ")" + "</a></label> "
+				+ "					<label><a style='color: #646464; font-weight:bold' href='${pageContext.servletContext.contextPath }/"+vo.userId+"'>" + vo.userId + "(" + vo.nickName + ")" + "</a></label> "
 				
 				if( vo.location != null) {
-					html = html + "					<br><label>" + vo.location + "</label>"
+					html = html + "					<br><label class='sns-text' >" + vo.location + "</label>"
 				}
 				
 				html = html
@@ -336,8 +336,8 @@
 
 		if ( photos.length > 1 ) {
 				html = html 
-				+ '   				<label class="slidermove" onclick="plusDivs(this,-1)" style="margin-left:320px;   background-color:#ffffff" > < 이전  </label> '
-				+ '  	 			<label class="slidermove" onclick="plusDivs(this,1)"  style="margin-left:50px;    background-color:#ffffff" > 다음 >  </label> '
+				+ '   				<label class="slidermove" onclick="plusDivs(this,-1)" style="margin-left:320px; color: #646464;   background-color:#ffffff" > < 이전  </label> '
+				+ '  	 			<label class="slidermove" onclick="plusDivs(this,1)"  style="margin-left:50px; color: #646464;   background-color:#ffffff" > 다음 >  </label> '
 		}
 		
 		html = html
@@ -359,18 +359,18 @@
 			html = html + 	"	<button id='btnFavo" + vo.idx + "' type='button' onclick='likedown(" + vo.idx + ", " + vo.tourIdx + ", " + vo.postIdx+ ", "+ vo.favorite +")'> &#10084; </button> "
 		}
 
-		html = html + 		"	<label>좋아요  </label>"
-					+ 		"	<label id='favoidx"+vo.idx+"' style='margin-left:10px'>  "+ vo.favorite +"</label> "
+		html = html + 		"	<label class='sns-text' >좋아요  </label>"
+					+ 		"	<label class='sns-text' id='favoidx"+vo.idx+"' style='margin-left:10px'>  "+ vo.favorite +"</label> "
 				+ "			</div>  " 
 				+ "     	<div id='info-etc' style='margin-top:3px; height: 27px; float: left'>"
 		//+ "<button id='btnFavo"+vo.idx+"' type='button' onclick='clicklike("+vo.idx+", "+vo.tourIdx+", "+vo.postIdx+")'> "+didFavo+" </button><br> "
-				 + "			<label style='margin-left:40px;'> &#x2637; 여행일자 : " + vo.tripDateTime	+ "</label>"
-		 		 + "			<label style='margin-left:40px;'>&#10030;평점 : "+ vo.score + "</label> " 
-		 		 + "			<label style='margin-left:40px;'>&#x24; 비용 : " + vo.price	+  "</label>"
+				 + "			<label class='sns-text' style='margin-left:40px;'> &#x2637; 여행일자 : " + vo.tripDateTime	+ "</label>"
+		 		 + "			<label class='sns-text' style='margin-left:40px;'>&#10030;평점 : "+ vo.score + "</label> " 
+		 		 + "			<label class='sns-text' style='margin-left:40px;'>&#x24; 비용 : " + vo.price	+  "</label>"
 		 		 
 		if (vo.postIdx == 0) {
 			
-			html = html +  " 	<label style='margin-left:40px;'>P포스트 수 : " + vo.postCount	+  "</label>"
+			html = html +  " 	<label class='sns-text' style='margin-left:40px;'>P포스트 수 : " + vo.postCount	+  "</label>"
 		} 		 
 		 		 
 		 		 
@@ -379,7 +379,7 @@
 		 		 //+ "	<label>등록일자 : " + vo.postDateTime	+ "</label><br>" 
 		 		 
 		 		 + "		<div id='info-content' style='width:780px;' >"
-				+ "				<label style='width:100%; height:100px; margin-top:10px;'> " + vo.content + " </label><br>"
+				+ "				<label class='sns-text' style='width:100%; height:100px; margin-top:10px;'> " + vo.content + " </label><br>"
 				//+ "				<label>info : tourIdx : " + vo.tourIdx + ",  postIdx : "	+ vo.postIdx + ", voIdx : " + vo.idx + " </label>"
 				+ "			</div>" 
 				+ "		</div>" 
@@ -498,16 +498,16 @@
 			break;
 		case 3 : html = html + '		<label class="aaaa" style="color: #ffab57;"> '+rank+' </label>'
 			break;
-		default: html = html + '		<label class="aaaa" style="color: #313131;"> '+rank+' </label>'
+		default: html = html + '		<label class="aaaa" style="color: #646464;"> '+rank+' </label>'
 			
 		}  	
 			
 			
 			
 		if (vo.kind == 't') {
-			html = html + '		<label class="bbbb"> <a href="/breezer/'+vo.userId+'/tour?idx='+vo.idx+' " > '+vo.title+' </a></label>'
+			html = html + '		<label class="bbbb"> <a style="color: #646464;" href="/breezer/'+vo.userId+'/tour?idx='+vo.idx+' " > '+vo.title+' </a></label>'
 		} else {
-			html = html + '		<label class="bbbb"> <a href="/breezer/'+vo.userId+'/tour?idx='+vo.tourIdx+'#post-'+vo.idx+' " > '+vo.title+' </a></label>'
+			html = html + '		<label class="bbbb"> <a style="color: #646464;" href="/breezer/'+vo.userId+'/tour?idx='+vo.tourIdx+'#post-'+vo.idx+' " > '+vo.title+' </a></label>'
 		}	
 			
 					
