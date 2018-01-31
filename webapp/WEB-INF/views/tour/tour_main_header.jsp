@@ -227,7 +227,13 @@ function leaveForm() {
 var refreshHeaderImage = function(mainPhoto) {
 	$("div#tour_main_header").css("background-color", "transparent");
 	$("div#header").css("background-color", "transparent");
-	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
+	
+	 if(mainPhoto == '') {
+		$("#tour_main_header_bg").css('background-image',"url('/breezer/assets/images/tour/default_background.jpg')");	
+	} else {
+		$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
+	}
+	
 }
 
 
@@ -264,7 +270,6 @@ $(document).ready(function() {
 				}
 				
 				
-				
 				console.log(response.data)
 				$("#edit_title_area").val(response.data.title);
 				$("#edit_startDate").val(response.data.startDate);
@@ -278,7 +283,6 @@ $(document).ready(function() {
 				$("#idx_value").val(response.data.idx);
 				$("#modify_imagePath").val(response.data.mainPhoto);
 				$("#user_id").val(response.data.userId);
-				
 				
 				/* id 가 다르면 edit 폼 지우기 */
 				var tourUserId = response.data.userId;

@@ -153,7 +153,7 @@ $(document).ready(function() {
 			$("#header").css("background-color", "transparent");
 			$("#tour_main_header").css("background-color", "transparent");
 			$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+data+")");
-
+			
 		});
 	});
 });
