@@ -327,25 +327,19 @@ div #scrollmenu a:hover {
 <body class="w3-light-grey">
 
 	<!-- header -->
-	<div id="header"
-		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10 ">
-		<c:import url="/WEB-INF/views/includes/header.jsp">
-		</c:import>
-	</div>
-	
-	<!-- side_navi import -->
-	<div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
-		<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
-			<c:param name="menu" value="location" />
-		</c:import> 
-	</div>
-	
-	<%-- <div>
-		<header class="w3-center w3-margin-bottom">
-			<c:import url="/WEB-INF/views/includes/header.jsp" />
-			<c:import url="/WEB-INF/views/includes/side_navigation.jsp"/>
-		</header>
-	</div> --%>
+   <div id="header" style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10">
+      <c:import url="/WEB-INF/views/includes/header.jsp">
+      </c:import>
+   </div>
+   
+   <!-- side_navi import -->
+   <div id="side_navi" class="row content" style="margin-left: 10px; position: fixed; top: 100px; background-color:#d6d4d4; " align="center" >
+      <c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+         <c:param name="menu" value="location" />
+      </c:import> 
+   </div>
+
+
 	
 	<!-- Page Container -->
 	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1400px; ">
