@@ -51,7 +51,7 @@ public class LikeRankVo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "LikeRankVo [idx=" + idx + ", count=" + count + ", kind=" + kind + ", insertDateTime=" + insertDateTime
