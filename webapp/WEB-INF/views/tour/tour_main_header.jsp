@@ -16,8 +16,8 @@
 
 <!-- jQuery UI CSS파일 , jQuery UI 라이브러리 js파일, jQuery form 라이브러리 js파일 -->
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css"> -->
-<script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
-<script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- <script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
+<script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script> -->
 
 <!-- 달력 js -->
 <script type="text/javascript">
