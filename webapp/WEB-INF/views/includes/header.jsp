@@ -22,29 +22,34 @@
 	position: fixed;
 	z-index: 10;
 	background-color: #454545;
+	vertical-align: middle;
 }
 
 #show_menu {
 	height: 50px;
-	font-size: 30px;
-	margin-top: 20px;
+	font-size: 40px;
 	margin-left: 40px;
 	color: #ececec;
+	cursor:pointer;
+	margin-top: 10px;
+	vertical-align: middle;
 }
 
-#title {
+#header_title {
 	height: 50px;
-	font-size: 30px;
-	margin-top: 10px;
+	font-size: 40px;
 	margin-left: 20px;
 	color: #ececec;
+	cursor:pointer;
+	margin-top: 10px;
+	vertical-align: middle;
 }
 </style>
 
 
 <div  id="header">
 	<label id='show_menu'>☰</label> 
-	<label id="title" onclick="goUserMain()"> Breezer </label>
+	<label id="header_title" onclick="goUserMain()"> Breezer </label>
 </div>
 
 
