@@ -17,14 +17,15 @@
 
     #sidenav {      	 	
 
-      margin:0;
-      border: 0;
-      padding: 0;
+      margin: 0px;
+      border: 0px;
+      padding: 15px;
       position: fixed;
       display: none;
       z-index: 10;
 	  opacity: 1.0;
-      background-color: #FFFFFF;
+      background-color: #F1F1F1;
+
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
@@ -93,7 +94,7 @@ $(function(){
 
 </head>
 
-    <div class="col-sm-2 sidenav">
+	<div class="col-sm-2 sidenav">
 	<div id="sidenav">
     	<div class="row">
     		<div class="col-sm-6" id="photoframe" align='center'>
@@ -165,6 +166,6 @@ $(function(){
       </ul><br>
      </div> <!-- id menu -->
   	</div> <!-- id sidenav  -->
-    </div> <!-- class sidenav -->	
+	</div> <!-- CLASS sidenav  -->
 
 </html>
