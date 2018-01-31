@@ -20,11 +20,13 @@
       margin: -15px;
       border: 0px;
       padding: 15px;
+
+      padding-left: 30px;
       position: fixed;
       display: none;
       z-index: 10;
 	  opacity: 1.0;
-      background-color: #F1F1F1;
+      background-color: #FFFFFF;
 		
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
