@@ -328,7 +328,7 @@
 				close: function () {
 				}
 			});
-		    
+
 			$(document).on("click", "#searchMap", function (event) {
 				event.preventDefault();				
 				mapDialog.dialog("open");

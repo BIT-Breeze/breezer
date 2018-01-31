@@ -10,10 +10,12 @@
 
 <link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 <link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
+<link   rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 
-<link	href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css"	rel="stylesheet" type="text/css">
 <link   rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
+
+	body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
     .row.content {
     	height: 100%;
@@ -21,36 +23,30 @@
     	display:flex;
     }
 
-    footer {
-      background-color: #555;
-      color: #808080;
-      padding: 15px;
-    }
-    
+
+
     #th_buttons{    
-		padding-right:15px;    
+		padding-right:15px;
     }
-    
+
     #bottom-text {     
-      color: black;
-      padding: 10px;    
+      color: black;  
       height: 50px; 
 	  background-color: #F1F1F1;
     }
-    
-   
+
     #secondrow {     
       color: black;
       padding: 15px;    
       height: 750px; 
-      padding-bottom: 20px;
+	  padding-bottom: 20px;
 	  background-color: #F1F1F1;
     }
    
     #firstrow {
       padding: 30px; 
-      padding-bottom: 50px;
-      padding-top: 100px;
+      padding-bottom: 30px;
+      padding-top: 130px;
       background-color: #F1F1F1;    
     }
     
@@ -83,33 +79,28 @@ var render0 = function( tourvo, mode ){
 	// 자기 투어를 그려주는 렌더링 함수
 	var id = userId;
 	console.log(tourvo)	
-	/*	다른 썸네일 형식으로 렌더링 하기 
-	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" + 
-					"<div class='panel panel-info'>" + 
-						"<div class='panel-heading'>" + "<div class='row'>" + 
-							"<div class='col-sm-10'><h5>" + tourvo.title + "</h5></div>" +
-							"<div class='col-sm-2'>" + 
-								"<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>x</button></div>" + 
-								"</div> start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + " &nbsp공개여부: " + 
-								tourvo.secret  + " 평점: " + tourvo.score +"</div>" +
-						"<div class='panel-body' align='left'>" +				
-							"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-							"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='270px' height='180px'></a><br>" + "</div>"+"</div>"
-	*/
+
 	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
 				"<div class='thumbnail'>" + 
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='300px' height='170px'>" + 
-					 "<div class='caption'>" + 
-					 	"<h5>" + tourvo.title + "</h5>" +
-					   	"<p>start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-						"<br> <div class='row' align='right'> <div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> &nbsp포스트: " + tourvo.postCount + "</div>" +
-						"<div class='col-sm-7'> 공개여부: " + tourvo.secret  + "<br> 평점: " + tourvo.score + "</p>" + "</div>" + "</div>" + 
-						"<div class='row' align='right' id='th_buttons'>" + 
-						"<p><a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "' class='btn btn-default' role='button'>보기</a>" + 
-						" &nbsp<button class='btn btn-danger' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "'>삭제</button></p></div>" +
-						"</div></div></div>"
-						
+				  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
+						 "<div class='caption'>" + 
+							"<div class='row'>" + 
+							 	"<div class='col-sm-10' align='center'><h4>" + tourvo.title + "</h4></div>" +
+							 	"<div class='col-sm-2'>" + 
+								 	"<span data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
+									"' class='glyphicon glyphicon-remove' style='color:red;'></span>" +							 	
+							 	"</div>" +
+							"</div>" +	
+						 	"<div class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></div>" +
+							"<div class='row' align='right'>" + 
+								"<div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</div>" +
+								"<div class='col-sm-7'>공개여부: " + tourvo.secret  + "<br> 평점: " + tourvo.score +  "</div>" + 
+							"</div>" + // row, right
+						"</div>"+ // caption
+					"</div>"+ // 썹네일
+				"</div>" // col-sm-3
+
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
 	} else {		
@@ -120,20 +111,24 @@ var render0 = function( tourvo, mode ){
 var render2 = function( tourvo, mode ){
 		//타인 페이지에서 투어를 그려주는 렌더링 함수, 삭제 버튼, 공개여부가 없음 	
 		var id = userId;
-		console.log(id)
-		console.log(tourvo.idx)
 		
-		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" + 
-						"<div class='panel panel-info'>" + 
-							"<div class='panel-heading'>" + 
-								"<h5>" + tourvo.title + "</h5>" +								
-								"start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-								"<br>좋아요: " + tourvo.favorite + " &nbsp포스트: " + tourvo.postCount + " &nbsp평점: " + tourvo.score + "</div>" + 
-							"<div class='panel-body' align='left'>" +				
-								"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-								"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' width='270px' height='180px'></a><br>" +
-						"</div>"+
-					"</div>"
+		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
+		"<div class='thumbnail'>" + 
+		  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
+				 "<div class='caption'>" + 
+					"<div class='row'>" + 
+					 	"<div class='col-sm-12' align='center'><h4>" + tourvo.title + "</h4></div>" +
+					"</div>" +	
+				 	"<div class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></div>" +
+					"<div class='row' align='right'>" + 
+						"<div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</div>" +
+						"<div class='col-sm-7'>"  + "<br> 평점: " + tourvo.score +  "</div>" + 
+					"</div>" + // row, right
+				"</div>"+ // caption
+			"</div>"+ // 썹네일
+		"</div>" // col-sm-3
+
 
 		if( mode == true ){
 			$( "#list-tour" ).prepend(html);		
@@ -164,9 +159,9 @@ var getCount = function(){
 				return;		
 			}
 			console.log(response.data+" getCount 함수에서 가져온  투어 수");
-			$("#counting").text(response.data + "개의 여행을 하셨습니다.");
+			$("#counting").html("<h5>" + response.data + "개의 여행을 하셨습니다.</h5>");
 			if(userId == authUser){
-				$("#tourlist").text("투어수 : " + response.data)
+				$("#tourlist").html("<h4>투어수 : " + response.data + "</h4>")
 				
 			}
 		} // success
@@ -220,9 +215,10 @@ var fetchList = function(){
 
 
 $(function(){
+
 	fetchList();
 	getCount();
-	$( document ).on( "click", "#list-tour div button", function(){
+	$( document ).on( "click", "#list-tour div span", function(){
 			//event.preventDefault();	
 		 	//$('#myModal').modal("show");	
 
@@ -303,13 +299,10 @@ $(function(){
   
   
   	<div class="row" id="container">
-	  	<div class="col-sm-12" style= "position: fixed; z-index: 100;">
-	  	
-		  	<c:import url="/WEB-INF/views/includes/header.jsp">
-		
-			</c:import>
-		
-		</div>
+	  	<div class="col-sm-12" style= "position: fixed; z-index: 100; background-color: #ABABAB; width: 100%;">	  	
+		  	<c:import url="/WEB-INF/views/includes/header.jsp">		
+			</c:import>		
+		</div>				
   	</div>
   	
   	<div class="row content" >
@@ -391,6 +384,7 @@ $(function(){
 			</div> <!-- sm-12 -->
 		</div>						
     </div>	<!-- col sm-8 -->
+    <!--  -->
     <div class="col-sm-2" style="background-color: #F1F1F1;">
     </div>
     
