@@ -83,6 +83,45 @@
 		 	  where idx = #{idx }
 	    ]]>	
 	</update>
+	
+	
+	
+	<select id="getlikerank" parameterType="int" resultType="likerankvo">
+		<![CDATA[
+			
+			select u.*,  
+					 IF( kind='p',	(select tourIdx from TB_POST p where p.idx=u.idx), (select null) )   as tourIdx,
+					 IF( kind='p', (select content from TB_POST p where p.idx=u.idx), (select title from TB_TOUR t where t.idx=u.idx)) as title,
+		 			 IF( kind='p', (select userId  from TB_POST p where p.idx=u.idx), (select userId from TB_TOUR t where t.idx=u.idx)) as userId
+			
+			from ( 
+				select o.tourIdx as idx, count(o.tourIdx) as count, "t" as kind, o.insertDateTime
+				from (
+						select * 
+						from TB_FAVORITE
+						where insertDateTime > date_add(now(), interval #{interval } hour) and tourIdx is not null
+						) o
+				group by tourIdx
+			
+				
+				UNION ALL
+			
+				select o.postIdx as idx, count(o.postIdx) as count, "p" as kind, o.insertDateTime
+				from (
+						select * 
+						from TB_FAVORITE 
+						where insertDateTime > date_add(now(), interval #{interval } hour) and postIdx is not null
+					) o
+				group by postIdx
+			
+			
+				) u
+			where idx is not null and insertDateTime > date_add(now(), interval #{interval } hour)
+			order by count desc, kind desc, insertDateTime desc
+			
+				    	
+		]]>
+	</select>	
 			
 	
 </mapper>

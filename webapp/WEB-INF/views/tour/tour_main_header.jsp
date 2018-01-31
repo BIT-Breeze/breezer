@@ -176,6 +176,9 @@ $(function() {
 <!-- form 전송 (EDIT 후 SAVE 눌렀을 때)-->
 <script type="text/javascript">
 function submitForm() {
+	
+	$(".toMain_section").css("margin-top", "70px");
+	
 	var idx = ${tourIdx };
 	console.log(idx);
 	$("#modify_imagePath").val(imagePath); /* db로 이미지 경로 저장 */
@@ -242,6 +245,10 @@ var refreshHeaderImage = function(mainPhoto) {
 <script type="text/javascript">
 function editForm() {
 	console.log("EDIT CLICKED!")
+	/* $("#edit").empty();
+	$("#edit").val("SAVE"); */
+	
+	$(".toMain_section").css("margin-top", "50px");
 	$(".editForm").hide();
 	$(".modify_addform").css("display", "block");
 	/* $("#edit_title_area").css("autofocus", "autofocus"); */
@@ -306,10 +313,9 @@ $(document).ready(function() {
 		<div id="tour_main_header">
 		
 			<form id="edit_fileForm" class="editForm" >
-				
 				<!-- 오른쪽 구간 -->
 				<div class="edit_tourAdd_right">
-					<input type="button" id="edit" value="EDIT" onclick="editForm()" style="display: none;" ><br><br><br>
+					<input id="edit" type="button" value="EDIT" onclick="editForm()" style="display: none;" ><br><br><br>
 				</div>
 				
 				<!-- 센터 구간 -->

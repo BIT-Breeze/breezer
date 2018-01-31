@@ -327,6 +327,10 @@ div #scrollmenu a:hover {
     </script>
 </head>
 <body class="w3-light-grey">
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
 	<!-- header -->
 	<div id="header" class="w3-teal" style="width: 100%; top: 0px; position: fixed; z-index:10;">
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
@@ -338,6 +342,11 @@ div #scrollmenu a:hover {
          <c:param name="menu" value="location" />
       </c:import> 
    </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> refs/remotes/origin/master
 	
 	<!-- Page Container -->
 	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1300px; ">

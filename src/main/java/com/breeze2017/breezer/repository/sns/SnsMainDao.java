@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.breeze2017.breezer.vo.LikeRankVo;
 import com.breeze2017.breezer.vo.SNSVo;
 
 @Repository
@@ -61,7 +62,11 @@ public class SnsMainDao {
 	}
 	
 	
-	
+	public List<LikeRankVo> getLikeRank(int interval) {
+		List<LikeRankVo> list = sqlSession.selectList("sns.getlikerank", interval);
+		System.out.println("LikeRankVo TEST = " + list);
+		return list;
+	}
 	
 	
 	

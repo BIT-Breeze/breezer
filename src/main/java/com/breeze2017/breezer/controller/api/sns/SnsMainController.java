@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.sns.SnsMainService;
+import com.breeze2017.breezer.vo.LikeRankVo;
 import com.breeze2017.breezer.vo.SNSVo;
 
 @Controller("SnsMainApi")
@@ -53,5 +54,17 @@ public class SnsMainController {
 		
 		
 		return JSONResult.success("");
+	}
+	
+	@ResponseBody
+	@RequestMapping("/likerank")
+	public JSONResult likerank(
+			@RequestParam( value="interval", required=true, defaultValue="-1") int interval ) {
+		System.out.println("====== /api/sns/likerank -> interval : "+interval+" ======");
+		
+		List<LikeRankVo> list = snsMainService.getLikeRankMessage(interval);
+		
+		
+		return JSONResult.success(list);
 	}
 }

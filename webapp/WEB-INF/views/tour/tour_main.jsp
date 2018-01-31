@@ -8,7 +8,9 @@
 		<title>Breezer</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
-  		
+		
+  		<!------------------------------------------------------------------------------------------------------------------->
+  		<!---------------------------------------------------- CSS 시작 ----------------------------------------------------->
 		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
 		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
@@ -17,17 +19,9 @@
 		<%-- <link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"> --%>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<style>
-			body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-			body {font-size:16px;}
-			.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-			.w3-half img:hover{opacity:1}
-		</style>
-		
-  		<!------------------------------------------------------------------------------------------------------------------->
-  		<!---------------------------------------------------- CSS 시작 ----------------------------------------------------->
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -44,6 +38,13 @@
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
 	  		<!---------------------------------------------------- JS 끝 ------------------------------------------------------->
 	  		<!------------------------------------------------------------------------------------------------------------------>
+	  		
+		<style>
+			body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+			body {font-size:16px;}
+			.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+			.w3-half img:hover{opacity:1}
+		</style>
         
 		<script type="text/javascript">
 		
@@ -666,33 +667,35 @@
 				enctype: 'multipart/form-data',
 				processData: false,
 				contentType: false,
-			}).success(function(response) {
+				success: function(response) {
 				
-				var multiImgContainer = $('#multiImgContainer');
-				var index = 0;
-				var currentIndex = 0;
-				multiImgContainer.html('');
-				
-				for ( data in response.data ) {
-					console.log("data[" + index + "] >> " + response.data[index])
+					var multiImgContainer = $('#multiImgContainer');
+					var index = 0;
+					var currentIndex = 0;
+					multiImgContainer.html('');
 					
-					if ( index > 0 ) {
-						imagePath += ',';
+					for ( data in response.data ) {
+						console.log("data[" + index + "] >> " + response.data[index])
+						
+						if ( index > 0 ) {
+							imagePath += ',';
+						}
+						
+						// var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
+						
+						var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'" width="480" height="320"/>';
+						multiImgContainer.append(img);
+						
+						// image path 설정해서 DB에 때려박을 url경로 보내주기위해 하는 짓
+						imagePath += response.data[index];
+						index++;
 					}
-					
-					// var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'"/>';
-					
-					var img = '<img src="${pageContext.request.contextPath }'+ response.data[index] +'" width="480" height="320"/>';
-					multiImgContainer.append(img);
-					
-					// image path 설정해서 DB에 때려박을 url경로 보내주기위해 하는 짓
-					imagePath += response.data[index];
-					index++;
+					currentIndex = index; // 현재 인덱스 저장
+				
+				},
+				fail: function(jqXHRm, textStatus) {
+					alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 				}
-				currentIndex = index; // 현재 인덱스 저장
-			
-			}).fail(function(jqXHRm, textStatus) {
-				alert('File upload failed ... >> ' + jqXHRm + ', ' + textStatus); 
 			});
 		}
 			/* ------------------------ 파일업로드 끝 ------------------------ */
@@ -887,12 +890,16 @@
 	<div id="container-fluid">
 		<div id="tour_main_header_bg">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
+			<div class="row content">
+				<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+					<c:param name="menu" value="login" />
+				</c:import>
+				<div class="col-sm-8"></div>
+				<div class="col-sm-2"></div>
+			</div>
 			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
 		</div>
 
-	<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
-		<c:param name="menu" value="login" />
-	</c:import>
 	
 		<div id="wrapper" style="margin-top: 10px;">
 			<div class="row">
@@ -929,9 +936,9 @@
 									</tr>
 									<tr>
 										<td>날짜/시간</td><td><input id="input-date" type="text" name="tripDateTime" class="datepicker-here" >
-        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
-        <!-- Include English language -->
-        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
+								        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
+								        <!-- Include English language -->
+								        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
 										<script>
 											var prevDay;
 											
