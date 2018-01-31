@@ -178,7 +178,6 @@ $(function() {
 function submitForm() {
 	var idx = ${tourIdx };
 	console.log(idx);
-	
 	$("#modify_imagePath").val(imagePath); /* db로 이미지 경로 저장 */
 	// 근데 기존 이미지를 안바꿧을 때 디비에 어케 저장할꺼냐 그전에 있는걸 안지워야함
 	

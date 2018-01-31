@@ -122,7 +122,7 @@ var isPng = function(name) {
 	return name.match(/png$/i)
 }
 
-var imagePath;
+var imagePath='/assets/images/tour/default_background.jpg';
 
 $(document).ready(function() {
 	var file = $('[name="file"]');
