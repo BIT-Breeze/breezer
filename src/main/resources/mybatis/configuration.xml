@@ -13,8 +13,6 @@
 	 	<typeAlias alias="tourvo" type="com.breeze2017.breezer.vo.TourVo"/>
 	 	<typeAlias alias="mapvo" type="com.breeze2017.breezer.vo.MapVo"/>
 	 	<typeAlias alias="recommendvo" type="com.breeze2017.breezer.vo.RecommendVo"/>
-	 	<typeAlias alias="likerankvo" type="com.breeze2017.breezer.vo.LikeRankVo"/>
-	 	
     </typeAliases>	
 	
 	<mappers>

@@ -12,6 +12,9 @@
 </select>
 
 <select id="getmapinfo" resultType="postvo" parameterType="postvo">
-	select * from TB_POST where userId = #{userId } and tourIdx = #{tourIdx }
+	<!-- select * from TB_POST where userId = #{userId } and tourIdx = #{tourIdx } -->
+	<![CDATA[
+		select * from (select * from TB_POST where userId = #{userId } and tourIdx = #{tourIdx }) t where t.lat != 0 and t.lot != 0
+	]]>
 </select>
 </mapper>
