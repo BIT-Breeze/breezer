@@ -30,6 +30,7 @@ public class UserMainController {
 	@Autowired
 	private UserMainService userMainService;
 	
+
 	@RequestMapping( "" )
 	public String getUser(@AuthUser UserVo authUser,
 						  @PathVariable String id,
@@ -57,7 +58,7 @@ public class UserMainController {
 		}
 		return "user/user_main";
 	}
-	
+
 	@RequestMapping( "/tourlist" )
 	@ResponseBody
 	public JSONResult getTours(
@@ -121,7 +122,7 @@ public class UserMainController {
 		
 			
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(
 			value = "/count",
