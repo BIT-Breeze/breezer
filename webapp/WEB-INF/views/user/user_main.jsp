@@ -162,7 +162,7 @@ var render2 = function( tourvo, mode ){
 							"<p class='col-sm-12' align='center'>" + tourvo.title + "</p>" +
 						"</div>" +	
 						
-						"<div class='w3-row w3-padding-16'>" +
+						"<div class='w3-row'>" +
 							"<div class='w3-container w3-threequarter'>" + 
 								"<p><i class='fa fa-calendar' aria-hidden='true'></i> " + tourvo.startDate + " ~ " + tourvo.endDate + "</p>" +
 							"</div>" +
