@@ -36,19 +36,20 @@
 	  background-color: #F1F1F1;
     }
 
+    #firstrow {
+      padding: 30px; 
+      padding-bottom: 30px;
+      margin-top: 80px;
+      background-color: #F1F1F1;    
+    }
+    
     #secondrow {     
       color: black;
       padding: 15px;    
       height: 750px; 
 	  padding-bottom: 20px;
+	  margin-top: 20px;
 	  background-color: #F1F1F1;
-    }
-   
-    #firstrow {
-      padding: 30px; 
-      padding-bottom: 30px;
-      padding-top: 130px;
-      background-color: #F1F1F1;    
     }
     
     #delete_button {
@@ -224,7 +225,7 @@ var getCount = function(){
 				return;		
 			}
 			console.log(response.data+" getCount 함수에서 가져온  투어 수");
-			$("#counting").html("<h5>" + response.data + "개의 여행을 하셨습니다.</h5>");
+			$("#counting").html("<h4> 지금까지 총 " + response.data + "곳을 여행 하셨습니다.  <i class='fa fa-plane w3-text-blue' aria-hidden='true'></i></h4> ");
 			if(userId == authUser){
 				$("#tourlist").html("<h4>투어수 : " + response.data + "</h4>")
 				
@@ -376,32 +377,34 @@ $(function(){
     <div class="col-sm-8">
 		<div class="row" id="firstrow" style="postion:relative;">
 			<div class="col-sm-3" id="userprofile" align="center">
-			
-			<img src="${ uservo2.pictureUrl}" width="120px" height="120px" class="img-circle">
-			
+				<img src="${ uservo2.pictureUrl}" width="240px" height="240px" class="img-circle">
 			</div> 
 			
-			<div class="col-sm-6" id="firstrow" align="center">
-
-			<h4>${uservo2.nickName }님은</h4>
-			<h4 id="counting"></h4>
-
+			<div class="col-sm-6" align="center" style="margin-top: 20px;">
+				<h2>환영합니다~ ${uservo2.nickName }님!</h2>
+				<br><br><br><br>
+				<div id="counting"></div>
 			</div>
 			
-			<div class="col-sm-3" id="firstrow" align="right">
-			<c:choose>
-				<c:when test="${authUser.id == uservo2.id}">
-      				<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
-      			</c:when>
-      			
-      			<c:otherwise>
-      				
-      			</c:otherwise>
-			</c:choose>
-
+			<div class="col-sm-3" align="right">
+				<c:if test="${authUser.id == uservo2.id}">
+					<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>				
+				</c:if>
+				
+				<%-- <c:choose>
+					<c:when test="${authUser.id == uservo2.id}">
+	      				<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
+	      			</c:when>
+	      			
+	      			<c:otherwise>
+	      				
+	      			</c:otherwise>
+				</c:choose> --%>
 			</div>
 		
 		</div>	<!-- 윗줄, 사진, 닉네임, 새 투어 -->
+		
+		<hr>
 		
 		<div class="row"  id="secondrow">			
 			<div class="col-sm-12">			

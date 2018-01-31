@@ -15,8 +15,6 @@
 <style>
 
     #sidenav {      	 	
-      
-      margin: -15px;
       border: 0px;
       padding: 15px;
       position: fixed;
@@ -24,7 +22,7 @@
       z-index: 10;
 	  opacity: 1.0;
       background-color: #F1F1F1;
-		
+      top: 70px;		
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
@@ -48,7 +46,6 @@
 		padding-bottom:500px;
 		font-family: "Karma", sans-serif       
     }
-    
 
 </style>
 <script>
@@ -86,7 +83,6 @@ $(function(){
 			
 		} //success
 	}); //ajax			
-	
 	
 });
 </script>
