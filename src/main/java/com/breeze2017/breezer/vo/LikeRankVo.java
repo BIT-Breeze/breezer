@@ -52,6 +52,7 @@ public class LikeRankVo {
 		this.userId = userId;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "LikeRankVo [idx=" + idx + ", count=" + count + ", kind=" + kind + ", insertDateTime=" + insertDateTime
