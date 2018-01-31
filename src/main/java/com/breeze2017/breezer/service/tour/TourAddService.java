@@ -16,5 +16,4 @@ public class TourAddService {
 		return tourAddDao.insert(vo) == 1;
 	}
 	
-	
 }
