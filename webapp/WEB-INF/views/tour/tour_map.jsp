@@ -528,6 +528,7 @@ var imageArr = [
 	<!-- Header -->
 	<header class="w3-center w3-margin-bottom w3-teal w3-text-black">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		<c:import url="/WEB-INF/views/includes/side_navigation.jsp" />
 	</header>
 
 	<!-- Page Container -->

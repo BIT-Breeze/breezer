@@ -9,11 +9,31 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
   		
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+		<!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+		<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins"> -->
+		<%-- <link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"> --%>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<style>
+			body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+			body {font-size:16px;}
+			.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+			.w3-half img:hover{opacity:1}
+		</style>
+		
   		<!------------------------------------------------------------------------------------------------------------------->
   		<!---------------------------------------------------- CSS 시작 ----------------------------------------------------->
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/includes/basic.css">
 		<link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/assets/css/tour/tour_main.css">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<!------------------------------ datePicker 시작 ----------------------------->
+		<link href="${pageContext.servletContext.contextPath }/assets/datePicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
+	        <!------------------------------ datePicker 끝 ------------------------------->
 	  		<!---------------------------------------------------- CSS 끝 ------------------------------------------------------->
 	  		<!------------------------------------------------------------------------------------------------------------------->
   		
@@ -24,17 +44,12 @@
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
 	  		<!---------------------------------------------------- JS 끝 ------------------------------------------------------->
 	  		<!------------------------------------------------------------------------------------------------------------------>
-		
-		<!---------------------------------------------------------------------------->
-		<!------------------------------ datePicker 시작 ----------------------------->
-		<link href="${pageContext.servletContext.contextPath }/assets/datePicker/css/datepicker.min.css" rel="stylesheet" type="text/css">
-        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
-        <!-- Include English language -->
-        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
-	        <!------------------------------ datePicker 끝 ------------------------------->
-			<!---------------------------------------------------------------------------->
         
 		<script type="text/javascript">
+		
+		var map;
+		var infoWindow2;
+		var searchBox;
 		
 		var datepicker;
 		
@@ -53,6 +68,34 @@
 			$("#input-tourIdx").val("");
 			$("#fileUpload").val("");
 			$('#multiImgContainer').html('');
+			$("#input-idx").val('');
+			/* imagePath = ""; */
+			
+			$("#pac-input").val('');
+			
+			/* infoWindow2 = new google.maps.InfoWindow({map: map});
+			
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				
+				infoWindow2.setPosition(pos);
+				infoWindow2.setContent('현재 위치');
+				
+				map.setCenter(pos);
+				}, function() {
+					handleLocationError(true, infoWindow2, map.getCenter());
+				});
+			} else {
+				// Browser doesn't support Geolocation
+				handleLocationError(false, infoWindow2, map.getCenter());
+			}
+			var input = document.getElementById('pac-input');
+			searchBox = new google.maps.places.SearchBox(input);
+			map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);*/
 			
 			var $star = $(".input-score"),
 		    $result = $star.find("output>b");
@@ -85,35 +128,36 @@
 		var render = function (index, post) {
 			var postHtml = "<div>", naviHtml;
 			if(post.dateGap != 0){
-				postHtml += "<li id='dateGap'>"+post.dateGap+"일차</li>";
-				naviHtml = "<li><p>"+post.dateGap+"일차</p></li>";
+				postHtml += "<li class='dateGap-post'><p><span class='badge badge-primary' style='font-size:18px; vertical-align: middle;'>"+post.dateGap+"일차</span></p></li>";
+				naviHtml = "<li class=''><p><span class='badge badge-primary'>"+post.dateGap+"일차</span></p></li>";
 			} else {
-				postHtml = "";
+				postHtml += "";
 				naviHtml = "";
 			}
 			postHtml += 
-				"<li class='post' id='post-"+post.idx+"'>" +
+				"<li class='post w3-card-4' id='post-"+post.idx+"'>" +
 					"<div class='transbox'>" +
-						"<p><strong>장소:</strong> "+(post.placeName || "").replace("\n", "<br>")+"</p><br>"+
-						"<p><strong>주소:</strong> "+(post.location || "").replace("\n", "<br>")+"</p><br>"+
-						"<p><strong>일시:</strong> "+(post.tripDateTime || "").replace("\n", "<br>")+"</p><br>"+
-						"<p><strong>내용:</strong> "+(post.content || "").replace("\n", "<br>")+"</p><br>"+
-						"<p><strong>이동수단:</strong> "+(post.category || "").replace("\n", "<br>")+"</p><br>"+
-						"<p><strong>지출비용:</strong> "+post.price+"</p><br>"+
-						"<p><strong>평점:</strong> "+post.score+"</p><br>"+
-						"<p><strong>추천수:</strong> "+post.favorite+"</p><br>"+
+						"<p class='w3-xxlarge w3-text-black'><strong><span class='glyphicon glyphicon-tag' style='font-size:36px; vertical-align: middle;'></span>"+(post.placeName || "").replace("\n", "<br>")+"</strong>"+
 						"<c:if test='${userId eq authUser.id}'>"+
-							"<a id='post-delete-"+post.idx+"' href='' data-no='"+post.idx+"'>삭제</a>"+
-							"<a id='post-modify-"+post.idx+"' href='' data-no='"+post.idx+"'>수정</a>"+
-						"</c:if>"+
+							"<a style='margin-right:3px; padding:3px; vertical-align:bottom; margin-bottom:7px;' class='post-modify btn btn-secondary w3-small' id='post-modify-"+post.idx+"' href='' data-no='"+post.idx+"'><span style='font-size:15px; vertical-align: middle;' class='glyphicon glyphicon-scissors'></span> 수정</a>"+
+							"<a style='padding:3px; vertical-align:bottom; margin-bottom:7px;' class='post-modify btn btn-secondary w3-small' id='post-delete-"+post.idx+"' href='' data-no='"+post.idx+"'><span style='font-size:15px; vertical-align: middle;' class='glyphicon glyphicon-remove'></span> 삭제</a>"+
+						"</c:if></p><br>"+
+						'<hr style="width:1190px;border:5px solid grey" class="w3-round">'+
+						"<p><strong><i class='material-icons' style='font-size:36px; vertical-align: middle;'>domain</i></strong> "+(post.location || "").replace("\n", "<br>")+"</p><br>"+
+						"<p style='padding-left:4px;'><strong><span class='glyphicon glyphicon-calendar'></span></strong> "+(post.tripDateTime || "").replace("\n", "<br>")+"</p><br>"+
+						"<p style='padding-left:2px;'><strong><span class='glyphicon glyphicon-align-justify'></span></strong> "+(post.content || "").replace("\n", "<br>")+"</p><br>"+
+						"<p><strong><i class='material-icons' style='font-size:36px; vertical-align: middle;'>flight_takeoff</i></strong> "+(post.category || "").replace("\n", "<br>")+"</p><br>"+
+						"<p style='padding-left:2px;'><strong><span class='fa fa-krw'></span></strong> "+post.price+"원</p><br>"+
+						"<p style='padding-left:2px;'><strong><span class='fa fa-star-half-o'></span></strong> "+post.score+"점</p><br>"+
+						"<p style='padding-left:2px;'><strong><span class='glyphicon glyphicon-thumbs-up'></span></strong> "+post.favorite+"</p><br>"+
 					"</div>" +
 				"</li></div>";
 			if(index === 0){
 				naviHtml +=
-					"<li><a class='active' href='#post-"+post.idx+"'>"+post.placeName+"</a></li>";
+					"<li class='text-left'><a class='active text-left' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
 			} else {
 				naviHtml +=
-					"<li><a href='#post-"+post.idx+"'>"+post.placeName+"</a></li>";
+					"<li><a href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
 			}
 			
 			$("#PostBox").append(postHtml);
@@ -130,7 +174,7 @@
 			$("#tour_navigation ul").remove();
 			
 			$("#PostList").append("<ul id='PostBox'></ul>");
-			$("#tour_navigation").append("<ul></ul>");
+			$("#tour_navigation").append('<ul class="w3-light-grey"></ul>');
 			
 			$.ajax({
 				url: "${pageContext.servletContext.contextPath }/${userId}/api/tour?idx=${tourIdx}",
@@ -299,6 +343,7 @@
 				addModifyPostDialog.dialog("option", "title", "여행기 수정");
 				$("#addDialogButton").hide();
 				$("#modifyDialogButton").show();
+				$("#addModifyPostForm div").append('<input id="input-idx" type="hidden" name="idx" value="">');
 				
 				var idx = $(this).data("no");
 				
@@ -354,6 +399,7 @@
 						$("input:radio[name='score'][value='"+vo.score+"']").prop("checked", true);
 						
 						$("#input-tourIdx").val("${tourIdx}");
+						$("#input-idx").val(idx);
 						$("#imagePath").val("");
 						$("#fileUpload").val("");
 						$('#multiImgContainer').html('');
@@ -368,8 +414,8 @@
 			    /*-------------------------------------------------------------------*/
 				/*------------------------- 수정 event 끝 ---------------------------*/
 			
-			/* --------------------------------------------------------------------- */
-			/* ------------------------ Post 추가 모달 시작 ------------------------ */
+			/* ------------------------------------------------------------------------ */
+			/* ------------------------ Post 추가&정 모달 시작 ------------------------ */
 			var addModifyPostDialog = $("#addModify-post-form").dialog({
 				autoOpen: false,
 				maxWidth:600,
@@ -540,18 +586,20 @@
 				addModifyPostDialog.dialog("option", "title", "여행기 추가");
 				$("#addDialogButton").show();
 				$("#modifyDialogButton").hide();
+				$("#input-idx").remove();
 				addModifyPostDialog.dialog("open");
 			});
-				/* ------------------------ Post 추가 모달 끝 ------------------------ */
-				/* ------------------------------------------------------------------- */
+				/* ------------------------ Post 추가&수정 모달 끝 ------------------------ */
+				/* ------------------------------------------------------------------------ */
 			
 			/* ------------------------------------------------------------------------------------- */
 			/* ------------------------ Scroll 반응 Side Navigation #1 시작 ------------------------ */
 		    $(document).on("scroll", onScroll);
 		    
 		    //smoothscroll
-		    $('a[href^="#"]').on('click', function (e) {
+		    $(document).on("click", 'a[href^="#post"]', function (e) {
 		        e.preventDefault();
+		        $("#tour_navigation").css('margin', '-350px 0px 0px 300px');
 		        $(document).off("scroll");
 		        
 		        $('a').each(function () {
@@ -669,7 +717,7 @@
 			var elementOffset = $("#tour_navigation").offset().top;
 			var currentElementOffset = (elementOffset - scrollTop);
 			if(currentElementOffset > 0 && scrollTop < 360){
-				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 0px');
+				$("#tour_navigation").css('margin', '-' + scrollTop + 'px 0px 0px 300px');
 			}
 		});
 			/* ------------------------ Scroll 반응 Side Navigation #2 끝 -------------------------- */
@@ -832,160 +880,162 @@
 	
 <body data-spy="scroll" data-target="#tour_navigation" data-offset="20">
 
-	<div id="container">
+	<div id="container-fluid">
 		<div id="tour_main_header_bg">
 			<c:import url="/WEB-INF/views/includes/header.jsp" />
 			<c:import url="/WEB-INF/views/tour/tour_main_header.jsp" />
 		</div>
-		<div id="wrapper">
-			<c:import url="/WEB-INF/views/tour/tour_navigation.jsp" />
-			<div id="content">
-				<c:if test="${userId eq authUser.id}">
-					<div id="addPost">
-						<a id="addPostButton" style="float: right;">여행기 추가</a>
+
+	<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+		<c:param name="menu" value="login" />
+	</c:import>
+	
+		<div id="wrapper" style="margin-top: 10px;">
+			<div class="row">
+				<div>
+					<nav id="tour_navigation">
+						<ul class="w3-light-grey">
+						</ul>
+					</nav>
+				</div>
+				<div id="content">
+					<c:if test="${userId eq authUser.id}">
+						<div id="addPost">
+							<a id="addPostButton" style="float: right;"><span class="btn btn-secondary w3-xlarge"><b>여행기 추가</b></span></a>
+						</div>
+					</c:if>
+					<div id="PostList" style="margin-left: 350px;">
+						<ul id="PostBox">
+						</ul>
 					</div>
-				</c:if>
-				<div id="PostList">
-					<ul id="PostBox">
-					<%-- <c:forEach var="post" items="${postList }">
-						<c:if test="${post.dateGap != 0}">
-						<li id="dateGap">${post.dateGap}일차</li>
-						</c:if>
-						<li class="post" id="post-${post.idx}">
-							<strong>장소:</strong><p>${post.placeName }</p><br>
-							<strong>주소:</strong><p>${post.location }</p><br>
-							<strong>일시:</strong><p>${post.tripDateTime }</p><br>
-							<strong>내용:</strong><p>${post.content }</p><br>
-							<strong>이동수단:</strong><p>${post.category }</p><br>
-							<strong>지출비용:</strong><p>${post.price }</p><br>
-							<strong>평점:</strong><p>${post.score }</p><br>
-							<strong>추천수:</strong><p>${post.favorite }</p><br>
-							<a href="" data-no="${post.idx}">삭제</a>
-						</li>
-					</c:forEach> --%>
-					</ul>
-				</div>
-				
-				<!-------------------------------------------------------------------------------------------->
-				<!-------------------------------- 여행기 추가&수정 양식 시작 -------------------------------->
-				<div id="addModify-post-form" title="" style="display:none">
-	  				<form id="addModifyPostForm" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
-						<div>
-							<table>
-								<tr>
-									<td>장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</td>
-									<td><input id="input-location" type="text" value="" name="location"></td>
-									<td><input id="input-lat" type="text" value="" name="lat" style="display: none;"></td>
-									<td><input id="input-lot" type="text" value="" name="lot" style="display: none;"></td>
-									<td><input id="input-locale" type="text" value="" name="locale" style="display: none;"></td>
-									<td><button id="searchMap">검색</button></td>
-								</tr>
-								<tr>
-									<td>날짜/시간</td><td><input id="input-date" type="text" name="tripDateTime" class="datepicker-here" >
-									<script>
-										var prevDay;
+					
+					<!-------------------------------------------------------------------------------------------->
+					<!-------------------------------- 여행기 추가&수정 양식 시작 -------------------------------->
+					<div id="addModify-post-form" title="" style="display:none">
+		  				<form id="addModifyPostForm" method="post" action="${pageContext.servletContext.contextPath }/${ authUser.id}/post/add">
+							<div>
+								<table>
+									<tr>
+										<td>장&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</td>
+										<td><input id="input-location" type="text" value="" name="location"></td>
+										<td><input id="input-lat" type="text" value="" name="lat" style="display: none;"></td>
+										<td><input id="input-lot" type="text" value="" name="lot" style="display: none;"></td>
+										<td><input id="input-locale" type="text" value="" name="locale" style="display: none;"></td>
+										<td><button id="searchMap">검색</button></td>
+									</tr>
+									<tr>
+										<td>날짜/시간</td><td><input id="input-date" type="text" name="tripDateTime" class="datepicker-here" >
+        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/datepicker.min.js"></script>
+        <!-- Include English language -->
+        <script src="${pageContext.servletContext.contextPath }/assets/datePicker/js/i18n/datepicker.en.js"></script>
+										<script>
+											var prevDay;
+											
+											datepicker = $('#input-date').datepicker({
+										    	autoClose: true,
+										        timepicker: true,
+										        language: 'en',
+											   	dateFormat: 'yyyy-mm-dd',
+											   	/* timeFormat: 'hh:ii', */
+											   	todayButton: true,
+											   	clearButton: true,
+										        onSelect: function (fd, d, picker) {
+										            // Do nothing if selection was cleared
+										            if (!d) return;
 										
-										datepicker = $('#input-date').datepicker({
-									    	autoClose: true,
-									        timepicker: true,
-									        language: 'en',
-										   	dateFormat: 'yyyy-mm-dd',
-										   	/* timeFormat: 'hh:ii', */
-										   	todayButton: true,
-										   	clearButton: true,
-									        onSelect: function (fd, d, picker) {
-									            // Do nothing if selection was cleared
-									            if (!d) return;
-									
-									            var day = d.getDay();
-									
-									            // Trigger only if date is changed
-									            if (prevDay != undefined && prevDay == day) return;
-									            prevDay = day;
-									        }
-									    });
-									</script></td>
-								</tr>
-								<tr>
-									<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td><td><input id="input-content" type="text" value="" name="content"></td>
-								</tr>
-								<tr>
-									<td>이동수단</td><td><select id="input-category" name="category" style="width: 158px;">
-															<option value="01" selected>자동차</option>
-															<option value="02">택시</option>
-															<option value="03">기차</option>
-															<option value="04">트램</option>
-															<option value="05">버스</option>
-															<option value="06">지하철</option>
-															<option value="07">비행기</option>
-															<option value="08">배</option>
-															<option value="09">도보</option>
-															<option value="10">자전거</option>
-															<option value="11">오토바이</option>
-															<option value="12">기타</option>
-														</select></td>
-								</tr>
-								<tr>
-									<td>지출비용</td><td><input id="input-price" type="text" value="" name="price"></td>
-								</tr>
-								<tr>
-									<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td>	<span id="input-score" class="input-score">
-																											<span class="input">
-																												<input type="radio" name="score" id="p1" value="0.5"><label for="p1">0.5</label>
-																												<input type="radio" name="score" id="p2" value="1"><label for="p2">1</label>
-																												<input type="radio" name="score" id="p3" value="1.5"><label for="p3">1.5</label>
-																												<input type="radio" name="score" id="p4" value="2"><label for="p4">2</label>
-																												<input type="radio" name="score" id="p5" value="2.5"><label for="p5">2.5</label>
-																												<input type="radio" name="score" id="p6" value="3"><label for="p6">3</label>
-																												<input type="radio" name="score" id="p7" value="3.5"><label for="p7">3.5</label>
-																												<input type="radio" name="score" id="p8" value="4"><label for="p8">4</label>
-																												<input type="radio" name="score" id="p9" value="4.5"><label for="p9">4.5</label>
-																												<input type="radio" name="score" id="p10" value="5"><label for="p10">5</label>
-																											</span>
-																											<output for="input-score"><b>0</b>점</output>
-																										</span></td>
-								</tr>
-							</table>
-							<input id="imagePath" type="hidden" name="photo" value="imagePath" ><br>
-							<input id="input-tourIdx" type="hidden" name="tourIdx" value="">
-						</div>
-					</form>
-					
-					<!-- 다중 파일 업로더 -->
-					<form id="MultifileForm">
-						<div>
-							<table>
-								<tr>
-									<td>사진</td>
-								</tr>
-								<tr>
-									<td><input type="file" multiple="multiple" name="multiFile" id="fileUpload" accept="image/*"></td>
-								</tr>
-							</table>
-							<div id=multiImgContainer></div>
-						</div>
-					</form>
-					
+										            var day = d.getDay();
+										
+										            // Trigger only if date is changed
+										            if (prevDay != undefined && prevDay == day) return;
+										            prevDay = day;
+										        }
+										    });
+										</script></td>
+									</tr>
+									<tr>
+										<td>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td><td><input id="input-content" type="text" value="" name="content"></td>
+									</tr>
+									<tr>
+										<td>이동수단</td><td><select id="input-category" name="category" style="width: 158px;">
+																<option value="01" selected>자동차</option>
+																<option value="02">택시</option>
+																<option value="03">기차</option>
+																<option value="04">트램</option>
+																<option value="05">버스</option>
+																<option value="06">지하철</option>
+																<option value="07">비행기</option>
+																<option value="08">배</option>
+																<option value="09">도보</option>
+																<option value="10">자전거</option>
+																<option value="11">오토바이</option>
+																<option value="12">기타</option>
+															</select></td>
+									</tr>
+									<tr>
+										<td>지출비용</td><td><input id="input-price" type="text" value="" name="price"></td>
+									</tr>
+									<tr>
+										<td>점&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;수</td><td>
+											<span id="input-score" class="input-score">
+												<span class="input">
+													<input type="radio" name="score" id="p1" value="0.5"><label for="p1">0.5</label>
+													<input type="radio" name="score" id="p2" value="1"><label for="p2">1</label>
+													<input type="radio" name="score" id="p3" value="1.5"><label for="p3">1.5</label>
+													<input type="radio" name="score" id="p4" value="2"><label for="p4">2</label>
+													<input type="radio" name="score" id="p5" value="2.5"><label for="p5">2.5</label>
+													<input type="radio" name="score" id="p6" value="3"><label for="p6">3</label>
+													<input type="radio" name="score" id="p7" value="3.5"><label for="p7">3.5</label>
+													<input type="radio" name="score" id="p8" value="4"><label for="p8">4</label>
+													<input type="radio" name="score" id="p9" value="4.5"><label for="p9">4.5</label>
+													<input type="radio" name="score" id="p10" value="5"><label for="p10">5</label>
+												</span>
+												<output for="input-score"><b>0</b>점</output>
+											</span>
+										</td>
+									</tr>
+								</table>
+								<input id="imagePath" type="hidden" name="photo" value="imagePath" ><br>
+								<input id="input-tourIdx" type="hidden" name="tourIdx" value="">
+								<input id="input-idx" type="hidden" name="idx" value="">
+							</div>
+						</form>
+						
+						<!-- 다중 파일 업로더 -->
+						<form id="MultifileForm">
+							<div>
+								<table>
+									<tr>
+										<td>사진</td>
+									</tr>
+									<tr>
+										<td><input type="file" multiple="multiple" name="multiFile" id="fileUpload" accept="image/*"></td>
+									</tr>
+								</table>
+								<div id=multiImgContainer></div>
+							</div>
+						</form>
+						
+					</div>
+					<!----------------------------------------------------------------------------------------->
+					<!-------------------------------- 여행기 추가&수정 양식 끝-------------------------------->
+				
+					<div id="dialog-message" title="" style="display:none">
+		  				<p></p>
+					</div>
 				</div>
-				<!----------------------------------------------------------------------------------------->
-				<!-------------------------------- 여행기 추가&수정 양식 끝-------------------------------->
-			
-				<div id="dialog-message" title="" style="display:none">
-	  				<p></p>
+				
+				<!-- Map Test -->
+				<div id="searchMap-form" title="여행지 검색" style="display:none">
+					<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+					
+					<div id="map"></div>
+					
+					<!-- 구글 맵 호출 -->
+					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzThJYOAvyAEWJryfDhAtIN2MkjVk58Gg&libraries=places&callback=initAutocomplete" async defer></script>
+					<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
+					
+					<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 				</div>
-			</div>
-			
-			<!-- Map Test -->
-			<div id="searchMap-form" title="여행지 검색" style="display:none">
-				<input id="pac-input" class="controls" type="text" placeholder="Search Box">
-				
-				<div id="map"></div>
-				
-				<!-- 구글 맵 호출 -->
-				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzThJYOAvyAEWJryfDhAtIN2MkjVk58Gg&libraries=places&callback=initAutocomplete" async defer></script>
-				<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
-				
-				<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />

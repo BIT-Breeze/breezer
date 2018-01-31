@@ -5,16 +5,14 @@
 
 
 	
-	<div class='row' id="header" >
-		<div class='col-sm-1' align='right' style="padding-bottom:10px;"> 	
-			<h1 id='show_menu' >☰</h1>
+	<div class='row' id="header">
+		<div class='col-sm-2'> </div>
+		
+		<div class='col-sm-1' align='right'>
+	        <h1 class="glyphicon glyphicon-list" id='show_menu'></h1>
 		</div>
 		
-		<div class='col-sm-1' align='left' style="padding-bottom:10px;">
-	        <h1> <a href="${pageContext.servletContext.contextPath }" >Breezer </a></h1>
-		</div>
-		
-		<div class='col-sm-10'>			
-			
+		<div class='col-sm-9' align='left'>			
+			<h1> <a href="${pageContext.servletContext.contextPath }" >Breezer </a></h1>
 		</div>
 	</div>
