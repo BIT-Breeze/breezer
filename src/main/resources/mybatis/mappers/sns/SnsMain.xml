@@ -91,7 +91,8 @@
 			
 			select u.*,  
 					 IF( kind='p',	(select tourIdx from TB_POST p where p.idx=u.idx), (select null) )   as tourIdx,
-					 IF( kind='p', (select content from TB_POST p where p.idx=u.idx), (select title from TB_TOUR t where t.idx=u.idx)) as title
+					 IF( kind='p', (select content from TB_POST p where p.idx=u.idx), (select title from TB_TOUR t where t.idx=u.idx)) as title,
+		 			 IF( kind='p', (select userId  from TB_POST p where p.idx=u.idx), (select userId from TB_TOUR t where t.idx=u.idx)) as userId
 			
 			from ( 
 				select o.tourIdx as idx, count(o.tourIdx) as count, "t" as kind, o.insertDateTime
