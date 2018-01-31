@@ -64,6 +64,13 @@
 	}
 	 */
 
+	 
+	 function resizeLeftEmpty() {
+		 $("#leftEmpty").height($("#list-sns").height()      )
+	 }
+	 
+	 
+	 
 	// 이미지 크기를 조절하기 위한 함수.. 대기중 
 	function resizeimg(obj) {
 		console.log("======resizeimg()======")
@@ -436,6 +443,7 @@
 						
 						//이미지 크기 조절?
 						//resizeAllImg();
+						resizeLeftEmpty();
 					}
 				});
 	}
@@ -496,8 +504,10 @@
 				
 				
 		</div> -->
-
-		<div id="list-sns"	style="width: 780px; background-color: #d6d4d4;  margin: auto;">
+		<div id="leftEmpty" style="float:left; background-color: #d6d4d4; width:500px;">
+		</div>
+		
+		<div id="list-sns"	style="width: 780px; background-color: #d6d4d4;  margin: auto; float:left; ">
 			<br> <br> <br> <br> <br>
 
 
@@ -548,6 +558,8 @@
 			</div> -->
 		</div>
 
+		<div id="list-top"	style="width: 400px; height:200px; background-color: #d6cccc;  margin: auto; float:left">
+		</div>
 
 
 		<!-- <form id="logout" name="logout" method="post"
@@ -560,8 +572,9 @@
 	</div>
 	
 	<!-- footer -->
-	<c:import url="/WEB-INF/views/includes/footer.jsp" />
-	
+	<div style="float:left; width:100%">
+		<c:import url="/WEB-INF/views/includes/footer.jsp" />
+	</div>
 </body>
 </html>
 
