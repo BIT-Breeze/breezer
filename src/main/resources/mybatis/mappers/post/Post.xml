@@ -3,6 +3,15 @@
 
 <mapper namespace="post">
 
+	<select id="selectPostCount" parameterType="postvo" resultType="Integer">
+		<![CDATA[
+		select count(*)
+		  from TB_POST
+		 where userId = #{userId }
+		   and tourIdx = #{tourIdx}
+		]]>
+	</select>
+
 	<select id="selectPost" parameterType="postvo" resultType="postvo">
 		<![CDATA[
 		select *

@@ -23,4 +23,8 @@ public class PostDao {
 	public PostVo select(PostVo vo) {
 		return sqlSession.selectOne("post.selectPost", vo);
 	}
+	
+	public int selectPostCount(PostVo vo) {
+		return sqlSession.selectOne("post.selectPostCount", vo);
+	}
 }
