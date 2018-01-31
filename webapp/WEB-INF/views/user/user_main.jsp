@@ -103,16 +103,12 @@ var render0 = function( tourvo, mode ){
 				"</div>" +	
 				
 				"<div class='w3-row'>" +
-					"<div class='w3-container w3-threequarter'>" + 
+					"<div class='w3-container'>" + 
 						"<p><i class='fa fa-calendar' aria-hidden='true'></i> " + tourvo.startDate + " ~ " + tourvo.endDate + "</p>" +
-					"</div>" +
-					
-					"<div class='w3-container w3-quarter'>" + 
-						"<p class='w3-right'><i class='fa fa-unlock' aria-hidden='true'></i></p>" +
 					"</div>" +
 				"</div>" + 
 				
-				"<div class='w3-row'>" +
+				"<div class='w3-row' >" +
 					"<div class='w3-container w3-half'>" + 
 						"<p><i class='fa fa-thumbs-o-up' aria-hidden='true'></i> " + tourvo.favorite + "</p>" +
 					"</div>" +
@@ -133,7 +129,12 @@ var render0 = function( tourvo, mode ){
 				}
 				
 	html += "</p>"+
-					"</div>"+ // caption
+	
+			"<div class='w3-container'>" + 
+				"<p class='w3-right'><i class='fa fa-unlock' aria-hidden='true'></i></p>" +
+			"</div>" +
+			
+			"</div>"+ // caption
 				"</div>"+ // 썹네일
 			"</div>" // col-sm-3
 			;
