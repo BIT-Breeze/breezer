@@ -112,6 +112,15 @@
 }
 
 
+#toMain {
+	position: relative;
+	float: right;
+	color: #00FF00;
+	font-size: 20px;
+	padding-right: 150px;
+	font-weight: bold;
+}
+
 /* --------------------------------------------------------------- */
 
 

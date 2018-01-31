@@ -19,6 +19,7 @@
 <!-- <script src="/breezer/assets/js/bootstrap.js" type="text/javascript"></script>
 <script src="/breezer/assets/js/bootstrap.min.js" type="text/javascript"></script> -->
 
+
 <!-- 달력 js -->
 <script type="text/javascript">
 $(function() {
@@ -177,7 +178,6 @@ $(function() {
 function submitForm() {
 	var idx = ${tourIdx };
 	console.log(idx);
-	
 	$("#modify_imagePath").val(imagePath); /* db로 이미지 경로 저장 */
 	// 근데 기존 이미지를 안바꿧을 때 디비에 어케 저장할꺼냐 그전에 있는걸 안지워야함
 	
@@ -226,7 +226,13 @@ function leaveForm() {
 var refreshHeaderImage = function(mainPhoto) {
 	$("div#tour_main_header").css("background-color", "transparent");
 	$("div#header").css("background-color", "transparent");
-	$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
+	
+	 if(mainPhoto == '') {
+		$("#tour_main_header_bg").css('background-image',"url('/breezer/assets/images/tour/default_background.jpg')");	
+	} else {
+		$("#tour_main_header_bg").css('background-image',"url(${pageContext.request.contextPath }"+mainPhoto);
+	}
+	
 }
 
 
@@ -263,7 +269,6 @@ $(document).ready(function() {
 				}
 				
 				
-				
 				console.log(response.data)
 				$("#edit_title_area").val(response.data.title);
 				$("#edit_startDate").val(response.data.startDate);
@@ -277,7 +282,6 @@ $(document).ready(function() {
 				$("#idx_value").val(response.data.idx);
 				$("#modify_imagePath").val(response.data.mainPhoto);
 				$("#user_id").val(response.data.userId);
-				
 				
 				/* id 가 다르면 edit 폼 지우기 */
 				var tourUserId = response.data.userId;
@@ -352,7 +356,7 @@ $(document).ready(function() {
 				<!-- 오른쪽 구간 -->
 				<div class="modify_tourAdd_right">
 					<input type="button" id="modify_add" value="SAVE" onClick="submitForm()"><br><br><br>
-					<input type="button" id="modify_leave" value="LEAVE" onClick="leaveForm()">		
+					<input type="button" id="modify_leave" value="LEAVE" onClick="leaveForm()">	
 				</div>
 				
 				<!-- 센터 구간 -->
@@ -365,9 +369,14 @@ $(document).ready(function() {
 					<input type="hidden"  id="user_id" name="userId">
 					<input type="hidden"  id="idx_value" name="idx">
 					<input type="hidden"  id="modify_imagePath" value="imagePath" name="mainPhoto">
-					<%-- <input type="hidden"  id="modify_imagePath" value="${tour.mainPhoto }" name="mainPhoto"> --%>
+					
 				</div>
 			</form>
+			
+			<div id="toMain_section">
+				<a id="toMain" href="${pageContext.servletContext.contextPath }/${userId }">${userId }</a>
+			</div>
+			
 		</div>
 	</div>
 
