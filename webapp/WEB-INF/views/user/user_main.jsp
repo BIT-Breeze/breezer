@@ -82,20 +82,25 @@ var render0 = function( tourvo, mode ){
 
 	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
 				"<div class='thumbnail'>" + 
-				"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + 
-					 "<div class='caption'>" + 
-					 	"<h5>" + tourvo.title + "</h5>" +
-					   	"<p>start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-						"<br> <div class='row' align='right'> <div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> &nbsp포스트: " + tourvo.postCount + "</div>" +
-						"<div class='col-sm-7'> 공개여부: " + tourvo.secret  + "<br> 평점: " + tourvo.score + "</p>" + "</div>" + 
-						"</div>" + 
-						"<p align='right'><a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + 
-						"' class='glyphicon glyphicon-picture'></a>" + 
-						" &nbsp<a href='' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
-						"' class='glyphicon glyphicon-remove'></a></p>" +
-						"</div>" +
-						"</div></div>"
-						
+				  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
+						 "<div class='caption'>" + 
+							"<div class='row'>" + 
+							 	"<div class='col-sm-10' align='center'><h4>" + tourvo.title + "</h4></div>" +
+							 	"<div class='col-sm-2'>" + 
+								 	"<span data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
+									"' class='glyphicon glyphicon-remove' style='color:red;'></span>" +							 	
+							 	"</div>" +
+							"</div>" +	
+						 	"<div class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></div>" +
+							"<div class='row' align='right'>" + 
+								"<div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</div>" +
+								"<div class='col-sm-7'>공개여부: " + tourvo.secret  + "<br> 평점: " + tourvo.score +  "</div>" + 
+							"</div>" + // row, right
+						"</div>"+ // caption
+					"</div>"+ // 썹네일
+				"</div>" // col-sm-3
+
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
 	} else {		
@@ -109,18 +114,20 @@ var render2 = function( tourvo, mode ){
 		
 		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
 		"<div class='thumbnail'>" + 
-		"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "' >" + 
-			 "<div class='caption'>" + 
-			 	"<h5>" + tourvo.title + "</h5>" +
-			   	"<p>start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + 
-				"<br> <div class='row' align='right'> <div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> &nbsp포스트: " + tourvo.postCount + "</div>" +
-				"<div class='col-sm-7'>" + "<br> 평점: " + tourvo.score + "</p>" + "</div>" + 
-				"</div>" + 
-				"<div class='row' align='right' id='th_buttons'>" + 
-				"<p><a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + 
-				"' class='glyphicon glyphicon-picture'></a>" + 
-				"</div>" + 
-				"</div></div>"
+		  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
+				 "<div class='caption'>" + 
+					"<div class='row'>" + 
+					 	"<div class='col-sm-12' align='center'><h4>" + tourvo.title + "</h4></div>" +
+					"</div>" +	
+				 	"<div class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></div>" +
+					"<div class='row' align='right'>" + 
+						"<div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</div>" +
+						"<div class='col-sm-7'>"  + "<br> 평점: " + tourvo.score +  "</div>" + 
+					"</div>" + // row, right
+				"</div>"+ // caption
+			"</div>"+ // 썹네일
+		"</div>" // col-sm-3
 
 
 		if( mode == true ){
@@ -154,7 +161,7 @@ var getCount = function(){
 			console.log(response.data+" getCount 함수에서 가져온  투어 수");
 			$("#counting").html("<h5>" + response.data + "개의 여행을 하셨습니다.</h5>");
 			if(userId == authUser){
-				$("#tourlist").html("<h5>투어수 : " + response.data + "</h5>")
+				$("#tourlist").html("<h4>투어수 : " + response.data + "</h4>")
 				
 			}
 		} // success
@@ -208,9 +215,10 @@ var fetchList = function(){
 
 
 $(function(){
+
 	fetchList();
 	getCount();
-	$( document ).on( "click", "#list-tour div button", function(){
+	$( document ).on( "click", "#list-tour div span", function(){
 			//event.preventDefault();	
 		 	//$('#myModal').modal("show");	
 

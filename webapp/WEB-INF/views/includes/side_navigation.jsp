@@ -24,7 +24,7 @@
       display: none;
       z-index: 10;
 	  opacity: 1.0;
-
+      background-color: #FFFFFF;
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
