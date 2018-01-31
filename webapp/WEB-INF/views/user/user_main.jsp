@@ -137,7 +137,6 @@ var render0 = function( tourvo, mode ){
 			"</div>" // col-sm-3
 			;
 
-
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
 	} else {		
@@ -285,7 +284,7 @@ $(function(){
 
 	fetchList();
 	getCount();
-	$( document ).on( "click", "#list-tour div span", function(){
+	$( document ).on( "click", "#showdelete", function(){
 			//event.preventDefault();	
 		 	//$('#myModal').modal("show");	
 
