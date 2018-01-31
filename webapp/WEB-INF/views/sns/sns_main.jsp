@@ -465,6 +465,7 @@
 			if (scrollTop + windowHeight + 30 > documentHeight) {
 				fetchList();
 			}
+			resizeLeftEmpty();
 		});
 
 		$("#btn-next").click(function() {
@@ -472,6 +473,8 @@
 		});
 
 		fetchList();
+		
+		
 	})
 </script>
 
@@ -507,7 +510,7 @@
 		<div id="leftEmpty" style="float:left; background-color: #d6d4d4; width:500px;">
 		</div>
 		
-		<div id="list-sns"	style="width: 780px; background-color: #d6d4d4;  margin: auto; float:left; ">
+		<div id="list-sns"	style="width: 800px; background-color: #d6d4d4;  margin: auto; float:left; ">
 			<br> <br> <br> <br> <br>
 
 
