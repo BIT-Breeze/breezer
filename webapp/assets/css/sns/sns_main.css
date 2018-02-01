@@ -202,8 +202,21 @@
 	color : #ececec;
 }
 
+a.link {
+	color: #646464;
+	text-decoration: none;
+}
+a.hover {
+	color: #ff6fb7;
+	text-decoration: none;
+}
 
 
+
+/* sns-list */
+.sns-text {
+	color: #646464;
+}
 
 
 
@@ -213,7 +226,7 @@
 	width: 400px; 
 	height:auto; 
 	background-color: #d6cccc;  
-	margin-left:20px; 
+	margin-left:100px; 
 	float:right;  
 	position: fixed; 
 	left:1300px; 
@@ -232,9 +245,9 @@
 	margin-right: 0 auto;
 	margin-bottom: 20px;
 	text-align: left;
-	color: #ff8000;
+	color: #646464;
 	font-weight: bold;
-	font-size:30px;
+	font-size:20px;
 }
 
 
@@ -288,6 +301,7 @@
 	overflow: hidden; 
   	text-overflow: ellipsis;
   	white-space: nowrap; 
+  	color: #646464;
 }
 
 .cccc {

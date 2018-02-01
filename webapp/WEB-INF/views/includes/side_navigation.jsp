@@ -7,16 +7,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 
-    #sidenav {      	 	
-      
-      margin: -15px;
+    #sidenav {      
       border: 0px;
       padding: 15px;
       position: fixed;
@@ -24,7 +23,8 @@
       z-index: 10;
 	  opacity: 1.0;
       background-color: #F1F1F1;
-		
+      top: 70px;
+      margin-left: -15px;		
     }
     <!-- 내비가 위에 올라오게, 안 되면 z-index 속성 주기 -->
     #button_area{    
