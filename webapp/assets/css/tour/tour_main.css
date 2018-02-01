@@ -42,7 +42,7 @@ div #PostList {
 	outline: none;
 }
 
-li.post { height:500px; width:inherit; font-size:30px; clear: both; padding: 0px; margin-top: 15px; margin-bottom: 50px; border: 1px;}
+li.post { height:auto; width:inherit; font-size:30px; clear: both; padding: 10px; margin-top: 15px; margin-bottom: 15px; border: 2px;}
 
 nav#tour_navigation ul a	{ border-radius: 4px; padding-left: 10px;}
 

@@ -7,7 +7,7 @@
 	<head>
 		<title>Breezer</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  		<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--   		<meta name="viewport" content="width=device-width, initial-scale=1"> -->
 		
   		<!------------------------------------------------------------------------------------------------------------------->
   		<!---------------------------------------------------- CSS 시작 ----------------------------------------------------->
@@ -32,18 +32,157 @@
 	  		<!------------------------------------------------------------------------------------------------------------------->
   		
   		<!------------------------------------------------------------------------------------------------------------------->
-  		<!----------------------------------------------------- JS 시작 ----------------------------------------------------->  		
+  		<!----------------------------------------------------- JS 시작 ----------------------------------------------------->  
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery.form.js" type="text/javascript"></script>
 	  		<!---------------------------------------------------- JS 끝 ------------------------------------------------------->
 	  		<!------------------------------------------------------------------------------------------------------------------>
-	  		
+	  				
 		<style>
-			body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-			body {font-size:16px;}
-			.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-			.w3-half img:hover{opacity:1}
+		body {
+		  font-family: Verdana, sans-serif;
+		  margin: 0;
+		}
+		
+		* {
+		  box-sizing: border-box;
+		}
+		
+		.row > .photo-column {
+		  padding: 0 8px;
+		}
+		
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+		
+		.photo-column {
+		  float: left;
+		  width: 25%;
+		}
+		
+		/* The Modal (background) */
+		.photo-modal {
+		  display: none;
+		  position: fixed;
+		  z-index: 1;
+		  padding-top: 100px;
+		  left: 0;
+		  top: 0;
+		  width: 100%;
+		  height: 100%;
+		  overflow: auto;
+		  background-color: black;
+		}
+		
+		/* Modal Content */
+		.photo-modal-content {
+		  position: relative;
+		  background-color: #fefefe;
+		  margin: auto;
+		  padding: 0;
+		  width: 90%;
+		  max-width: 1000px;
+		}
+		
+		/* The Close Button */
+		.photo-close {
+		  color: white;
+		  position: absolute;
+		  top: 10px;
+		  right: 25px;
+		  font-size: 35px;
+		  font-weight: bold;
+		}
+		
+		.photo-close:hover,
+		.photo-close:focus {
+		  color: #999;
+		  text-decoration: none;
+		  cursor: pointer;
+		}
+		
+		.photo-Slides {
+		  display: none;
+		}
+		
+		.cursor {
+		  cursor: pointer
+		}
+		
+		/* Next & previous buttons */
+		.prev,
+		.next {
+		  cursor: pointer;
+		  position: absolute;
+		  top: 50%;
+		  width: auto;
+		  padding: 16px;
+		  margin-top: -50px;
+		  color: white;
+		  font-weight: bold;
+		  font-size: 20px;
+		  transition: 0.6s ease;
+		  border-radius: 0 3px 3px 0;
+		  user-select: none;
+		  -webkit-user-select: none;
+		}
+		
+		/* Position the "next button" to the right */
+		.next {
+		  right: 0;
+		  border-radius: 3px 0 0 3px;
+		}
+		
+		/* On hover, add a black background color with a little bit see-through */
+		.prev:hover,
+		.next:hover {
+		  background-color: rgba(0, 0, 0, 0.8);
+		}
+		
+		/* Number text (1/3 etc) */
+		.photo-numbertext {
+		  color: #f2f2f2;
+		  font-size: 12px;
+		  padding: 8px 12px;
+		  position: absolute;
+		  top: 0;
+		}
+		
+		img {
+		  margin-bottom: -4px;
+		}
+		
+		.photo-caption-container {
+		  text-align: center;
+		  background-color: black;
+		  padding: 2px 16px;
+		  color: white;
+		}
+		
+		.photo-caption-container p{
+		  float: none;
+		}
+		
+		.demo {
+		  opacity: 0.6;
+		}
+		
+		.active,
+		.demo:hover {
+		  opacity: 1;
+		}
+		
+		img.hover-shadow {
+		  transition: 0.3s
+		}
+		
+		.hover-shadow:hover {
+		  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+		}
 		</style>
         
 		<script type="text/javascript">
@@ -127,10 +266,12 @@
 		/* --------------------------------------------------------------------------------------------- */
 		/* ---------------------------- Post & Tour Navi 렌더링 함수 시작 ------------------------------ */
 		var render = function (index, post) {
+			var imagePathList = post.photo.split(',');
 			var postHtml = "<div>", naviHtml;
+			var place = (post.placeName || "").replace("\n", "<br>");
 			if(post.dateGap != 0){
 				postHtml += "<li class='dateGap-post'><p><span class='badge badge-primary' style='font-size:18px; vertical-align: middle;'>"+post.dateGap+"일차</span></p></li>";
-				naviHtml = "<li class=''><p><span class='badge badge-primary'>"+post.dateGap+"일차</span></p></li>";
+				naviHtml = "<li class='' style='padding-top: 5px; padding-left: 3px;'><p><span class='badge badge-primary'>"+post.dateGap+"일차</span></p></li>";
 			} else {
 				postHtml += "";
 				naviHtml = "";
@@ -146,7 +287,7 @@
 						"<c:if test='${userId ne authUser.id}'>"+
 							"<a style='margin-left:3px; padding:3px; vertical-align:bottom; margin-bottom:7px;' class='post-modify btn btn-secondary w3-small' id='post-thumbUp-"+post.idx+"' href='' data-no='"+post.idx+"'><span style='font-size:15px; vertical-align: middle;' class='glyphicon glyphicon-thumbs-up'></span> 좋아요</a>"+
 						"</c:if></p><br>"+
-						'<hr style="width:1190px;border:5px solid grey" class="w3-round">'+
+						'<hr style="width:99%;border:5px solid grey" class="w3-round">'+
 						"<p style='font-size:20px; padding-left:2px;'><strong><i class='material-icons' style='font-size:22px; vertical-align: middle;'>domain</i></strong> "+(post.location || "").replace("\n", "<br>")+"</p><br>"+
 						"<p style='font-size:20px; padding-left:4px;'><strong><span class='glyphicon glyphicon-calendar'></span></strong> "+(post.tripDateTime || "").replace("\n", "<br>")+"</p><br>"+
 						"<p style='font-size:20px; padding-left:2px;'><strong><span class='glyphicon glyphicon-align-justify'></span></strong> "+(post.content || "").replace("\n", "<br>")+"</p><br>"+
@@ -155,14 +296,42 @@
 						"<p style='font-size:20px; padding-left:2px;'><strong><span class='fa fa-star-half-o'></span></strong> "+post.score+"점</p><br>"+
 						"<p style='font-size:20px; padding-left:2px;'><strong><span class='glyphicon glyphicon-thumbs-up'></span></strong> "+post.favorite+"</p><br>"+
 						"<p style='font-size:20px; padding-left:2px;'><strong><span class='glyphicon glyphicon-camera'></span></strong> 사진</p><br>"+
+						'<div id="photo" class="row">';
+			for(var i=0; i<imagePathList.length; i++){
+				postHtml += '<div class="photo-column">'+
+								'<img src="${pageContext.request.contextPath }/'+imagePathList[i]+'" style="width:100%" onclick="openModal('+post.idx+');currentSlide('+(i+1)+', '+post.idx+')" class="hover-shadow cursor">'+
+							'</div>';
+			}
+			postHtml += '</div>'+
+						'<div id="myModal-'+post.idx+'" class="photo-modal">'+
+							'<span class="photo-close cursor" onclick="closeModal('+post.idx+')">&times;</span>'+
+							'<div class="photo-modal-content">';
+				for(var i=0; i<imagePathList.length; i++){
+					postHtml += '<div class="photo-Slides-'+post.idx+'">'+
+									'<div class="photo-numbertext">'+(i+1)+' / '+imagePathList.length+'</div>'+
+									'<img src="${pageContext.request.contextPath }/'+imagePathList[i]+'" style="width:100%">'+
+								'</div>';
+				}
+					postHtml += '<a class="prev" onclick="plusSlides(-1, '+post.idx+')">&#10094;</a>'+
+								'<a class="next" onclick="plusSlides(1, '+post.idx+')">&#10095;</a>'+
+								'<div class="photo-caption-container">'+
+									'<p id="caption-'+post.idx+'"></p>'+
+								'</div>';
+					for(var i=0; i<imagePathList.length; i++){
+					postHtml += '<div class="photo-column">'+
+									'<img class="demo-'+post.idx+' cursor" src="${pageContext.request.contextPath }/'+imagePathList[i]+'" style="width:100%" onclick="currentSlide('+(i+1)+', '+post.idx+')" alt="'+place+' #'+(i+1)+'">'+
+								'</div>';
+					}
+				postHtml += "</div>" +
+						"</div>" +
 					"</div>" +
 				"</li></div>";
 			if(index === 0){
 				naviHtml +=
-					"<li class='text-left'><a class='active text-left' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
+					"<li class='text-left'><a style='padding-left: 3px;' class='active text-left' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
 			} else {
 				naviHtml +=
-					"<li><a href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
+					"<li><a style='padding-left: 3px;' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
 			}
 			
 			$("#PostBox").append(postHtml);
@@ -229,7 +398,6 @@
 		];
 		
 		function validFileType(file) {
-			console.log(file.type);
 			for(var i = 0; i < fileTypes.length; i++) {
 				if(file.type === fileTypes[i]) {
 					return true;
@@ -328,7 +496,6 @@
 		    /* --------------------------------------------------------------------- */
 		    /* ------------------ Post 클릭 시, opacity 이벤트 시작 ---------------- */
 		    $('[id^="post-"]').click(function(){
-		    	console.log('11');
 		    	$(this).animate({opacity: 0.6}, 500);
 		    });
 			    /* ------------------ Post 클릭 시, opacity 이벤트 끝 ------------------ */
@@ -650,6 +817,7 @@
 		/* ----------------------------------------------------------------- */
 		/* ------------------------ 파일업로드 시작 ------------------------ */
 		function ImgFileSelect(e) {
+			imagePath = '';
 			console.log("====== ImgFileSelect ======");
 			var files = e.target.files; // 넘어 오는 파일들을 files에 담고
 			var filesArr = Array.prototype.slice.call(files); // 제목을 분할하여 filesArr에 저장
@@ -1066,6 +1234,47 @@
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>
+	<script type="text/javascript">
+		$(function(){
+			$("#header").css("position", "static")
+		})
+	</script>
+	
+	<script>
+	function openModal(idx) {
+	  document.getElementById('myModal-'+idx).style.display = "block";
+	}
+	
+	function closeModal(idx) {
+	  document.getElementById('myModal-'+idx).style.display = "none";
+	}
+	
+	function plusSlides(n, idx) {
+	  showSlides(slideIndex += n, idx);
+	}
+	
+	function currentSlide(n, idx) {
+	  showSlides(slideIndex = n, idx);
+	}
+	
+	function showSlides(n, idx) {
+	  var i;
+	  var slides = document.getElementsByClassName("photo-Slides-"+idx);
+	  var dots = document.getElementsByClassName("demo-"+idx);
+	  var captionText = document.getElementById("caption-"+idx);
+	  if (n > slides.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block";
+	  dots[slideIndex-1].className += " active";
+	  captionText.innerHTML = dots[slideIndex-1].alt;
+	}
+	</script>
 
 </body>
 </html>
