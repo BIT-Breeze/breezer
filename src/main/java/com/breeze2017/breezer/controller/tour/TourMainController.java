@@ -20,13 +20,14 @@ public class TourMainController {
 	private TourMainService tourMainService;
 
 	@RequestMapping("")
-	public String mytour(@AuthUser UserVo authUser,
+	public String mytour(
+			@AuthUser UserVo authUser,
 			@PathVariable String id,
 			@RequestParam(value="idx", required=false) long tourIdx,
 			Model model) {
 		
 		if(authUser == null) {
-			return null;
+			return "user/user_login";
 		}
 
 		model.addAttribute("userId", id);

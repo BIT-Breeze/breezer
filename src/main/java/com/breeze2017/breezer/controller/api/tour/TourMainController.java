@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.tour.TourMainService;
 import com.breeze2017.breezer.vo.PostVo;
+import com.breeze2017.breezer.vo.UserVo;
 import com.breeze2017.security.Auth;
+import com.breeze2017.security.AuthUser;
 
 @Controller("tourMainAPIController")
 @RequestMapping("/{id}/api/tour")

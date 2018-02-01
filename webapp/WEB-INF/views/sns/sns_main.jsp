@@ -558,11 +558,11 @@
 	
 
 	<!-- header -->
-	<div id="header"
-		style="background-color: #ABABAB; width: 100%; top: 0px; position: fixed;  z-index:10 ">
+	<!-- <div id="header"
+		style="background-color: #454545; width: 100%; top: 0px; position: fixed;  z-index:10; color : #ececec; "> -->
 		<c:import url="/WEB-INF/views/includes/header.jsp">
 		</c:import>
-	</div>
+	<!-- </div> -->
 
 
 	<div id="container" style="background-color: #d6d4d4; height: 100%;  ">

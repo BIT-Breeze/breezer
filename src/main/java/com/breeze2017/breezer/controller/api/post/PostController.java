@@ -23,6 +23,27 @@ public class PostController {
 	
 	@Auth
 	@ResponseBody
+	@RequestMapping(value="/selectRest", method=RequestMethod.GET)
+	public JSONResult postSelectRest(
+			@RequestParam(value="tourIdx", required=true) long tourIdx,
+			@ModelAttribute PostVo vo,
+			@PathVariable String id
+			) {
+
+		vo.setUserId(id);
+		vo.setTourIdx(tourIdx);
+		
+		int count = postService.selectPostCount(vo);
+		
+		if(count == -1) {
+			return JSONResult.fail("포스트 정보 가져오기에 실패했습니다.");
+		} else {
+			return JSONResult.success(count);
+		}
+	}
+	
+	@Auth
+	@ResponseBody
 	@RequestMapping(value="/select", method=RequestMethod.POST)
 	public JSONResult postSelect(
 			@RequestParam(value="tourIdx", required=true) long tourIdx,

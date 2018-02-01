@@ -6,7 +6,7 @@
 
 /* layout */
 nav#tour_navigation	{ 
-  margin-left:300px; z-index: 1; float:left; width:200px; height:100%; overflow: auto; position: fixed; padding-left: 0px; 
+  margin-top:0px; margin-left:300px; z-index: 1; float:left; width:200px; height:100%; overflow: auto; position: fixed; padding-left: 0px; 
 }
 
 div#tour_main_header {
@@ -42,15 +42,6 @@ div #PostList {
 	outline: none;
 }
 
-.ico_cover{
-	height: 36px;
-	display: inline-block;
-	background-size: 40px auto;
-	background-position: 50%;
-	width: 40px;
-	background: url('/breezer/assets/images/tourMain/cover_pic_button.PNG') no-repeat;
-}
-
 li.post { height:500px; width:inherit; font-size:30px; clear: both; padding: 0px; margin-top: 15px; margin-bottom: 50px; border: 1px;}
 
 nav#tour_navigation ul a	{ border-radius: 4px; padding-left: 10px;}
@@ -80,7 +71,7 @@ nav#tour_navigation ul li p{
 }
 
         
-#tour_navigation ul li a.active{
+nav#tour_navigation ul li a.active{
          color:#F38A8A;
          border:3px solid #F38A8A;
       }

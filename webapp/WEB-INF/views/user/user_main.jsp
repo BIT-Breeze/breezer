@@ -3,18 +3,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <% %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<link	href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css"	rel="stylesheet" type="text/css">
-<link	href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css"	rel="stylesheet" type="text/css">
-<link   rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<link href="${pageContext.servletContext.contextPath }/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/user/user_main.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 
-<link   rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- w3 css -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-
 	body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 
     .row.content {
@@ -22,8 +25,6 @@
     	flex-direction:row;
     	display:flex;
     }
-
-
 
     #th_buttons{    
 		padding-right:15px;
@@ -55,7 +56,9 @@
          
     }
     
-
+    .checked {
+    	color: orange;
+	}
 </style>
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.2.1.js"></script>
@@ -85,28 +88,54 @@ var render0 = function( tourvo, mode ){
 	var id = userId;
 	console.log(tourvo)	
 
-	var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
-				"<div class='thumbnail'>" + 
-				  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
-						 "<div class='caption'>" + 
-							"<div class='row'>" + 
-						 		"<div class='col-sm-10' align='center'>" + tourvo.title + "</div>" +
-						 		"<div class='col-sm-2'>" + 
-							 		"<span data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + 
-								"' class='glyphicon glyphicon-remove' style='color:red; cursor:pointer;'></span>" +							 	
-						 		"</div>" +
-							"</div>" +	
-						 	"<div class='row' align='center'>" + " start : " + tourvo.startDate + " ~ end : " + tourvo.endDate + "<br><br></div>" +
-							"<div class='row' align='center'>" + 
-								"<div class='col-sm-6'><span class='glyphicon glyphicon-thumbs-up'> : " + tourvo.favorite + "</span>" + 
-								"<br><span class='glyphicon glyphicon-th-list'> : " + tourvo.postCount + "</span></div>" +
-								"<div class='col-sm-6' align='left'><span class='glyphicon glyphicon-lock'> : " + tourvo.secret  + "</span>" +
-								"<br><span class='glyphicon glyphicon-star'> : " + tourvo.score +  "</span></div>" + 
-							"</div>" + // row, right
-						"</div>"+ // caption
-					"</div>"+ // 썹네일
-				"</div>" // col-sm-3
+	var html = 
+	"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
+		"<div class='thumbnail'>" +
+			"<span id='showdelete' data-toggle='modal' data-target='#myModal' data-no='" + tourvo.idx + "' class='glyphicon glyphicon-remove' style='color:red; cursor:pointer; margin-left:95%;'></span>" +
+			"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'style='width: 100%; height: 160px'>" + "</a><br>" +
+			
+			"<div class='caption'>" + 
+			
+				"<div class='row'>" + 
+					"<p class='col-sm-12' align='center'><a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" + tourvo.title + "</a></p>" +
+				"</div>" +	
+				
+				"<div class='w3-row w3-padding-16'>" +
+					"<div class='w3-container w3-threequarter'>" + 
+						"<p><i class='fa fa-calendar' aria-hidden='true'></i> " + tourvo.startDate + " ~ " + tourvo.endDate + "</p>" +
+					"</div>" +
+					
+					"<div class='w3-container w3-quarter'>" + 
+						"<p class='w3-right'><i class='fa fa-unlock' aria-hidden='true'></i></p>" +
+					"</div>" +
+				"</div>" + 
+				
+				"<div class='w3-row'>" +
+					"<div class='w3-container w3-half'>" + 
+						"<p><i class='fa fa-thumbs-o-up' aria-hidden='true'></i> " + tourvo.favorite + "</p>" +
+					"</div>" +
+					
+					"<div class='w3-container w3-half'>" + 
+						"<p><i class='fa fa-list-ul' aria-hidden='true'></i> " + tourvo.postCount + "</p>" +
+					"</div>" +
+				"</div>" + 
+				
+				"<p style='margin-left:12px;'>";
+				
+				for (var i = 0; i < 5; i++) {
+					if (i < Math.round(tourvo.score)) {
+						html += "<i class='fa fa-star checked' aria-hidden='true'></i>";
+					} else{
+						html += "<i class='fa fa-star' aria-hidden='true'></i>";
+					}
+				}
+				
+	html += "</p>"+
+					"</div>"+ // caption
+				"</div>"+ // 썹네일
+			"</div>" // col-sm-3
+			;
 
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
@@ -119,23 +148,52 @@ var render2 = function( tourvo, mode ){
 		//타인 페이지에서 투어를 그려주는 렌더링 함수, 삭제 버튼, 공개여부가 없음 	
 		var id = userId;
 		
-		var html = "<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
-		"<div class='thumbnail'>" + 
-		  "<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
-			"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'>" + "</a><br>" +
-				 "<div class='caption'>" + 
-					"<div class='row'>" + 
-					 	"<div class='col-sm-12' align='center'><h4>" + tourvo.title + "</h4></div>" +
-					"</div>" +	
-				 	"<div class='row' align='center'>" + "start: " + tourvo.startDate + " ~ end: " + tourvo.endDate + "<br></div>" +
-					"<div class='row' align='right'>" + 
-						"<div class='col-sm-5'>좋아요: " + tourvo.favorite + "<br> 포스트: " + tourvo.postCount + "</div>" +
-						"<div class='col-sm-7'>"  + "<br> 평점: " + tourvo.score +  "</div>" + 
-					"</div>" + // row, right
-				"</div>"+ // caption
-			"</div>"+ // 썹네일
-		"</div>" // col-sm-3
-
+		var html = 
+			"<div class='col-sm-3' id='tour' no='" + tourvo.idx + "'>" +
+				"<div class='thumbnail'>" +
+					"<a href='${pageContext.servletContext.contextPath }/" + id + "/tour?idx=" + tourvo.idx + "'>" +
+					"<img src='${pageContext.servletContext.contextPath }/" + tourvo.mainPhoto + "'style='width: 100%; height: 160px'>" + "</a><br>" +
+					
+					"<div class='caption'>" + 
+					
+						"<div class='row'>" + 
+							"<p class='col-sm-12' align='center'>" + tourvo.title + "</p>" +
+						"</div>" +	
+						
+						"<div class='w3-row w3-padding-16'>" +
+							"<div class='w3-container w3-threequarter'>" + 
+								"<p><i class='fa fa-calendar' aria-hidden='true'></i> " + tourvo.startDate + " ~ " + tourvo.endDate + "</p>" +
+							"</div>" +
+							
+							"<div class='w3-container w3-quarter'>" + 
+							"</div>" +
+						"</div>" + 
+						
+						"<div class='w3-row'>" +
+							"<div class='w3-container w3-half'>" + 
+								"<p><i class='fa fa-thumbs-o-up' aria-hidden='true'></i> " + tourvo.favorite + "</p>" +
+							"</div>" +
+							
+							"<div class='w3-container w3-half'>" + 
+								"<p><i class='fa fa-list-ul' aria-hidden='true'></i> " + tourvo.postCount + "</p>" +
+							"</div>" +
+						"</div>" + 
+						
+						"<p style='margin-left:12px;'>";
+						
+						for (var i = 0; i < 5; i++) {
+							if (i < Math.round(tourvo.score)) {
+								html += "<i class='fa fa-star checked' aria-hidden='true'></i>";
+							} else{
+								html += "<i class='fa fa-star' aria-hidden='true'></i>";
+							}
+						}
+						
+		html += "</p>"+
+						"</div>"+ // caption
+					"</div>"+ // 썹네일
+				"</div>" // col-sm-3
+				;
 
 		if( mode == true ){
 			$( "#list-tour" ).prepend(html);		
@@ -226,7 +284,7 @@ $(function(){
 
 	fetchList();
 	getCount();
-	$( document ).on( "click", "#list-tour div span", function(){
+	$( document ).on( "click", "#showdelete", function(){
 			//event.preventDefault();	
 		 	//$('#myModal').modal("show");	
 
@@ -296,16 +354,10 @@ $(function(){
 
 </script>
 
-<title>Breezer Main</title>
-
+<title>Breezer</title>
 </head>
 
-
 <body>
-
-
-
-
 <div class="container-fluid">
 
     <div class="row" id="container">
@@ -314,19 +366,18 @@ $(function(){
 			</c:import>		
 		</div>				
   	</div>
-	
 
-  	<div class="row content" style="background-color: #F1F1F1; " >
+  	<div class="row content" style="background-color: #F1F1F1;">
 
-				<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
-					<c:param name="menu" value="login" />
-				</c:import>
+	<c:import url="/WEB-INF/views/includes/side_navigation.jsp">
+		<c:param name="menu" value="login" />
+	</c:import>
+				
     <div class="col-sm-8">
 		<div class="row" id="firstrow" style="postion:relative;">
 			<div class="col-sm-3" id="userprofile" align="center">
 			
-			<img src="${ uservo2.pictureUrl}" 
-				 width="120px" height="120px" class="img-circle">
+			<img src="${ uservo2.pictureUrl}" width="120px" height="120px" class="img-circle">
 			
 			</div> 
 			
@@ -340,7 +391,7 @@ $(function(){
 			<div class="col-sm-3" id="firstrow" align="right">
 			<c:choose>
 				<c:when test="${authUser.id == uservo2.id}">
-      			<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
+      				<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/add" class="btn btn-info" role="button" id="btn-next">새 투어</a>
       			</c:when>
       			
       			<c:otherwise>
@@ -356,8 +407,7 @@ $(function(){
 			<div class="col-sm-12">			
 			<div id="list-tour">
 			</div>						
-			<div class="modal" id="myModal" tabindex="-1" role="dialog" 
-	   			 aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					   <div class="modal-dialog">
 					      <div class="modal-content">
 					         <div class="modal-header">
@@ -401,8 +451,6 @@ $(function(){
   </div>	<!-- row content --> 
   <!--<c:import url="/WEB-INF/views/includes/footer.jsp" /> -->    
 </div>	<!-- container -->
-
-   
 
 </body>
 </html>
