@@ -11,7 +11,7 @@ public class TourVo {
 	private String mainPhoto;
 	private long postCount;
 	private long favorite;
-	private String secret; //1 : true, 0: false
+	private int secret; //1 : true, 0: false
 	private int rn;
 	
 	
@@ -77,10 +77,10 @@ public class TourVo {
 	public void setFavorite(long favorite) {
 		this.favorite = favorite;
 	}
-	public String getSecret() {
+	public int getSecret() {
 		return secret;
 	}
-	public void setSecret(String secret) {
+	public void setSecret(int secret) {
 		this.secret = secret;
 	}
 	public int getRn() {
