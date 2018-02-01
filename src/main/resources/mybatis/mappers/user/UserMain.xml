@@ -41,7 +41,7 @@
 		<![CDATA[
 		
 		select t.title, t.idx, t.startDate, t.mainPhoto, t.favorite, 
-		 case secret when 0 then '공개' else '비공개' end as 'secret', ifnull(endDate, '미정') as endDate,
+		 t.secret , ifnull(endDate, '미정') as endDate,
 		 ifnull((select round(avg(score),1) average from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx), 0) score, 
 		 (select count(*) from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx) postCount
 		  from TB_TOUR as t 
@@ -54,7 +54,7 @@
 		<![CDATA[
 		
 		select t.title, t.idx, t.startDate, t.mainPhoto, t.favorite, 
-		 case secret when 0 then 'open' else 'secret' end as 'secret', ifnull(endDate, '미정') as endDate,
+		 t.secret, ifnull(endDate, '미정') as endDate,
 		 ifnull((select round(avg(score),1) average from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx), 0) score, 
 		 (select count(*) from TB_POST as p where p.userId = t.userId and p.tourIdx = t.idx) postCount
 		  from TB_TOUR as t 

@@ -127,17 +127,32 @@ var render0 = function( tourvo, mode ){
 						html += "<i class='fa fa-star' aria-hidden='true'></i>";
 					}
 				}
-				
+	if(tourvo.secret == 1){		
 	html += "</p>"+
+		
+				"<div class='w3-container'>" + 
 	
-			"<div class='w3-container'>" + 
-				"<p class='w3-right'><i class='fa fa-unlock' aria-hidden='true'></i></p>" +
-			"</div>" +
+					"<p class='w3-right'><i class='fa fa-unlock' aria-hidden='true'></i></p>" +
+	
+				"</div>" +
+				
+				"</div>"+ // caption
+					"</div>"+ // 썹네일
+				"</div>"; // col-sm-3
+	}else{
+		html += "</p>"+
+		
+		"<div class='w3-container'>" + 
+
+			"<p class='w3-right'><i class='fa fa-lock' aria-hidden='true'></i></p>" +
+
+		"</div>" +
+		
+		"</div>"+ // caption
+			"</div>"+ // 썹네일
+		"</div>"; // col-sm-3		
+	}
 			
-			"</div>"+ // caption
-				"</div>"+ // 썹네일
-			"</div>" // col-sm-3
-			;
 
 	if( mode == true ){
 		$( "#list-tour" ).prepend(html);		
