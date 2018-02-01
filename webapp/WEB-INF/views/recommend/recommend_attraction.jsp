@@ -327,10 +327,6 @@ div #scrollmenu a:hover {
     </script>
 </head>
 <body class="w3-light-grey">
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/master
 	<!-- header -->
 	<div id="header" class="w3-teal" style="width: 100%; top: 0px; position: fixed; z-index:10;">
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
@@ -342,11 +338,6 @@ div #scrollmenu a:hover {
          <c:param name="menu" value="location" />
       </c:import> 
    </div>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> refs/remotes/origin/master
 	
 	<!-- Page Container -->
 	<div class="w3-content w3-margin-top w3-card-4 w3-round-large" style="max-width: 1300px; ">
@@ -357,8 +348,8 @@ div #scrollmenu a:hover {
 	
 			<div id="googleMap" style="width: 100%; height: 600px;"></div>
 			<!-- Google Map -->
-			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script> -->
-			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script>
+			<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc6s8eAHp3wLMJsJ9lPew0fD2aPANMe60&libraries=places&callback=initAutocomplete" async defer></script>
+			<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBCOZIjbRpUmHxNptiJHd5G8JRoVf_3XY&libraries=places&callback=initAutocomplete" async defer></script> -->
 			<!-- Google Marker Cluster -->
 			<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 		</div>
