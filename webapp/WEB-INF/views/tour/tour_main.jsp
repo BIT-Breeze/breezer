@@ -770,6 +770,9 @@
 				}
 			});
 		    
+			$(document).on("click", "#seeMapButton", function (event) {
+			});
+		    
 			$(document).on("click", "#addPostButton", function (event) {
 				event.preventDefault();		
 				addModifyPostDialog.dialog("option", "title", "여행기 추가");
@@ -1095,7 +1098,8 @@
 				<div id="content">
 					<c:if test="${userId eq authUser.id}">
 						<div id="addPost">
-							<a id="addPostButton" style="float: right;"><span class="btn btn-secondary w3-xlarge"><b>여행기 추가</b></span></a>
+							<a id="addPostButton" style="float: right; padding-right: 2px; margin-right: 2px;"><span class="btn btn-secondary w3-xlarge"><b>여행기 추가</b></span></a>
+							<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/map?idx=${tourIdx}" id="seeMapButton" style="float: right;"><span class="btn btn-secondary w3-xlarge"><b>지도로 보기</b></span></a>
 						</div>
 					</c:if>
 					<div id="PostList" style="margin-left: 350px;">
