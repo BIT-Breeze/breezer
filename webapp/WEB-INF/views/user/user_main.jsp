@@ -52,10 +52,12 @@
 	  background-color: #F1F1F1;
     }
     
-    #delete_button {
-      vertical-align: center;
-         
+    #footer p {
+      color:#F7F7F7;
+      text-align:center;   
     }
+    
+
     
     .checked {
     	color: orange;
@@ -127,8 +129,9 @@ var render0 = function( tourvo, mode ){
 						html += "<i class='fa fa-star' aria-hidden='true'></i>";
 					}
 				}
-	if(tourvo.secret == 1){		
-	html += "</p>"+
+	if(tourvo.secret == 0){
+		console.log(tourvo.secret)	
+		html += "</p>"+
 		
 				"<div class='w3-container'>" + 
 	
@@ -140,8 +143,9 @@ var render0 = function( tourvo, mode ){
 					"</div>"+ // 썹네일
 				"</div>"; // col-sm-3
 	}else{
+		console.log(tourvo.secret)	
 		html += "</p>"+
-		
+	
 		"<div class='w3-container'>" + 
 
 			"<p class='w3-right'><i class='fa fa-lock' aria-hidden='true'></i></p>" +
@@ -221,7 +225,7 @@ var render2 = function( tourvo, mode ){
 
 var renderNoTour = function(){
 	str = "<h4>투어가 없습니다!!!</h4>"
-	$("#bottom-text").html(str);
+	$("#bottom-text h4").html(str);
 
 	isEnd = true;
 }
@@ -455,12 +459,23 @@ $(function(){
 					         </div>
 					      </div><!-- /.modal-content -->
 					   </div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->					
-			<div class="col-sm-12" id="bottom-text" style="text-align:center; padding-top:20px">
-				<h4>투어를 더 보려면 아래로 스크롤 하세요!! </h4>
-				<!--  <a href="#header"> 맨 위로 </a> -->
-			</div>			
+			</div><!-- /.modal -->
+			<div class='row'>				
+				<div class="col-sm-10" id="bottom-text" style="text-align:center; padding-top:20px">
+					<h4>투어를 더 보려면 아래로 스크롤 하세요!! </h4>
+
+					<!--  <a href="#header"> 맨 위로 </a> -->
+				</div>
+				<div class="col-sm-2" align='right'>
+					<a href="#firstrow">
+						<button type="button" class="btn btn-default btn-lg btn-primary">						
+							<span class='glyphicon glyphicon-chevron-up' id=to_top> </span>							
+						</button>
+					</a>
+				</div>			
 			</div> <!-- sm-12 -->
+
+			</div>	
 		</div>						
     </div>	<!-- col sm-8 -->
     <!--  -->
@@ -468,8 +483,11 @@ $(function(){
     </div>
     
   </div>	<!-- row content --> 
-  <!--<c:import url="/WEB-INF/views/includes/footer.jsp" /> -->    
+  
 </div>	<!-- container -->
+  <div class='row' style="background-color: #383838;">
+  	<c:import url="/WEB-INF/views/includes/footer.jsp" />  
+  </div> 
 
 </body>
 </html>
