@@ -306,7 +306,7 @@ div #scrollmenu a:hover {
 				"<img src='${pageContext.request.contextPath }/assets/images/pic" + (index + 1) + ".jpg' style='width: 100%'>" +
 				"<p id='title' class='w3-xlarge w3-center'>"+ location[location.length - 1] +"</p>" +
 				"<p> <i class='fa fa-comment w3-large w3-text-teal' aria-hidden='true'></i> " + data.content + "</p>" +
-				"<p> <i class='fa fa-thumbs-o-up w3-large w3-text-teal'></i> " + data.favorite + "개</p>" +  
+				"<p> <i class='fa fa-thumbs-o-up w3-large w3-text-teal'></i> " + data.favorite + "개의 추천을 받았습니다.</p>" +  
 			"</div>";
 
 		$("#scrollmenu").append(html);	

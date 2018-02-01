@@ -8,12 +8,19 @@
                  location like concat(#{item}, '%')
         </foreach>    -->
         
-        select * from (
+        <!-- select * from (
 			        	select * from recommendtest where 
 							<foreach collection="list" item="item" index="index" separator="or">
 			                	location like concat(#{item}, '%')
 			        		</foreach>   
-        			  ) t where t.lat != 0 and t.lot != 0
+        			  ) t where t.lat != 0 and t.lot != 0 -->
+        			  
+		  select * from (
+				    	select * from TB_RECOMMEND where 
+						<foreach collection="list" item="item" index="index" separator="or">
+			            	location like concat(#{item}, '%')
+			    		</foreach>   
+			 			  ) t where t.lat != 0 and t.lot != 0
 </select>
 
 <select id="getNearby" resultType="postvo" parameterType="postvo">

@@ -56,6 +56,8 @@ public class RecommendAttractionController {
 		
 		// Split Address
 		String[] sAddress = address.split(" ");
+		System.out.println(sAddress[2]);
+		
 		
 		PostVo vo = new PostVo();
 		vo.setLat(Double.parseDouble(lat));

@@ -7,16 +7,19 @@ public class RecommendVo {
 	private String location;
 	private double lat;
 	private double lot;
+	private long favorite;
 	
 	public RecommendVo() {}
-	
-	public RecommendVo(long idx, String photo, String content, String location, double lat, double lot) {
+
+	public RecommendVo(long idx, String photo, String content, String location, double lat, double lot, long favorite) {
+		super();
 		this.idx = idx;
 		this.photo = photo;
 		this.content = content;
 		this.location = location;
 		this.lat = lat;
 		this.lot = lot;
+		this.favorite = favorite;
 	}
 
 	public long getIdx() {
@@ -67,10 +70,18 @@ public class RecommendVo {
 		this.lot = lot;
 	}
 
+	public long getFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(long favorite) {
+		this.favorite = favorite;
+	}
+
 	@Override
 	public String toString() {
 		return "RecommendVo [idx=" + idx + ", photo=" + photo + ", content=" + content + ", location=" + location
-				+ ", lat=" + lat + ", lot=" + lot + "]";
+				+ ", lat=" + lat + ", lot=" + lot + ", favorite=" + favorite + "]";
 	}
 	
 }
