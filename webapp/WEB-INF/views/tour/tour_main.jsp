@@ -328,10 +328,10 @@
 				"</li></div>";
 			if(index === 0){
 				naviHtml +=
-					"<li class='text-left'><a style='padding-left: 3px;' class='active text-left' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
+					"<li class='text-left'><a style='text-align:left; padding-left: 3px;' class='active text-left' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
 			} else {
 				naviHtml +=
-					"<li><a style='padding-left: 3px;' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
+					"<li><a style='text-align:left; padding-left: 3px;' href='#post-"+post.idx+"'><i class='fa fa-caret-right'></i> "+post.placeName+"</a></li>";
 			}
 			
 			$("#PostBox").append(postHtml);
@@ -1096,12 +1096,12 @@
 					</nav>
 				</div>
 				<div id="content">
-					<c:if test="${userId eq authUser.id}">
 						<div id="addPost">
+						<c:if test="${userId eq authUser.id}">
 							<a id="addPostButton" style="float: right; padding-right: 2px; margin-right: 2px;"><span class="btn btn-secondary w3-xlarge"><b>여행기 추가</b></span></a>
+						</c:if>
 							<a href="${pageContext.servletContext.contextPath }/${ authUser.id }/tour/map?idx=${tourIdx}" id="seeMapButton" style="float: right;"><span class="btn btn-secondary w3-xlarge"><b>지도로 보기</b></span></a>
 						</div>
-					</c:if>
 					<div id="PostList" style="margin-left: 350px;">
 						<ul id="PostBox">
 						</ul>

@@ -18,7 +18,6 @@ public class TourMapController {
 	@Autowired
 	private TourMapService tourMapService;
 
-	@Auth
 	@RequestMapping("/map")
 	public ModelAndView mapTest(@PathVariable String id,
   	                  		    @RequestParam(value="idx", required=true, defaultValue="null") long tourIdx) {
