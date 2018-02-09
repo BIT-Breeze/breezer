@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.breeze2017.breezer.vo.LocationVo;
 import com.breeze2017.breezer.vo.PostVo;
 import com.breeze2017.breezer.vo.RecommendVo;
 
@@ -17,6 +18,11 @@ public class RecommendAttractionDao {
 	// recommend
 	public List<RecommendVo> getRecommends(List<String> searchAddress){
 		return sqlSession.selectList("recommend.getRecommends", searchAddress);
+	}
+	
+	// recommend By Loaction
+	public List<RecommendVo> getRecommendsByLocation(List<LocationVo> location){
+		return sqlSession.selectList("recommend.getRecommendsByLocation", location);
 	}
 	
 	// nearby

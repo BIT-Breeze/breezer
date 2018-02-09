@@ -164,8 +164,14 @@ div #scrollmenu a:hover {
 	        } 
 	        
 	        var search_place = [];	        
+	        var search_lat = [];
+	        var search_lot = [];
 	        for (var i = 0; i < places.length; i++) {
-	        	search_place.push(places[i].formatted_address);
+	        	search_place.push(places[i].formatted_address + " " + places[i].name);
+	        	
+	        	// 검색한 위치의 위도, 경도
+	        	search_lat.push(places[i].geometry.location.toJSON().lat);
+	        	search_lot.push(places[i].geometry.location.toJSON().lng);
 			}
 	        
 	        $("#scrollmenu").empty();
@@ -182,7 +188,9 @@ div #scrollmenu a:hover {
 				url: "/breezer/api/recommend",
 				type: "post",
 				dataType: "json",
-				data: "location=" + search_place,
+				data: "address=" + search_place + 
+					  "&lat=" + search_lat + 
+					  "&lot=" + search_lot,
 				success: function( response ) {
 					if( response.result != "success" ) {
 						console.log( response.message );
