@@ -22,7 +22,6 @@ public class TourMapController {
 	@RequestMapping("/map")
 	public ModelAndView mapTest(@PathVariable String id,
   	                  		    @RequestParam(value="idx", required=true, defaultValue="null") long tourIdx) {
-		
 		TourVo tourVo = new TourVo();
 		tourVo.setIdx(tourIdx);
 		tourVo.setUserId(id);
