@@ -468,8 +468,8 @@
 					$.ajax({
 						url: "/breezer/${userId}/api/tour/remove/post",
 						type: "post",
-						dataType: "json",
 						data: "idx="+idx+"&tourIdx=${tourIdx}",
+						dataType: "json",
 						success: function (response) {
 							if(response.result == "fail"){
 								console.log(response.message);
