@@ -97,20 +97,20 @@ div #scrollmenu a:hover {
 
     // Post Image
     var imageArr = [
-	'/breezetest/assets/images/pic1.jpg',
-	'/breezetest/assets/images/pic2.jpg',
-	'/breezetest/assets/images/pic3.jpg',
-	'/breezetest/assets/images/pic4.jpg',
-	'/breezetest/assets/images/pic5.jpg',
-	'/breezetest/assets/images/pic6.jpg',
-	'/breezetest/assets/images/pic7.jpg',
-	'/breezetest/assets/images/pic8.jpg',
-	'/breezetest/assets/images/pic9.jpg',
-	'/breezetest/assets/images/pic10.jpg',
-	'/breezetest/assets/images/pic11.jpg',
-	'/breezetest/assets/images/pic12.jpg',
-	'/breezetest/assets/images/pic13.jpg',
-	'/breezetest/assets/images/pic14.jpg',
+	'/breezer/assets/images/pic1.jpg',
+	'/breezer/assets/images/pic2.jpg',
+	'/breezer/assets/images/pic3.jpg',
+	'/breezer/assets/images/pic4.jpg',
+	'/breezer/assets/images/pic5.jpg',
+	'/breezer/assets/images/pic6.jpg',
+	'/breezer/assets/images/pic7.jpg',
+	'/breezer/assets/images/pic8.jpg',
+	'/breezer/assets/images/pic9.jpg',
+	'/breezer/assets/images/pic10.jpg',
+	'/breezer/assets/images/pic11.jpg',
+	'/breezer/assets/images/pic12.jpg',
+	'/breezer/assets/images/pic13.jpg',
+	'/breezer/assets/images/pic14.jpg',
 	];
     
 	function initAutocomplete() {
@@ -203,6 +203,10 @@ div #scrollmenu a:hover {
 			        	});
 						
 						renderData( index, data );
+						
+						recommendMarkers[index].addListener('click', function() {
+							alert("RECO Data Click!");
+						});
 					});
 					
 					// Recommend MarkerCluster
@@ -270,7 +274,7 @@ div #scrollmenu a:hover {
 							nearbyMarkers.forEach(function(marker) {
 					        	marker.setMap(null);
 					        });
-
+							
 							$.each(response.data, function(index, data){
 								var resizeIcon = new google.maps.MarkerImage(imageArr[index], null, null, null, new google.maps.Size(50,50));
 								nearbyMarkers[index] = new google.maps.Marker({

@@ -376,15 +376,11 @@ var imageArr = [
 		var len;
 		var infowindow = new google.maps.InfoWindow();
 		
-		var userId = ${vo.userId };
-		var tourIdx = ${vo.idx };
-		
 		$.ajax({
 			url: "/breezer/api/tour/getmapinfo",
 			type: "post",
-			data: "userId=" + userId +
-				  "&tourIdx=" + tourIdx,
 			dataType: "json",
+			data: "userId=${vo.userId}&tourIdx=${vo.idx}",
 			success: function(response) {
 				if( response.result == "fail" ) {
 					console.log( response.message );
@@ -476,8 +472,8 @@ var imageArr = [
 				$("#price").append("총 사용 금액은 " + totalPrice + "원 입니다.");
 				
 			},
-			error: function(xhr, status, e){
-				console.error( status + ":" + e );
+			error : function(xhr, status, e) {
+				console.error(status + ":" + e);
 			}
 		});
 		
@@ -527,12 +523,6 @@ var imageArr = [
 
 </head>
 <body class="w3-light-grey">
-	<!-- Header -->
-	<%-- <header class="w3-center w3-margin-bottom w3-teal w3-text-black">
-		<c:import url="/WEB-INF/views/includes/header.jsp" />
-		<c:import url="/WEB-INF/views/includes/side_navigation.jsp" />
-	</header> --%>
-	
 	<div id="header" class="w3-teal" style="width: 100%; top: 0px; position: fixed; z-index:10;">
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 	</div>
