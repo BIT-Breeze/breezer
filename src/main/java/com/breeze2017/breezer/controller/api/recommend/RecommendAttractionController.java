@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.breeze2017.breezer.dto.JSONResult;
 import com.breeze2017.breezer.service.recommend.RecommendAttractionService;
-import com.breeze2017.breezer.vo.LocationVo;
 import com.breeze2017.breezer.vo.PostVo;
 import com.breeze2017.breezer.vo.RecommendVo;
 
@@ -26,10 +25,11 @@ public class RecommendAttractionController {
 	@ResponseBody
 	@RequestMapping("/recommend")
 	public JSONResult recommend(@RequestParam(value="address", required=true, defaultValue="null") List<String> searchPlaces,
+								@RequestParam(value="userId", required=true, defaultValue="null") String userId,
 								@RequestParam(value="lat", required=true, defaultValue="null") List<String> lat,
 								@RequestParam(value="lot", required=true, defaultValue="null") List<String> lot) {
-		List<LocationVo> location = new ArrayList<LocationVo>();
 		List<RecommendVo> recommend = new ArrayList<RecommendVo>();
+		List<PostVo> recommendData = new ArrayList<PostVo>();
 		
 		// 나라검사 값이 넘어올 때 ',' 있으면 배열로 취급하는거 같다.
 		// ex) 일본 〒814-0001 Fukuoka Prefecture, Fukuoka, Sawara Ward, Momochihama, 2 Chome−３番26号 -> 5개
@@ -40,13 +40,13 @@ public class RecommendAttractionController {
 				return JSONResult.fail("점검중입니다.");
 			}
 			
-			location.add(new LocationVo(Double.parseDouble(lat.get(i)), Double.parseDouble(lot.get(i))));
+			recommend.add(new RecommendVo(userId, Double.parseDouble(lat.get(i)), Double.parseDouble(lot.get(i))));
 		}
 		
-		recommend = recommendAttractionService.getRecommendsByLocation(location);
-		System.out.println(recommend);
+		recommendData = recommendAttractionService.getMahoutData(recommend);
+		System.out.println("recommendData : " + recommendData);
 		
-		return JSONResult.success(recommend);
+		return JSONResult.success(recommendData);
 	}
 	
 	@ResponseBody

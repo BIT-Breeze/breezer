@@ -25,6 +25,12 @@ public class RecommendAttractionDao {
 		return sqlSession.selectList("recommend.getRecommendsByLocation", location);
 	}
 	
+	// mahout data
+	public List<PostVo> getMahoutData(List<RecommendVo> recommend){
+		System.out.println("111 : " + recommend);
+		return sqlSession.selectList("recommend.getMahoutData", recommend);
+	}
+	
 	// nearby
 	public List<PostVo> getNearbyInfo(PostVo vo) {
 		return sqlSession.selectList("recommend.getNearby", vo);

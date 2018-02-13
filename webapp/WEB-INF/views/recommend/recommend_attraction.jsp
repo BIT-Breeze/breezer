@@ -112,15 +112,16 @@ div #scrollmenu a:hover {
 	'/breezer/assets/images/pic13.jpg',
 	'/breezer/assets/images/pic14.jpg',
 	];
-    
-	function initAutocomplete() {
+
+    function initAutocomplete() {
 		var map = new google.maps.Map(document.getElementById('googleMap'), {
-			center: {lat: -33.8688, lng: 151.2195},
+			center: {lat: 37.494753, lng: 127.027585},
 			zoom: 13,
 			mapTypeId: 'roadmap'
 		});
 		
-		var infoWindow2 = new google.maps.InfoWindow({map: map});
+		/* GeoLocation - https로 설정되지 않아서 작동 안함. */
+		/* var infoWindow2 = new google.maps.InfoWindow({map: map});
 		// Try HTML5 geolocation.
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
@@ -139,7 +140,7 @@ div #scrollmenu a:hover {
 		} else {
 			// Browser doesn't support Geolocation
 			handleLocationError(false, infoWindow2, map.getCenter());
-		}
+		} */
 
       // Create the search box and link it to the UI element.
       var input = document.getElementById('pac-input');
@@ -154,6 +155,10 @@ div #scrollmenu a:hover {
       var searchMarkers = [];
       var recommendMarkers = [];
       var nearbyMarkers = [];
+      var recommendCluster;
+      
+      var infowindow = new google.maps.InfoWindow();
+      
       // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
       searchBox.addListener('places_changed', function() {
 	        var places = searchBox.getPlaces();
@@ -180,15 +185,19 @@ div #scrollmenu a:hover {
 			recommendMarkers.forEach(function(marker) {
 	        	marker.setMap(null);
 	        });
+			recommendMarkers = [];
+			
 			nearbyMarkers.forEach(function(marker) {
 	        	marker.setMap(null);
 	        });
+			nearbyMarkers = [];
 	        
 	        $.ajax({
 				url: "/breezer/api/recommend",
 				type: "post",
 				dataType: "json",
-				data: "address=" + search_place + 
+				data: "address=" + search_place +
+					  "&userId=${userId}" +
 					  "&lat=" + search_lat + 
 					  "&lot=" + search_lot,
 				success: function( response ) {
@@ -197,28 +206,30 @@ div #scrollmenu a:hover {
 						alert("죄송합니다.\n서비스 점검중입니다.");
 						return;
 					}
-					
+
 					if (response.data.length == 0) {
 						renderNoData();
 					}
 					
 					// Recommend data
 					$.each(response.data, function(index, data){
-						recommendMarkers[index] = new google.maps.Marker({
-					          position: {lat: data.lat, lng: data.lot},
-					          map: map,
-				        	  draggable:false // 드래그 가능 여부
-			        	});
+						recommendMarkers.push(new google.maps.Marker({
+							 position: {lat: data.lat, lng: data.lot},
+					         map: map,
+				        	 draggable:false // 드래그 가능 여부
+						}));
 						
 						renderData( index, data );
 						
+						var location = data.location.split(":");
 						recommendMarkers[index].addListener('click', function() {
-							alert("RECO Data Click!");
+							infowindow.setContent(location[0]);
+							infowindow.open(map, recommendMarkers[index]);
 						});
 					});
 					
 					// Recommend MarkerCluster
-					var recommendCluster = new MarkerClusterer(map, recommendMarkers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});	
+					recommendCluster = new MarkerClusterer(map, recommendMarkers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 				}
 			});
 	
@@ -227,8 +238,6 @@ div #scrollmenu a:hover {
 	        	marker.setMap(null);
 	        });
 	        searchMarkers = [];
-
-	        var infowindow = new google.maps.InfoWindow();
 	        
 	        // For each place, get the icon, name and location.
 	        var bounds = new google.maps.LatLngBounds();
@@ -284,7 +293,10 @@ div #scrollmenu a:hover {
 					        });
 							
 							$.each(response.data, function(index, data){
-								var resizeIcon = new google.maps.MarkerImage(imageArr[index], null, null, null, new google.maps.Size(50,50));
+								var photos = data.photo.split(',');
+								var photo = "${pageContext.request.contextPath}" + photos[0];
+								
+								var resizeIcon = new google.maps.MarkerImage(photo, null, null, null, new google.maps.Size(50,50));
 								nearbyMarkers[index] = new google.maps.Marker({
 							          position: {lat: data.lat, lng: data.lot},
 							          map: map,
@@ -292,8 +304,6 @@ div #scrollmenu a:hover {
 							          animation:google.maps.Animation.BOUNCE,
 						        	  draggable:false // 드래그 가능 여부
 						        });
-								
-								// 추가 작업.
 							});
 						}
 					});
@@ -312,11 +322,14 @@ div #scrollmenu a:hover {
 	}
 	
 	var renderData = function( index, data ) {
-		var location = data.location.split(" "); 
+		var location = data.location.split(":");
+		var photos = data.photo.split(',');
+		var photo = "${pageContext.request.contextPath}" + photos[0];
+		
 		var html = 
 			"<div id='card'>" +
-				"<img src='${pageContext.request.contextPath }/assets/images/pic" + (index + 1) + ".jpg' style='width: 100%'>" +
-				"<p id='title' class='w3-xlarge w3-center'>"+ location[location.length - 1] +"</p>" +
+				"<img src='" + photo + "' style='width: 100%'>" +
+				"<p id='title' class='w3-xlarge w3-center'>"+ location[0] +"</p>" +
 				"<p> <i class='fa fa-comment w3-large w3-text-teal' aria-hidden='true'></i> " + data.content + "</p>" +
 				"<p> <i class='fa fa-thumbs-o-up w3-large w3-text-teal'></i> " + data.favorite + "개의 추천을 받았습니다.</p>" +  
 			"</div>";
@@ -325,7 +338,7 @@ div #scrollmenu a:hover {
 	}
 	
 	var renderNoData = function() {
-		 var html = "<p class='w3-xlarge w3-center'><i class='fa fa-exclamation-triangle w3-xlarge w3-text-teal' aria-hidden='true'></i> 검색된 데이터가 없습니다.</p>";
+		 var html = "<p class='w3-xlarge w3-center'><i class='fa fa-exclamation-triangle w3-xlarge w3-text-teal' aria-hidden='true'></i> 검색된 추천 데이터가 없습니다.</p>";
 		 $("#scrollmenu").append(html);	
 	}
 	

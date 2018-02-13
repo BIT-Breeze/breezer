@@ -24,6 +24,12 @@ public class RecommendAttractionService {
 	public List<RecommendVo> getRecommendsByLocation(List<LocationVo> location){
 		return recommendAttractionDao.getRecommendsByLocation(location);
 	}
+	
+	// mahout data
+	public List<PostVo> getMahoutData(List<RecommendVo> recommend){
+		System.out.println("222 : " + recommendAttractionDao.getMahoutData(recommend));
+		return recommendAttractionDao.getMahoutData(recommend);
+	}
 
 	// nearby
 	public List<PostVo> getNearbyInfo(PostVo vo) {

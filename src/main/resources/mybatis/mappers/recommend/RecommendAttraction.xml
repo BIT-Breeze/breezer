@@ -19,6 +19,14 @@
 	</foreach>
 </select>
 
+<select id="getMahoutData" parameterType="recommendvo" resultType="postvo">
+	select p.* from TB_POST p right join TB_RECOMMEND r on p.lat = r.lat and p.lot = r.lot where 
+
+	<foreach collection="list" item="item" open="(" separator="or" close=")" >
+		r.userId = #{item.userId} and r.lat between (#{item.lat} - 0.01) and (#{item.lat} + 0.01) and r.lot between (#{item.lot} - 0.01) and (#{item.lot} + 0.01)
+	</foreach>
+</select>
+
 <select id="getNearby" resultType="postvo" parameterType="postvo">
 	<![CDATA[
 		SELECT *, (6371 * ACOS( COS( RADIANS( #{lat } ) ) * COS ( RADIANS( p.lat ) ) * COS ( RADIANS ( p.lot )-RADIANS( #{lot } ) ) + SIN( RADIANS( #{lat } ) ) * SIN( RADIANS( p.lat )))) AS distance 
@@ -26,7 +34,7 @@
 			where location like concat('%', #{location}, '%') and p.lat != 0
 			HAVING distance <= 2
 			ORDER BY distance 
-			LIMIT 0, 100;
+			LIMIT 0, 10;
 	]]>
 </select>
 
